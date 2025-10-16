@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Career Café - Build a Career with Purpose</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- Navigation -->
@@ -38,12 +39,105 @@
             <h1 class="hero-title">Build a Career with Purpose</h1>
             <p class="hero-subtitle">Join Africa's fastest-growing career growth and networking platform for ambitious professionals.</p>
             <div class="hero-buttons">
-                <a href="#" class="btn btn-primary">Become a Member</a>
-                <a href="#partners" class="btn btn-secondary">Partner With Us</a>
+                <a href="#" class="btn btn-primary" id="openMemberModal">Become a Member</a>
+                <a href="#partners" class="btn btn-secondary" id="openPartnerModal">Partner With Us</a>
+
+                <!-- Member Modal -->
+            <div class="modal" id="memberModal" aria-hidden="true">
+                <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="memberModalTitle">
+                    <h3 id="memberModalTitle">Become a Member</h3>
+                    <form id="memberForm" action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="6dd70770-f451-4c81-a3f4-4e8c34c685b9">
+                        <input type="hidden" name="subject" value="Career Café - Membership Request">
+                        
+                        <div class="form-row">
+                            <input type="text" name="name" placeholder="Full name" required>
+                            <input type="email" name="email" placeholder="Email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="memberGender">Gender</label>
+                            <select id="memberGender" name="gender">
+                                <option value="Prefer not to say">Prefer not to say</option>
+                                <option value="Female">Female</option>
+                                <option value="Male">Male</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="memberLevel">Career Level</label>
+                            <select id="memberLevel" name="career_level">
+                                <option value="Student">Student</option>
+                                <option value="Entry-level">Entry-level</option>
+                                <option value="Mid-level">Mid-level</option>
+                                <option value="Senior">Senior</option>
+                                <option value="Manager">Manager</option>
+                                <option value="Director">Director</option>
+                                <option value="Executive">Executive</option>
+                            </select>
+                        </div>
+
+                        <textarea name="message" placeholder="Tell us what you're looking for (optional)"></textarea>
+
+                        <div class="modal-actions">
+                            <button type="button" class="btn btn-alternate" id="memberCancel">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-        <div class="scroll-indicator">
-            <span></span>
+
+            <!-- Partner Modal -->
+            <div class="modal" id="partnerModal" aria-hidden="true">
+                <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="partnerModalTitle">
+                    <h3 id="partnerModalTitle">Partner With Us</h3>
+                    <form id="partnerForm" action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="6dd70770-f451-4c81-a3f4-4e8c34c685b9">
+                        <input type="hidden" name="subject" value="Career Café - Partnership Enquiry">
+                        
+                        <div class="form-row">
+                            <input type="text" name="name" placeholder="Full name" required>
+                            <input type="email" name="email" placeholder="Email" required>
+                        </div>
+
+                        <input type="text" name="company" placeholder="Company / Organisation" style="width:100%; margin-bottom:1rem;">
+
+                        <div class="form-group">
+                            <label for="partnerGender">Gender</label>
+                            <select id="partnerGender" name="gender">
+                                <option value="Prefer not to say">Prefer not to say</option>
+                                <option value="Female">Female</option>
+                                <option value="Male">Male</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="partnerLevel">Career Level</label>
+                            <select id="partnerLevel" name="career_level">
+                                <option value="Entry-level">Entry-level</option>
+                                <option value="Mid-level">Mid-level</option>
+                                <option value="Senior">Senior</option>
+                                <option value="Manager">Manager</option>
+                                <option value="Director">Director</option>
+                                <option value="Executive">Executive</option>
+                            </select>
+                        </div>
+
+                        <textarea name="message" placeholder="How would you like to partner with Career Café?"></textarea>
+
+                        <div class="modal-actions">
+                            <button type="button" class="btn btn-alternate" id="partnerCancel">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Toast notification (outside modals) -->
+            <div id="formToast" style="display:none; position:fixed; left:50%; bottom:30px; transform:translateX(-50%); background:#10b981; color:#fff; padding:16px 24px; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:9999; font-size:1rem; font-weight:500;">✓ Thank you! We'll be in touch soon.</div>
+
         </div>
     </section>
 
@@ -243,15 +337,28 @@
                     <a href="mailto:careercafeke@gmail.com">careercafeke@gmail.com</a>
                 </div>
                 <div class="contact-item">
-                    <span class="contact-icon">📞</span>
+                    <span class="contact-icon">📞</span>+
                     <a href="tel:+254720087837">+254 720087837</a>
                 </div>
+
             </div>
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/the-career-caf%C3%A9-a63269370?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" class="social-link" target="_blank" rel="noopener">LinkedIn</a>
-                <a href="https://whatsapp.com/channel/0029Vb6zUUTDeON0FtpHPW2P" class="social-link" target="_blank" rel="noopener">WhatsApp</a>
-                <a href="https://www.instagram.com/thecareercafeafrica?igsh=M2wyendibDhuNHI0&utm_source=qr" class="social-link" target="_blank" rel="noopener">Instagram</a>
+                <div class="social-links">
+                <a href="https://www.linkedin.com/in/the-career-caf%C3%A9-a63269370?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+                    class="social-link" target="_blank" rel="noopener">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+
+                <a href="https://whatsapp.com/channel/0029Vb6zUUTDeON0FtpHPW2P"
+                    class="social-link" target="_blank" rel="noopener">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+
+                <a href="https://www.instagram.com/thecareercafeafrica?igsh=M2wyendibDhuNHI0&utm_source=qr"
+                    class="social-link" target="_blank" rel="noopener">
+                    <i class="fab fa-instagram"></i>
+                </a>
             </div>
+
         </div>
     </section>
 
@@ -272,6 +379,177 @@
     document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
   });
 
+</script>
+   <script>
+        (function () {
+            const memberModal = document.getElementById('memberModal');
+            const partnerModal = document.getElementById('partnerModal');
+
+            const openMemberBtn = document.getElementById('openMemberModal');
+            const openPartnerBtn = document.getElementById('openPartnerModal');
+
+            const closeMemberBtn = document.getElementById('memberCancel');
+            const closePartnerBtn = document.getElementById('partnerCancel');
+
+            const sendMemberBtn = document.getElementById('memberSend');
+            const sendPartnerBtn = document.getElementById('partnerSend');
+
+            const EMAIL_TO = 'careercafeke@gmail.com';
+
+            function openModal(modal) {
+                modal.style.display = 'flex';
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal(modal) {
+                modal.style.display = 'none';
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+
+            openMemberBtn.addEventListener('click', function (e) { 
+                e.preventDefault(); 
+                openModal(memberModal); 
+            });
+
+            openPartnerBtn.addEventListener('click', function (e) { 
+                e.preventDefault(); 
+                openModal(partnerModal); 
+            });
+
+            closeMemberBtn.addEventListener('click', function () { 
+                closeModal(memberModal); 
+            });
+
+            closePartnerBtn.addEventListener('click', function () { 
+                closeModal(partnerModal); 
+            });
+
+            [memberModal, partnerModal].forEach(modal => {
+                modal.addEventListener('click', function (e) {
+                    if (e.target === modal) closeModal(modal);
+                });
+
+                const content = modal.querySelector('.modal-content');
+                if (content) content.addEventListener('click', e => e.stopPropagation());
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    if (memberModal.style.display === 'flex') closeModal(memberModal);
+                    if (partnerModal.style.display === 'flex') closeModal(partnerModal);
+                }
+            });
+
+            function createMailto(subject, body) {
+                const s = encodeURIComponent(subject);
+                const b = encodeURIComponent(body).replace(/%20/g, '+');
+                return `mailto:${EMAIL_TO}?subject=${s}&body=${b}`;
+            }
+
+            function gatherFields(formMap) {
+                const lines = [];
+                for (const [label, el] of Object.entries(formMap)) {
+                    const value = (el && el.value) ? el.value.trim() : '';
+                    lines.push(`${label}: ${value}`);
+                }
+                return lines.join('\r\n');
+            }
+
+            sendMemberBtn.addEventListener('click', function () {
+                const name = document.getElementById('memberName');
+                const email = document.getElementById('memberEmail');
+                if (!name.value.trim() || !email.value.trim()) { 
+                    alert('Please provide name and email'); 
+                    return; 
+                }
+
+                const fields = {
+                    'Name': name,
+                    'Email': email,
+                    'Gender': document.getElementById('memberGender'),
+                    'Career level': document.getElementById('memberLevel'),
+                    'Message': document.getElementById('memberMessage')
+                };
+
+                const subject = 'Career Café - Membership Request';
+                const body = gatherFields(fields);
+                window.location.href = createMailto(subject, body);
+                closeModal(memberModal);
+            });
+
+            sendPartnerBtn.addEventListener('click', function () {
+                const name = document.getElementById('partnerName');
+                const email = document.getElementById('partnerEmail');
+                if (!name.value.trim() || !email.value.trim()) { 
+                    alert('Please provide name and email'); 
+                    return; 
+                }
+
+                const fields = {
+                    'Name': name,
+                    'Email': email,
+                    'Company': document.getElementById('partnerCompany'),
+                    'Gender': document.getElementById('partnerGender'),
+                    'Career level': document.getElementById('partnerLevel'),
+                    'Message': document.getElementById('partnerMessage')
+                };
+
+                const subject = 'Career Café - Partnership Enquiry';
+                const body = gatherFields(fields);
+                window.location.href = createMailto(subject, body);
+                closeModal(partnerModal);
+            });
+        })();
+    </script>
+
+<script>
+(function(){
+    const memberForm = document.getElementById('memberForm');
+    const partnerForm = document.getElementById('partnerForm');
+    const toast = document.getElementById('formToast');
+
+    function showToast(message, error){
+        toast.innerHTML = error ? '✗ ' + message : '✓ ' + message;
+        toast.style.background = error ? '#ef4444' : '#10b981';
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 4000);
+    }
+
+    function handleSubmit(form, modalId) {
+        form.addEventListener('submit', function(e){
+            e.preventDefault();
+            const fd = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: fd,
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    showToast('Thank you! We will be in touch soon.');
+                    form.reset();
+                    const modal = document.getElementById(modalId);
+                    if(modal){ 
+                        modal.style.display = 'none'; 
+                        modal.setAttribute('aria-hidden','true'); 
+                        document.body.style.overflow = ''; 
+                    }
+                } else {
+                    showToast('Something went wrong. Please try again.', true);
+                }
+            })
+            .catch(() => {
+                showToast('Submission failed. Please try again.', true);
+            });
+        });
+    }
+
+    handleSubmit(memberForm, 'memberModal');
+    handleSubmit(partnerForm, 'partnerModal');
+})();
 </script>
 
 </html>

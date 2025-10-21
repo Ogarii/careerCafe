@@ -42,47 +42,65 @@
                 <a href="#" class="btn btn-primary" id="openMemberModal">Become a Member</a>
                 <a href="#partners" class="btn btn-secondary" id="openPartnerModal">Partner With Us</a>
 
-                <!-- Member Modal -->
+            <!-- Member Modal -->
             <div class="modal" id="memberModal" aria-hidden="true">
                 <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="memberModalTitle">
                     <h3 id="memberModalTitle">Become a Member</h3>
+                    <p class="modal-subtext">
+                        Join The Career Café community and start building a career with purpose. 
+                        Get access to exclusive webinars, mentorship, and growth tools designed to help you stand out.
+                    </p>
+
                     <form id="memberForm" action="https://api.web3forms.com/submit" method="POST">
                         <input type="hidden" name="access_key" value="6dd70770-f451-4c81-a3f4-4e8c34c685b9">
                         <input type="hidden" name="subject" value="Career Café - Membership Request">
-                        
+
                         <div class="form-row">
-                            <input type="text" name="name" placeholder="Full name" required>
-                            <input type="email" name="email" placeholder="Email" required>
+                            <input type="text" name="name" placeholder="Full Name" required>
+                            <input type="email" name="email" placeholder="Email Address" required>
                         </div>
 
-                        <div class="form-group">
-                            <label for="memberGender">Gender</label>
-                            <select id="memberGender" name="gender">
-                                <option value="Prefer not to say">Prefer not to say</option>
-                                <option value="Female">Female</option>
-                                <option value="Male">Male</option>
-                                <option value="Other">Other</option>
-                            </select>
+                        <div class="form-row">
+                            <input type="tel" name="phone" placeholder="Phone Number (WhatsApp preferred)" required>
+                            <input type="text" name="location" placeholder="City / Country" required>
                         </div>
+
+                        <input type="text" name="occupation" placeholder="Occupation / Field of Work" style="width:100%; margin-bottom:1rem;" required>
 
                         <div class="form-group">
                             <label for="memberLevel">Career Level</label>
-                            <select id="memberLevel" name="career_level">
+                            <select id="memberLevel" name="career_level" required>
+                                <option value="">Select career level</option>
                                 <option value="Student">Student</option>
                                 <option value="Entry-level">Entry-level</option>
                                 <option value="Mid-level">Mid-level</option>
                                 <option value="Senior">Senior</option>
-                                <option value="Manager">Manager</option>
-                                <option value="Director">Director</option>
-                                <option value="Executive">Executive</option>
+                                <option value="Entrepreneur">Entrepreneur</option>
                             </select>
                         </div>
 
-                        <textarea name="message" placeholder="Tell us what you're looking for (optional)"></textarea>
+                        <textarea name="reason" placeholder="Why do you want to join The Career Café?" rows="4" required></textarea>
+
+                        <div class="form-group">
+                            <label for="membershipPlan">Preferred Membership Plan</label>
+                            <select id="membershipPlan" name="membership_plan" required>
+                                <option value="">Select a plan</option>
+                                <option value="Free">Free</option>
+                                <option value="Standard">Standard</option>
+                                <option value="Premium">Premium</option>
+                            </select>
+                        </div>
+
+                        <div class="form-checkbox">
+                            <label>
+                                <input type="checkbox" name="consent" value="yes" required>
+                                I agree to receive updates, event invites, and newsletters from The Career Café.
+                            </label>
+                        </div>
 
                         <div class="modal-actions">
                             <button type="button" class="btn btn-alternate" id="memberCancel">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Send</button>
+                            <button type="submit" class="btn btn-primary">Join Now</button>
                         </div>
                     </form>
                 </div>
@@ -92,48 +110,58 @@
             <div class="modal" id="partnerModal" aria-hidden="true">
                 <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="partnerModalTitle">
                     <h3 id="partnerModalTitle">Partner With Us</h3>
+                    <p class="modal-subtext">
+                        Collaborate with The Career Café to empower professionals and build meaningful career experiences. 
+                        Whether you're a brand, institution, or individual, let's grow together.
+                    </p>
+
                     <form id="partnerForm" action="https://api.web3forms.com/submit" method="POST">
                         <input type="hidden" name="access_key" value="6dd70770-f451-4c81-a3f4-4e8c34c685b9">
                         <input type="hidden" name="subject" value="Career Café - Partnership Enquiry">
-                        
+
                         <div class="form-row">
-                            <input type="text" name="name" placeholder="Full name" required>
-                            <input type="email" name="email" placeholder="Email" required>
+                            <input type="text" name="name" placeholder="Full Name" required>
+                            <input type="text" name="organization" placeholder="Organization / Brand Name" required>
                         </div>
 
-                        <input type="text" name="company" placeholder="Company / Organisation" style="width:100%; margin-bottom:1rem;">
+                        <div class="form-row">
+                            <input type="text" name="role" placeholder="Role / Designation" required>
+                            <input type="email" name="email" placeholder="Email Address" required>
+                        </div>
+
+                        <div class="form-row">
+                            <input type="tel" name="phone" placeholder="Phone Number" required>
+                            <input type="url" name="website" placeholder="Website / Social Media Links">
+                        </div>
 
                         <div class="form-group">
-                            <label for="partnerGender">Gender</label>
-                            <select id="partnerGender" name="gender">
-                                <option value="Prefer not to say">Prefer not to say</option>
-                                <option value="Female">Female</option>
-                                <option value="Male">Male</option>
+                            <label for="partnershipType">Type of Partnership</label>
+                            <select id="partnershipType" name="partnership_type" required>
+                                <option value="">Select partnership type</option>
+                                <option value="Sponsorship">Sponsorship</option>
+                                <option value="Event Collaboration">Event Collaboration</option>
+                                <option value="Internship">Internship</option>
+                                <option value="Training">Training</option>
                                 <option value="Other">Other</option>
                             </select>
                         </div>
 
-                        <div class="form-group">
-                            <label for="partnerLevel">Career Level</label>
-                            <select id="partnerLevel" name="career_level">
-                                <option value="Entry-level">Entry-level</option>
-                                <option value="Mid-level">Mid-level</option>
-                                <option value="Senior">Senior</option>
-                                <option value="Manager">Manager</option>
-                                <option value="Director">Director</option>
-                                <option value="Executive">Executive</option>
-                            </select>
-                        </div>
+                        <textarea name="message" placeholder="Brief Description of Partnership Idea" rows="5" required></textarea>
 
-                        <textarea name="message" placeholder="How would you like to partner with Career Café?"></textarea>
+                        <div class="form-checkbox">
+                            <label>
+                                <input type="checkbox" name="consent" value="yes" required>
+                                I consent to The Career Café contacting me regarding partnership opportunities.
+                            </label>
+                        </div>
 
                         <div class="modal-actions">
                             <button type="button" class="btn btn-alternate" id="partnerCancel">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Send</button>
+                            <button type="submit" class="btn btn-primary">Submit Partnership Request</button>
                         </div>
                     </form>
                 </div>
-            </div>
+            </div>  
 
             <!-- Toast notification (outside modals) -->
             <div id="formToast" style="display:none; position:fixed; left:50%; bottom:30px; transform:translateX(-50%); background:#10b981; color:#fff; padding:16px 24px; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:9999; font-size:1rem; font-weight:500;">✓ Thank you! We'll be in touch soon.</div>

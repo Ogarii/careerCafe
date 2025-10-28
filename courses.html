@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - The Career Café</title>
+    <link rel="icon" type="image/png" href="careerLogo.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="nav-logo img">
+                <img src="careerLogoNew.png" alt="Career Café Logo" class="logo-icon">
+            </a>
+
+            <!-- Hamburger button -->
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html">About</a></li>
+                <li><a href="index.html#solution">Solution</a></li>
+                <li><a href="index.html#partners">Partners</a></li>   
+                <li><a href="index.html#events">Events</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="#" class="active">Courses</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-background"></div>
+        <div class="container hero-content">
+            <h1 class="hero-title">The Career Café On-Demand Courses</h1>
+            <p class="subtitle">Learning that fits your pace, purpose, and passion</p>
+            <p class="hero-description">Unlock your potential with transformative courses designed for impact, innovation, and inclusive leadership.</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span class="stat-number">3</span>
+                    <span class="stat-label" style="color: var(--primary);">Expert Courses</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-clock"></i>
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label" style="color: var(--primary);">Self-Paced</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-certificate"></i>
+                    <span class="stat-number">Certified</span>
+                    <span class="stat-label" style="color: var(--primary);">Learning</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="intro">
+            <p>Our on-demand courses empower you to build the skills, mindset, and confidence needed to thrive in today's fast-changing world. Whether you're a student, professional, or entrepreneur, these courses help you learn, grow, and lead — anytime, anywhere.</p>
+        </div>
+
+        <div class="courses">
+            <div class="course-card">
+                <class="course-number">Course 1</span>
+                <h2>Women in Science, Technology, Engineering, and Mathematics (STEM): Innovation, Entrepreneurship, and Leadership for Change</h2>
+                <p>This on-demand course equips women in STEM with the skills, mindset, and confidence to lead innovation and entrepreneurial ventures that create real impact. Participants will explore leadership strategies, gender equity dynamics, and tools to translate scientific ideas into scalable solutions. Through mentorship and real-world examples, women will learn to navigate barriers, build strong networks, and drive inclusive change across technology and science sectors.</p>
+                
+                <div class="learning-outcomes">
+                    <h3>Learning Outcomes:</h3>
+                    <ul>
+                        <li>Build entrepreneurial and leadership skills tailored to women in STEM.</li>
+                        <li>Learn strategies to navigate gender barriers and lead inclusively.</li>
+                        <li>Transform scientific and technical ideas into viable innovations.</li>
+                        <li>Strengthen professional networks and mentorship pathways.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <span class="course-number">Course 2</span>
+                <h2>Youth Reimagined: Thinking Differently, Learning Boldly, and Leading with Confidence</h2>
+                <p>Designed for forward-thinking youth, this course helps participants cultivate critical thinking, creativity, and confidence to thrive in uncertain times. Learners will discover new ways of learning, unlearn limiting beliefs, and build skills for digital and real-world success. Through reflective practice, interactive content, and peer engagement, they'll unlock the mindset needed to lead, adapt, and shape the future on their own terms.</p>
+                
+                <div class="learning-outcomes">
+                    <h3>Learning Outcomes:</h3>
+                    <ul>
+                        <li>Develop critical thinking, problem-solving, and communication skills.</li>
+                        <li>Build confidence to lead and take initiative in any environment.</li>
+                        <li>Explore modern, experiential ways of learning and growing.</li>
+                        <li>Cultivate adaptability and a future-focused mindset in the digital era.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <span class="course-number">Course 3</span>
+                <h2>Global Public Health Entrepreneurship and Leadership</h2>
+                <p>This dynamic on-demand course bridges public health, innovation, and entrepreneurship. It equips professionals to identify opportunities, design scalable health solutions, and lead with integrity in resource-constrained settings. Participants will learn to apply business thinking to public health problems, strengthen leadership skills, and build sustainable models that improve health outcomes and social impact globally.</p>
+                
+                <div class="learning-outcomes">
+                    <h3>Learning Outcomes:</h3>
+                    <ul>
+                        <li>Understand how entrepreneurship can drive sustainable public health solutions.</li>
+                        <li>Learn leadership principles for managing complex health systems.</li>
+                        <li>Develop innovative business models for public health challenges.</li>
+                        <li>Strengthen strategic thinking, resource mobilization, and collaboration skills.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 The Career Café. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
+    </script>
+</body>
+</html>

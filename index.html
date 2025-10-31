@@ -28,10 +28,10 @@
                 <li><a href="#solution">Services</a></li>
                 <li><a href="#partners">Partners</a></li>   
                 <li><a href="#events">Events</a></li>
-                <li><a href="#articles">Seasons</a></li>
+                <li><a href="#articles">Articles</a></li>
+                <li><a href="courses.html">Courses</a></li> 
                 <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="courses.html">Courses</a></li> 
             </ul>
         </div>
     </nav>
@@ -285,18 +285,18 @@
     <section id="articles" class="section articles">
         <div class="container">
             <div class="section-header">
-                <h2>Career Seasons</h2>
+                <h2>Articles</h2>
                 <div class="underline"></div>
             </div>
-            <p class="section-subtitle">Understanding When to Build, Bloom, or Pause.</p>
+            <p class="section-subtitle"></p>
             <div class="articles-grid">
                 <article class="article-card">
                     <div class="article-image">
                         <img src="images/image.png" alt="Personal Branding">
                     </div>
                     <div class="article-content">
-                        <h3>Personal Branding in the Digital Age</h3>
-                        <p class="article-excerpt">Learn how to build a compelling personal brand that sets you apart in today's competitive job market.</p>
+                        <h3>Career Seasons</h3>
+                        <p class="article-excerpt">Understanding When to Build, Bloom, or Pause.</p>
                         <div class="article-meta">
                             <span class="article-date">May 15, 2025</span>
                             <span class="article-category">Career Growth</span>
@@ -483,12 +483,42 @@
         </div>
     </section>
 
+
+
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <p>&copy; 2025 Career Café. Building careers with purpose across Africa.</p>
         </div>
     </footer>
+
+    <!-- Newsletter Popup -->
+<div class="newsletter-popup" id="newsletterPopup">
+    <div class="popup-content">
+        <button class="close-popup" id="closePopup">&times;</button>
+        <div class="popup-icon">📧</div>
+        <h3>Stay Updated with Career Café</h3>
+        <p>Get the latest career tips, event invites, and opportunities delivered to your inbox.</p>
+        
+        <form id="newsletterForm" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="f7f86094-ae3f-4cd3-af00-c3138c51bd68">
+            <input type="hidden" name="subject" value="Career Café - Newsletter Subscription">
+            <input type="hidden" name="from_name" value="Career Café Newsletter">
+            
+            <input type="email" name="email" placeholder="Your email address" required>
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+        
+        <div class="popup-options">
+            <label class="checkbox-label">
+                <input type="checkbox" id="dontShowAgain">
+                <span class="checkmark"></span>
+                Don't show this again
+            </label>
+        </div>
+    </div>
+</div>
 </body>
 <script>
   const hamburger = document.getElementById('hamburger');
@@ -740,6 +770,91 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && galleryModal.style.display === 'block') {
             closeGalleryModal();
+        }
+    });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const newsletterPopup = document.getElementById('newsletterPopup');
+    const closePopup = document.getElementById('closePopup');
+    const dontShowAgain = document.getElementById('dontShowAgain');
+    const newsletterForm = document.getElementById('newsletterForm');
+    
+    // Check if user has previously opted out
+    if (!localStorage.getItem('newsletterDontShow')) {
+        // Show popup after a delay (e.g., 5 seconds)
+        setTimeout(() => {
+            newsletterPopup.style.display = 'block';
+        }, 5000);
+    }
+    
+    // Close popup when X is clicked
+    closePopup.addEventListener('click', function() {
+        newsletterPopup.style.display = 'none';
+        
+        // If "Don't show again" is checked, save preference
+        if (dontShowAgain.checked) {
+            localStorage.setItem('newsletterDontShow', 'true');
+        }
+    });
+    
+    // Handle form submission
+    newsletterForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get the form data
+        const formData = new FormData(this);
+        
+        // Submit to Web3Forms
+        fetch(this.action, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Show success message using your existing toast
+                const toast = document.getElementById('formToast');
+                if (toast) {
+                    toast.textContent = '✓ Thank you for subscribing to our newsletter!';
+                    toast.style.display = 'block';
+                    setTimeout(() => {
+                        toast.style.display = 'none';
+                    }, 4000);
+                } else {
+                    alert('Thank you for subscribing to our newsletter!');
+                }
+                
+                // Close the popup
+                newsletterPopup.style.display = 'none';
+                
+                // If "Don't show again" is checked, save preference
+                if (dontShowAgain.checked) {
+                    localStorage.setItem('newsletterDontShow', 'true');
+                }
+                
+                // Reset form
+                this.reset();
+            } else {
+                alert('There was an error submitting your subscription. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('There was an error submitting your subscription. Please try again.');
+        });
+    });
+    
+    // Close popup when clicking outside of it
+    window.addEventListener('click', function(e) {
+        if (e.target === newsletterPopup) {
+            newsletterPopup.style.display = 'none';
+            
+            // If "Don't show again" is checked, save preference
+            if (dontShowAgain.checked) {
+                localStorage.setItem('newsletterDontShow', 'true');
+            }
         }
     });
 });

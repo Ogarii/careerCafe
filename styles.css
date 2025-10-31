@@ -1700,3 +1700,138 @@ textarea {
         gap: 0.5rem;
     }
 }
+
+.newsletter-popup {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 350px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    z-index: 1000;
+    animation: slideInUp 0.5s ease-out;
+    border: 1px solid #e0e0e0;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.popup-content {
+    padding: 25px;
+    position: relative;
+}
+
+.close-popup {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s;
+}
+
+.close-popup:hover {
+    color: #333;
+}
+
+.popup-icon {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.popup-content h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+.popup-content p {
+    margin: 0 0 20px 0;
+    color: #666;
+    text-align: center;
+    line-height: 1.5;
+}
+
+#newsletterForm {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+#newsletterForm input {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+#newsletterForm input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.popup-options {
+    display: flex;
+    justify-content: center;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.checkbox-label input {
+    display: none;
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.checkbox-label input:checked + .checkmark {
+    background-color: var(--secondary);
+    border-color: var(--secondary);
+}
+
+.checkbox-label input:checked + .checkmark:after {
+    content: "✓";
+    color: white;
+    font-size: 0.8rem;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .newsletter-popup {
+        width: 90%;
+        right: 5%;
+        bottom: 10px;
+    }
+}

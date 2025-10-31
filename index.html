@@ -28,6 +28,8 @@
                 <li><a href="#solution">Solution</a></li>
                 <li><a href="#partners">Partners</a></li>   
                 <li><a href="#events">Events</a></li>
+                <li><a href="#articles">Articles</a></li>
+                <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="courses.html">Courses</a></li> 
             </ul>
@@ -43,6 +45,7 @@
             <div class="hero-buttons">
                 <a href="#" class="btn btn-primary" id="openMemberModal">Become a Member</a>
                 <a href="#partners" class="btn btn-secondary" id="openPartnerModal">Partner With Us</a>
+            </div>
 
             <!-- Member Modal -->
             <div class="modal" id="memberModal" aria-hidden="true">
@@ -276,6 +279,32 @@
         </div>
     </section>
 
+    <!-- Articles Section -->
+    <section id="articles" class="section articles">
+        <div class="container">
+            <div class="section-header">
+                <h2>Career Insights & Articles</h2>
+                <div class="underline"></div>
+            </div>
+            <p class="section-subtitle">Career Seasons: Understanding When to Build, Bloom, or Pause.</p>
+            <div class="articles-grid">
+                <article class="article-card">
+                    <div class="article-image">
+                        <img src="images/image.png" alt="Personal Branding">
+                    </div>
+                    <div class="article-content">
+                        <h3>Personal Branding in the Digital Age</h3>
+                        <p class="article-excerpt">Learn how to build a compelling personal brand that sets you apart in today's competitive job market.</p>
+                        <div class="article-meta">
+                            <span class="article-date">May 15, 2025</span>
+                            <span class="article-category">Career Growth</span>
+                        </div>
+                        <a href="articles/The Career Cafe Articles (Q4 2025).pdf" class="btn btn-outline" download="Personal-Branding-Article.pdf">Read More</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
     <!-- Reach Section -->
     <section class="section reach">
         <div class="container">
@@ -300,6 +329,85 @@
             <p class="reach-text">Growing LinkedIn & WhatsApp communities | Expansion from Nairobi → East Africa → Pan-African</p>
         </div>
     </section>
+
+  <!-- Gallery Section -->
+    <section id="gallery" class="section gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Community in Action</h2>
+                <div class="underline"></div>
+            </div>
+            <p class="section-subtitle">Take a look at our events, workshops, and community activities.</p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="images/345A4561.jpg" alt="Career Workshop" data-full="images/345A4561.jpg">
+                    <div class="gallery-overlay">
+                        <h4>Career Workshop</h4>
+                        <p>March 2025</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="images/8Z9A1564.jpg" alt="Networking Event" data-full="images/8Z9A1564.jpg">
+                    <div class="gallery-overlay">
+                        <h4>Career Workshop</h4>
+                        <p>February 2025</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="images/8Z9A1576.jpg" alt="Mentorship Session" data-full="images/8Z9A1576.jpg">
+                    <div class="gallery-overlay">
+                        <h4>Career Workshop</h4>
+                        <p>January 2025</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="images/8Z9A1581.jpg" alt="Team Building" data-full="images/8Z9A1581.jpg">
+                    <div class="gallery-overlay">
+                        <h4>Career Workshop</h4>
+                        <p>December 2024</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="images/8Z9A1595.jpg" alt="Webinar Session" data-full="images/8Z9A1595.jpg">
+                    <div class="gallery-overlay">
+                        <h4>Career Workshop</h4>
+                        <p>November 2024</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="images/8Z9A1632.jpg" alt="Career Fair" data-full="images/8Z9A1632.jpg">
+                    <div class="gallery-overlay">
+                        <h4>Career Workshop</h4>
+                        <p>October 2024</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cta-center">
+                <a href="#" class="btn btn-primary" id="viewMorePhotos">View More Photos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Modal -->
+    <div class="modal" id="galleryModal">
+        <div class="modal-content gallery-modal-content">
+            <div class="modal-header">
+                <h3>Our Gallery</h3>
+                <button class="close-modal" id="closeGalleryModal">&times;</button>
+            </div>
+            <div class="gallery-modal-grid" id="galleryModalGrid">
+                <!-- Images will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
 
     <!-- Partners Section -->
     <section id="partners" class="section partners">
@@ -589,5 +697,78 @@
     handleSubmit(partnerForm, 'partnerModal');
 })();
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const galleryModal = document.getElementById('galleryModal');
+    const viewMoreBtn = document.getElementById('viewMorePhotos');
+    const closeModalBtn = document.getElementById('closeGalleryModal');
+    const galleryModalGrid = document.getElementById('galleryModalGrid');
+
+    const allGalleryImages = [
+        { src: 'images/345A4561.jpg', alt: 'Career Workshop', title: 'Career Workshop', date: 'March 2025' },
+        { src: 'images/8Z9A1564.jpg', alt: 'Networking Event', title: 'Career Workshop', date: 'February 2025' },
+        { src: 'images/8Z9A1576.jpg', alt: 'Mentorship Session', title: 'Career Workshop', date: 'January 2025' },
+        { src: 'images/8Z9A1581.jpg', alt: 'Team Building', title: 'Career Workshop', date: 'December 2024' },
+        { src: 'images/8Z9A1595.jpg', alt: 'Webinar Session', title: 'Career Workshop', date: 'November 2024' },
+        { src: 'images/8Z9A1632.jpg', alt: 'Career Fair', title: 'Career Workshop', date: 'October 2024' },
+        { src: 'images/8Z9A1636.jpg', alt: 'Event 1', title: 'Career Workshop', date: 'September 2024' },
+        { src: 'images/8Z9A1645.jpg', alt: 'Event 2', title: 'Career Workshop', date: 'August 2024' },
+        { src: 'images/8Z9A1676.jpg', alt: 'Event 3', title: 'Career Workshop', date: 'July 2024' },
+        { src: 'images/8Z9A1704.jpg', alt: 'Event 4', title: 'Career Workshop', date: 'June 2024' },
+        { src: 'images/8Z9A1740.jpg', alt: 'Event 5', title: 'Career Workshop', date: 'May 2024' },
+        { src: 'images/8Z9A1763.jpg', alt: 'Event 6', title: 'Career Workshop', date: 'April 2024' },
+        { src: 'images/345A4562.jpg', alt: 'Event 8', title: 'Career Workshop', date: 'February 2024' },
+        { src: 'images/345A4619.jpg', alt: 'Event 9', title: 'Career Workshop', date: 'January 2024' },
+        { src: 'images/345A4624.jpg', alt: 'Event 10', title: 'Career Workshop', date: 'December 2023' },
+        { src: 'images/345A4668.jpg', alt: 'Event 11', title: 'Career Workshop', date: 'November 2023' },
+        { src: 'images/345A4675.jpg', alt: 'Event 12', title: 'Career Workshop', date: 'October 2023' },
+        { src: 'images/345A4690.jpg', alt: 'Event 13', title: 'Career Workshop', date: 'September 2023' }
+    ];
+
+    // Open modal
+    viewMoreBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        openGalleryModal();
+    });
+
+    // Close modal
+    closeModalBtn.addEventListener('click', closeGalleryModal);
+    galleryModal.addEventListener('click', function(e) {
+        if (e.target === galleryModal) {
+            closeGalleryModal();
+        }
+    });
+
+    function openGalleryModal() {
+        galleryModal.style.display = 'block';
+        renderGalleryImages();
+    }
+
+    function closeGalleryModal() {
+        galleryModal.style.display = 'none';
+    }
+
+    function renderGalleryImages() {
+        galleryModalGrid.innerHTML = '';
+        
+        allGalleryImages.forEach(image => {
+            const galleryItem = document.createElement('div');
+            galleryItem.className = 'modal-gallery-item';
+            galleryItem.innerHTML = `
+                <img src="${image.src}" alt="${image.alt}" loading="lazy">
+            `;
+            galleryModalGrid.appendChild(galleryItem);
+        });
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && galleryModal.style.display === 'block') {
+            closeGalleryModal();
+        }
+    });
+});
+</script>
+
 
 </html>

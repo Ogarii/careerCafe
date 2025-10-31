@@ -614,12 +614,20 @@ body {
 
 .about-text {
     font-size: 1.3rem;
-    text-align: center;
+    text-align: justify center;
     max-width: 900px;
+    
     margin: 0 auto;
     line-height: 1.8;
     color: var(--text);
 }
+.spaced {
+  margin-top: 3.5rem; /* creates a clear separation */
+}
+.spaced-bottom {
+  margin-bottom: 1rem; /* creates a clear separation */
+}
+
 
 /* Problem Section */
 .problem {

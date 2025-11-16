@@ -180,22 +180,22 @@
             <div class="section-header">
                 <h2>About Us</h2>
                 <div class="underline"></div>
-</div>
-<p class="about-text spaced-bottom" style="text-align: justify;">The Career Café is redefining how professionals everywhere build meaningful and purpose-driven careers. We are intentional in supporting youths and professionals at all career stages: entry, mid, senior, and executive—in securing the jobs they deserve.</p>
+                    </div>
+                    <p class="about-text spaced-bottom" style="text-align: justify;">The Career Café is redefining how professionals everywhere build meaningful and purpose-driven careers. We are intentional in supporting youths and professionals at all career stages: entry, mid, senior, and executive—in securing the jobs they deserve.</p>
 
-<p class="about-text spaced-bottom" style="text-align: justify;">We are aware that women face unique challenges, and our philosophy is not only sensitive, but is guided by this reality.</p>
+                    <p class="about-text spaced-bottom" style="text-align: justify;">We are aware that women face unique challenges, and our philosophy is not only sensitive, but is guided by this reality.</p>
 
-<p class="about-text spaced-bottom" style="text-align: justify;">We help individuals craft compelling CVs, access mentorship, and benefit from targeted, on-demand training to enhance personal and professional growth.</p>
+                    <p class="about-text spaced-bottom" style="text-align: justify;">We help individuals craft compelling CVs, access mentorship, and benefit from targeted, on-demand training to enhance personal and professional growth.</p>
 
-<p class="about-text spaced-bottom" style="text-align: justify;">For employers, we provide tailored programs to attract, retain, and empower top talent, emphasizing that employees are an organization's greatest asset.</p>
+                    <p class="about-text spaced-bottom" style="text-align: justify;">For employers, we provide tailored programs to attract, retain, and empower top talent, emphasizing that employees are an organization's greatest asset.</p>
 
-<p class="about-text spaced" style="text-align: justify;">
-    <strong style="color: var(--primary); display:block;">Our Mission:</strong>
-    <span style="color: var(--primary);">
-        To nurture clarity, confidence, competence, and workplace wellness for thriving careers and thriving organizations.
-    </span>
-</p>
-</div>
+                    <p class="about-text spaced" style="text-align: justify;">
+                        <strong style="color: var(--primary); display:block;">Our Mission:</strong>
+                        <span style="color: var(--primary);">
+                            To nurture clarity, confidence, competence, and workplace wellness for thriving careers and thriving organizations.
+                        </span>
+                    </p>
+                    </div>
     </section>
 
     <!-- Problem Section -->
@@ -206,18 +206,18 @@
                 <div class="underline"></div>
             </div>
             <div class="cards">
-                <div class="card">
-                    <div class="card-icon">👥</div>
+                <div class="card" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+                    <div class="card-icon" style="font-size:2.2rem; margin-bottom:0.75rem; display:block; text-align:center;">👥</div>
                     <h3>Young Workforce, Limited Guidance</h3>
                     <p>Africa has the world's youngest workforce but limited access to structured career guidance.</p>
                 </div>
-                <div class="card">
-                    <div class="card-icon">🎯</div>
+                <div class="card" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+                    <div class="card-icon" style="font-size:2.2rem; margin-bottom:0.75rem; display:block; text-align:center;">🎯</div>
                     <h3>Skills Gap</h3>
                     <p>Many graduates and professionals lack mentorship, networks, and soft skills for career mobility.</p>
                 </div>
-                <div class="card">
-                    <div class="card-icon">💼</div>
+                <div class="card" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+                    <div class="card-icon" style="font-size:2.2rem; margin-bottom:0.75rem; display:block; text-align:center;">💼</div>
                     <h3>Talent Readiness</h3>
                     <p>Companies struggle with talent readiness, retention, and employee development.</p>
                 </div>
@@ -304,7 +304,7 @@
                             <span class="article-date">May 15, 2025</span>
                             <span class="article-category">Career Growth</span>
                         </div>
-                        <a href="articles/The Career Cafe Articles (Q4 2025).pdf" class="btn btn-outline" download="Personal-Branding-Article.pdf">Read More</a>
+                        <a href="articles.html" class="btn btn-outline">Read More</a>
                     </div>
                 </article>
             </div>
@@ -524,15 +524,25 @@
 </div>
 </body>
 <script>
-  const hamburger = document.getElementById('hamburger');
-  const navMenu = document.getElementById('nav-menu');
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
 
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-    document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
-  });
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        });
 
+        // Close menu when a nav item is selected
+        navMenu.addEventListener('click', (e) => {
+            const link = e.target.closest('a');
+            if (!link) return;
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
 </script>
    <script>
         (function () {

@@ -189,13 +189,92 @@
 
                     <p class="about-text spaced-bottom" style="text-align: justify;">For employers, we provide tailored programs to attract, retain, and empower top talent, emphasizing that employees are an organization's greatest asset.</p>
 
-                    <p class="about-text spaced" style="text-align: justify;">
-                        <strong style="color: var(--primary); display:block;">Our Mission:</strong>
-                        <span style="color: var(--primary);">
-                            To nurture clarity, confidence, competence, and workplace wellness for thriving careers and thriving organizations.
-                        </span>
-                    </p>
-                    </div>
+                    <style>
+                        .mission-highlight{
+                            background: linear-gradient(135deg, rgba(226, 114, 91, 0.12), rgba(255, 209, 102, 0.08));
+                            border: 2px solid var(--primary);
+                            padding: 2rem 2.5rem;
+                            border-radius: 20px;
+                            transition: all 0.3s ease;
+                            cursor: pointer;
+                            max-width: 900px;
+                            margin: 1.5rem auto 2rem;
+                            text-align: center;
+                            color: var(--primary);
+                            position: relative;
+                            overflow: hidden;
+                            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+                        }
+                        .mission-highlight::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            height: 4px;
+                            background: linear-gradient(90deg, var(--primary), var(--accent));
+                            transform: scaleX(0);
+                            transition: transform 0.4s ease;
+                        }
+                        .mission-highlight:hover,
+                        .mission-highlight:focus{
+                            transform: translateY(-8px) scale(1.02);
+                            box-shadow: 0 20px 40px rgba(226, 114, 91, 0.2);
+                            background: linear-gradient(135deg, rgba(226, 114, 91, 0.15), rgba(255, 209, 102, 0.1));
+                            border-color: rgba(226, 114, 91, 0.4);
+                            outline: none;
+                        }
+                        .mission-highlight:hover::before {
+                            transform: scaleX(1);
+                        }
+                        .mission-title{
+                            font-weight: 800;
+                            display: block;
+                            font-size: 1.8rem;
+                            margin-bottom: 1rem;
+                            text-transform: uppercase;
+                            letter-spacing: 1px;
+                            background: linear-gradient(90deg, var(--primary), var(--accent));
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                            background-clip: text;
+                        }
+                        .mission-text{
+                            display: block;
+                            max-width: 800px;
+                            margin: 0 auto;
+                            color: var(--primary);
+                            font-size: 1.4rem;
+                            line-height: 1.6;
+                            font-weight: 500;
+                        }
+                        .mission-icon {
+                            font-size: 2.5rem;
+                            margin-bottom: 1rem;
+                            display: block;
+                        }
+                        @media (max-width: 768px) {
+                            .mission-highlight {
+                                padding: 1.5rem;
+                            }
+                            .mission-title {
+                                font-size: 1.5rem;
+                            }
+                            .mission-text {
+                                font-size: 1.2rem;
+                            }
+                            .mission-icon {
+                                font-size: 2rem;
+                            }
+                        }
+                        </style>
+
+                        <div class="mission-highlight" role="button" tabindex="0" aria-label="Our Mission">
+                            <span class="mission-title">Our Mission</span>
+                            <span class="mission-text">
+                                To nurture clarity, confidence, competence, and workplace wellness for thriving careers and thriving organizations.
+                            </span>
+                        </div>
     </section>
 
     <!-- Problem Section -->

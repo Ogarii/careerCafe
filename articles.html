@@ -33,6 +33,10 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            width: 100%;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -51,7 +55,9 @@
             z-index: 100;
         }
 
-        .nav-container {
+        /* support both .nav-container and generic .container used in markup */
+        .nav-container,
+        .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
@@ -286,20 +292,51 @@
 
         @media (max-width: 768px) {
             .article-title {
-            font-size: 2rem;
+                font-size: 2rem;
             }
 
             .article-header, .article-body {
-            padding: 2rem;
+                padding: 1.5rem;
+                border-radius: 12px;
             }
 
             .article-image {
-            height: 250px;
+                height: 250px;
+                border-radius: 12px;
             }
 
             .article-meta {
-            flex-direction: column;
-            gap: 0.5rem;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            /* Make content fill horizontal space on mobile */
+            .container,
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .article-container {
+                max-width: none;
+                width: 100%;
+                margin: 1rem 0;
+                padding: 0 0.75rem;
+            }
+
+            .article-header,
+            .article-body,
+            .related-articles {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .related-grid {
+                gap: 1rem;
+            }
+
+            .back-btn {
+                padding: 0.45rem 1rem;
+                font-size: 0.95rem;
             }
         }
     </style>

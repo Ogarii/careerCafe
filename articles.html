@@ -290,35 +290,34 @@
             font-size: 0.9rem;
         }
 
-        .content-image {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(226, 114, 91, 0.2);
-            margin: 2rem auto;
-            display: block;
-            transition: all 0.3s ease;
-        }
+ .content-image {
+    max-width: 600px; /* or whatever size keeps quality - adjust as needed */
+    width: auto;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(226, 114, 91, 0.2);
+    margin: 2rem auto;
+    display: block;
+    transition: all 0.3s ease;
+}
 
-        .content-image:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(226, 114, 91, 0.3);
-        }
+.content-image:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(226, 114, 91, 0.3);
+}
 
-        @media (max-width: 768px) {
-            .content-image {
-            width: 100%;
-            margin: 1.5rem auto;
-            border-radius: 12px;
-            }
-
-            .content-image:hover {
-            transform: translateY(-3px);
-            }
-        }
-
-        
+@media (max-width: 768px) {
+    .content-image {
+        max-width: 100%; /* Only scale down on mobile if needed */
+        width: auto;
+        margin: 1.5rem auto;
+        border-radius: 12px;
+    }
+    
+    .content-image:hover {
+        transform: translateY(-3px);
+    }
+}
         @media (max-width: 768px) {
             .article-title {
                 font-size: 2rem;
@@ -393,6 +392,7 @@
                 date: 'October 31, 2025',
                 readTime: '8 min read',
                 author: 'The Career Café Team',
+                pdfPath: 'articles/The Career Cafe Articles (Q4 2025).pdf', 
                 image: {
                     background: "url('careergrowth.png') center/cover no-repeat",
 
@@ -566,6 +566,7 @@
                 date: 'November 13, 2025',
                 readTime: '7 min read',
                 author: 'The Career Café Team',
+                pdfPath: 'articles/Personal-Branding-Article.pdf', 
                 image: {
                     background: "url('invisibility.png') center/cover no-repeat",
 
@@ -680,6 +681,7 @@
                 date: 'November 6, 2025',
                 readTime: '9 min read',
                 author: 'The Career Café Team',
+                    pdfPath: 'articles/Visibility over Perfection.pdf',
                 image: {
                     background: "url('visibility.png') center/cover no-repeat",
                 },
@@ -794,6 +796,7 @@
                 date: 'November 6, 2025',
                 readTime: '10 min read',
                 author: 'The Career Café Team',
+                    pdfPath: 'articles/Clarity Is the First Step to Entrepreneurship - How Niche.pdf',
                 image: {
                     background: "url('clarityHeader.png') center/cover no-repeat",
 
@@ -937,6 +940,7 @@
                 date: 'November 20, 2025',
                 readTime: '9 min read',
                 author: 'The Career Café Team',
+                pdfPath: 'articles/The Career Cafe Articles (Q4 2025)-3.pdf',
                 image: {
                     background: "url('funding.png') center/cover no-repeat",
                 },
@@ -1056,7 +1060,179 @@
                     
                     <p>Too many people hunt for funding before they've proven the idea. Funding should follow clarity.</p>
                 `
+            },
+            
+            'cash-flow-vs-profit': {
+                category: 'Financial Literacy',
+                title: 'Cash Flow vs. Profit: Understanding Money Beyond the Paycheck or Sales',
+                date: 'December 2025',
+                readTime: '7 min read',
+                author: 'The Career Café Team',
+                pdfPath: 'articles/Cash Flow vs. Profit Understanding Money Beyond the Paycheck or Sales.pdf', 
+                image: {
+                    background: "url('cashflow.png') center/cover no-repeat",
+                },
+                content: `
+                    <p>Many professionals and business owners know this feeling well: you're busy, productive, doing all the "right things," yet somehow the money never quite reflects your effort. You look at your payslip or your sales for the month and think, <em>"Surely I should be doing better than this."</em></p>
+                    
+                    <p>It's a quiet frustration that almost everyone experiences at some point - the gap between activity and actual financial stability. And most of the time, that gap can be traced back to one simple misunderstanding: <strong>confusing cash flow with profit.</strong></p>
+                    
+                    <p>As we approach the end of the year and start thinking about 2026, this is one of the most important lessons to internalize.</p>
+                    
+                    <p>Whether you're an employee, freelancer, creative, or business owner, understanding your financial reality - not just your financial numbers - determines how confidently you make decisions, negotiate, budget, invest, and plan for your life.</p>
+                    
+                    <p>Let's break it down in the simplest, most practical way.</p>
+
+                    <h2>Cash Flow vs. Profit - They Are Not the Same Thing</h2>
+                    
+                    <p>Many people assume that earning more money automatically means being financially stable. In reality:</p>
+                    
+                    <ul>
+                        <li><strong>Profit</strong> is what remains after all expenses are calculated.</li>
+                        <li><strong>Cash flow</strong> is the actual movement of money in and out of your account.</li>
+                    </ul>
+                    
+                    <p>You can be profitable on paper but still broke in real life.</p>
+
+                    <h3>For Professionals</h3>
+                    <p>You may earn a good salary, but still struggle if:</p>
+                    <ul>
+                        <li>Expenses are poorly timed</li>
+                        <li>You spend before money arrives</li>
+                        <li>Debt repayment schedules swallow your income</li>
+                        <li>You don't have a buffer when an unexpected bill appears</li>
+                    </ul>
+                    
+                    <p>This is why someone earning less may feel more stable than someone earning more - their cash flow is healthier and more intentional.</p>
+
+                    <h3>For Business Owners & Creatives</h3>
+                    <p>You may close deals, sell products, or secure contracts... but:</p>
+                    <ul>
+                        <li>Payments may delay</li>
+                        <li>Expenses may come earlier than income</li>
+                        <li>Inventory or production consumes cash long before profit appears</li>
+                        <li>Growth may require reinvestment that reduces your available funds</li>
+                    </ul>
+                    
+                    <p>This is where the illusion lies: <strong>profit does not automatically equal liquidity.</strong></p>
+                    
+                    <p>Cash flow is about survival.<br>Profit is about sustainability.<br>You need both, but they play very different roles.</p>
+
+                    <img src="articleImages/cashflow1.png" alt="Cash Flow vs Profit" class="content-image">
+
+                    <h2>Why "Busy" Doesn't Always Mean "Financially Stable"</h2>
+                    
+                    <p>In careers and business, activity can trick us into thinking we are progressing financially. But activity without clarity leads to what many people privately call <em>"the hamster wheel effect"</em> — constant motion, little financial growth.</p>
+                    
+                    <img src="articleImages/cashflow2.png" alt="Hamster Wheel Effect" class="content-image">
+
+                    <p>Here are three common situations many people experience:</p>
+
+                    <h3>1. Timing Mismatches</h3>
+                    <p>You may get paid once a month, but expenses hit weekly.<br>Your business may collect payments quarterly, but you pay workers or suppliers monthly.</p>
+                    
+                    <p>The mismatch is not a sign of failure - it's a sign of <strong>poor cash flow alignment</strong>, which can be improved.</p>
+
+                    <h3>2. Invisible Expenses</h3>
+                    <p>Subscriptions, annual fees, unexpected emergencies, hidden costs in projects, or lifestyle creeping up quietly.</p>
+                    
+                    <p>Money doesn't disappear - it just slips through untracked channels.</p>
+
+                    <h3>3. Lack of Financial Visibility</h3>
+                    <p>Whether you're employed or self-employed, most people don't know:</p>
+                    <ul>
+                        <li>Their real monthly cost of living</li>
+                        <li>Their debt exposure</li>
+                        <li>Their average monthly cash inflow</li>
+                        <li>Their irregular, unpredictable expenses</li>
+                        <li>Their behaviour around money (emotional spending, guilt spending, delayed decisions)</li>
+                    </ul>
+                    
+                    <p>And as the saying goes:</p>
+                    
+                    <blockquote><strong>"You can't manage what you don't measure."</strong></blockquote>
+
+                    <h2>Three Habits That Strengthen Financial Stability in 2026</h2>
+                    
+                    <p>Financial clarity doesn't require complicated systems - just repeatable habits.</p>
+
+                    <h3>1. Track Your Cash Flow, Not Just Your Income</h3>
+                    <p>A simple spreadsheet or budgeting tool is enough. Track:</p>
+                    <ul>
+                        <li>Money coming in (date + amount)</li>
+                        <li>Money going out (date + category)</li>
+                    </ul>
+                    
+                    <p>You'll quickly see:</p>
+                    <ul>
+                        <li>Which months are heavy</li>
+                        <li>Which expenses can be adjusted</li>
+                        <li>Where money leaks occur</li>
+                        <li>How much you truly need to survive</li>
+                    </ul>
+                    
+                    <p>Even tracking for 60 days can transform your financial awareness.</p>
+
+                    <h3>2. Understand the Timing of Your Money</h3>
+                    <p>You don't need more money; sometimes you just need better timing.</p>
+                    
+                    <p>Ask yourself:</p>
+                    <ul>
+                        <li>When does money <em>actually</em> enter your account?</li>
+                        <li>When do your biggest expenses happen?</li>
+                        <li>Can you move deadlines, negotiate payment plans, or structure retainers?</li>
+                        <li>Can you split annual expenses into monthly savings?</li>
+                    </ul>
+                    
+                    <p>A cash-flow calendar is more valuable than an annual budget because it reflects how money behaves in real life.</p>
+
+                    <h3>3. Build a Personal or Business Runway</h3>
+                    <p>Your runway is the number of months you can survive if your income stopped today.</p>
+                    
+                    <p><strong>For individuals:</strong><br>Aim for 1–3 months as a starting point.</p>
+                    
+                    <p><strong>For businesses:</strong><br>Aim for 2–6 months, depending on risk and industry.</p>
+                    
+                    <p>Your runway is less about the amount and more about the <strong>habit of preparation</strong>. Even setting aside a small amount from every paycheck builds resilience.</p>
+
+                    <h2>Why This Matters for Your Career & Business Decisions</h2>
+                    
+                    <p>Understanding cash flow vs. profit changes how you make decisions:</p>
+                    <ul>
+                        <li>You negotiate better because you know your financial baseline.</li>
+                        <li>You choose clients more wisely because you understand payment cycles.</li>
+                        <li>You avoid emotional decision-making ("I need money now!").</li>
+                        <li>You build confidence because clarity reduces anxiety.</li>
+                    </ul>
+                    
+                    <p>And ultimately, you create space for strategic thinking - not just survival.</p>
+
+                    <h2>A Simple Financial Reflection for Your Year-End Reset</h2>
+                    
+                    <p>As we prepare for 2026, take 15 minutes to answer these reflection questions:</p>
+                    
+                    <ol>
+                        <li><strong>When in 2025 did I feel most financially confident? Why?</strong></li>
+                        <li><strong>What moments felt financially stressful? What caused that stress?</strong></li>
+                        <li><strong>Do I have full visibility of my expenses and income cycles?</strong></li>
+                        <li><strong>What financial habits helped me in 2025? Which ones hurt me?</strong></li>
+                        <li><strong>What is one simple change I can make today to improve my 2026 cash flow?</strong></li>
+                    </ol>
+                    
+                    <p>Financial clarity is not about perfection; it's about awareness, intention, and small, consistent actions.</p>
+                    
+                    <p>Whether you earn a salary, run a business, gig on the side, or create independently, remember this:</p>
+                    
+                    <img src="articleImages/cashflow3.png" alt="Financial Clarity" class="content-image">
+                    
+                    <p>And systems become easier when you understand how they flow.</p>
+                    
+                    <p>As you enter 2026, may you build not just profit, but stability.<br>Not just income, but clarity.<br>Not just activity, but intentional financial growth.</p>
+                    
+                    <p>What part of money management do you want to understand better in 2026 - cash flow, pricing, budgeting, or financial planning?</p>
+                `
             }
+        
             
         };
 
@@ -1102,9 +1278,9 @@
                     </div>
                 </div>
 
-                <div class="article-body">
+                 <div class="article-body">
                     ${article.content}
-                    <a href="articles/The Career Cafe Articles (Q4 2025).pdf" class="download-btn" download="${articleId}-article.pdf">📥 Download Full Article (PDF)</a>
+                    ${article.pdfPath ? `<a href="${article.pdfPath}" class="download-btn" download>📥 Download Full Article (PDF)</a>` : ''}
                 </div>
 
                 <div class="related-articles">

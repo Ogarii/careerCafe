@@ -7,8 +7,197 @@
     <link rel="icon" type="image/png" href="careerLogo.png">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Additional styles for dynamic loading */
+        .courses {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
 
+        .course-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
 
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(226, 114, 91, 0.15);
+        }
+
+        .course-number {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .course-card h2 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .course-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .learning-outcomes {
+            background: var(--gray);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .learning-outcomes h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .learning-outcomes ul {
+            margin-left: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .learning-outcomes li {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .course-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-medium);
+        }
+
+        .meta-item i {
+            color: var(--primary);
+            width: 16px;
+        }
+
+        .course-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .tag {
+            background: #f0f0f0;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            color: var(--text-medium);
+        }
+
+        .course-footer {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .course-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .course-price.free {
+            color: #10b981;
+        }
+
+        .enroll-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .enroll-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(226, 114, 91, 0.4);
+        }
+
+        .loading-spinner {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .loading-spinner i {
+            font-size: 2rem;
+            color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            text-align: center;
+            padding: 3rem;
+            color: #888;
+        }
+
+        .no-courses {
+            text-align: center;
+            padding: 3rem;
+            color: #888;
+        }
+
+        @media (max-width: 768px) {
+            .course-card {
+                padding: 1.5rem;
+            }
+            
+            .course-card h2 {
+                font-size: 1.25rem;
+            }
+            
+            .course-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .enroll-btn {
+                text-align: center;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -23,7 +212,7 @@
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
-            </div>  
+            </div>
 
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="index.html">About</a></li>
@@ -48,7 +237,7 @@
             <div class="hero-stats">
                 <div class="stat">
                     <i class="fas fa-graduation-cap"></i>
-                    <span class="stat-number">4</span>
+                    <span class="stat-number" id="courseCount">0</span>
                     <span class="stat-label" style="color: var(--primary-light);">Expert Courses</span>
                 </div>
                 <div class="stat">
@@ -71,70 +260,167 @@
         </div>
 
         <div class="courses" id="coursesContainer">
-            <div class="articles-loading" style="text-align:center;padding:3rem;">
-                <i class="fas fa-spinner fa-spin" style="font-size:2rem;color:#e2725b;"></i>
-                <p style="margin-top:1rem;">Loading courses...</p>
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p style="margin-top: 1rem;">Loading courses...</p>
             </div>
-        </div>  
+        </div>
+
+        <footer>
+            <p>&copy; 2025 The Career Café. All rights reserved.</p>
+        </footer>
     </div>
 
-    <footer>
-        <p>&copy; 2025 The Career Café. All rights reserved.</p>
-    </footer>
-</div>
+    <script>
+        const API_BASE = 'https://careercafe-backend-1.onrender.com';
 
-<script>
-    const API_BASE = 'https://careercafe-backend-1.onrender.com';
+        async function loadCourses() {
+            const container = document.getElementById('coursesContainer');
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/courses`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const courses = await response.json();
 
-    async function loadCourses() {
-        const container = document.getElementById('coursesContainer');
-        try {
-            const res = await fetch(`${API_BASE}/api/courses`);
-            const courses = await res.json();
+                // Update course count in hero stats
+                const courseCountElement = document.getElementById('courseCount');
+                if (courseCountElement) {
+                    courseCountElement.textContent = courses.length;
+                }
 
-            if (!courses.length) {
-                container.innerHTML = '<p style="text-align:center;padding:3rem;color:#888;">No courses available yet.</p>';
-                return;
-            }
+                if (!courses || courses.length === 0) {
+                    container.innerHTML = `
+                        <div class="no-courses">
+                            <i class="fas fa-book-open" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                            <p>No courses available yet. Check back soon for exciting new content!</p>
+                        </div>
+                    `;
+                    return;
+                }
 
-            container.innerHTML = courses.map((course, index) => `
-                <div class="course-card">
-                    <span class="course-number">Course ${index + 1}</span>
-                    <h2>${course.title}</h2>
-                    ${course.description ? `<p>${course.description}</p>` : ''}
-                    ${course.content ? `<div class="learning-outcomes">${course.content}</div>` : ''}
-                    <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;">
-                        ${course.duration ? `<span style="background:rgba(226,114,91,0.1);color:#e2725b;padding:4px 12px;border-radius:20px;font-size:0.85rem;">⏱ ${course.duration}</span>` : ''}
-                        ${course.level ? `<span style="background:rgba(85,107,47,0.1);color:#556b2f;padding:4px 12px;border-radius:20px;font-size:0.85rem;">${course.level}</span>` : ''}
-                        ${course.isFree ? `<span style="background:rgba(16,185,129,0.1);color:#10b981;padding:4px 12px;border-radius:20px;font-size:0.85rem;">Free</span>` : course.price ? `<span style="background:rgba(226,114,91,0.1);color:#e2725b;padding:4px 12px;border-radius:20px;font-size:0.85rem;">KES ${course.price}</span>` : ''}
+                // Filter only published courses
+                const publishedCourses = courses.filter(course => course.published !== false);
+                
+                if (publishedCourses.length === 0) {
+                    container.innerHTML = `
+                        <div class="no-courses">
+                            <i class="fas fa-hourglass-half" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                            <p>Courses are being prepared. Stay tuned!</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Render courses
+                container.innerHTML = publishedCourses.map((course, index) => `
+                    <div class="course-card">
+                        <span class="course-number">Course ${index + 1}</span>
+                        <h2>${escapeHtml(course.title)}</h2>
+                        <p>${escapeHtml(course.description || 'No description available.')}</p>
+                        
+                        ${course.content ? `
+                            <div class="learning-outcomes">
+                                ${course.content}
+                            </div>
+                        ` : ''}
+                        
+                        ${course.tags ? `
+                            <div class="course-tags">
+                                ${course.tags.split(',').map(tag => `<span class="tag">${escapeHtml(tag.trim())}</span>`).join('')}
+                            </div>
+                        ` : ''}
+                        
+                        <div class="course-meta">
+                            ${course.duration ? `
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>${escapeHtml(course.duration)}</span>
+                                </div>
+                            ` : ''}
+                            ${course.level ? `
+                                <div class="meta-item">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>${escapeHtml(course.level)}</span>
+                                </div>
+                            ` : ''}
+                            ${course.category ? `
+                                <div class="meta-item">
+                                    <i class="fas fa-tag"></i>
+                                    <span>${escapeHtml(course.category)}</span>
+                                </div>
+                            ` : ''}
+                            ${course.instructor ? `
+                                <div class="meta-item">
+                                    <i class="fas fa-user-tie"></i>
+                                    <span>${escapeHtml(course.instructor)}</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                        
+                        <div class="course-footer">
+                            <div class="course-price ${course.isFree ? 'free' : ''}">
+                                ${course.isFree ? 'FREE' : `KES ${formatPrice(course.price)}`}
+                            </div>
+                            <div class="coming-soon-badge">
+                                <i class="fas fa-hourglass-half"></i> Enrollment opening soon
+                            </div>
+                        </div>
                     </div>
-                    ${course.enrollmentUrl ? `<a href="${course.enrollmentUrl}" class="btn btn-primary" style="margin-top:1.5rem;" target="_blank">Enroll Now</a>` : ''}
-                </div>
-            `).join('');
+                `).join('');
 
-        } catch (err) {
-            container.innerHTML = '<p style="text-align:center;padding:3rem;color:#888;">Could not load courses. Please try again later.</p>';
-            console.error('Courses fetch error:', err);
+            } catch (error) {
+                console.error('Courses fetch error:', error);
+                container.innerHTML = `
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-circle" style="font-size: 3rem; margin-bottom: 1rem; color: #e2725b;"></i>
+                        <p>Unable to load courses. Please check your connection and try again.</p>
+                        <button onclick="location.reload()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: #e2725b; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                            Retry
+                        </button>
+                    </div>
+                `;
+            }
         }
-    }
 
-    loadCourses();
+        // Helper function to escape HTML special characters
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
 
-    // Mobile menu toggle
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('nav-menu');
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
+        // Helper function to format price
+        function formatPrice(price) {
+            if (!price) return '0';
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // Load courses when page loads
+        document.addEventListener('DOMContentLoaded', loadCourses);
+
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
             });
-        });
-    }
-</script>
+
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
+    </script>
 </body>
 </html>

@@ -385,6 +385,100 @@
     </div>
 
     <script>
+        const API_BASE = 'https://careercafe-backend-1.onrender.com';
+
+        async function loadArticle() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const slug = urlParams.get('slug');
+            const container = document.getElementById('articleContent');
+
+            if (!slug) {
+                // No slug — show all articles list
+                loadAllArticles();
+                return;
+            }
+
+            container.innerHTML = `<div style="text-align:center;padding:4rem;"><i class="fas fa-spinner fa-spin" style="font-size:2rem;color:#e2725b;"></i><p style="margin-top:1rem;">Loading article...</p></div>`;
+
+            try {
+                const res = await fetch(`${API_BASE}/api/articles/${slug}`);
+                if (!res.ok) throw new Error('Not found');
+                const article = await res.json();
+
+                const date = article.createdAt
+                    ? new Date(article.createdAt).toLocaleDateString('en-KE', { year: 'numeric', month: 'long', day: 'numeric' })
+                    : '';
+
+                // Fetch related articles
+                const allRes = await fetch(`${API_BASE}/api/articles`);
+                const allArticles = await allRes.json();
+                const related = allArticles
+                    .filter(a => a.slug !== slug)
+                    .slice(0, 3)
+                    .map(a => `
+                        <a href="?slug=${a.slug}" class="related-card">
+                            <h4>${a.title}</h4>
+                            <p>${a.summary || ''}</p>
+                        </a>
+                    `).join('');
+
+                container.innerHTML = `
+                    <div class="article-header">
+                        ${article.category ? `<span class="article-category">${article.category}</span>` : ''}
+                        <h1 class="article-title">${article.title}</h1>
+                        <div class="article-meta">
+                            <div class="meta-item"><span>📅</span><span>${date}</span></div>
+                            <div class="meta-item"><span>✍️</span><span>The Career Café Team</span></div>
+                        </div>
+                        ${article.imageUrl
+                            ? `<div class="article-image" style="background: url('${article.imageUrl}') center/cover no-repeat;"></div>`
+                            : `<div class="article-image" style="background: linear-gradient(135deg,#e2725b,#ffd166);"></div>`
+                        }
+                    </div>
+                    <div class="article-body">
+                        ${article.content || '<p>Full article content coming soon.</p>'}
+                    </div>
+                    ${related ? `
+                    <div class="related-articles">
+                        <h3>Related Articles</h3>
+                        <div class="related-grid">${related}</div>
+                    </div>` : ''}
+                `;
+
+                document.title = `${article.title} - The Career Café`;
+
+            } catch (err) {
+                container.innerHTML = '<p style="text-align:center;padding:4rem;color:#888;">Article not found or could not be loaded.</p>';
+                console.error(err);
+            }
+        }
+
+        async function loadAllArticles() {
+            const container = document.getElementById('articleContent');
+            container.innerHTML = `<div style="text-align:center;padding:4rem;"><i class="fas fa-spinner fa-spin" style="font-size:2rem;color:#e2725b;"></i></div>`;
+            try {
+                const res = await fetch(`${API_BASE}/api/articles`);
+                const articles = await res.json();
+                container.innerHTML = `
+                    <div style="padding:2rem;max-width:900px;margin:0 auto;">
+                        <h2 style="margin-bottom:2rem;">All Articles</h2>
+                        <div class="related-grid">
+                            ${articles.map(a => `
+                                <a href="?slug=${a.slug}" class="related-card">
+                                    <h4>${a.title}</h4>
+                                    <p>${a.summary || ''}</p>
+                                </a>
+                            `).join('')}
+                        </div>
+                    </div>`;
+            } catch (err) {
+                container.innerHTML = '<p style="text-align:center;padding:4rem;">Could not load articles.</p>';
+            }
+        }
+
+        loadArticle();
+
+        // ── DEAD CODE BELOW — kept for reference only, no longer used ──
         const articles = {
             'career-seasons': {
                 category: 'Career Growth',
@@ -1630,65 +1724,6 @@
                                 
         };
 
-        function loadArticle() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const articleId = urlParams.get('id') || 'career-seasons';
-            const article = articles[articleId];
-
-            if (!article) {
-                document.getElementById('articleContent').innerHTML = '<p>Article not found.</p>';
-                return;
-            }
-
-            const relatedArticles = Object.entries(articles)
-                .filter(([id]) => id !== articleId)
-                .map(([id, art]) => `
-                    <a href="?id=${id}" class="related-card">
-                        <h4>${art.title}</h4>
-                        <p>${art.category} • ${art.readTime}</p>
-                    </a>
-                `).join('');
-
-            document.getElementById('articleContent').innerHTML = `
-                <div class="article-header">
-                    <span class="article-category">${article.category}</span>
-                    <h1 class="article-title">${article.title}</h1>
-                    <div class="article-meta">
-                        <div class="meta-item">
-                            <span>📅</span>
-                            <span>${article.date}</span>
-                        </div>
-                        <div class="meta-item">
-                            <span>⏱️</span>
-                            <span>${article.readTime}</span>
-                        </div>
-                        <div class="meta-item">
-                            <span>✍️</span>
-                            <span>${article.author}</span>
-                        </div>
-                    </div>
-                    <div class="article-image" style="background: ${article.image.background}">
-
-                    </div>
-                </div>
-
-                 <div class="article-body">
-                    ${article.content}
-                    ${article.pdfPath ? `<a href="${article.pdfPath}" class="download-btn" download>📥 Download Full Article (PDF)</a>` : ''}
-                </div>
-
-                <div class="related-articles">
-                    <h3>Related Articles</h3>
-                    <div class="related-grid">
-                        ${relatedArticles}
-                    </div>
-                </div>
-            `;
-
-            document.title = `${article.title} - The Career Café`;
-        }
-
-        loadArticle();
     </script>
 </body>
 </html>

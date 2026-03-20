@@ -1,0 +1,1999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — The Career Café</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #E2725B;
+            --primary-light: #FFB199;
+            --secondary: #556B2F;
+            --accent: #FFD700;
+            --dark: #1A1A2E;
+            --light: #FFFFFF;
+            --gray: #F5F5F5;
+            --text: #333333;
+            --sidebar-w: 260px;
+            --border: rgba(226,114,91,0.15);
+            --shadow: 0 4px 24px rgba(26,26,46,0.08);
+            --radius: 14px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #F7F4F1;
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            width: var(--sidebar-w);
+            background: var(--dark);
+            min-height: 100vh;
+            position: fixed;
+            left: 0; top: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: -80px; right: -80px;
+            width: 220px; height: 220px;
+            background: radial-gradient(circle, rgba(226,114,91,0.2), transparent 70%);
+            pointer-events: none;
+        }
+
+        .sidebar-logo {
+            padding: 28px 24px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .sidebar-logo h2 {
+            font-family: 'DM Serif Display', serif;
+            color: var(--light);
+            font-size: 1.2rem;
+            line-height: 1.2;
+        }
+
+        .sidebar-logo span {
+            color: var(--primary-light);
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: block;
+            margin-top: 4px;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 500;
+        }
+
+        .nav-section {
+            padding: 20px 14px 8px;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            font-weight: 600;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 20px;
+            margin: 2px 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            color: rgba(255,255,255,0.55);
+            font-size: 0.9rem;
+            font-weight: 400;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .nav-item i { width: 18px; text-align: center; font-size: 0.9rem; }
+
+        .nav-item:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.9); }
+
+        .nav-item.active {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 500;
+            box-shadow: 0 4px 16px rgba(226,114,91,0.35);
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            font-size: 0.68rem;
+            padding: 2px 7px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .nav-item.active .nav-badge { background: rgba(255,255,255,0.25); }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 20px 14px;
+            border-top: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.88rem;
+            transition: all 0.2s;
+            background: none;
+            border: none;
+            width: 100%;
+            font-family: inherit;
+        }
+
+        .logout-btn:hover { color: #ff6b6b; background: rgba(255,107,107,0.08); }
+
+        /* ── MAIN ── */
+        .main {
+            margin-left: var(--sidebar-w);
+            flex: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .topbar {
+            background: var(--light);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .topbar-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.4rem;
+            color: var(--dark);
+        }
+
+        .topbar-actions { display: flex; align-items: center; gap: 12px; }
+
+        .topbar-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 14px 6px 6px;
+            background: var(--gray);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .user-avatar {
+            width: 32px; height: 32px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .content { padding: 32px; flex: 1; }
+
+        /* ── PANELS ── */
+        .panel { display: none; }
+        .panel.active { display: block; }
+
+        /* ── STATS GRID ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: -20px; right: -20px;
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: var(--primary);
+            opacity: 0.06;
+        }
+
+        .stat-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex; align-items: center; justify-content: center;
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 14px;
+        }
+
+        .stat-icon.green { background: linear-gradient(135deg, var(--secondary), #7a9e40); }
+        .stat-icon.gold { background: linear-gradient(135deg, #b8860b, var(--accent)); }
+        .stat-icon.blue { background: linear-gradient(135deg, #2d6a9f, #4a9fd4); }
+
+        .stat-number {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            color: var(--dark);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .stat-label { font-size: 0.82rem; color: #888; font-weight: 500; }
+
+        /* ── CARD ── */
+        .card {
+            background: var(--light);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+
+        .card-body { padding: 24px; }
+
+        /* ── BUTTONS ── */
+        .btn {
+            padding: 9px 18px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-primary:hover { background: #c9604a; box-shadow: 0 4px 12px rgba(226,114,91,0.3); }
+        .btn-secondary { background: var(--secondary); color: #fff; }
+        .btn-secondary:hover { background: #445a25; }
+        .btn-ghost { background: var(--gray); color: var(--dark); }
+        .btn-ghost:hover { background: #e8e5e0; }
+        .btn-danger { background: #fee2e2; color: #dc2626; }
+        .btn-danger:hover { background: #fecaca; }
+        .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
+
+        /* ── TABLE ── */
+        .table-wrap { overflow-x: auto; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+        thead tr { background: var(--gray); }
+        th { padding: 12px 16px; text-align: left; font-weight: 600; font-size: 0.8rem; color: #666; letter-spacing: 0.5px; }
+        td { padding: 13px 16px; border-bottom: 1px solid #f0ede9; vertical-align: middle; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: #faf8f6; }
+
+        .badge {
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-published { background: #d1fae5; color: #065f46; }
+        .badge-draft { background: #fef3c7; color: #92400e; }
+        .badge-pending { background: #fef3c7; color: #92400e; }
+        .badge-approved { background: #d1fae5; color: #065f46; }
+        .badge-rejected { background: #fee2e2; color: #991b1b; }
+        .badge-virtual { background: #dbeafe; color: #1e40af; }
+        .badge-inperson { background: #ede9fe; color: #5b21b6; }
+
+        /* ── FORMS ── */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .form-grid.single { grid-template-columns: 1fr; }
+
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group.full { grid-column: 1 / -1; }
+
+        label { font-size: 0.82rem; font-weight: 600; color: #555; letter-spacing: 0.3px; }
+
+        input, textarea, select {
+            padding: 10px 14px;
+            border: 1.5px solid #e8e4de;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.88rem;
+            color: var(--text);
+            background: #fff;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+        input:focus, textarea:focus, select:focus { border-color: var(--primary); }
+        textarea { resize: vertical; min-height: 100px; }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 8px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ── MODAL ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(26,26,46,0.5);
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.open { display: flex; }
+
+        .modal {
+            background: var(--light);
+            border-radius: 18px;
+            width: 90%;
+            max-width: 620px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 24px 80px rgba(0,0,0,0.2);
+            animation: slideUp 0.25s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            padding: 22px 26px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.15rem;
+            color: var(--dark);
+        }
+
+        .modal-close {
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            background: var(--gray);
+            border: none;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+            color: #888;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover { background: #fee2e2; color: #dc2626; }
+        .modal-body { padding: 26px; }
+
+        /* ── TOAST ── */
+        .toast {
+            position: fixed;
+            bottom: 28px; right: 28px;
+            background: var(--dark);
+            color: #fff;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(80px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(.34,1.56,.64,1);
+        }
+
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.success .toast-icon { color: #34d399; }
+        .toast.error .toast-icon { color: #f87171; }
+
+        /* ── ANALYTICS ── */
+        .analytics-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 24px; }
+
+        .chart-placeholder {
+            height: 220px;
+            background: linear-gradient(135deg, #faf8f6, #f0ede9);
+            border-radius: 10px;
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+            gap: 8px;
+            overflow: hidden;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--primary), var(--primary-light));
+            border-radius: 6px 6px 0 0;
+            min-height: 8px;
+            position: relative;
+            transition: opacity 0.2s;
+            opacity: 0.85;
+        }
+
+        .chart-bar:hover { opacity: 1; }
+        .chart-bar::after {
+            content: attr(data-label);
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.65rem;
+            color: #888;
+            white-space: nowrap;
+        }
+
+        .chart-wrap { padding-bottom: 24px; }
+
+        .donut-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .donut {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--primary) 0% 42%,
+                var(--secondary) 42% 67%,
+                var(--accent) 67% 83%,
+                #e0d8ce 83% 100%
+            );
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .donut::after {
+            content: '';
+            position: absolute;
+            inset: 26px;
+            background: var(--light);
+            border-radius: 50%;
+        }
+
+        .donut-legend { width: 100%; }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+            color: #666;
+        }
+
+        .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+        /* ── TRAFFIC NOTE ── */
+        .traffic-note {
+            background: linear-gradient(135deg, rgba(226,114,91,0.08), rgba(255,215,0,0.05));
+            border: 1px dashed rgba(226,114,91,0.3);
+            border-radius: 10px;
+            padding: 14px 18px;
+            font-size: 0.83rem;
+            color: #888;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ── EMPTY STATE ── */
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+            color: #aaa;
+        }
+
+        .empty-state i { font-size: 2.5rem; margin-bottom: 12px; opacity: 0.4; }
+        .empty-state p { font-size: 0.9rem; }
+
+        /* ── NEWSLETTER ── */
+        .email-composer {
+            background: linear-gradient(135deg, #1a1a2e, #2d2d4e);
+            border-radius: var(--radius);
+            padding: 28px;
+            color: #fff;
+            margin-bottom: 24px;
+        }
+
+        .email-composer h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+
+        .email-composer p { font-size: 0.85rem; opacity: 0.6; margin-bottom: 20px; }
+
+        .email-composer input,
+        .email-composer textarea {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.15);
+            color: #fff;
+        }
+
+        .email-composer input::placeholder,
+        .email-composer textarea::placeholder { color: rgba(255,255,255,0.35); }
+
+        .email-composer input:focus,
+        .email-composer textarea:focus { border-color: var(--primary-light); }
+
+        .email-composer label { color: rgba(255,255,255,0.6); }
+
+        /* ── DRIVE HINT ── */
+        .drive-hint {
+            font-size: 0.75rem;
+            margin-top: 4px;
+            display: block;
+            min-height: 16px;
+            transition: color 0.2s;
+        }
+        .drive-hint.converted { color: var(--secondary); font-weight: 500; }
+        .drive-hint.plain { color: #aaa; }
+
+        .img-preview {
+            margin-top: 8px;
+            width: 100%;
+            max-height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #e8e4de;
+            display: none;
+        }
+
+        /* ── QUILL OVERRIDES ── */
+        .ql-toolbar {
+            border-radius: 8px 8px 0 0 !important;
+            border-color: #e8e4de !important;
+            background: var(--gray);
+            font-family: 'DM Sans', sans-serif !important;
+        }
+        .ql-container {
+            border-radius: 0 0 8px 8px !important;
+            border-color: #e8e4de !important;
+            font-family: 'DM Sans', sans-serif !important;
+            font-size: 0.9rem !important;
+        }
+        .ql-editor { min-height: 260px; }
+        .ql-editor p { margin-bottom: 0.6em; }
+        #articleEditor:focus-within .ql-toolbar,
+        #articleEditor:focus-within .ql-container { border-color: var(--primary) !important; }
+
+        /* ── LOADING ── */
+        .spinner {
+            display: inline-block;
+            width: 18px; height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .loading-row td { text-align: center; padding: 32px; color: #aaa; font-size: 0.88rem; }
+
+        /* ── LOGIN SCREEN ── */
+        .login-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--dark);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-box {
+            background: #fff;
+            border-radius: 20px;
+            padding: 44px 40px;
+            width: 380px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+        }
+
+        .login-box h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .login-box p { font-size: 0.85rem; color: #888; margin-bottom: 28px; }
+
+        .login-box .form-group { margin-bottom: 16px; }
+        .login-box .btn { width: 100%; justify-content: center; padding: 12px; font-size: 0.95rem; margin-top: 8px; }
+
+        .login-error {
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.83rem;
+            margin-top: 12px;
+            display: none;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1100px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .analytics-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+            .sidebar.open { transform: translateX(0); }
+            .main { margin-left: 0; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen">
+    <div class="login-box">
+        <h1>Welcome back</h1>
+        <p>Sign in to the Career Café admin dashboard</p>
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="loginEmail" placeholder="admin@careercafe.co.ke" value="admin@careercafe.co.ke">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="loginPassword" placeholder="••••••••" value="Admin@1234">
+        </div>
+        <button class="btn btn-primary" onclick="doLogin()">
+            <i class="fas fa-sign-in-alt"></i> Sign In
+        </button>
+        <div class="login-error" id="loginError">Invalid email or password.</div>
+    </div>
+</div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="sidebar-logo">
+        <h2>The Career Café</h2>
+        <span>Admin Dashboard</span>
+    </div>
+
+    <div class="nav-section">Overview</div>
+    <div class="nav-item active" onclick="showPanel('dashboard')">
+        <i class="fas fa-th-large"></i> Dashboard
+    </div>
+    <div class="nav-item" onclick="showPanel('analytics')">
+        <i class="fas fa-chart-line"></i> Analytics
+    </div>
+
+    <div class="nav-section">Content</div>
+    <div class="nav-item" onclick="showPanel('articles')">
+        <i class="fas fa-newspaper"></i> Articles
+        <span class="nav-badge" id="badge-articles">0</span>
+    </div>
+    <div class="nav-item" onclick="showPanel('events')">
+        <i class="fas fa-calendar-alt"></i> Events
+        <span class="nav-badge" id="badge-events">0</span>
+    </div>
+    <div class="nav-item" onclick="showPanel('courses')">
+        <i class="fas fa-graduation-cap"></i> Courses
+        <span class="nav-badge" id="badge-courses">0</span>
+    </div>
+    <div class="nav-item" onclick="showPanel('gallery')">
+        <i class="fas fa-images"></i> Gallery
+        <span class="nav-badge" id="badge-gallery">0</span>
+    </div>
+    <div class="nav-item" onclick="showPanel('team')">
+        <i class="fas fa-users"></i> Team
+        <span class="nav-badge" id="badge-team">0</span>
+    </div>
+
+    <div class="nav-section">Community</div>
+    <div class="nav-item" onclick="showPanel('memberships')">
+        <i class="fas fa-id-card"></i> Memberships
+        <span class="nav-badge" id="badge-memberships">0</span>
+    </div>
+    <div class="nav-item" onclick="showPanel('partnerships')">
+        <i class="fas fa-handshake"></i> Partnerships
+        <span class="nav-badge" id="badge-partnerships">0</span>
+    </div>
+    <div class="nav-item" onclick="showPanel('newsletter')">
+        <i class="fas fa-envelope"></i> Newsletter
+        <span class="nav-badge" id="badge-newsletter">0</span>
+    </div>
+
+    <div class="sidebar-footer">
+        <button class="logout-btn" onclick="doLogout()">
+            <i class="fas fa-sign-out-alt"></i> Sign Out
+        </button>
+    </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+    <div class="topbar">
+        <div class="topbar-title" id="topbarTitle">Dashboard</div>
+        <div class="topbar-actions">
+            <div class="topbar-user">
+                <div class="user-avatar">A</div>
+                <span id="topbarEmail">admin</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- DASHBOARD -->
+        <div class="panel active" id="panel-dashboard">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-newspaper"></i></div>
+                    <div class="stat-number" id="stat-articles">—</div>
+                    <div class="stat-label">Articles Published</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green"><i class="fas fa-calendar-check"></i></div>
+                    <div class="stat-number" id="stat-events">—</div>
+                    <div class="stat-label">Upcoming Events</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon gold"><i class="fas fa-envelope-open"></i></div>
+                    <div class="stat-number" id="stat-subscribers">—</div>
+                    <div class="stat-label">Newsletter Subscribers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i class="fas fa-id-badge"></i></div>
+                    <div class="stat-number" id="stat-memberships">—</div>
+                    <div class="stat-label">Membership Requests</div>
+                </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Recent Memberships</div>
+                        <button class="btn btn-ghost btn-sm" onclick="showPanel('memberships')">View All</button>
+                    </div>
+                    <div class="card-body" id="recentMemberships">
+                        <div class="empty-state"><i class="fas fa-spinner fa-spin"></i></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Recent Partnerships</div>
+                        <button class="btn btn-ghost btn-sm" onclick="showPanel('partnerships')">View All</button>
+                    </div>
+                    <div class="card-body" id="recentPartnerships">
+                        <div class="empty-state"><i class="fas fa-spinner fa-spin"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ANALYTICS -->
+        <div class="panel" id="panel-analytics">
+            <div class="traffic-note">
+                <i class="fas fa-info-circle" style="color:var(--primary);"></i>
+                 Coming soon
+            </div>
+
+            <div class="analytics-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Page Views — Last 30 Days</div>
+                    </div>
+                    <div class="card-body chart-wrap">
+                        <div class="chart-placeholder" id="trafficChart"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><div class="card-title">Traffic Sources</div></div>
+                    <div class="card-body">
+                        <div class="donut-wrap">
+                            <div class="donut"></div>
+                            <div class="donut-legend">
+                                <div class="legend-item"><div class="legend-dot" style="background:var(--primary)"></div> Direct (42%)</div>
+                                <div class="legend-item"><div class="legend-dot" style="background:var(--secondary)"></div> Social (25%)</div>
+                                <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> Search (16%)</div>
+                                <div class="legend-item"><div class="legend-dot" style="background:#e0d8ce"></div> Referral (17%)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-eye"></i></div>
+                    <div class="stat-number">—</div>
+                    <div class="stat-label">Total Page Views</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green"><i class="fas fa-user-check"></i></div>
+                    <div class="stat-number">—</div>
+                    <div class="stat-label">Unique Visitors</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon gold"><i class="fas fa-clock"></i></div>
+                    <div class="stat-number">—</div>
+                    <div class="stat-label">Avg. Session Time</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i class="fas fa-mouse-pointer"></i></div>
+                    <div class="stat-number">—</div>
+                    <div class="stat-label">Bounce Rate</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ARTICLES -->
+        <div class="panel" id="panel-articles">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Articles</div>
+                    <button class="btn btn-primary btn-sm" onclick="openModal('articleModal')">
+                        <i class="fas fa-plus"></i> New Article
+                    </button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Title</th><th>Slug</th><th>Category</th><th>Status</th><th>Created</th><th>Actions</th></tr></thead>
+                        <tbody id="articlesTable"><tr class="loading-row"><td colspan="6"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- EVENTS -->
+        <div class="panel" id="panel-events">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Events</div>
+                    <button class="btn btn-primary btn-sm" onclick="openModal('eventModal')">
+                        <i class="fas fa-plus"></i> New Event
+                    </button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Title</th><th>Date</th><th>Location</th><th>Type</th><th>Status</th><th>Actions</th></tr></thead>
+                        <tbody id="eventsTable"><tr class="loading-row"><td colspan="6"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- COURSES -->
+        <div class="panel" id="panel-courses">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Courses</div>
+                    <button class="btn btn-primary btn-sm" onclick="openModal('courseModal')">
+                        <i class="fas fa-plus"></i> New Course
+                    </button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Title</th><th>Slug</th><th>Level</th><th>Duration</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead>
+                        <tbody id="coursesTable"><tr class="loading-row"><td colspan="7"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- GALLERY -->
+        <div class="panel" id="panel-gallery">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Gallery</div>
+                    <button class="btn btn-primary btn-sm" onclick="document.getElementById('galleryId').value=''; document.getElementById('galleryModalTitle').textContent='Add Photo'; openModal('galleryModal')"">
+                        <i class="fas fa-plus"></i> Add Photo
+                    </button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Image URL</th><th>Caption</th><th>Category</th><th>Order</th><th>Status</th><th>Actions</th></tr></thead>
+                        <tbody id="galleryTable"><tr class="loading-row"><td colspan="6"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TEAM -->
+        <div class="panel" id="panel-team">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Team Members</div>
+                    <button class="btn btn-primary btn-sm" onclick="openModal('teamModal')">
+                        <i class="fas fa-plus"></i> Add Member
+                    </button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Name</th><th>Role</th><th>LinkedIn</th><th>Order</th><th>Status</th><th>Actions</th></tr></thead>
+                        <tbody id="teamTable"><tr class="loading-row"><td colspan="6"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- MEMBERSHIPS -->
+        <div class="panel" id="panel-memberships">
+            <div class="card">
+                <div class="card-header"><div class="card-title">Membership Requests</div></div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Occupation</th><th>Status</th><th>Actions</th></tr></thead>
+                        <tbody id="membershipsTable"><tr class="loading-row"><td colspan="6"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- PARTNERSHIPS -->
+        <div class="panel" id="panel-partnerships">
+            <div class="card">
+                <div class="card-header"><div class="card-title">Partnership Requests</div></div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Name</th><th>Email</th><th>Organization</th><th>Type</th><th>Status</th><th>Actions</th></tr></thead>
+                        <tbody id="partnershipsTable"><tr class="loading-row"><td colspan="6"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEWSLETTER -->
+        <div class="panel" id="panel-newsletter">
+            <div class="email-composer">
+                <h3>Send Mass Email</h3>
+                <p>Compose and send a newsletter to all active subscribers</p>
+                <div class="form-grid single" style="margin-bottom:14px;">
+                    <div class="form-group">
+                        <label>Subject Line</label>
+                        <input type="text" id="emailSubject" placeholder="e.g. Career Café Monthly — March 2026">
+                    </div>
+                    <div class="form-group">
+                        <label>Message Body</label>
+                        <textarea id="emailBody" rows="5" placeholder="Write your newsletter content here..."></textarea>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="sendMassEmail()">
+                    <i class="fas fa-paper-plane"></i> Send to All Subscribers
+                </button>
+                <span style="font-size:0.78rem;opacity:0.5;margin-left:10px;">Mass email endpoint to be wired in backend</span>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Subscribers</div>
+                    <span id="subscriberCount" style="font-size:0.85rem;color:#888;"></span>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Email</th><th>Subscribed On</th><th>Actions</th></tr></thead>
+                        <tbody id="newsletterTable"><tr class="loading-row"><td colspan="3"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- ── MODALS ── -->
+
+<!-- Article Modal -->
+<div class="modal-overlay" id="articleModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title" id="articleModalTitle">New Article</div>
+            <button class="modal-close" onclick="closeModal('articleModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="articleId">
+            <div class="form-grid">
+                <div class="form-group full"><label>Title *</label><input type="text" id="articleTitle" placeholder="Article title"></div>
+                <div class="form-group"><label>Slug *</label><input type="text" id="articleSlug" placeholder="article-slug"></div>
+                <div class="form-group"><label>Category</label><input type="text" id="articleCategory" placeholder="e.g. Career Growth"></div>
+                <div class="form-group full"><label>Summary</label><input type="text" id="articleSummary" placeholder="Brief summary shown on listing"></div>
+                <div class="form-group full">
+                    <label>Content</label>
+                    <div id="articleEditor" style="height:320px;border-radius:8px;font-family:'DM Sans',sans-serif;"></div>
+                    <textarea id="articleContent" style="display:none;"></textarea>
+                </div>
+                <div class="form-group"><label>Image URL or Google Drive Link</label><input type="text" id="articleImage" placeholder="Paste Drive share link or direct URL" oninput="convertDriveUrl(this)"><small class="drive-hint"></small><img class="img-preview" alt="Preview"><img class="img-preview" alt="Preview"></div>
+                <div class="form-group"><label>Status</label>
+                    <select id="articlePublished">
+                        <option value="false">Draft</option>
+                        <option value="true">Published</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-ghost" onclick="closeModal('articleModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveArticle()"><i class="fas fa-save"></i> Save Article</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Event Modal -->
+<div class="modal-overlay" id="eventModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title" id="eventModalTitle">New Event</div>
+            <button class="modal-close" onclick="closeModal('eventModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="eventId">
+            <div class="form-grid">
+                <div class="form-group full"><label>Title *</label><input type="text" id="eventTitle" placeholder="Event title"></div>
+                <div class="form-group full"><label>Description</label><textarea id="eventDescription" rows="3" placeholder="Event description"></textarea></div>
+                <div class="form-group"><label>Event Date *</label><input type="datetime-local" id="eventDate"></div>
+                <div class="form-group"><label>End Date</label><input type="datetime-local" id="eventEndDate"></div>
+                <div class="form-group"><label>Location</label><input type="text" id="eventLocation" placeholder="e.g. Nairobi, Kenya"></div>
+                <div class="form-group"><label>Registration URL</label><input type="url" id="eventRegUrl" placeholder="https://..."></div>
+                <div class="form-group"><label>Image URL or Google Drive Link</label><input type="text" id="eventImage" placeholder="Paste Drive link or direct URL" oninput="convertDriveUrl(this)"><small class="drive-hint"></small><img class="img-preview" alt="Preview"></div>
+                <div class="form-group"><label>Type</label>
+                    <select id="eventVirtual">
+                        <option value="false">In Person</option>
+                        <option value="true">Virtual</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Status</label>
+                    <select id="eventPublished">
+                        <option value="false">Draft</option>
+                        <option value="true">Published</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-ghost" onclick="closeModal('eventModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveEvent()"><i class="fas fa-save"></i> Save Event</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Course Modal -->
+<div class="modal-overlay" id="courseModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title" id="courseModalTitle">New Course</div>
+            <button class="modal-close" onclick="closeModal('courseModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="courseId">
+            <div class="form-grid">
+                <div class="form-group full"><label>Title *</label><input type="text" id="courseTitle" placeholder="Course title"></div>
+                <div class="form-group"><label>Slug *</label><input type="text" id="courseSlug" placeholder="course-slug"></div>
+                <div class="form-group"><label>Category</label><input type="text" id="courseCategory" placeholder="e.g. Leadership"></div>
+                <div class="form-group full"><label>Description</label><textarea id="courseDescription" rows="3" placeholder="Course overview"></textarea></div>
+                <div class="form-group full"><label>Content</label><textarea id="courseContent" rows="4" placeholder="Detailed content / learning outcomes (HTML supported)"></textarea></div>
+                <div class="form-group"><label>Level</label>
+                    <select id="courseLevel">
+                        <option value="">Select level</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Duration</label><input type="text" id="courseDuration" placeholder="e.g. 6 weeks"></div>
+                <div class="form-group"><label>Price (KES)</label><input type="number" id="coursePrice" placeholder="0"></div>
+                <div class="form-group"><label>Free?</label>
+                    <select id="courseIsFree">
+                        <option value="false">No</option>
+                        <option value="true">Yes — Free</option>
+                    </select>
+                </div>
+                <div class="form-group full"><label>Enrollment URL</label><input type="url" id="courseEnrollUrl" placeholder="https://..."></div>
+                <div class="form-group"><label>Image URL or Google Drive Link</label><input type="text" id="courseImage" placeholder="Paste Drive link or direct URL" oninput="convertDriveUrl(this)"><small class="drive-hint"></small><img class="img-preview" alt="Preview"></div>
+                <div class="form-group"><label>Status</label>
+                    <select id="coursePublished">
+                        <option value="false">Draft</option>
+                        <option value="true">Published</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-ghost" onclick="closeModal('courseModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveCourse()"><i class="fas fa-save"></i> Save Course</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Gallery Modal -->
+<div class="modal-overlay" id="galleryModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title" id="galleryModalTitle">Add Photo</div>
+            <button class="modal-close" onclick="closeModal('galleryModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="galleryId">
+            <div class="form-grid">
+                <div class="form-group full"><label>Image URL or Google Drive Link *</label><input type="text" id="galleryImageUrl" placeholder="Paste Drive link or direct URL" oninput="convertDriveUrl(this)"><small class="drive-hint"></small><img class="img-preview" alt="Preview"></div>
+                <div class="form-group full"><label>Caption</label><input type="text" id="galleryCaption" placeholder="Photo caption"></div>
+                <div class="form-group"><label>Category</label><input type="text" id="galleryCategory" placeholder="e.g. Workshops"></div>
+                <div class="form-group"><label>Display Order</label><input type="number" id="galleryOrder" placeholder="0" value="0"></div>
+                <div class="form-group"><label>Status</label>
+                    <select id="galleryPublished">
+                        <option value="false">Draft</option>
+                        <option value="true">Published</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-ghost" onclick="closeModal('galleryModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveGallery()"><i class="fas fa-save"></i> Save Photo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Team Modal -->
+<div class="modal-overlay" id="teamModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title" id="teamModalTitle">Add Team Member</div>
+            <button class="modal-close" onclick="closeModal('teamModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="teamId">
+            <div class="form-grid">
+                <div class="form-group"><label>Full Name *</label><input type="text" id="teamName" placeholder="Jane Mwangi"></div>
+                <div class="form-group"><label>Role *</label><input type="text" id="teamRole" placeholder="Executive Director"></div>
+                <div class="form-group full"><label>Bio</label><textarea id="teamBio" rows="3" placeholder="Short bio"></textarea></div>
+                <div class="form-group full"><label>Image URL or Google Drive Link</label><input type="text" id="teamImage" placeholder="Paste Drive link or direct URL" oninput="convertDriveUrl(this)"><small class="drive-hint"></small><img class="img-preview" alt="Preview"></div>
+                <div class="form-group"><label>LinkedIn URL</label><input type="url" id="teamLinkedin" placeholder="https://linkedin.com/in/..."></div>
+                <div class="form-group"><label>Twitter URL</label><input type="url" id="teamTwitter" placeholder="https://twitter.com/..."></div>
+                <div class="form-group"><label>Display Order</label><input type="number" id="teamOrder" placeholder="1" value="1"></div>
+                <div class="form-group"><label>Status</label>
+                    <select id="teamPublished">
+                        <option value="true">Published</option>
+                        <option value="false">Hidden</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-ghost" onclick="closeModal('teamModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveTeam()"><i class="fas fa-save"></i> Save Member</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+    <span class="toast-icon"><i class="fas fa-check-circle"></i></span>
+    <span id="toastMsg">Done!</span>
+</div>
+
+<script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+<script>
+const API = 'https://careercafe-backend-1.onrender.com';
+let TOKEN = '';
+
+// ── QUILL EDITOR ─────────────────────────────────────────────
+let quill;
+function initQuill() {
+    if (quill) return;
+    quill = new Quill('#articleEditor', {
+        theme: 'snow',
+        placeholder: 'Write your article content here...',
+        modules: {
+            toolbar: [
+                [{ header: [1, 2, 3, false] }],
+                ['bold', 'italic', 'underline', 'strike'],
+                [{ color: [] }, { background: [] }],
+                [{ list: 'ordered' }, { list: 'bullet' }],
+                [{ indent: '-1' }, { indent: '+1' }],
+                ['blockquote', 'code-block'],
+                ['link'],
+                ['clean']
+            ]
+        }
+    });
+}
+
+// ── AUTH ─────────────────────────────────────────────────────
+async function doLogin() {
+    const email = document.getElementById('loginEmail').value;
+    const pass = document.getElementById('loginPassword').value;
+    const err = document.getElementById('loginError');
+    err.style.display = 'none';
+    try {
+        const res = await fetch(`${API}/api/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password: pass })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error();
+        TOKEN = data.token;
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('topbarEmail').textContent = email;
+        loadAll();
+    } catch {
+        err.style.display = 'block';
+    }
+}
+
+function doLogout() {
+    TOKEN = '';
+    document.getElementById('loginScreen').style.display = 'flex';
+}
+
+// Allow Enter key on login
+document.getElementById('loginPassword').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+// ── HELPERS ──────────────────────────────────────────────────
+function authHeaders() {
+    return { 'Content-Type': 'application/json', 'Authorization': `Bearer ${TOKEN}` };
+}
+
+function fmtDate(str) {
+    if (!str) return '—';
+    return new Date(str).toLocaleDateString('en-KE', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function fmtDatetime(str) {
+    if (!str) return '—';
+    return new Date(str).toLocaleString('en-KE', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function truncate(str, n=40) {
+    if (!str) return '—';
+    return str.length > n ? str.slice(0, n) + '…' : str;
+}
+
+function statusBadge(published) {
+    return published
+        ? `<span class="badge badge-published">Published</span>`
+        : `<span class="badge badge-draft">Draft</span>`;
+}
+
+function toast(msg, type = 'success') {
+    const t = document.getElementById('toast');
+    const icon = t.querySelector('.toast-icon i');
+    t.className = `toast ${type}`;
+    document.getElementById('toastMsg').textContent = msg;
+    icon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+function openModal(id) {
+    document.getElementById(id).classList.add('open');
+    if (id === 'articleModal') {
+        initQuill();
+        // Reset if opening fresh
+        if (!document.getElementById('articleId').value) {
+            quill.setContents([]);
+        }
+    }
+}
+
+function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+    // Clear hidden ID fields when modal closes
+    if (id === 'galleryModal') document.getElementById('galleryId').value = '';
+    if (id === 'articleModal') document.getElementById('articleId').value = '';
+    if (id === 'eventModal') document.getElementById('eventId').value = '';
+    if (id === 'courseModal') document.getElementById('courseId').value = '';
+    if (id === 'teamModal') document.getElementById('teamId').value = '';
+}
+
+// Close modal on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', e => {
+        if (e.target === overlay) overlay.classList.remove('open');
+    });
+});
+
+// ── NAVIGATION ───────────────────────────────────────────────
+const panelLoaders = {
+    articles: loadArticles,
+    events: loadEvents,
+    courses: loadCourses,
+    gallery: loadGallery,
+    team: loadTeam,
+    memberships: loadMemberships,
+    partnerships: loadPartnerships,
+    newsletter: loadNewsletter,
+    analytics: buildChart,
+};
+
+const panelTitles = {
+    dashboard: 'Dashboard', analytics: 'Analytics',
+    articles: 'Articles', events: 'Events', courses: 'Courses',
+    gallery: 'Gallery', team: 'Team Members',
+    memberships: 'Memberships', partnerships: 'Partnerships', newsletter: 'Newsletter'
+};
+
+function showPanel(name) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById(`panel-${name}`).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(n => {
+        if (n.textContent.trim().toLowerCase().startsWith(panelTitles[name]?.split(' ')[0]?.toLowerCase())) {
+            n.classList.add('active');
+        }
+    });
+    document.getElementById('topbarTitle').textContent = panelTitles[name] || name;
+    if (panelLoaders[name]) panelLoaders[name]();
+}
+
+// ── LOAD ALL ─────────────────────────────────────────────────
+function loadAll() {
+    loadDashboard();
+    loadArticles();
+    loadEvents();
+    loadCourses();
+    loadGallery();
+    loadTeam();
+    loadMemberships();
+    loadPartnerships();
+    loadNewsletter();
+    buildChart();
+}
+
+// ── DASHBOARD ────────────────────────────────────────────────
+async function loadDashboard() {
+    try {
+        const [articles, events, subs, memberships, partnerships] = await Promise.all([
+            fetch(`${API}/api/articles/all`, { headers: authHeaders() }).then(r => r.json()),
+            fetch(`${API}/api/events/all`, { headers: authHeaders() }).then(r => r.json()),
+            fetch(`${API}/api/newsletter/subscribers`, { headers: authHeaders() }).then(r => r.json()),
+            fetch(`${API}/api/memberships`, { headers: authHeaders() }).then(r => r.json()),
+            fetch(`${API}/api/partnerships`, { headers: authHeaders() }).then(r => r.json()),
+        ]);
+
+        document.getElementById('stat-articles').textContent = articles.filter(a => a.published).length;
+        document.getElementById('stat-events').textContent = events.length;
+        document.getElementById('stat-subscribers').textContent = subs.length;
+        document.getElementById('stat-memberships').textContent = memberships.length;
+
+        // Recent memberships
+        const mEl = document.getElementById('recentMemberships');
+        mEl.innerHTML = memberships.slice(0, 5).map(m => `
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f0ede9;">
+                <div>
+                    <div style="font-weight:500;font-size:0.88rem;">${m.fullName || m.name || '—'}</div>
+                    <div style="font-size:0.78rem;color:#888;">${m.email}</div>
+                </div>
+                <span class="badge badge-${(m.status||'pending').toLowerCase()}">${m.status || 'PENDING'}</span>
+            </div>`).join('') || '<p style="color:#aaa;font-size:0.85rem;">No requests yet.</p>';
+
+        // Recent partnerships
+        const pEl = document.getElementById('recentPartnerships');
+        pEl.innerHTML = partnerships.slice(0, 5).map(p => `
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f0ede9;">
+                <div>
+                    <div style="font-weight:500;font-size:0.88rem;">${p.fullName || '—'}</div>
+                    <div style="font-size:0.78rem;color:#888;">${p.organization || p.email}</div>
+                </div>
+                <span class="badge badge-${(p.status||'pending').toLowerCase()}">${p.status || 'PENDING'}</span>
+            </div>`).join('') || '<p style="color:#aaa;font-size:0.85rem;">No requests yet.</p>';
+
+        // Badges
+        document.getElementById('badge-articles').textContent = articles.length;
+        document.getElementById('badge-events').textContent = events.length;
+        document.getElementById('badge-newsletter').textContent = subs.length;
+        document.getElementById('badge-memberships').textContent = memberships.length;
+        document.getElementById('badge-partnerships').textContent = partnerships.length;
+
+    } catch (e) { console.error(e); }
+}
+
+// ── ARTICLES ─────────────────────────────────────────────────
+async function loadArticles() {
+    const tbody = document.getElementById('articlesTable');
+    try {
+        const data = await fetch(`${API}/api/articles/all`, { headers: authHeaders() }).then(r => r.json());
+        document.getElementById('badge-articles').textContent = data.length;
+        tbody.innerHTML = data.length ? data.map(a => `
+            <tr>
+                <td><strong>${truncate(a.title, 45)}</strong></td>
+                <td><code style="font-size:0.78rem;color:#888;">${a.slug}</code></td>
+                <td>${a.category || '—'}</td>
+                <td>${statusBadge(a.published)}</td>
+                <td>${fmtDate(a.createdAt)}</td>
+                <td style="display:flex;gap:6px;">
+                    <button class="btn btn-ghost btn-sm" onclick="editArticle(${JSON.stringify(a).replace(/"/g,'&quot;')})"><i class="fas fa-edit"></i></button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteItem('articles', ${a.id}, loadArticles)"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>`).join('')
+        : `<tr><td colspan="6" style="text-align:center;padding:32px;color:#aaa;">No articles yet.</td></tr>`;
+    } catch { tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#aaa;padding:24px;">Failed to load.</td></tr>`; }
+}
+
+function editArticle(a) {
+    document.getElementById('articleModalTitle').textContent = 'Edit Article';
+    document.getElementById('articleId').value = a.id;
+    document.getElementById('articleTitle').value = a.title || '';
+    document.getElementById('articleSlug').value = a.slug || '';
+    document.getElementById('articleCategory').value = a.category || '';
+    document.getElementById('articleSummary').value = a.summary || '';
+    setImageField('articleImage', a.imageUrl);
+    document.getElementById('articlePublished').value = String(a.published);
+    openModal('articleModal');
+    // Load content into Quill after modal opens
+    setTimeout(() => {
+        initQuill();
+        quill.root.innerHTML = a.content || '';
+    }, 50);
+}
+
+async function saveArticle() {
+    const id = document.getElementById('articleId').value;
+    const content = quill ? quill.root.innerHTML : document.getElementById('articleContent').value;
+    const body = {
+        title: document.getElementById('articleTitle').value,
+        slug: document.getElementById('articleSlug').value,
+        category: document.getElementById('articleCategory').value,
+        summary: document.getElementById('articleSummary').value,
+        content: content,
+        imageUrl: document.getElementById('articleImage').value,
+        published: document.getElementById('articlePublished').value === 'true'
+    };
+    try {
+        const res = await fetch(`${API}/api/articles${id ? '/'+id : ''}`, {
+            method: id ? 'PUT' : 'POST',
+            headers: authHeaders(),
+            body: JSON.stringify(body)
+        });
+        if (!res.ok) throw new Error();
+        toast(id ? 'Article updated!' : 'Article created!');
+        closeModal('articleModal');
+        document.getElementById('articleId').value = '';
+        document.getElementById('articleModalTitle').textContent = 'New Article';
+        if (quill) quill.setContents([]);
+        loadArticles();
+    } catch { toast('Failed to save article.', 'error'); }
+}
+
+// ── EVENTS ───────────────────────────────────────────────────
+async function loadEvents() {
+    const tbody = document.getElementById('eventsTable');
+    try {
+        const data = await fetch(`${API}/api/events/all`, { headers: authHeaders() }).then(r => r.json());
+        document.getElementById('badge-events').textContent = data.length;
+        tbody.innerHTML = data.length ? data.map(e => `
+            <tr>
+                <td><strong>${truncate(e.title, 40)}</strong></td>
+                <td>${fmtDatetime(e.eventDate)}</td>
+                <td>${e.location || '—'}</td>
+                <td>${e.isVirtual ? '<span class="badge badge-virtual">Virtual</span>' : '<span class="badge badge-inperson">In Person</span>'}</td>
+                <td>${statusBadge(e.published)}</td>
+                <td style="display:flex;gap:6px;">
+                    <button class="btn btn-ghost btn-sm" onclick="editEvent(${JSON.stringify(e).replace(/"/g,'&quot;')})"><i class="fas fa-edit"></i></button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteItem('events', ${e.id}, loadEvents)"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>`).join('')
+        : `<tr><td colspan="6" style="text-align:center;padding:32px;color:#aaa;">No events yet.</td></tr>`;
+    } catch { tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#aaa;padding:24px;">Failed to load.</td></tr>`; }
+}
+
+function editEvent(e) {
+    document.getElementById('eventModalTitle').textContent = 'Edit Event';
+    document.getElementById('eventId').value = e.id;
+    document.getElementById('eventTitle').value = e.title || '';
+    document.getElementById('eventDescription').value = e.description || '';
+    document.getElementById('eventDate').value = e.eventDate ? e.eventDate.slice(0,16) : '';
+    document.getElementById('eventEndDate').value = e.endDate ? e.endDate.slice(0,16) : '';
+    document.getElementById('eventLocation').value = e.location || '';
+    document.getElementById('eventRegUrl').value = e.registrationUrl || '';
+    setImageField('eventImage', e.imageUrl);
+    document.getElementById('eventVirtual').value = String(e.isVirtual);
+    document.getElementById('eventPublished').value = String(e.published);
+    openModal('eventModal');
+}
+
+async function saveEvent() {
+    const id = document.getElementById('eventId').value;
+    const body = {
+        title: document.getElementById('eventTitle').value,
+        description: document.getElementById('eventDescription').value,
+        eventDate: document.getElementById('eventDate').value,
+        endDate: document.getElementById('eventEndDate').value || null,
+        location: document.getElementById('eventLocation').value,
+        registrationUrl: document.getElementById('eventRegUrl').value,
+        imageUrl: document.getElementById('eventImage').value,
+        isVirtual: document.getElementById('eventVirtual').value === 'true',
+        published: document.getElementById('eventPublished').value === 'true'
+    };
+    try {
+        const res = await fetch(`${API}/api/events${id ? '/'+id : ''}`, {
+            method: id ? 'PUT' : 'POST',
+            headers: authHeaders(),
+            body: JSON.stringify(body)
+        });
+        if (!res.ok) throw new Error();
+        toast(id ? 'Event updated!' : 'Event created!');
+        closeModal('eventModal');
+        document.getElementById('eventId').value = '';
+        document.getElementById('eventModalTitle').textContent = 'New Event';
+        loadEvents();
+    } catch { toast('Failed to save event.', 'error'); }
+}
+
+// ── COURSES ──────────────────────────────────────────────────
+async function loadCourses() {
+    const tbody = document.getElementById('coursesTable');
+    try {
+        const data = await fetch(`${API}/api/courses/all`, { headers: authHeaders() }).then(r => r.json());
+        document.getElementById('badge-courses').textContent = data.length;
+        tbody.innerHTML = data.length ? data.map(c => `
+            <tr>
+                <td><strong>${truncate(c.title, 40)}</strong></td>
+                <td><code style="font-size:0.78rem;color:#888;">${c.slug}</code></td>
+                <td>${c.level || '—'}</td>
+                <td>${c.duration || '—'}</td>
+                <td>${c.isFree ? '<span class="badge badge-published">Free</span>' : (c.price ? `KES ${c.price}` : '—')}</td>
+                <td>${statusBadge(c.published)}</td>
+                <td style="display:flex;gap:6px;">
+                    <button class="btn btn-ghost btn-sm" onclick="editCourse(${JSON.stringify(c).replace(/"/g,'&quot;')})"><i class="fas fa-edit"></i></button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteItem('courses', ${c.id}, loadCourses)"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>`).join('')
+        : `<tr><td colspan="7" style="text-align:center;padding:32px;color:#aaa;">No courses yet.</td></tr>`;
+    } catch { tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:#aaa;padding:24px;">Failed to load.</td></tr>`; }
+}
+
+function editCourse(c) {
+    document.getElementById('courseModalTitle').textContent = 'Edit Course';
+    document.getElementById('courseId').value = c.id;
+    document.getElementById('courseTitle').value = c.title || '';
+    document.getElementById('courseSlug').value = c.slug || '';
+    document.getElementById('courseCategory').value = c.category || '';
+    document.getElementById('courseDescription').value = c.description || '';
+    document.getElementById('courseContent').value = c.content || '';
+    document.getElementById('courseLevel').value = c.level || '';
+    document.getElementById('courseDuration').value = c.duration || '';
+    document.getElementById('coursePrice').value = c.price || '';
+    document.getElementById('courseIsFree').value = String(c.isFree);
+    document.getElementById('courseEnrollUrl').value = c.enrollmentUrl || '';
+    setImageField('courseImage', c.imageUrl);
+    document.getElementById('coursePublished').value = String(c.published);
+    openModal('courseModal');
+}
+
+async function saveCourse() {
+    const id = document.getElementById('courseId').value;
+    const body = {
+        title: document.getElementById('courseTitle').value,
+        slug: document.getElementById('courseSlug').value,
+        category: document.getElementById('courseCategory').value,
+        description: document.getElementById('courseDescription').value,
+        content: document.getElementById('courseContent').value,
+        level: document.getElementById('courseLevel').value,
+        duration: document.getElementById('courseDuration').value,
+        price: document.getElementById('coursePrice').value || null,
+        isFree: document.getElementById('courseIsFree').value === 'true',
+        enrollmentUrl: document.getElementById('courseEnrollUrl').value,
+        imageUrl: document.getElementById('courseImage').value,
+        published: document.getElementById('coursePublished').value === 'true'
+    };
+    try {
+        const res = await fetch(`${API}/api/courses${id ? '/'+id : ''}`, {
+            method: id ? 'PUT' : 'POST',
+            headers: authHeaders(),
+            body: JSON.stringify(body)
+        });
+        if (!res.ok) throw new Error();
+        toast(id ? 'Course updated!' : 'Course created!');
+        closeModal('courseModal');
+        document.getElementById('courseId').value = '';
+        document.getElementById('courseModalTitle').textContent = 'New Course';
+        loadCourses();
+    } catch { toast('Failed to save course.', 'error'); }
+}
+
+// ── GALLERY ──────────────────────────────────────────────────
+async function loadGallery() {
+    const tbody = document.getElementById('galleryTable');
+    try {
+        const data = await fetch(`${API}/api/gallery/all`, { headers: authHeaders() }).then(r => r.json());
+        document.getElementById('badge-gallery').textContent = data.length;
+        tbody.innerHTML = data.length ? data.map(g => `
+            <tr>
+                <td><a href="${g.imageUrl}" target="_blank" style="color:var(--primary);font-size:0.82rem;">${truncate(g.imageUrl, 35)}</a></td>
+                <td>${truncate(g.caption, 35)}</td>
+                <td>${g.category || '—'}</td>
+                <td>${g.displayOrder ?? 0}</td>
+                <td>${statusBadge(g.published)}</td>
+                <td style="display:flex;gap:6px;">
+                    <button class="btn btn-ghost btn-sm" onclick="editGallery(${JSON.stringify(g).replace(/"/g,'&quot;')})"><i class="fas fa-edit"></i></button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteItem('gallery', ${g.id}, loadGallery)"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>`).join('')
+        : `<tr><td colspan="6" style="text-align:center;padding:32px;color:#aaa;">No photos yet.</td></tr>`;
+    } catch { tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#aaa;padding:24px;">Failed to load.</td></tr>`; }
+}
+
+function editGallery(g) {
+    document.getElementById('galleryModalTitle').textContent = 'Edit Photo';
+    document.getElementById('galleryId').value = g.id;
+    setImageField('galleryImageUrl', g.imageUrl);
+    document.getElementById('galleryCaption').value = g.caption || '';
+    document.getElementById('galleryCategory').value = g.category || '';
+    document.getElementById('galleryOrder').value = g.displayOrder ?? 0;
+    document.getElementById('galleryPublished').value = String(g.published);
+    openModal('galleryModal');
+}
+
+async function saveGallery() {
+    const id = document.getElementById('galleryId').value;
+    const body = {
+        imageUrl: document.getElementById('galleryImageUrl').value,
+        caption: document.getElementById('galleryCaption').value,
+        category: document.getElementById('galleryCategory').value,
+        displayOrder: parseInt(document.getElementById('galleryOrder').value) || 0,
+        published: document.getElementById('galleryPublished').value === 'true'
+    };
+    try {
+        const res = await fetch(`${API}/api/gallery${id ? '/'+id : ''}`, {
+            method: id ? 'PUT' : 'POST',
+            headers: authHeaders(),
+            body: JSON.stringify(body)
+        });
+        if (!res.ok) throw new Error();
+        toast(id ? 'Photo updated!' : 'Photo added!');
+        closeModal('galleryModal');
+        document.getElementById('galleryId').value = '';
+        document.getElementById('galleryModalTitle').textContent = 'Add Photo';
+        loadGallery();
+    } catch { toast('Failed to save photo.', 'error'); }
+}
+
+// ── TEAM ─────────────────────────────────────────────────────
+async function loadTeam() {
+    const tbody = document.getElementById('teamTable');
+    try {
+        const data = await fetch(`${API}/api/team/all`, { headers: authHeaders() }).then(r => r.json());
+        document.getElementById('badge-team').textContent = data.length;
+        tbody.innerHTML = data.length ? data.map(m => `
+            <tr>
+                <td><strong>${m.name}</strong></td>
+                <td>${m.role}</td>
+                <td>${m.linkedinUrl ? `<a href="${m.linkedinUrl}" target="_blank" style="color:var(--primary);">View</a>` : '—'}</td>
+                <td>${m.displayOrder ?? 0}</td>
+                <td>${statusBadge(m.published)}</td>
+                <td style="display:flex;gap:6px;">
+                    <button class="btn btn-ghost btn-sm" onclick="editTeam(${JSON.stringify(m).replace(/"/g,'&quot;')})"><i class="fas fa-edit"></i></button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteItem('team', ${m.id}, loadTeam)"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>`).join('')
+        : `<tr><td colspan="6" style="text-align:center;padding:32px;color:#aaa;">No team members yet.</td></tr>`;
+    } catch { tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#aaa;padding:24px;">Failed to load.</td></tr>`; }
+}
+
+function editTeam(m) {
+    document.getElementById('teamModalTitle').textContent = 'Edit Member';
+    document.getElementById('teamId').value = m.id;
+    document.getElementById('teamName').value = m.name || '';
+    document.getElementById('teamRole').value = m.role || '';
+    document.getElementById('teamBio').value = m.bio || '';
+    setImageField('teamImage', m.imageUrl);
+    document.getElementById('teamLinkedin').value = m.linkedinUrl || '';
+    document.getElementById('teamTwitter').value = m.twitterUrl || '';
+    document.getElementById('teamOrder').value = m.displayOrder ?? 1;
+    document.getElementById('teamPublished').value = String(m.published);
+    openModal('teamModal');
+}
+
+async function saveTeam() {
+    const id = document.getElementById('teamId').value;
+    const body = {
+        name: document.getElementById('teamName').value,
+        role: document.getElementById('teamRole').value,
+        bio: document.getElementById('teamBio').value,
+        imageUrl: document.getElementById('teamImage').value,
+        linkedinUrl: document.getElementById('teamLinkedin').value,
+        twitterUrl: document.getElementById('teamTwitter').value,
+        displayOrder: parseInt(document.getElementById('teamOrder').value) || 1,
+        published: document.getElementById('teamPublished').value === 'true'
+    };
+    try {
+        const res = await fetch(`${API}/api/team${id ? '/'+id : ''}`, {
+            method: id ? 'PUT' : 'POST',
+            headers: authHeaders(),
+            body: JSON.stringify(body)
+        });
+        if (!res.ok) throw new Error();
+        toast(id ? 'Member updated!' : 'Member added!');
+        closeModal('teamModal');
+        document.getElementById('teamId').value = '';
+        document.getElementById('teamModalTitle').textContent = 'Add Team Member';
+        loadTeam();
+    } catch { toast('Failed to save member.', 'error'); }
+}
+
+// ── MEMBERSHIPS ──────────────────────────────────────────────
+async function loadMemberships() {
+    const tbody = document.getElementById('membershipsTable');
+    try {
+        const data = await fetch(`${API}/api/memberships`, { headers: authHeaders() }).then(r => r.json());
+        document.getElementById('badge-memberships').textContent = data.length;
+        tbody.innerHTML = data.length ? data.map(m => `
+            <tr>
+                <td><strong>${m.fullName || m.name || '—'}</strong></td>
+                <td>${m.email}</td>
+                <td>${m.phone || '—'}</td>
+                <td>${m.occupation || '—'}</td>
+                <td><span class="badge badge-${(m.status||'pending').toLowerCase()}">${m.status || 'PENDING'}</span></td>
+                <td style="display:flex;gap:4px;flex-wrap:wrap;">
+                    <button class="btn btn-secondary btn-sm" onclick="updateStatus('memberships', ${m.id}, 'APPROVED', loadMemberships)">Approve</button>
+                    <button class="btn btn-danger btn-sm" onclick="updateStatus('memberships', ${m.id}, 'REJECTED', loadMemberships)">Reject</button>
+                    <button class="btn btn-ghost btn-sm" onclick="deleteItem('memberships', ${m.id}, loadMemberships)"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>`).join('')
+        : `<tr><td colspan="6" style="text-align:center;padding:32px;color:#aaa;">No membership requests yet.</td></tr>`;
+    } catch { tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#aaa;padding:24px;">Failed to load.</td></tr>`; }
+}
+
+// ── PARTNERSHIPS ─────────────────────────────────────────────
+async function loadPartnerships() {
+    const tbody = document.getElementById('partnershipsTable');
+    try {
+        const data = await fetch(`${API}/api/partnerships`, { headers: authHeaders() }).then(r => r.json());
+        document.getElementById('badge-partnerships').textContent = data.length;
+        tbody.innerHTML = data.length ? data.map(p => `
+            <tr>
+                <td><strong>${p.fullName || '—'}</strong></td>
+                <td>${p.email}</td>
+                <td>${p.organization || '—'}</td>
+                <td>${p.partnershipType || '—'}</td>
+                <td><span class="badge badge-${(p.status||'pending').toLowerCase()}">${p.status || 'PENDING'}</span></td>
+                <td style="display:flex;gap:4px;flex-wrap:wrap;">
+                    <button class="btn btn-secondary btn-sm" onclick="updateStatus('partnerships', ${p.id}, 'APPROVED', loadPartnerships)">Approve</button>
+                    <button class="btn btn-danger btn-sm" onclick="updateStatus('partnerships', ${p.id}, 'REJECTED', loadPartnerships)">Reject</button>
+                    <button class="btn btn-ghost btn-sm" onclick="deleteItem('partnerships', ${p.id}, loadPartnerships)"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>`).join('')
+        : `<tr><td colspan="6" style="text-align:center;padding:32px;color:#aaa;">No partnership requests yet.</td></tr>`;
+    } catch { tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#aaa;padding:24px;">Failed to load.</td></tr>`; }
+}
+
+// ── NEWSLETTER ───────────────────────────────────────────────
+async function loadNewsletter() {
+    const tbody = document.getElementById('newsletterTable');
+    try {
+        const data = await fetch(`${API}/api/newsletter/subscribers`, { headers: authHeaders() }).then(r => r.json());
+        document.getElementById('badge-newsletter').textContent = data.length;
+        document.getElementById('subscriberCount').textContent = `${data.length} subscriber${data.length !== 1 ? 's' : ''}`;
+        tbody.innerHTML = data.length ? data.map(s => `
+            <tr>
+                <td>${s.email}</td>
+                <td>${fmtDate(s.subscribedAt || s.createdAt)}</td>
+                <td>
+                    <button class="btn btn-danger btn-sm" onclick="unsubscribe('${s.email}')">
+                        <i class="fas fa-user-minus"></i> Remove
+                    </button>
+                </td>
+            </tr>`).join('')
+        : `<tr><td colspan="3" style="text-align:center;padding:32px;color:#aaa;">No subscribers yet.</td></tr>`;
+    } catch { tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;color:#aaa;padding:24px;">Failed to load.</td></tr>`; }
+}
+
+async function unsubscribe(email) {
+    if (!confirm(`Remove ${email} from the newsletter?`)) return;
+    try {
+        await fetch(`${API}/api/newsletter/unsubscribe?email=${encodeURIComponent(email)}`, { headers: authHeaders() });
+        toast('Subscriber removed.');
+        loadNewsletter();
+    } catch { toast('Failed to remove subscriber.', 'error'); }
+}
+
+function sendMassEmail() {
+    const subject = document.getElementById('emailSubject').value.trim();
+    const body = document.getElementById('emailBody').value.trim();
+    if (!subject || !body) { toast('Please fill in subject and message.', 'error'); return; }
+
+    if (!confirm(`Send this newsletter to all subscribers?\n\nSubject: ${subject}`)) return;
+
+    const btn = document.querySelector('.email-composer .btn-primary');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Sending...';
+
+    fetch(`${API}/api/newsletter/send`, {
+        method: 'POST',
+        headers: authHeaders(),
+        body: JSON.stringify({ subject, body })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.error) throw new Error(data.error);
+        toast('Newsletter sent successfully to all subscribers! 🎉');
+        document.getElementById('emailSubject').value = '';
+        document.getElementById('emailBody').value = '';
+    })
+    .catch(err => {
+        toast(err.message || 'Failed to send newsletter.', 'error');
+    })
+    .finally(() => {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send to All Subscribers';
+    });
+}
+
+// ── SHARED DELETE / STATUS ────────────────────────────────────
+async function deleteItem(resource, id, reloader) {
+    if (!confirm('Are you sure you want to delete this item?')) return;
+    try {
+        const res = await fetch(`${API}/api/${resource}/${id}`, { method: 'DELETE', headers: authHeaders() });
+        if (!res.ok) throw new Error();
+        toast('Deleted successfully.');
+        reloader();
+        loadDashboard();
+    } catch { toast('Failed to delete.', 'error'); }
+}
+
+async function updateStatus(resource, id, status, reloader) {
+    try {
+        const res = await fetch(`${API}/api/${resource}/${id}/status?status=${status}`, { method: 'PATCH', headers: authHeaders() });
+        if (!res.ok) throw new Error();
+        toast(`Status updated to ${status}.`);
+        reloader();
+    } catch { toast('Failed to update status.', 'error'); }
+}
+
+// ── ANALYTICS CHART ──────────────────────────────────────────
+function buildChart() {
+    const chart = document.getElementById('trafficChart');
+    if (!chart) return;
+    const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun','Mon','Tue','Wed','Thu','Fri','Sat','Sun','Mon','Tue','Wed','Thu','Fri','Sat','Sun','Mon','Tue','Wed','Thu','Fri','Sat','Sun','Mon','Fri'];
+    const heights = [30,45,62,38,75,55,40,68,72,50,88,95,60,45,70,80,55,42,90,78,65,50,85,70,60,95,82,70,88,75];
+    chart.innerHTML = heights.map((h, i) => `
+        <div class="chart-bar" style="height:${h}%" data-label="${days[i] || ''}"></div>
+    `).join('');
+}
+
+// ── GOOGLE DRIVE URL CONVERTER ────────────────────────────────
+function extractDriveId(url) {
+    // Matches /file/d/FILE_ID/ and /open?id=FILE_ID and /uc?id=FILE_ID
+    const patterns = [
+        /\/file\/d\/([a-zA-Z0-9_-]{10,})/,
+        /[?&]id=([a-zA-Z0-9_-]{10,})/,
+        /\/d\/([a-zA-Z0-9_-]{10,})\//
+    ];
+    for (const p of patterns) {
+        const m = url.match(p);
+        if (m) return m[1];
+    }
+    return null;
+}
+
+function toDriveDirectUrl(fileId) {
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`;
+}
+function convertDriveUrl(input) {
+    const raw = input.value.trim();
+    const hint = input.nextElementSibling;
+    const preview = hint ? hint.nextElementSibling : null;
+
+    if (!raw) {
+        if (hint) { hint.textContent = ''; hint.className = 'drive-hint'; }
+        if (preview && preview.classList.contains('img-preview')) preview.style.display = 'none';
+        return;
+    }
+
+    // Already a direct Drive URL or non-Drive URL — leave as is
+    if (raw.includes('drive.google.com/thumbnail') || !raw.includes('drive.google.com')) {
+        if (hint) { hint.textContent = ''; hint.className = 'drive-hint plain'; }
+        showPreview(input, raw);
+        return;
+    }
+
+    const fileId = extractDriveId(raw);
+    if (fileId) {
+        const directUrl = toDriveDirectUrl(fileId);
+        input.value = directUrl;
+        if (hint) { hint.textContent = '✓ Converted to direct image URL'; hint.className = 'drive-hint converted'; }
+        showPreview(input, directUrl);
+    } else {
+        if (hint) { hint.textContent = 'Could not extract Drive file ID — check the link'; hint.className = 'drive-hint'; hint.style.color = '#e2725b'; }
+    }
+}
+
+function showPreview(input, url) {
+    const hint = input.nextElementSibling;
+    const preview = hint ? hint.nextElementSibling : null;
+    if (preview && preview.classList.contains('img-preview')) {
+        preview.src = url;
+        preview.style.display = 'block';
+        preview.onerror = () => { preview.style.display = 'none'; };
+    }
+}
+
+// Patch editX functions to also show preview when editing
+function setImageField(inputId, url) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    input.value = url || '';
+    if (url) showPreview(input, url);
+}
+
+
+document.getElementById('articleTitle').addEventListener('input', function() {
+    if (!document.getElementById('articleId').value) {
+        document.getElementById('articleSlug').value = this.value.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+    }
+});
+
+document.getElementById('courseTitle').addEventListener('input', function() {
+    if (!document.getElementById('courseId').value) {
+        document.getElementById('courseSlug').value = this.value.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+    }
+});
+</script>
+</body>
+</html>

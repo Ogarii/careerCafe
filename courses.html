@@ -23,7 +23,7 @@
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
-            </div>
+            </div>  
 
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="index.html">About</a></li>
@@ -70,97 +70,71 @@
             <p>Our on-demand courses empower you to build the skills, mindset, and confidence needed to thrive in today's fast-changing world. Whether you're a student, professional, or entrepreneur, these courses help you learn, grow, and lead — anytime, anywhere.</p>
         </div>
 
-        <div class="courses">
-            <div class="course-card">
-                <class="course-number">Course 1</span>
-                <h2>Women in Science, Technology, Engineering, and Mathematics (STEM): Innovation, Entrepreneurship, and Leadership for Change</h2>
-                <p>This on-demand course equips women in STEM with the skills, mindset, and confidence to lead innovation and entrepreneurial ventures that create real impact. Participants will explore leadership strategies, gender equity dynamics, and tools to translate scientific ideas into scalable solutions. Through mentorship and real-world examples, women will learn to navigate barriers, build strong networks, and drive inclusive change across technology and science sectors.</p>
-                
-                <div class="learning-outcomes">
-                    <h3>Learning Outcomes:</h3>
-                    <ul>
-                        <li>Build entrepreneurial and leadership skills tailored to women in STEM.</li>
-                        <li>Learn strategies to navigate gender barriers and lead inclusively.</li>
-                        <li>Transform scientific and technical ideas into viable innovations.</li>
-                        <li>Strengthen professional networks and mentorship pathways.</li>
-                    </ul>
-                </div>
+        <div class="courses" id="coursesContainer">
+            <div class="articles-loading" style="text-align:center;padding:3rem;">
+                <i class="fas fa-spinner fa-spin" style="font-size:2rem;color:#e2725b;"></i>
+                <p style="margin-top:1rem;">Loading courses...</p>
             </div>
-
-            <div class="course-card">
-                <span class="course-number">Course 2</span>
-                <h2>Youth Reimagined: Thinking Differently, Learning Boldly, and Leading with Confidence</h2>
-                <p>Designed for forward-thinking youth, this course helps participants cultivate critical thinking, creativity, and confidence to thrive in uncertain times. Learners will discover new ways of learning, unlearn limiting beliefs, and build skills for digital and real-world success. Through reflective practice, interactive content, and peer engagement, they'll unlock the mindset needed to lead, adapt, and shape the future on their own terms.</p>
-                
-                <div class="learning-outcomes">
-                    <h3>Learning Outcomes:</h3>
-                    <ul>
-                        <li>Develop critical thinking, problem-solving, and communication skills.</li>
-                        <li>Build confidence to lead and take initiative in any environment.</li>
-                        <li>Explore modern, experiential ways of learning and growing.</li>
-                        <li>Cultivate adaptability and a future-focused mindset in the digital era.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="course-card">
-                <span class="course-number">Course 3</span>
-                <h2>Global Public Health Entrepreneurship and Leadership</h2>
-                <p>This dynamic on-demand course bridges public health, innovation, and entrepreneurship. It equips professionals to identify opportunities, design scalable health solutions, and lead with integrity in resource-constrained settings. Participants will learn to apply business thinking to public health problems, strengthen leadership skills, and build sustainable models that improve health outcomes and social impact globally.</p>
-                
-                <div class="learning-outcomes">
-                    <h3>Learning Outcomes:</h3>
-                    <ul>
-                        <li>Understand how entrepreneurship can drive sustainable public health solutions.</li>
-                        <li>Learn leadership principles for managing complex health systems.</li>
-                        <li>Develop innovative business models for public health challenges.</li>
-                        <li>Strengthen strategic thinking, resource mobilization, and collaboration skills.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="course-card">
-                    <span class="course-number">Course 4</span>
-                    <h2>STEM Without Barriers: Empowering Persons Living With Disabilities Through Inclusive Skills for the Future</h2>
-                    <p>This special on-demand Career Café course embodies our unwavering commitment to equity, inclusion, and opportunity for all. STEM Without Barriers equips learners living with disabilities with practical, accessible, future-ready skills to thrive in science, technology, engineering, and mathematics. The Career Café prioritizes inclusive learning environments, adaptive tools, and equitable pathways that ensure every learner—regardless of ability—can participate, excel, and lead in the global STEM ecosystem.</p>
-                    
-                    <div class="learning-outcomes">
-                        <h3>Learning Outcomes:</h3>
-                        <ul>
-                            <li><b>Enhance foundational STEM competencies</b> through accessible, disability-inclusive teaching tools and practices.</li>
-                            <li><b>Build digital and technical skills</b> required for emerging STEM career pathways, including AI, data science, and innovation.</li>
-                            <li><b>Strengthen self-advocacy and career readiness</b>, enabling learners to navigate workplace environments confidently and assert their needs</li>
-                            <li><b>Promote inclusive leadership and problem-solving</b>, empowering participants to contribute to STEM advancement and champion accessibility in their fields</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <footer>
-            <p>&copy; 2025 The Career Café. All rights reserved.</p>
-        </footer>
+        </div>  
     </div>
 
-    <script>
-        // Mobile menu toggle
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
+    <footer>
+        <p>&copy; 2025 The Career Café. All rights reserved.</p>
+    </footer>
+</div>
 
-        if (hamburger && navMenu) {
-            hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('active');
-                navMenu.classList.toggle('active');
-            });
+<script>
+    const API_BASE = 'https://careercafe-backend-1.onrender.com';
 
-            // Close menu when clicking on a link
-            document.querySelectorAll('.nav-menu a').forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('active');
-                    navMenu.classList.remove('active');
-                });
-            });
+    async function loadCourses() {
+        const container = document.getElementById('coursesContainer');
+        try {
+            const res = await fetch(`${API_BASE}/api/courses`);
+            const courses = await res.json();
+
+            if (!courses.length) {
+                container.innerHTML = '<p style="text-align:center;padding:3rem;color:#888;">No courses available yet.</p>';
+                return;
+            }
+
+            container.innerHTML = courses.map((course, index) => `
+                <div class="course-card">
+                    <span class="course-number">Course ${index + 1}</span>
+                    <h2>${course.title}</h2>
+                    ${course.description ? `<p>${course.description}</p>` : ''}
+                    ${course.content ? `<div class="learning-outcomes">${course.content}</div>` : ''}
+                    <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;">
+                        ${course.duration ? `<span style="background:rgba(226,114,91,0.1);color:#e2725b;padding:4px 12px;border-radius:20px;font-size:0.85rem;">⏱ ${course.duration}</span>` : ''}
+                        ${course.level ? `<span style="background:rgba(85,107,47,0.1);color:#556b2f;padding:4px 12px;border-radius:20px;font-size:0.85rem;">${course.level}</span>` : ''}
+                        ${course.isFree ? `<span style="background:rgba(16,185,129,0.1);color:#10b981;padding:4px 12px;border-radius:20px;font-size:0.85rem;">Free</span>` : course.price ? `<span style="background:rgba(226,114,91,0.1);color:#e2725b;padding:4px 12px;border-radius:20px;font-size:0.85rem;">KES ${course.price}</span>` : ''}
+                    </div>
+                    ${course.enrollmentUrl ? `<a href="${course.enrollmentUrl}" class="btn btn-primary" style="margin-top:1.5rem;" target="_blank">Enroll Now</a>` : ''}
+                </div>
+            `).join('');
+
+        } catch (err) {
+            container.innerHTML = '<p style="text-align:center;padding:3rem;color:#888;">Could not load courses. Please try again later.</p>';
+            console.error('Courses fetch error:', err);
         }
-    </script>
+    }
+
+    loadCourses();
+
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+    }
+</script>
 </body>
 </html>

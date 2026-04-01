@@ -1067,7 +1067,24 @@
                     <div id="articleEditor" style="height:320px;border-radius:8px;font-family:'DM Sans',sans-serif;"></div>
                     <textarea id="articleContent" style="display:none;"></textarea>
                 </div>
-                <div class="form-group"><label>Image URL or Google Drive Link</label><input type="text" id="articleImage" placeholder="Paste Drive share link or direct URL" oninput="convertDriveUrl(this)"><small class="drive-hint"></small><img class="img-preview" alt="Preview"><img class="img-preview" alt="Preview"></div>
+
+                <div class="form-group">
+                    <label>Upload Image</label>
+                    <div id="articleUploadZone" style="border:2px dashed #e8e4de;border-radius:10px;padding:28px 20px;text-align:center;cursor:pointer;transition:border-color 0.2s;background:#faf8f6;" onclick="document.getElementById('articleFileInput').click()" ondragover="event.preventDefault();this.style.borderColor='var(--primary)'" ondragleave="this.style.borderColor='#e8e4de'" ondrop="handleArticleDrop(event)">
+                        <i class="fas fa-cloud-upload-alt" style="font-size:1.8rem;color:#ccc;margin-bottom:8px;display:block;"></i>
+                        <span style="font-size:0.85rem;color:#aaa;">Click or drag & drop an image here</span>
+                        <input type="file" id="articleFileInput" accept="image/*" style="display:none" onchange="uploadToCloudinary(this.files[0], CLOUDINARY_FOLDERS.article)">
+                    </div>
+                    <div id="articleUploadProgress" style="display:none;margin-top:10px;">
+                        <div style="background:#f0ede9;border-radius:20px;height:6px;overflow:hidden;">
+                            <div id="articleProgressBar" style="height:100%;width:0%;background:var(--primary);border-radius:20px;transition:width 0.3s;"></div>
+                        </div>
+                        <span id="articleUploadStatus" style="font-size:0.78rem;color:#888;margin-top:4px;display:block;">Uploading...</span>
+                    </div>
+                    <img id="articleUploadPreview" style="display:none;margin-top:10px;width:100%;max-height:160px;object-fit:cover;border-radius:8px;border:1px solid #e8e4de;" alt="Preview">
+                    <input type="hidden" id="articleImage">
+                </div>
+
                 <div class="form-group"><label>Status</label>
                     <select id="articlePublished">
                         <option value="false">Draft</option>
@@ -1179,7 +1196,22 @@
         <div class="modal-body">
             <input type="hidden" id="galleryId">
             <div class="form-grid">
-                <div class="form-group full"><label>Image URL or Google Drive Link *</label><input type="text" id="galleryImageUrl" placeholder="Paste Drive link or direct URL" oninput="convertDriveUrl(this)"><small class="drive-hint"></small><img class="img-preview" alt="Preview"></div>
+                <div class="form-group full">
+                    <label>Upload Image to Cloudinary</label>
+                    <div id="galleryUploadZone" style="border:2px dashed #e8e4de;border-radius:10px;padding:28px 20px;text-align:center;cursor:pointer;transition:border-color 0.2s;background:#faf8f6;" onclick="document.getElementById('galleryFileInput').click()" ondragover="event.preventDefault();this.style.borderColor='var(--primary)'" ondragleave="this.style.borderColor='#e8e4de'" ondrop="handleGalleryDrop(event)">
+                        <i class="fas fa-cloud-upload-alt" style="font-size:1.8rem;color:#ccc;margin-bottom:8px;display:block;"></i>
+                        <span style="font-size:0.85rem;color:#aaa;">Click or drag & drop an image here</span>
+                        <input type="file" id="galleryFileInput" accept="image/*" style="display:none" onchange="uploadToCloudinary(this.files[0], CLOUDINARY_FOLDERS.gallery)">
+                    </div>
+                    <div id="galleryUploadProgress" style="display:none;margin-top:10px;">
+                        <div style="background:#f0ede9;border-radius:20px;height:6px;overflow:hidden;">
+                            <div id="galleryProgressBar" style="height:100%;width:0%;background:var(--primary);border-radius:20px;transition:width 0.3s;"></div>
+                        </div>
+                        <span id="galleryUploadStatus" style="font-size:0.78rem;color:#888;margin-top:4px;display:block;">Uploading...</span>
+                    </div>
+                    <img id="galleryUploadPreview" style="display:none;margin-top:10px;width:100%;max-height:160px;object-fit:cover;border-radius:8px;border:1px solid #e8e4de;" alt="Preview">
+                    <input type="hidden" id="galleryImageUrl">
+                </div>
                 <div class="form-group full"><label>Caption</label><input type="text" id="galleryCaption" placeholder="Photo caption"></div>
                 <div class="form-group"><label>Category</label><input type="text" id="galleryCategory" placeholder="e.g. Workshops"></div>
                 <div class="form-group"><label>Display Order</label><input type="number" id="galleryOrder" placeholder="0" value="0"></div>
@@ -1211,7 +1243,22 @@
                 <div class="form-group"><label>Full Name *</label><input type="text" id="teamName" placeholder="Jane Mwangi"></div>
                 <div class="form-group"><label>Role *</label><input type="text" id="teamRole" placeholder="Executive Director"></div>
                 <div class="form-group full"><label>Bio</label><textarea id="teamBio" rows="3" placeholder="Short bio"></textarea></div>
-                <div class="form-group full"><label>Image URL or Google Drive Link</label><input type="text" id="teamImage" placeholder="Paste Drive link or direct URL" oninput="convertDriveUrl(this)"><small class="drive-hint"></small><img class="img-preview" alt="Preview"></div>
+                <div class="form-group full">
+                    <label>Upload Image</label>
+                    <div id="teamUploadZone" style="border:2px dashed #e8e4de;border-radius:10px;padding:28px 20px;text-align:center;cursor:pointer;transition:border-color 0.2s;background:#faf8f6;" onclick="document.getElementById('teamFileInput').click()" ondragover="event.preventDefault();this.style.borderColor='var(--primary)'" ondragleave="this.style.borderColor='#e8e4de'" ondrop="handleTeamDrop(event)">
+                        <i class="fas fa-cloud-upload-alt" style="font-size:1.8rem;color:#ccc;margin-bottom:8px;display:block;"></i>
+                        <span style="font-size:0.85rem;color:#aaa;">Click or drag & drop an image here</span>
+                        <input type="file" id="teamFileInput" accept="image/*" style="display:none" onchange="uploadToCloudinary(this.files[0], CLOUDINARY_FOLDERS.team)">
+                    </div>
+                    <div id="teamUploadProgress" style="display:none;margin-top:10px;">
+                        <div style="background:#f0ede9;border-radius:20px;height:6px;overflow:hidden;">
+                            <div id="teamProgressBar" style="height:100%;width:0%;background:var(--primary);border-radius:20px;transition:width 0.3s;"></div>
+                        </div>
+                        <span id="teamUploadStatus" style="font-size:0.78rem;color:#888;margin-top:4px;display:block;">Uploading...</span>
+                    </div>
+                    <img id="teamUploadPreview" style="display:none;margin-top:10px;width:100%;max-height:160px;object-fit:cover;border-radius:8px;border:1px solid #e8e4de;" alt="Preview">
+                    <input type="hidden" id="teamImage">
+                </div>
                 <div class="form-group"><label>LinkedIn URL</label><input type="url" id="teamLinkedin" placeholder="https://linkedin.com/in/..."></div>
                 <div class="form-group"><label>Twitter URL</label><input type="url" id="teamTwitter" placeholder="https://twitter.com/..."></div>
                 <div class="form-group"><label>Display Order</label><input type="number" id="teamOrder" placeholder="1" value="1"></div>
@@ -1240,6 +1287,13 @@
 <script>
 const API = 'https://careercafe-backend-1.onrender.com';
 let TOKEN = '';
+const CLOUDINARY_CLOUD = 'dye30eyym';
+const CLOUDINARY_PRESET = 'careercafe_gallery';
+const CLOUDINARY_FOLDERS = {
+    gallery: 'careerCafe/Gallery',
+    article: 'careerCafe/article',
+    team:    'careerCafe/team'
+};
 
 // ── QUILL EDITOR ─────────────────────────────────────────────
 let quill;
@@ -1261,6 +1315,128 @@ function initQuill() {
             ]
         }
     });
+}
+async function uploadToCloudinary(file, folder) {
+    if (!file) return;
+
+    const key = folder === CLOUDINARY_FOLDERS.gallery ? 'gallery'
+              : folder === CLOUDINARY_FOLDERS.article ? 'article'
+              : 'team';
+
+    const zone     = document.getElementById(`${key}UploadZone`);
+    const progress = document.getElementById(`${key}UploadProgress`);
+    const bar      = document.getElementById(`${key}ProgressBar`);
+    const status   = document.getElementById(`${key}UploadStatus`);
+    const preview  = document.getElementById(`${key}UploadPreview`);
+    const input    = document.getElementById(key === 'gallery' ? 'galleryImageUrl' : key === 'article' ? 'articleImage' : 'teamImage');
+
+    zone.style.display = 'none';
+    progress.style.display = 'block';
+    bar.style.width = '0%';
+    status.textContent = 'Uploading to Cloudinary...';
+    status.style.color = '#888';
+    bar.style.background = 'var(--primary)';
+
+    status.textContent = 'Compressing image...';
+    file = await compressImage(file);
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_PRESET);
+    formData.append('folder', folder);
+
+    try {
+        let fakeProgress = 0;
+        const ticker = setInterval(() => {
+            fakeProgress = Math.min(fakeProgress + 12, 85);
+            bar.style.width = fakeProgress + '%';
+        }, 150);
+
+        const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, {
+            method: 'POST',
+            body: formData
+        });
+        clearInterval(ticker);
+
+        if (!res.ok) throw new Error('Upload failed');
+        const data = await res.json();
+
+        bar.style.width = '100%';
+        status.textContent = '✓ Uploaded successfully';
+        status.style.color = 'var(--secondary)';
+
+        input.value = data.secure_url;
+        preview.src = data.secure_url;
+        preview.style.display = 'block';
+
+    } catch (e) {
+        status.textContent = '✗ Upload failed — check your preset name';
+        status.style.color = '#dc2626';
+        bar.style.background = '#dc2626';
+        zone.style.display = 'block';
+    }
+}
+
+function compressImage(file, maxSizeMB = 9) {
+    return new Promise((resolve) => {
+        const maxBytes = maxSizeMB * 1024 * 1024;
+        if (file.size <= maxBytes) { resolve(file); return; }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                let { width, height } = img;
+
+                // Scale down dimensions if very large
+                const MAX_DIM = 2000;
+                if (width > MAX_DIM || height > MAX_DIM) {
+                    if (width > height) { height = Math.round(height * MAX_DIM / width); width = MAX_DIM; }
+                    else { width = Math.round(width * MAX_DIM / height); height = MAX_DIM; }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+
+                // Try reducing quality until under maxSizeMB
+                let quality = 0.85;
+                const tryCompress = () => {
+                    canvas.toBlob((blob) => {
+                        if (blob.size <= maxBytes || quality <= 0.2) {
+                            resolve(new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), { type: 'image/jpeg' }));
+                        } else {
+                            quality -= 0.1;
+                            tryCompress();
+                        }
+                    }, 'image/jpeg', quality);
+                };
+                tryCompress();
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+function handleGalleryDrop(e) {
+    e.preventDefault();
+    document.getElementById('galleryUploadZone').style.borderColor = '#e8e4de';
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) uploadToCloudinary(file, CLOUDINARY_FOLDERS.gallery);
+}
+function handleArticleDrop(e) {
+    e.preventDefault();
+    document.getElementById('articleUploadZone').style.borderColor = '#e8e4de';
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) uploadToCloudinary(file, CLOUDINARY_FOLDERS.article);
+}
+
+function handleTeamDrop(e) {
+    e.preventDefault();
+    document.getElementById('teamUploadZone').style.borderColor = '#e8e4de';
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) uploadToCloudinary(file, CLOUDINARY_FOLDERS.team);
 }
 
 // ── AUTH ─────────────────────────────────────────────────────
@@ -1344,11 +1520,41 @@ function openModal(id) {
 function closeModal(id) {
     document.getElementById(id).classList.remove('open');
     // Clear hidden ID fields when modal closes
-    if (id === 'galleryModal') document.getElementById('galleryId').value = '';
-    if (id === 'articleModal') document.getElementById('articleId').value = '';
+    if (id === 'galleryModal') {
+        document.getElementById('galleryId').value = '';
+        document.getElementById('galleryImageUrl').value = '';
+        document.getElementById('galleryUploadPreview').style.display = 'none';
+        document.getElementById('galleryUploadProgress').style.display = 'none';
+        document.getElementById('galleryProgressBar').style.width = '0%';
+        document.getElementById('galleryProgressBar').style.background = 'var(--primary)';
+        document.getElementById('galleryUploadStatus').style.color = '#888';
+        document.getElementById('galleryUploadZone').style.display = 'block';
+        document.getElementById('galleryFileInput').value = '';
+    }
+    if (id === 'articleModal') {
+        document.getElementById('articleId').value = '';
+        document.getElementById('articleImage').value = '';
+        document.getElementById('articleUploadPreview').style.display = 'none';
+        document.getElementById('articleUploadProgress').style.display = 'none';
+        document.getElementById('articleProgressBar').style.width = '0%';
+        document.getElementById('articleProgressBar').style.background = 'var(--primary)';
+        document.getElementById('articleUploadStatus').style.color = '#888';
+        document.getElementById('articleUploadZone').style.display = 'block';
+        document.getElementById('articleFileInput').value = '';
+    }
     if (id === 'eventModal') document.getElementById('eventId').value = '';
     if (id === 'courseModal') document.getElementById('courseId').value = '';
-    if (id === 'teamModal') document.getElementById('teamId').value = '';
+    if (id === 'teamModal') {
+        document.getElementById('teamId').value = '';
+        document.getElementById('teamImage').value = '';
+        document.getElementById('teamUploadPreview').style.display = 'none';
+        document.getElementById('teamUploadProgress').style.display = 'none';
+        document.getElementById('teamProgressBar').style.width = '0%';
+        document.getElementById('teamProgressBar').style.background = 'var(--primary)';
+        document.getElementById('teamUploadStatus').style.color = '#888';
+        document.getElementById('teamUploadZone').style.display = 'block';
+        document.getElementById('teamFileInput').value = '';
+    }
 }
 
 // Close modal on overlay click
@@ -1482,7 +1688,16 @@ function editArticle(a) {
     document.getElementById('articleSlug').value = a.slug || '';
     document.getElementById('articleCategory').value = a.category || '';
     document.getElementById('articleSummary').value = a.summary || '';
-    setImageField('articleImage', a.imageUrl);
+    document.getElementById('articleImage').value = a.imageUrl || '';
+    if (a.imageUrl) {
+        document.getElementById('articleUploadZone').style.display = 'none';
+        document.getElementById('articleUploadPreview').src = a.imageUrl;
+        document.getElementById('articleUploadPreview').style.display = 'block';
+        document.getElementById('articleUploadProgress').style.display = 'block';
+        document.getElementById('articleUploadStatus').textContent = '✓ Existing image';
+        document.getElementById('articleUploadStatus').style.color = 'var(--secondary)';
+        document.getElementById('articleProgressBar').style.width = '100%';
+    }
     document.getElementById('articlePublished').value = String(a.published);
     openModal('articleModal');
     // Load content into Quill after modal opens
@@ -1682,11 +1897,20 @@ async function loadGallery() {
 function editGallery(g) {
     document.getElementById('galleryModalTitle').textContent = 'Edit Photo';
     document.getElementById('galleryId').value = g.id;
-    setImageField('galleryImageUrl', g.imageUrl);
     document.getElementById('galleryCaption').value = g.caption || '';
     document.getElementById('galleryCategory').value = g.category || '';
     document.getElementById('galleryOrder').value = g.displayOrder ?? 0;
     document.getElementById('galleryPublished').value = String(g.published);
+    document.getElementById('galleryImageUrl').value = g.imageUrl || '';
+    if (g.imageUrl) {
+        document.getElementById('galleryUploadZone').style.display = 'none';
+        document.getElementById('galleryUploadPreview').src = g.imageUrl;
+        document.getElementById('galleryUploadPreview').style.display = 'block';
+        document.getElementById('galleryUploadProgress').style.display = 'block';
+        document.getElementById('galleryUploadStatus').textContent = '✓ Existing image';
+        document.getElementById('galleryUploadStatus').style.color = 'var(--secondary)';
+        document.getElementById('galleryProgressBar').style.width = '100%';
+    }
     openModal('galleryModal');
 }
 
@@ -1742,7 +1966,16 @@ function editTeam(m) {
     document.getElementById('teamName').value = m.name || '';
     document.getElementById('teamRole').value = m.role || '';
     document.getElementById('teamBio').value = m.bio || '';
-    setImageField('teamImage', m.imageUrl);
+    document.getElementById('teamImage').value = m.imageUrl || '';
+if (m.imageUrl) {
+    document.getElementById('teamUploadZone').style.display = 'none';
+    document.getElementById('teamUploadPreview').src = m.imageUrl;
+    document.getElementById('teamUploadPreview').style.display = 'block';
+    document.getElementById('teamUploadProgress').style.display = 'block';
+    document.getElementById('teamUploadStatus').textContent = '✓ Existing image';
+    document.getElementById('teamUploadStatus').style.color = 'var(--secondary)';
+    document.getElementById('teamProgressBar').style.width = '100%';
+}
     document.getElementById('teamLinkedin').value = m.linkedinUrl || '';
     document.getElementById('teamTwitter').value = m.twitterUrl || '';
     document.getElementById('teamOrder').value = m.displayOrder ?? 1;

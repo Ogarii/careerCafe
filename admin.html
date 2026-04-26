@@ -203,6 +203,36 @@
 
         .content { padding: 32px; flex: 1; }
 
+        .admin-footer {
+            margin-top: auto;
+            padding: 18px 32px 24px;
+            border-top: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            font-size: 0.86rem;
+            color: #7d746d;
+        }
+
+        .admin-footer strong {
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .admin-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .admin-footer a:hover {
+            color: var(--secondary);
+        }
+
         /* ── PANELS ── */
         .panel { display: none; }
         .panel.active { display: block; }
@@ -1185,7 +1215,11 @@
         </div>
     </div>
 </div>
-
+    <footer class="admin-footer">
+        <div><strong>The Career Café Admin</strong> manages public content, community requests, and newsletter operations.</div>
+        <div><a href="index.html" target="_blank" rel="noopener">View live site</a></div>
+    </footer>
+</div>
 <!-- Gallery Modal -->
 <div class="modal-overlay" id="galleryModal">
     <div class="modal">

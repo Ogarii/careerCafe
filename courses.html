@@ -3,425 +3,340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses - The Career Café</title>
-    <link rel="icon" type="image/png" href="careerLogo.png">
+    <title>Courses - Career Cafe</title>
+    <link rel="icon" type="image/png" href="careerLogoNew.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Additional styles for dynamic loading */
-        .courses {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .course-card {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .course-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(226, 114, 91, 0.15);
-        }
-
-        .course-number {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .course-card h2 {
-            color: var(--dark);
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .course-card p {
-            color: var(--text-light);
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .learning-outcomes {
-            background: var(--gray);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin-top: 1rem;
-        }
-
-        .learning-outcomes h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .learning-outcomes ul {
-            margin-left: 1.5rem;
-            color: var(--text-light);
-        }
-
-        .learning-outcomes li {
-            margin-bottom: 0.5rem;
-            line-height: 1.5;
-        }
-
-        .course-meta {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin: 1rem 0;
-            padding: 1rem 0;
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.85rem;
-            color: var(--text-medium);
-        }
-
-        .meta-item i {
-            color: var(--primary);
-            width: 16px;
-        }
-
-        .course-tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin: 1rem 0;
-        }
-
-        .tag {
-            background: #f0f0f0;
-            padding: 0.25rem 0.75rem;
-            border-radius: 15px;
-            font-size: 0.75rem;
-            color: var(--text-medium);
-        }
-
-        .course-footer {
-            margin-top: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .course-price {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .course-price.free {
-            color: #10b981;
-        }
-
-        .enroll-btn {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .enroll-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(226, 114, 91, 0.4);
-        }
-
-        .loading-spinner {
-            text-align: center;
-            padding: 3rem;
-        }
-
-        .loading-spinner i {
-            font-size: 2rem;
-            color: var(--primary);
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .error-message {
-            text-align: center;
-            padding: 3rem;
-            color: #888;
-        }
-
-        .no-courses {
-            text-align: center;
-            padding: 3rem;
-            color: #888;
-        }
-
-        @media (max-width: 768px) {
-            .course-card {
-                padding: 1.5rem;
-            }
-            
-            .course-card h2 {
-                font-size: 1.25rem;
-            }
-            
-            .course-footer {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .enroll-btn {
-                text-align: center;
-                justify-content: center;
-            }
-        }
-    </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-            <a href="/" class="nav-logo img">
-                <img src="careerLogoNew.png" alt="Career Café Logo" class="logo-icon">
+            <a href="index.html" class="nav-logo">
+                <img src="careerLogoNew.png" alt="Career Cafe Logo" class="logo-icon">
+                <span class="brand-wordmark">
+                    <strong>Career Cafe</strong>
+                    <span>Courses</span>
+                </span>
             </a>
-
-            <!-- Hamburger button -->
-            <div class="hamburger" id="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-
+            <button class="hamburger" id="hamburger" type="button" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <ul class="nav-menu" id="nav-menu">
-                <li><a href="index.html">About</a></li>
+                <li><a href="index.html#about">About</a></li>
                 <li><a href="index.html#solution">Services</a></li>
-                <li><a href="index.html#partners">Partners</a></li>   
                 <li><a href="index.html#events">Events</a></li>
-                <li><a href="index.html#articles">Articles</a></li>
-                <li><a href="#" class="active">Courses</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="courses.html" class="active">Courses</a></li>
                 <li><a href="index.html#gallery">Gallery</a></li>
-                <li><a href="#team">Team</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
+    <header class="hero hero-courses">
         <div class="hero-background"></div>
-        <div class="container hero-content">
-            <h1 class="hero-title">The Career Café On-Demand Courses</h1>
-            <p class="subtitle">Learning that fits your pace, purpose, and passion</p>
-            <p class="hero-description">Unlock your potential with transformative courses designed for impact, innovation, and inclusive leadership.</p>
-            <div class="hero-stats">
-                <div class="stat">
-                    <i class="fas fa-graduation-cap"></i>
-                    <span class="stat-number" id="courseCount">0</span>
-                    <span class="stat-label" style="color: var(--primary-light);">Expert Courses</span>
+        <div class="container">
+            <div class="hero-shell">
+                <span class="hero-eyebrow"><i class="fas fa-graduation-cap"></i> Career Cafe Courses</span>
+                <h1 class="hero-title">Learn what moves your work forward.</h1>
+                <p class="hero-description">Practical, self-paced learning experiences for professionals, students, founders, and teams building with more clarity.</p>
+                <div class="hero-actions">
+                    <a href="#catalog" class="btn btn-primary"><i class="fas fa-book-open"></i> Browse Catalog</a>
+                    <a href="index.html#contact" class="btn btn-secondary"><i class="fas fa-paper-plane"></i> Request A Course</a>
                 </div>
-                <div class="stat">
-                    <i class="fas fa-clock"></i>
-                    <span class="stat-number">100%</span>
-                    <span class="stat-label" style="color: var(--primary-light);">Self-Paced</span>
-                </div>
-                <div class="stat">
-                    <i class="fas fa-certificate"></i>
-                    <span class="stat-number">Certified</span>
-                    <span class="stat-label" style="color: var(--primary-light);">Learning</span>
-                </div>
+                <p class="hero-note"><i class="fas fa-circle-check"></i> Structured for busy learners who need useful skills, not filler.</p>
             </div>
         </div>
-    </section>
+    </header>
 
-    <div class="container">
-        <div class="intro">
-            <p>Our on-demand courses empower you to build the skills, mindset, and confidence needed to thrive in today's fast-changing world. Whether you're a student, professional, or entrepreneur, these courses help you learn, grow, and lead — anytime, anywhere.</p>
+    <main class="courses-main">
+        <div class="container">
+            <section class="courses-overview">
+                <div class="overview-card">
+                    <span class="section-kicker"><i class="fas fa-compass"></i> Learning approach</span>
+                    <h2>Courses shaped around clarity, application, and momentum.</h2>
+                    <p>Each course is presented with cleaner structure, stronger visuals, and practical detail so learners can understand the value quickly and take action.</p>
+                    <div class="overview-grid">
+                        <div class="overview-item">
+                            <strong>Career-ready topics</strong>
+                            <span>Skills and habits that connect directly to work, leadership, employability, and entrepreneurship.</span>
+                        </div>
+                        <div class="overview-item">
+                            <strong>Flexible access</strong>
+                            <span>Built for self-paced learning across busy schedules and different career stages.</span>
+                        </div>
+                        <div class="overview-item">
+                            <strong>Practical structure</strong>
+                            <span>Course cards show duration, level, category, pricing, and enrollment clearly.</span>
+                        </div>
+                        <div class="overview-item">
+                            <strong>Room to expand</strong>
+                            <span>The catalog supports richer content, featured courses, and future categories.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="overview-stats">
+                    <span class="section-kicker"><i class="fas fa-chart-simple"></i> Catalog snapshot</span>
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <strong id="courseCount">0</strong>
+                            <span>Published courses</span>
+                        </div>
+                        <div class="stat-card">
+                            <strong id="categoryCount">0</strong>
+                            <span>Categories</span>
+                        </div>
+                        <div class="stat-card">
+                            <strong id="freeCount">0</strong>
+                            <span>Free options</span>
+                        </div>
+                        <div class="stat-card">
+                            <strong>100%</strong>
+                            <span>Self-paced format</span>
+                        </div>
+                    </div>
+                </aside>
+            </section>
+
+            <section class="catalog-section" id="catalog">
+                <div class="catalog-header">
+                    <div>
+                        <span class="section-kicker"><i class="fas fa-book"></i> Course catalog</span>
+                        <h2>Choose the next skill that moves your work forward.</h2>
+                    </div>
+                    <div class="catalog-meta">
+                        <span class="catalog-chip"><i class="fas fa-filter"></i> Curated growth</span>
+                        <span class="catalog-chip"><i class="fas fa-wifi"></i> Learn anywhere</span>
+                    </div>
+                </div>
+
+                <div class="featured-course" id="featuredCourse"></div>
+
+                <div class="courses-grid" id="coursesContainer">
+                    <div class="loading-state">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Loading current courses...</p>
+                    </div>
+                </div>
+            </section>
         </div>
+    </main>
 
-        <div class="courses" id="coursesContainer">
-            <div class="loading-spinner">
-                <i class="fas fa-spinner fa-spin"></i>
-                <p style="margin-top: 1rem;">Loading courses...</p>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="site-footer-top">
+                <div class="site-footer-brand">
+                    <a href="index.html" class="site-footer-mark">
+                        <img src="careerLogoNew.png" alt="Career Cafe Logo">
+                        <span class="site-footer-mark-text">
+                            <strong>Career Cafe</strong>
+                            <span>Build With Purpose</span>
+                        </span>
+                    </a>
+                    <p class="site-footer-copy">Self-paced learning, practical guidance, and career-building support for professionals who want growth with clarity.</p>
+                </div>
+                <div>
+                    <h3 class="site-footer-title">Explore</h3>
+                    <ul class="site-footer-links">
+                        <li><a href="index.html#about">About</a></li>
+                        <li><a href="articles.html">Articles</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="index.html#events">Events</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="site-footer-title">Contact</h3>
+                    <ul class="site-footer-contact">
+                        <li><a href="mailto:careercafeke@gmail.com">careercafeke@gmail.com</a></li>
+                        <li><a href="tel:+254720087837">+254 720 087837</a></li>
+                        <li><a href="index.html#contact">Send us a message</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="site-footer-title">Follow</h3>
+                    <div class="site-footer-socials">
+                        <a href="https://www.linkedin.com/in/the-career-caf%C3%A9-africa-a63269370" class="site-footer-social" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://whatsapp.com/channel/0029Vb6zUUTDeON0FtpHPW2P" class="site-footer-social" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/thecareercafeafrica?igsh=M2wyendibDhuNHI0&utm_source=qr" class="site-footer-social" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="site-footer-bottom">
+                <p>&copy; 2026 Career Cafe. All rights reserved.</p>
+                <p class="site-footer-tagline">Learning that fits your pace, purpose, and passion.</p>
             </div>
         </div>
-
-        <footer>
-            <p>&copy; 2025 The Career Café. All rights reserved.</p>
-        </footer>
-    </div>
+    </footer>
 
     <script>
         const API_BASE = 'https://careercafe-backend-1.onrender.com';
+        const FALLBACK_IMAGES = [
+            'images/8Z9A1740.jpg',
+            'images/345A4619.jpg',
+            'images/8Z9A1636.jpg',
+            'images/345A4668.jpg'
+        ];
 
         async function loadCourses() {
             const container = document.getElementById('coursesContainer');
-            
+            const featuredContainer = document.getElementById('featuredCourse');
             try {
                 const response = await fetch(`${API_BASE}/api/courses`);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 const courses = await response.json();
-
-                // Update course count in hero stats
-                const courseCountElement = document.getElementById('courseCount');
-                if (courseCountElement) {
-                    courseCountElement.textContent = courses.length;
-                }
-
-                if (!courses || courses.length === 0) {
+                const publishedCourses = Array.isArray(courses) ? courses.filter(course => course && course.published !== false) : [];
+                updateStats(publishedCourses);
+                if (!publishedCourses.length) {
+                    featuredContainer.classList.remove('active');
+                    featuredContainer.innerHTML = '';
                     container.innerHTML = `
                         <div class="no-courses">
-                            <i class="fas fa-book-open" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
-                            <p>No courses available yet. Check back soon for exciting new content!</p>
-                        </div>
-                    `;
+                            <i class="fas fa-book-open" style="font-size: 2rem; color: var(--primary);"></i>
+                            <p>No published courses are available yet. Check back soon for fresh learning opportunities.</p>
+                            <a href="index.html#contact" class="ghost-btn">Ask About Upcoming Courses</a>
+                        </div>`;
                     return;
                 }
-
-                // Filter only published courses
-                const publishedCourses = courses.filter(course => course.published !== false);
-                
-                if (publishedCourses.length === 0) {
-                    container.innerHTML = `
-                        <div class="no-courses">
-                            <i class="fas fa-hourglass-half" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
-                            <p>Courses are being prepared. Stay tuned!</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                // Render courses
-                container.innerHTML = publishedCourses.map((course, index) => `
-                    <div class="course-card">
-                        <span class="course-number">Course ${index + 1}</span>
-                        <h2>${escapeHtml(course.title)}</h2>
-                        <p>${escapeHtml(course.description || 'No description available.')}</p>
-                        
-                        ${course.content ? `
-                            <div class="learning-outcomes">
-                                ${course.content}
-                            </div>
-                        ` : ''}
-                        
-                        ${course.tags ? `
-                            <div class="course-tags">
-                                ${course.tags.split(',').map(tag => `<span class="tag">${escapeHtml(tag.trim())}</span>`).join('')}
-                            </div>
-                        ` : ''}
-                        
-                        <div class="course-meta">
-                            ${course.duration ? `
-                                <div class="meta-item">
-                                    <i class="fas fa-clock"></i>
-                                    <span>${escapeHtml(course.duration)}</span>
-                                </div>
-                            ` : ''}
-                            ${course.level ? `
-                                <div class="meta-item">
-                                    <i class="fas fa-chart-line"></i>
-                                    <span>${escapeHtml(course.level)}</span>
-                                </div>
-                            ` : ''}
-                            ${course.category ? `
-                                <div class="meta-item">
-                                    <i class="fas fa-tag"></i>
-                                    <span>${escapeHtml(course.category)}</span>
-                                </div>
-                            ` : ''}
-                            ${course.instructor ? `
-                                <div class="meta-item">
-                                    <i class="fas fa-user-tie"></i>
-                                    <span>${escapeHtml(course.instructor)}</span>
-                                </div>
-                            ` : ''}
-                        </div>
-                        
-                        <div class="course-footer">
-                            <div class="course-price ${course.isFree ? 'free' : ''}">
-                                ${course.isFree ? 'FREE' : `KES ${formatPrice(course.price)}`}
-                            </div>
-                            <div class="coming-soon-badge">
-                                <i class="fas fa-hourglass-half"></i> Enrollment opening soon
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-
+                const [featuredCourse, ...remainingCourses] = publishedCourses;
+                renderFeaturedCourse(featuredCourse);
+                container.innerHTML = (remainingCourses.length ? remainingCourses : [featuredCourse]).map((course, index) => renderCourseCard(course, index + 1)).join('');
             } catch (error) {
-                console.error('Courses fetch error:', error);
+                featuredContainer.classList.remove('active');
+                featuredContainer.innerHTML = '';
                 container.innerHTML = `
                     <div class="error-message">
-                        <i class="fas fa-exclamation-circle" style="font-size: 3rem; margin-bottom: 1rem; color: #e2725b;"></i>
-                        <p>Unable to load courses. Please check your connection and try again.</p>
-                        <button onclick="location.reload()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: #e2725b; color: white; border: none; border-radius: 8px; cursor: pointer;">
-                            Retry
-                        </button>
-                    </div>
-                `;
+                        <i class="fas fa-exclamation-circle" style="font-size: 2rem; color: var(--primary);"></i>
+                        <p>Unable to load courses right now. Please check your connection and try again.</p>
+                        <button onclick="location.reload()" class="retry-btn">Retry</button>
+                    </div>`;
             }
         }
 
-        // Helper function to escape HTML special characters
+        function updateStats(courses) {
+            document.getElementById('courseCount').textContent = courses.length;
+            document.getElementById('categoryCount').textContent = new Set(courses.map(course => normalizeText(course.category)).filter(Boolean)).size;
+            document.getElementById('freeCount').textContent = courses.filter(course => course.isFree || Number(course.price) === 0).length;
+        }
+
+        function renderFeaturedCourse(course) {
+            const featuredContainer = document.getElementById('featuredCourse');
+            const imageUrl = getCourseImage(course, 0);
+            const safeEnrollUrl = sanitizeUrl(course.enrollmentUrl);
+            featuredContainer.classList.add('active');
+            featuredContainer.innerHTML = `
+                <div class="featured-media">
+                    <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(course.title || 'Featured course')}">
+                    <span class="featured-badge"><i class="fas fa-star"></i> Featured course</span>
+                </div>
+                <div class="featured-content">
+                    <div class="featured-summary">
+                        ${course.category ? `<span class="tag"><i class="fas fa-tag"></i>${escapeHtml(course.category)}</span>` : ''}
+                        ${course.level ? `<span class="tag"><i class="fas fa-signal"></i>${escapeHtml(course.level)}</span>` : ''}
+                        ${course.duration ? `<span class="tag"><i class="fas fa-clock"></i>${escapeHtml(course.duration)}</span>` : ''}
+                    </div>
+                    <h3>${escapeHtml(course.title || 'Untitled course')}</h3>
+                    <p>${escapeHtml(course.description || 'A focused learning experience designed to help you build relevant skills with clarity and momentum.')}</p>
+                    ${course.content ? `<div class="learning-outcomes">${course.content}</div>` : ''}
+                    <div class="course-footer" style="padding:0;">
+                        <div class="course-status">${course.isFree || Number(course.price) === 0 ? 'Open access course' : `KES ${formatPrice(course.price)}`}</div>
+                        ${safeEnrollUrl ? `<a href="${escapeAttribute(safeEnrollUrl)}" class="enroll-btn" target="_blank" rel="noopener">Enroll Now</a>` : `<a href="index.html#contact" class="ghost-btn">Ask About Enrollment</a>`}
+                    </div>
+                </div>`;
+        }
+
+        function renderCourseCard(course, displayIndex) {
+            const imageUrl = getCourseImage(course, displayIndex);
+            const safeEnrollUrl = sanitizeUrl(course.enrollmentUrl);
+            const tags = typeof course.tags === 'string' ? course.tags.split(',').map(tag => tag.trim()).filter(Boolean).slice(0, 4) : [];
+            const metaItems = [
+                course.duration ? `<span class="meta-item"><i class="fas fa-clock"></i>${escapeHtml(course.duration)}</span>` : '',
+                course.instructor ? `<span class="meta-item"><i class="fas fa-user-tie"></i>${escapeHtml(course.instructor)}</span>` : '',
+                course.category ? `<span class="meta-item"><i class="fas fa-briefcase"></i>${escapeHtml(course.category)}</span>` : ''
+            ].filter(Boolean).join('');
+            return `
+                <article class="course-card">
+                    <div class="course-visual">
+                        <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(course.title || 'Course image')}">
+                        <div class="course-overlay">
+                            <span class="course-index">Course ${displayIndex}</span>
+                            <span class="course-price ${course.isFree || Number(course.price) === 0 ? 'free' : ''}">${course.isFree || Number(course.price) === 0 ? 'Free' : `KES ${formatPrice(course.price)}`}</span>
+                        </div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-topline">
+                            <span class="course-category">${course.category ? escapeHtml(course.category) : 'Career growth'}</span>
+                            ${course.level ? `<span class="course-level">${escapeHtml(course.level)}</span>` : ''}
+                        </div>
+                        <h3>${escapeHtml(course.title || 'Untitled course')}</h3>
+                        <p>${escapeHtml(course.description || 'No description available yet.')}</p>
+                    </div>
+                    ${metaItems ? `<div class="course-meta">${metaItems}</div>` : ''}
+                    ${tags.length ? `<div class="course-tags">${tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}</div>` : ''}
+                    ${course.content ? `<div class="learning-outcomes">${course.content}</div>` : ''}
+                    <div class="course-footer">
+                        <div class="course-status">${safeEnrollUrl ? 'Enrollment available' : 'Enrollment opening soon'}</div>
+                        ${safeEnrollUrl ? `<a href="${escapeAttribute(safeEnrollUrl)}" class="enroll-btn" target="_blank" rel="noopener">Enroll</a>` : `<a href="index.html#contact" class="ghost-btn">Get Notified</a>`}
+                    </div>
+                </article>`;
+        }
+
+        function getCourseImage(course, index) {
+            const explicitImage = sanitizeUrl(course && course.imageUrl);
+            return explicitImage || FALLBACK_IMAGES[index % FALLBACK_IMAGES.length];
+        }
+
+        function sanitizeUrl(url) {
+            if (!url || typeof url !== 'string') return '';
+            try {
+                const parsed = new URL(url, window.location.origin);
+                if (parsed.protocol === 'http:' || parsed.protocol === 'https:') return parsed.href;
+            } catch (error) {
+                return '';
+            }
+            return '';
+        }
+
+        function normalizeText(value) {
+            return typeof value === 'string' ? value.trim().toLowerCase() : '';
+        }
+
         function escapeHtml(text) {
-            if (!text) return '';
+            if (text === null || text === undefined) return '';
             const div = document.createElement('div');
-            div.textContent = text;
+            div.textContent = String(text);
             return div.innerHTML;
         }
 
-        // Helper function to format price
-        function formatPrice(price) {
-            if (!price) return '0';
-            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        function escapeAttribute(text) {
+            return escapeHtml(text).replace(/"/g, '&quot;');
         }
 
-        // Load courses when page loads
-        document.addEventListener('DOMContentLoaded', loadCourses);
+        function formatPrice(price) {
+            const numericPrice = Number(price);
+            if (!Number.isFinite(numericPrice) || numericPrice <= 0) return '0';
+            return numericPrice.toLocaleString('en-KE');
+        }
 
-        // Mobile menu toggle
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-
-        if (hamburger && navMenu) {
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCourses();
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
             hamburger.addEventListener('click', () => {
                 hamburger.classList.toggle('active');
                 navMenu.classList.toggle('active');
             });
-
-            // Close menu when clicking on a link
-            document.querySelectorAll('.nav-menu a').forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('active');
-                    navMenu.classList.remove('active');
-                });
+            navMenu.addEventListener('click', event => {
+                if (!event.target.closest('a')) return;
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
             });
-        }
+        });
     </script>
 </body>
 </html>

@@ -1,1167 +1,993 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Career Café - Build a Career with Purpose</title>
-        <link rel="icon" type="image/png" href="./careerLogoNew.png">
-        <link rel="stylesheet" href="./styles.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        
-    </head>
-    <body>
-        <!-- Navigation -->
-        <nav class="navbar">
-            <div class="container">
-                <a href="/" class="nav-logo img">
-                    <img src="careerLogoNew.png" alt="Career Café Logo" class="logo-icon">
-                </a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Cafe - Build a Career with Purpose</title>
+    <link rel="icon" type="image/png" href="./careerLogoNew.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo">
+                <img src="careerLogoNew.png" alt="Career Cafe Logo" class="logo-icon">
+                <span class="brand-wordmark">
+                    <strong>Career Cafe</strong>
+                    <span>Africa</span>
+                </span>
+            </a>
 
-                <!-- Hamburger button -->
-                <div class="hamburger" id="hamburger">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
+            <button class="hamburger" id="hamburger" type="button" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
 
-                <ul class="nav-menu" id="nav-menu">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#solution">Services</a></li>
-                    <li><a href="#partners">Partners</a></li>   
-                    <li><a href="#events">Events</a></li>
-                    <li><a href="#articles">Articles</a></li>
-                    <li><a href="courses.html">Courses</a></li> 
-                    <li><a href="#gallery">Gallery</a></li>
-                    <li><a href="#team">Team</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-        </nav>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#about">About</a></li>
+                <li><a href="#solution">Services</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#articles">Articles</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-background"></div>
-            <div class="container hero-content">
-                <h1 class="hero-title">Build a Career with Purpose</h1>
-                <p class="hero-subtitle">Join Africa's fastest-growing career growth and networking platform for ambitious professionals.</p>
+    <header class="hero">
+        <div class="hero-background"></div>
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-eyebrow"><i class="fas fa-mug-hot"></i> Career Cafe Africa</span>
+                <h1 class="hero-title">Build a career with purpose.</h1>
+                <p class="hero-subtitle">A career growth, mentorship, events, and learning community for ambitious professionals across Africa.</p>
                 <div class="hero-buttons">
-                    <a href="#" class="btn btn-primary" id="openMemberModal">Become a Member</a>
-                    <a href="#partners" class="btn btn-secondary" id="openPartnerModal">Partner With Us</a>
+                    <a href="#" class="btn btn-primary" id="openMemberModal"><i class="fas fa-user-plus"></i> Become a Member</a>
+                    <a href="#partners" class="btn btn-secondary" id="openPartnerModal"><i class="fas fa-handshake"></i> Partner With Us</a>
                 </div>
-
-                <!-- Member Modal -->
-                <div class="modal" id="memberModal" aria-hidden="true">
-                    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="memberModalTitle">
-                        <h3 id="memberModalTitle">Become a Member</h3>
-                        <p class="modal-subtext">
-                            Join The Career Café community and start building a career with purpose. 
-                            Get access to exclusive webinars, mentorship, and growth tools designed to help you stand out.
-                        </p>
-
-                        <form id="memberForm">
-                            <div class="form-row">
-                                <input type="text" id="memberFullName" placeholder="Full Name" required>
-                                <input type="email" id="memberEmail" placeholder="Email Address" required>
-                            </div>
-
-                            <div class="form-row">
-                                <input type="tel" id="memberPhone" placeholder="Phone Number (WhatsApp preferred)" required>
-                                <input type="text" id="memberLocation" placeholder="City / Country">
-                            </div>
-
-                            <input type="text" id="memberOccupation" placeholder="Occupation / Field of Work" style="width:100%; margin-bottom:1rem;" required>
-
-                            <div class="form-group">
-                                <label for="memberLevel">Career Level</label>
-                                <select id="memberLevel">
-                                    <option value="">Select career level</option>
-                                    <option value="Student">Student</option>
-                                    <option value="Entry-level">Entry-level</option>
-                                    <option value="Mid-level">Mid-level</option>
-                                    <option value="Senior">Senior</option>
-                                    <option value="Entrepreneur">Entrepreneur</option>
-                                </select>
-                            </div>
-
-                            <textarea id="memberReason" placeholder="Why do you want to join The Career Café?" rows="4" required></textarea>
-
-                            <div class="form-group">
-                                <label for="membershipPlan">Preferred Membership Plan</label>
-                                <select id="membershipPlan">
-                                    <option value="">Select a plan</option>
-                                    <option value="Free">Free</option>
-                                    <option value="Standard">Standard</option>
-                                    <option value="Premium">Premium</option>
-                                </select>
-                            </div>
-
-                            <div class="form-checkbox">
-                                <label>
-                                    <input type="checkbox" id="memberConsent" required>
-                                    I agree to receive updates, event invites, and newsletters from The Career Café.
-                                </label>
-                            </div>
-
-                            <div class="modal-actions">
-                                <button type="button" class="btn btn-alternate" id="memberCancel">Cancel</button>
-                                <button type="button" class="btn btn-primary" id="memberSubmit" onclick="submitMembership()">Join Now</button>
-                            </div>
-                        </form>
-                    </div>
+            </div>
+            <div class="hero-proof" aria-label="Career Cafe reach">
+                <div class="stat">
+                    <strong>500+</strong>
+                    <span>Professionals engaged</span>
                 </div>
+                <div class="stat">
+                    <strong>1,000+</strong>
+                    <span>Projected members</span>
+                </div>
+                <div class="stat">
+                    <strong>Africa</strong>
+                    <span>Built for regional growth</span>
+                </div>
+            </div>
+        </div>
+    </header>
 
-                <!-- Partner Modal -->
-                <div class="modal" id="partnerModal" aria-hidden="true">
-                    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="partnerModalTitle">
-                        <h3 id="partnerModalTitle">Partner With Us</h3>
-                        <p class="modal-subtext">
-                            Collaborate with The Career Café to empower professionals and build meaningful career experiences. 
-                            Whether you're a brand, institution, or individual, let's grow together.
-                        </p>
-
-                        <form id="partnerForm">
-                            <div class="form-row">
-                                <input type="text" id="partnerFullName" placeholder="Full Name" required>
-                                <input type="text" id="partnerOrganization" placeholder="Organization / Brand Name" required>
-                            </div>
-
-                            <div class="form-row">
-                                <input type="text" id="partnerRole" placeholder="Role / Designation">
-                                <input type="email" id="partnerEmail" placeholder="Email Address" required>
-                            </div>
-
-                            <div class="form-row">
-                                <input type="tel" id="partnerPhone" placeholder="Phone Number">
-                                <input type="url" id="partnerWebsite" placeholder="Website / Social Media Links">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="partnershipType">Type of Partnership</label>
-                                <select id="partnershipType">
-                                    <option value="">Select partnership type</option>
-                                    <option value="Sponsorship">Sponsorship</option>
-                                    <option value="Event Collaboration">Event Collaboration</option>
-                                    <option value="Internship">Internship</option>
-                                    <option value="Training">Training</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-
-                            <textarea id="partnerMessage" placeholder="Brief Description of Partnership Idea" rows="5" required></textarea>
-
-                            <div class="form-checkbox">
-                                <label>
-                                    <input type="checkbox" id="partnerConsent" required>
-                                    I consent to The Career Café contacting me regarding partnership opportunities.
-                                </label>
-                            </div>
-
-                            <div class="modal-actions">
-                                <button type="button" class="btn btn-alternate" id="partnerCancel">Cancel</button>
-                                <button type="button" class="btn btn-primary" onclick="submitPartnership()">Submit Partnership Request</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>  
-
-                <!-- Toast notification (outside modals) -->
-                <div id="formToast" style="display:none; position:fixed; left:50%; bottom:30px; transform:translateX(-50%); background:#10b981; color:#fff; padding:16px 24px; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:9999; font-size:1rem; font-weight:500;">✓ Thank you! We'll be in touch soon.</div>
-
+    <main>
+        <section id="about" class="section section-alt">
+            <div class="container about-layout">
+                <div class="about-copy">
+                    <span class="section-kicker"><i class="fas fa-compass"></i> About us</span>
+                    <h2 class="hero-title" style="color: var(--dark); font-size: clamp(2.7rem, 5vw, 5.2rem);">Clarity, confidence, competence.</h2>
+                    <p>The Career Cafe is redefining how professionals build meaningful and purpose-driven careers. We support young people and professionals at entry, mid, senior, and executive levels as they pursue the work they deserve.</p>
+                    <p>Our work combines mentorship, practical training, community, workplace wellness, and employer partnerships. We are especially attentive to the unique barriers women face in career growth and leadership.</p>
+                </div>
+                <aside class="mission-strip">
+                    <span class="section-kicker"><i class="fas fa-bullseye"></i> Our mission</span>
+                    <strong>To nurture clarity, confidence, competence, and workplace wellness for thriving careers and thriving organizations.</strong>
+                </aside>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="section about">
+        <section class="section">
             <div class="container">
                 <div class="section-header">
-                    <h2>About Us</h2>
-                    <div class="underline"></div>
-                </div>
-                <p class="about-text spaced-bottom" style="text-align: justify;">The Career Café is redefining how professionals everywhere build meaningful and purpose-driven careers. We are intentional in supporting youths and professionals at all career stages: entry, mid, senior, and executive—in securing the jobs they deserve.</p>
-
-                <p class="about-text spaced-bottom" style="text-align: justify;">We are aware that women face unique challenges, and our philosophy is not only sensitive, but is guided by this reality.</p>
-
-                <p class="about-text spaced-bottom" style="text-align: justify;">We help individuals craft compelling CVs, access mentorship, and benefit from targeted, on-demand training to enhance personal and professional growth.</p>
-
-                <p class="about-text spaced-bottom" style="text-align: justify;">For employers, we provide tailored programs to attract, retain, and empower top talent, emphasizing that employees are an organization's greatest asset.</p>
-
-                <style>
-                    .mission-highlight{
-                        background: linear-gradient(135deg, rgba(226, 114, 91, 0.12), rgba(255, 209, 102, 0.08));
-                        border: 2px solid var(--primary);
-                        padding: 2rem 2.5rem;
-                        border-radius: 20px;
-                        transition: all 0.3s ease;
-                        cursor: pointer;
-                        max-width: 900px;
-                        margin: 1.5rem auto 2rem;
-                        text-align: center;
-                        color: var(--primary);
-                        position: relative;
-                        overflow: hidden;
-                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-                    }
-                    .mission-highlight::before {
-                        content: '';
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        height: 4px;
-                        background: linear-gradient(90deg, var(--primary), var(--accent));
-                        transform: scaleX(0);
-                        transition: transform 0.4s ease;
-                    }
-                    .mission-highlight:hover,
-                    .mission-highlight:focus{
-                        transform: translateY(-8px) scale(1.02);
-                        box-shadow: 0 20px 40px rgba(226, 114, 91, 0.2);
-                        background: linear-gradient(135deg, rgba(226, 114, 91, 0.15), rgba(255, 209, 102, 0.1));
-                        border-color: rgba(226, 114, 91, 0.4);
-                        outline: none;
-                    }
-                    .mission-highlight:hover::before {
-                        transform: scaleX(1);
-                    }
-                    .mission-title{
-                        font-weight: 800;
-                        display: block;
-                        font-size: 1.8rem;
-                        margin-bottom: 1rem;
-                        text-transform: uppercase;
-                        letter-spacing: 1px;
-                        background: linear-gradient(90deg, var(--primary), var(--accent));
-                        -webkit-background-clip: text;
-                        -webkit-text-fill-color: transparent;
-                        background-clip: text;
-                    }
-                    .mission-text{
-                        display: block;
-                        max-width: 800px;
-                        margin: 0 auto;
-                        color: var(--primary);
-                        font-size: 1.4rem;
-                        line-height: 1.6;
-                        font-weight: 500;
-                    }
-                    .mission-icon {
-                        font-size: 2.5rem;
-                        margin-bottom: 1rem;
-                        display: block;
-                    }
-                    @media (max-width: 768px) {
-                        .mission-highlight {
-                            padding: 1.5rem;
-                        }
-                        .mission-title {
-                            font-size: 1.5rem;
-                        }
-                        .mission-text {
-                            font-size: 1.2rem;
-                        }
-                        .mission-icon {
-                            font-size: 2rem;
-                        }
-                    }
-                </style>
-
-                <div class="mission-highlight" role="button" tabindex="0" aria-label="Our Mission">
-                    <span class="mission-title">Our Mission</span>
-                    <span class="mission-text">
-                        To nurture clarity, confidence, competence, and workplace wellness for thriving careers and thriving organizations.
-                    </span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Problem Section -->
-        <section class="section problem">
-            <div class="container">
-                <div class="section-header">
-                    <h2>The Challenge We're Solving</h2>
-                    <div class="underline"></div>
+                    <div>
+                        <span class="section-kicker"><i class="fas fa-triangle-exclamation"></i> The challenge</span>
+                        <h2>Talent is everywhere. Guidance is not.</h2>
+                    </div>
+                    <p>Africa has a young, ambitious workforce, but too many professionals are navigating opportunity without structured guidance, mentors, networks, or workplace support.</p>
                 </div>
                 <div class="cards">
-                    <div class="card" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
-                        <div class="card-icon" style="font-size:2.2rem; margin-bottom:0.75rem; display:block; text-align:center;">👥</div>
-                        <h3>Young Workforce, Limited Guidance</h3>
-                        <p>Africa has the world's youngest workforce but limited access to structured career guidance.</p>
-                    </div>
-                    <div class="card" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
-                        <div class="card-icon" style="font-size:2.2rem; margin-bottom:0.75rem; display:block; text-align:center;">🎯</div>
-                        <h3>Skills Gap</h3>
-                        <p>Many graduates and professionals lack mentorship, networks, and soft skills for career mobility.</p>
-                    </div>
-                    <div class="card" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
-                        <div class="card-icon" style="font-size:2.2rem; margin-bottom:0.75rem; display:block; text-align:center;">💼</div>
-                        <h3>Talent Readiness</h3>
-                        <p>Companies struggle with talent readiness, retention, and employee development.</p>
-                    </div>
+                    <article class="card">
+                        <span class="card-icon"><i class="fas fa-users"></i></span>
+                        <h3>Limited guidance</h3>
+                        <p>Young professionals need clearer pathways from ambition to meaningful work.</p>
+                    </article>
+                    <article class="card">
+                        <span class="card-icon"><i class="fas fa-bolt"></i></span>
+                        <h3>Skills gap</h3>
+                        <p>Graduates and professionals need practical soft skills, visibility, and networks.</p>
+                    </article>
+                    <article class="card">
+                        <span class="card-icon"><i class="fas fa-briefcase"></i></span>
+                        <h3>Talent readiness</h3>
+                        <p>Organizations need better pipelines, retention, and employee development support.</p>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <!-- Solution Section -->
-        <section id="solution" class="section solution">
+        <section id="solution" class="section section-deep">
             <div class="container">
                 <div class="section-header">
-                    <h2>Our Services</h2>
-                    <div class="underline"></div>
+                    <div>
+                        <span class="section-kicker"><i class="fas fa-layer-group"></i> Services</span>
+                        <h2>A hybrid growth platform for people and organizations.</h2>
+                    </div>
+                    <p>Career Cafe blends community, learning, events, and employer partnerships into one practical support system.</p>
                 </div>
-                <p class="solution-intro">We bridge this gap with a hybrid model:</p>
                 <div class="solution-grid">
-                    <div class="solution-item">
+                    <article class="solution-item">
                         <div class="solution-number">01</div>
                         <h3>Membership Community</h3>
-                        <p>Exclusive webinars, networking, mentorship, and opportunities.</p>
-                    </div>
-                    <div class="solution-item">
+                        <p>Exclusive webinars, networking, mentorship, resources, and career opportunities.</p>
+                    </article>
+                    <article class="solution-item">
                         <div class="solution-number">02</div>
-                        <h3>Events & Webinars</h3>
-                        <p>Exclusive webinars, networking opportunities, group and one - on - one mentorship, workshops, targeted employee wellbeing and support programs.</p>
-                    </div>
-                    <div class="solution-item">
+                        <h3>Events and Webinars</h3>
+                        <p>Workshops, group mentorship, one-on-one sessions, and employee wellbeing programs.</p>
+                    </article>
+                    <article class="solution-item">
                         <div class="solution-number">03</div>
                         <h3>Corporate Partnerships</h3>
-                        <p>Employee training, recruitment pipelines, and visibility.</p>
-                    </div>
+                        <p>Employee training, recruitment pipelines, thought leadership, and brand visibility.</p>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <!-- Why Join Section -->
         <section class="section why-join">
             <div class="container">
-                <div class="section-header">
-                    <h2>Why Join Career Café?</h2>
-                    <div class="underline"></div>
+                <div class="section-header center">
+                    <span class="section-kicker"><i class="fas fa-seedling"></i> Why join</span>
+                    <h2>Growth feels different when you are not building alone.</h2>
+                    <p class="section-subtitle">Members get access to mentors, tools, events, and a professional community designed around momentum.</p>
                 </div>
                 <div class="benefits-grid">
-                    <div class="benefit-item">
-                        <span class="benefit-icon">🎓</span>
-                        <p>Access to mentors and industry leaders</p>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-icon">🤝</span>
-                        <p>Be part of an active professional community</p>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-icon">🛠️</span>
-                        <p>Get exclusive tools and opportunities</p>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-icon">🌍</span>
-                        <p>Expand your career network regionally and globally</p>
-                    </div>
+                    <article class="benefit-item">
+                        <span class="benefit-icon"><i class="fas fa-user-tie"></i></span>
+                        <p>Access mentors and industry leaders</p>
+                    </article>
+                    <article class="benefit-item">
+                        <span class="benefit-icon"><i class="fas fa-people-group"></i></span>
+                        <p>Join an active professional community</p>
+                    </article>
+                    <article class="benefit-item">
+                        <span class="benefit-icon"><i class="fas fa-toolbox"></i></span>
+                        <p>Use practical career tools and opportunities</p>
+                    </article>
+                    <article class="benefit-item">
+                        <span class="benefit-icon"><i class="fas fa-earth-africa"></i></span>
+                        <p>Build regional and global career networks</p>
+                    </article>
                 </div>
                 <div class="cta-center">
-                    <a href="#" class="btn btn-primary btn-large">Join Now</a>
+                    <a href="#" class="btn btn-primary" id="openMemberModalSecondary"><i class="fas fa-arrow-right"></i> Join Now</a>
                 </div>
             </div>
         </section>
 
-        <!-- Articles Section -->
-        <section id="articles" class="section articles">
+        <section id="articles" class="section section-alt">
             <div class="container">
                 <div class="section-header">
-                    <h2>Articles</h2>
-                    <div class="underline"></div>
+                    <div>
+                        <span class="section-kicker"><i class="fas fa-newspaper"></i> Articles</span>
+                        <h2>Sharp thinking for your next career move.</h2>
+                    </div>
+                    <p>Insights on employability, visibility, entrepreneurship, workplace growth, and personal strategy.</p>
                 </div>
-                <p class="section-subtitle">Insights and strategies for career growth and personal development</p>
                 <div class="articles-carousel-wrapper">
-                    <button class="carousel-btn carousel-btn-prev" id="articlesPrev" aria-label="Previous">&#8592;</button>
+                    <button class="carousel-btn carousel-btn-prev" id="articlesPrev" aria-label="Previous articles"><i class="fas fa-arrow-left"></i></button>
                     <div class="articles-carousel-viewport" id="articlesViewport">
                         <div class="articles-carousel-track" id="articlesGrid">
-                            <div class="articles-loading">
-                                <i class="fas fa-spinner fa-spin"></i> Loading articles...
-                            </div>
+                            <div class="articles-loading"><i class="fas fa-spinner fa-spin"></i> Loading articles...</div>
                         </div>
                     </div>
-                    <button class="carousel-btn carousel-btn-next" id="articlesNext" aria-label="Next">&#8594;</button>
+                    <button class="carousel-btn carousel-btn-next" id="articlesNext" aria-label="Next articles"><i class="fas fa-arrow-right"></i></button>
                 </div>
                 <div class="carousel-dots" id="articlesDots"></div>
             </div>
         </section>
 
-        <!-- Reach Section -->
         <section class="section reach">
             <div class="container">
-                <div class="section-header">
-                    <h2>Our Reach</h2>
-                    <div class="underline"></div>
+                <div class="section-header center">
+                    <span class="section-kicker"><i class="fas fa-chart-line"></i> Reach</span>
+                    <h2>From Nairobi to a Pan-African career community.</h2>
+                    <p class="reach-text">Growing through LinkedIn, WhatsApp, events, learning, and partnerships designed to scale across East Africa and beyond.</p>
                 </div>
                 <div class="stats-grid">
                     <div class="stat-item">
                         <div class="stat-number">500+</div>
-                        <div class="stat-label">Professionals Engaged</div>
+                        <div class="stat-label">Professionals engaged</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">1,000+</div>
-                        <div class="stat-label">Projected Members in 12 Months</div>
+                        <div class="stat-number">1K+</div>
+                        <div class="stat-label">Projected members</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-number">Pan-African</div>
-                        <div class="stat-label">Expansion Vision</div>
+                        <div class="stat-label">Expansion vision</div>
                     </div>
                 </div>
-                <p class="reach-text">Growing LinkedIn & WhatsApp communities | Expansion from Nairobi → East Africa → Pan-African</p>
             </div>
         </section>
 
-        <!-- Gallery Section -->
-        <section id="gallery" class="section gallery">
+        <section id="gallery" class="section section-alt gallery">
             <div class="container">
                 <div class="section-header">
-                    <h2>Our Community in Action</h2>
-                    <div class="underline"></div>
+                    <div>
+                        <span class="section-kicker"><i class="fas fa-images"></i> Gallery</span>
+                        <h2>Community in action.</h2>
+                    </div>
+                    <p>Moments from events, workshops, conversations, and the people building the Career Cafe community.</p>
                 </div>
-                <p class="section-subtitle">Take a look at our events, workshops, and community activities.</p>
-                
-                <div class="gallery-grid" id="galleryGrid">
-                    <div class="articles-loading">
-                        <i class="fas fa-spinner fa-spin"></i> Loading gallery...
+                <div class="carousel-shell">
+                    <div class="carousel-header-bar">
+                        <div class="carousel-kicker">Snapshots</div>
+                        <div class="carousel-inline-controls">
+                            <button class="carousel-btn carousel-btn-prev" id="galleryPrev" aria-label="Previous gallery images"><i class="fas fa-arrow-left"></i></button>
+                            <button class="carousel-btn carousel-btn-next" id="galleryNext" aria-label="Next gallery images"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="carousel-viewport" id="galleryViewport">
+                        <div class="carousel-track gallery-carousel-track" id="galleryGrid">
+                            <div class="articles-loading"><i class="fas fa-spinner fa-spin"></i> Loading gallery...</div>
+                        </div>
                     </div>
                 </div>
-                
+                <div class="carousel-dots" id="galleryDots"></div>
                 <div class="cta-center">
-                    <a href="#" class="btn btn-primary" id="viewMorePhotos">View More Photos</a>
+                    <a href="#" class="btn btn-outline" id="viewMorePhotos"><i class="fas fa-expand"></i> View More Photos</a>
                 </div>
             </div>
         </section>
 
-        <!-- Gallery Modal -->
-        <div class="modal" id="galleryModal">
-            <div class="modal-content gallery-modal-content">
-                <div class="modal-header">
-                    <h3>Our Gallery</h3>
-                    <button class="close-modal" id="closeGalleryModal">&times;</button>
-                </div>
-                <div class="gallery-modal-grid" id="galleryModalGrid">
-                    <!-- Images will be dynamically inserted here -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Partners Section -->
         <section id="partners" class="section partners">
             <div class="container">
                 <div class="section-header">
-                    <h2>For Partners</h2>
-                    <div class="underline"></div>
+                    <div>
+                        <span class="section-kicker"><i class="fas fa-handshake"></i> Partners</span>
+                        <h2>Build visibility while developing talent.</h2>
+                    </div>
+                    <p>Partner with Career Cafe to reach ambitious professionals, support workplace growth, and contribute to stronger career ecosystems.</p>
                 </div>
-                <h3 class="partners-subtitle">Why Partner With Us?</h3>
                 <div class="partners-grid">
-                    <div class="partner-card">
-                        <h4>Direct Access</h4>
+                    <article class="partner-card">
+                        <h4>Direct access</h4>
                         <p>Connect with young, ambitious professionals ready to grow.</p>
-                    </div>
-                    <div class="partner-card">
-                        <h4>Brand Visibility</h4>
-                        <p>Showcase through events, social media, and newsletters.</p>
-                    </div>
-                    <div class="partner-card">
-                        <h4>Employer Branding</h4>
+                    </article>
+                    <article class="partner-card">
+                        <h4>Brand visibility</h4>
+                        <p>Showcase through events, newsletters, and social media.</p>
+                    </article>
+                    <article class="partner-card">
+                        <h4>Employer branding</h4>
                         <p>Position your company as an employer of choice.</p>
-                    </div>
-                    <div class="partner-card">
-                        <h4>Thought Leadership</h4>
-                        <p>Feature your executives as industry leaders.</p>
-                    </div>
+                    </article>
+                    <article class="partner-card">
+                        <h4>Thought leadership</h4>
+                        <p>Feature executives and experts as practical industry voices.</p>
+                    </article>
                 </div>
                 <div class="cta-center">
-                    <a href="#contact" class="btn btn-primary btn-large">Let's Collaborate</a>
+                    <a href="#" class="btn btn-primary" id="openPartnerModalSecondary"><i class="fas fa-paper-plane"></i> Let's Collaborate</a>
                 </div>
             </div>
         </section>
 
-        <!-- Testimonial Section -->
-        <section class="section testimonial">
+        <section class="testimonial">
             <div class="container">
                 <div class="testimonial-content">
                     <div class="quote-mark">"</div>
-                    <p class="testimonial-text">The Career Café is exactly what Africa's professionals need — a place to connect, learn, and grow.</p>
+                    <p class="testimonial-text">A place to connect, learn, and grow with intention.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Team Section -->
-        <section id="team" class="section team-section">
+        <section id="team" class="section section-alt team-section">
             <div class="container">
                 <div class="section-header">
-                    <h2>Meet Our Team</h2>
-                    <div class="underline"></div>
+                    <div>
+                        <span class="section-kicker"><i class="fas fa-user-group"></i> Team</span>
+                        <h2>The people behind the platform.</h2>
+                    </div>
+                    <p>Meet the team shaping Career Cafe's programs, partnerships, and community experience.</p>
                 </div>
-                <p class="section-subtitle">The people behind Career Café</p>
-                <div class="team-grid" id="teamGrid">
-                    <div class="articles-loading">
-                        <i class="fas fa-spinner fa-spin"></i> Loading team...
+                <div class="carousel-shell">
+                    <div class="carousel-header-bar">
+                        <div class="carousel-kicker">Leadership</div>
+                        <div class="carousel-inline-controls">
+                            <button class="carousel-btn carousel-btn-prev" id="teamPrev" aria-label="Previous team members"><i class="fas fa-arrow-left"></i></button>
+                            <button class="carousel-btn carousel-btn-next" id="teamNext" aria-label="Next team members"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="carousel-viewport" id="teamViewport">
+                        <div class="carousel-track team-carousel-track" id="teamGrid">
+                            <div class="articles-loading"><i class="fas fa-spinner fa-spin"></i> Loading team...</div>
+                        </div>
                     </div>
                 </div>
+                <div class="carousel-dots" id="teamDots"></div>
             </div>
         </section>
 
-        <!-- Events Section -->
         <section id="events" class="section events">
             <div class="container">
                 <div class="section-header">
-                    <h2>Upcoming Events</h2>
-                    <div class="underline"></div>
+                    <div>
+                        <span class="section-kicker"><i class="fas fa-calendar-days"></i> Events</span>
+                        <h2>Upcoming rooms for learning and connection.</h2>
+                    </div>
+                    <p>Live sessions, workshops, and gatherings for career growth and professional development.</p>
                 </div>
                 <div id="eventsContainer">
-                    <div class="articles-loading">
-                        <i class="fas fa-spinner fa-spin"></i> Loading events...
-                    </div>
+                    <div class="articles-loading"><i class="fas fa-spinner fa-spin"></i> Loading events...</div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
         <section id="contact" class="section contact">
             <div class="container">
                 <div class="section-header">
-                    <h2>Get in Touch</h2>
-                    <div class="underline"></div>
+                    <div>
+                        <span class="section-kicker"><i class="fas fa-paper-plane"></i> Contact</span>
+                        <h2>Start a conversation.</h2>
+                    </div>
+                    <p>Reach out for membership, partnerships, training, speaking, or community collaboration.</p>
                 </div>
                 <div class="contact-grid">
                     <div class="contact-item">
-                        <span class="contact-icon">📩</span>
+                        <span class="contact-icon"><i class="fas fa-envelope"></i></span>
                         <a href="mailto:careercafeke@gmail.com">careercafeke@gmail.com</a>
                     </div>
                     <div class="contact-item">
-                        <span class="contact-icon">📞</span>
-                        <a href="tel:+254720087837">+254 720087837</a>
+                        <span class="contact-icon"><i class="fas fa-phone"></i></span>
+                        <a href="tel:+254720087837">+254 720 087837</a>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon"><i class="fas fa-graduation-cap"></i></span>
+                        <a href="courses.html">Browse current courses</a>
                     </div>
                 </div>
                 <div class="social-links">
-                    <a href="https://www.linkedin.com/in/the-career-caf%C3%A9-africa-a63269370"
-                        class="social-link" target="_blank" rel="noopener">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://whatsapp.com/channel/0029Vb6zUUTDeON0FtpHPW2P"
-                        class="social-link" target="_blank" rel="noopener">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="https://www.instagram.com/thecareercafeafrica?igsh=M2wyendibDhuNHI0&utm_source=qr"
-                        class="social-link" target="_blank" rel="noopener">
-                        <i class="fab fa-instagram"></i>
-                    </a>
+                    <a href="https://www.linkedin.com/in/the-career-caf%C3%A9-africa-a63269370" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://whatsapp.com/channel/0029Vb6zUUTDeON0FtpHPW2P" class="social-link" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.instagram.com/thecareercafeafrica?igsh=M2wyendibDhuNHI0&utm_source=qr" class="social-link" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
         </section>
+    </main>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="container">
-                <p>&copy; 2025 Career Café. Building careers with purpose across Africa.</p>
-            </div>
-        </footer>
-
-        <!-- Newsletter Popup -->
-        <div class="newsletter-popup" id="newsletterPopup">
-            <div class="popup-content">
-                <button class="close-popup" id="closePopup">&times;</button>
-                <div class="popup-icon">📧</div>
-                <h3>Stay Updated with Career Café</h3>
-                <p>Get the latest career tips, event invites, and opportunities delivered to your inbox.</p>
-                
-                <form id="newsletterForm">
-                    <input type="email" id="newsletterEmail" placeholder="Your email address" required>
-                    <button type="button" id="newsletterSubmit" class="btn btn-primary" onclick="submitNewsletter()">Subscribe</button>
-                </form>
-                
-                <div class="popup-options">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="dontShowAgain">
-                        <span class="checkmark"></span>
-                        Don't show this again
-                    </label>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="site-footer-top">
+                <div class="site-footer-brand">
+                    <a href="index.html" class="site-footer-mark">
+                        <img src="careerLogoNew.png" alt="Career Cafe Logo">
+                        <span class="site-footer-mark-text">
+                            <strong>Career Cafe</strong>
+                            <span>Build With Purpose</span>
+                        </span>
+                    </a>
+                    <p class="site-footer-copy">Career growth, mentorship, events, and practical learning for ambitious professionals building meaningful work across Africa.</p>
+                </div>
+                <div>
+                    <h3 class="site-footer-title">Explore</h3>
+                    <ul class="site-footer-links">
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#solution">Services</a></li>
+                        <li><a href="#events">Events</a></li>
+                        <li><a href="articles.html">Articles</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="site-footer-title">Contact</h3>
+                    <ul class="site-footer-contact">
+                        <li><a href="mailto:careercafeke@gmail.com">careercafeke@gmail.com</a></li>
+                        <li><a href="tel:+254720087837">+254 720 087837</a></li>
+                        <li><a href="courses.html">Browse courses</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="site-footer-title">Follow</h3>
+                    <div class="site-footer-socials">
+                        <a href="https://www.linkedin.com/in/the-career-caf%C3%A9-africa-a63269370" class="site-footer-social" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://whatsapp.com/channel/0029Vb6zUUTDeON0FtpHPW2P" class="site-footer-social" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/thecareercafeafrica?igsh=M2wyendibDhuNHI0&utm_source=qr" class="site-footer-social" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- Team Member Modal -->
-        <div class="tm-overlay" id="teamMemberModal" onclick="closeTeamModal()">
-            <div class="tm-modal" onclick="event.stopPropagation()">
-                <button class="tm-close" onclick="closeTeamModal()">&times;</button>
-                <div class="tm-avatar-wrap" id="tmAvatar"></div>
-                <div class="tm-info">
-                    <h3 id="tmName"></h3>
-                    <p class="tm-role-label" id="tmRole"></p>
-                    <p class="tm-bio-text" id="tmBio"></p>
-                    <div class="tm-socials-row" id="tmSocials"></div>
-                </div>
+            <div class="site-footer-bottom">
+                <p>&copy; 2026 Career Cafe. All rights reserved.</p>
+                <p class="site-footer-tagline">Building careers with purpose across Africa.</p>
             </div>
         </div>
+    </footer>
 
-        <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <div class="modal" id="memberModal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="memberModalTitle">
+            <h3 id="memberModalTitle">Become a Member</h3>
+            <p class="modal-subtext">Join The Career Cafe community for webinars, mentorship, tools, and opportunities.</p>
+            <form id="memberForm">
+                <div class="form-row">
+                    <input type="text" id="memberFullName" placeholder="Full Name" required>
+                    <input type="email" id="memberEmail" placeholder="Email Address" required>
+                </div>
+                <div class="form-row">
+                    <input type="tel" id="memberPhone" placeholder="Phone Number">
+                    <input type="text" id="memberLocation" placeholder="City / Country">
+                </div>
+                <input type="text" id="memberOccupation" placeholder="Occupation / Field of Work" required>
+                <div class="form-group">
+                    <label for="memberLevel">Career Level</label>
+                    <select id="memberLevel">
+                        <option value="">Select career level</option>
+                        <option value="Student">Student</option>
+                        <option value="Entry-level">Entry-level</option>
+                        <option value="Mid-level">Mid-level</option>
+                        <option value="Senior">Senior</option>
+                        <option value="Entrepreneur">Entrepreneur</option>
+                    </select>
+                </div>
+                <textarea id="memberReason" placeholder="Why do you want to join The Career Cafe?" rows="4" required></textarea>
+                <div class="form-group">
+                    <label for="membershipPlan">Preferred Membership Plan</label>
+                    <select id="membershipPlan">
+                        <option value="">Select a plan</option>
+                        <option value="Free">Free</option>
+                        <option value="Standard">Standard</option>
+                        <option value="Premium">Premium</option>
+                    </select>
+                </div>
+                <div class="form-checkbox">
+                    <label><input type="checkbox" id="memberConsent" required> I agree to receive updates, event invites, and newsletters from The Career Cafe.</label>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="memberCancel">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="memberSubmit" onclick="submitMembership()">Join Now</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-        <script>
-            const API_BASE = 'https://careercafe-backend-1.onrender.com';
+    <div class="modal" id="partnerModal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="partnerModalTitle">
+            <h3 id="partnerModalTitle">Partner With Us</h3>
+            <p class="modal-subtext">Collaborate with The Career Cafe to empower professionals and build meaningful career experiences.</p>
+            <form id="partnerForm">
+                <div class="form-row">
+                    <input type="text" id="partnerFullName" placeholder="Full Name" required>
+                    <input type="text" id="partnerOrganization" placeholder="Organization / Brand Name" required>
+                </div>
+                <div class="form-row">
+                    <input type="text" id="partnerRole" placeholder="Role / Designation">
+                    <input type="email" id="partnerEmail" placeholder="Email Address" required>
+                </div>
+                <div class="form-row">
+                    <input type="tel" id="partnerPhone" placeholder="Phone Number">
+                    <input type="url" id="partnerWebsite" placeholder="Website / Social Media Links">
+                </div>
+                <div class="form-group">
+                    <label for="partnershipType">Type of Partnership</label>
+                    <select id="partnershipType">
+                        <option value="">Select partnership type</option>
+                        <option value="Sponsorship">Sponsorship</option>
+                        <option value="Event Collaboration">Event Collaboration</option>
+                        <option value="Internship">Internship</option>
+                        <option value="Training">Training</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <textarea id="partnerMessage" placeholder="Brief Description of Partnership Idea" rows="5" required></textarea>
+                <div class="form-checkbox">
+                    <label><input type="checkbox" id="partnerConsent" required> I consent to The Career Cafe contacting me regarding partnership opportunities.</label>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="partnerCancel">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="submitPartnership()">Submit Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-            function getImageUrl(url) {
-                if (!url) return null;
-                // Convert old Drive uc?export=view URLs to thumbnail URLs
-                if (url.includes('drive.google.com/uc')) {
-                    const match = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-                    if (match) {
-                        return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w800`;
-                    }
-                }
-                return url;
+    <div class="modal" id="galleryModal">
+        <div class="modal-content gallery-modal-content">
+            <div class="modal-header">
+                <button class="close-modal" id="closeGalleryModal" type="button" aria-label="Close gallery">&times;</button>
+                <h3>Our Gallery</h3>
+            </div>
+            <div class="gallery-modal-grid" id="galleryModalGrid"></div>
+        </div>
+    </div>
+
+    <div class="newsletter-popup" id="newsletterPopup">
+        <div class="popup-content">
+            <button class="close-popup" id="closePopup" type="button" aria-label="Close newsletter">&times;</button>
+            <h3>Stay Updated with Career Cafe</h3>
+            <p>Get career tips, event invites, and opportunities delivered to your inbox.</p>
+            <form id="newsletterForm">
+                <input type="email" id="newsletterEmail" placeholder="Your email address" required>
+                <button type="button" id="newsletterSubmit" class="btn btn-primary" onclick="submitNewsletter()">Subscribe</button>
+            </form>
+            <label class="checkbox-label"><input type="checkbox" id="dontShowAgain"> Don't show this again</label>
+        </div>
+    </div>
+
+    <div class="tm-overlay" id="teamMemberModal" onclick="closeTeamModal()">
+        <div class="tm-modal" onclick="event.stopPropagation()">
+            <button class="tm-close" onclick="closeTeamModal()" type="button" aria-label="Close team member">&times;</button>
+            <div class="tm-avatar-wrap" id="tmAvatar"></div>
+            <div class="tm-info">
+                <h3 id="tmName"></h3>
+                <p class="tm-role-label" id="tmRole"></p>
+                <p class="tm-bio-text" id="tmBio"></p>
+                <div class="tm-socials-row" id="tmSocials"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="formToast" style="display:none; position:fixed; left:50%; bottom:24px; transform:translateX(-50%); background:#10b981; color:#fff; padding:14px 18px; border-radius:8px; box-shadow:0 10px 30px rgba(0,0,0,0.2); z-index:3000; font-weight:800;"></div>
+
+    <script>
+        const API_BASE = 'https://careercafe-backend-1.onrender.com';
+        const carouselControllers = new Map();
+        let allPhotos = [];
+
+        function getImageUrl(url) {
+            if (!url) return null;
+            if (url.includes('drive.google.com/uc')) {
+                const match = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+                if (match) return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w800`;
+            }
+            return url;
+        }
+
+        function escapeHtml(text) {
+            if (text === null || text === undefined) return '';
+            const div = document.createElement('div');
+            div.textContent = String(text);
+            return div.innerHTML;
+        }
+
+        function destroyCarousel(name) {
+            const existing = carouselControllers.get(name);
+            if (existing && typeof existing.destroy === 'function') existing.destroy();
+            carouselControllers.delete(name);
+        }
+
+        function initContentCarousel({ name, viewportId, trackId, prevId, nextId, dotsId, slideSelector, perPage }) {
+            destroyCarousel(name);
+            const track = document.getElementById(trackId);
+            const viewport = document.getElementById(viewportId);
+            const prevBtn = document.getElementById(prevId);
+            const nextBtn = document.getElementById(nextId);
+            const dotsEl = document.getElementById(dotsId);
+            if (!track || !viewport || !prevBtn || !nextBtn || !dotsEl) return;
+
+            const slides = Array.from(track.querySelectorAll(slideSelector));
+            if (!slides.length) {
+                prevBtn.disabled = true;
+                nextBtn.disabled = true;
+                dotsEl.innerHTML = '';
+                return;
             }
 
-            // ── ARTICLES ──────────────────────────────────────────────
-            async function loadArticles() {
-                const grid = document.getElementById('articlesGrid');
-                try {
-                    const res = await fetch(`${API_BASE}/api/articles`);
-                    const articles = await res.json();
+            let current = 0;
+            let resizeRaf = null;
+            let startX = 0;
+            let deltaX = 0;
 
-                    if (!articles.length) {
-                        grid.innerHTML = '<p style="text-align:center;color:#888;">No articles published yet.</p>';
-                        return;
-                    }
+            const currentPerPage = () => perPage(viewport.offsetWidth);
+            const totalPages = () => Math.max(1, Math.ceil(slides.length / currentPerPage()));
+            const slideStep = () => {
+                if (slides.length < 2) return slides[0].getBoundingClientRect().width + 16;
+                return slides[1].getBoundingClientRect().left - slides[0].getBoundingClientRect().left;
+            };
 
-                    grid.innerHTML = articles.map(article => {
-                        const date = article.createdAt
-                            ? new Date(article.createdAt).toLocaleDateString('en-KE', { year: 'numeric', month: 'long', day: 'numeric' })
-                            : '';
-                        const imageUrl = getImageUrl(article.imageUrl);
-                        
-                        return `
-                        <article class="article-card">
-                            <div class="article-image">
-                                ${imageUrl
-                                    ? `<img src="${imageUrl}" alt="${article.title}" onerror="this.parentElement.innerHTML='<div style=\'width:100%;height:180px;background:linear-gradient(135deg,#e2725b,#ffd166);display:flex;align-items:center;justify-content:center;\'><i class=\'fas fa-newspaper\' style=\'font-size:3rem;color:#fff;opacity:0.7;\'></i></div>'">`
-                                    : `<div style="width:100%;height:180px;background:linear-gradient(135deg,#e2725b,#ffd166);display:flex;align-items:center;justify-content:center;"><i class="fas fa-newspaper" style="font-size:3rem;color:#fff;opacity:0.7;"></i></div>`
-                                }
+            function updateButtons() {
+                prevBtn.disabled = current === 0;
+                nextBtn.disabled = current >= totalPages() - 1;
+            }
+
+            function updateDots() {
+                dotsEl.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+                    dot.classList.toggle('active', index === current);
+                });
+            }
+
+            function goTo(page) {
+                current = Math.max(0, Math.min(page, totalPages() - 1));
+                track.style.transform = `translate3d(-${current * currentPerPage() * slideStep()}px, 0, 0)`;
+                updateButtons();
+                updateDots();
+            }
+
+            function buildDots() {
+                dotsEl.innerHTML = Array.from({ length: totalPages() }, (_, i) =>
+                    `<button class="carousel-dot${i === current ? ' active' : ''}" aria-label="${name} page ${i + 1}"></button>`
+                ).join('');
+                dotsEl.querySelectorAll('.carousel-dot').forEach((dot, index) => dot.addEventListener('click', () => goTo(index)));
+            }
+
+            function handleResize() {
+                if (resizeRaf) cancelAnimationFrame(resizeRaf);
+                resizeRaf = requestAnimationFrame(() => {
+                    buildDots();
+                    goTo(Math.min(current, totalPages() - 1));
+                });
+            }
+
+            prevBtn.addEventListener('click', () => goTo(current - 1));
+            nextBtn.addEventListener('click', () => goTo(current + 1));
+            viewport.addEventListener('touchstart', event => { startX = event.touches[0].clientX; deltaX = 0; }, { passive: true });
+            viewport.addEventListener('touchmove', event => { deltaX = event.touches[0].clientX - startX; }, { passive: true });
+            viewport.addEventListener('touchend', () => {
+                if (Math.abs(deltaX) < 45) return;
+                goTo(deltaX < 0 ? current + 1 : current - 1);
+            });
+            window.addEventListener('resize', handleResize);
+            buildDots();
+            goTo(0);
+            carouselControllers.set(name, { destroy: () => window.removeEventListener('resize', handleResize) });
+        }
+
+        async function loadArticles() {
+            const grid = document.getElementById('articlesGrid');
+            try {
+                const res = await fetch(`${API_BASE}/api/articles`);
+                const articles = await res.json();
+                if (!articles.length) {
+                    grid.innerHTML = '<p class="articles-loading">No articles published yet.</p>';
+                    return;
+                }
+                grid.innerHTML = articles.map(article => {
+                    const date = article.createdAt ? new Date(article.createdAt).toLocaleDateString('en-KE', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
+                    const imageUrl = getImageUrl(article.imageUrl);
+                    return `
+                        <a class="article-card" href="articles.html?slug=${article.slug}">
+                            <div class="card-image">
+                                ${imageUrl ? `<div style="width:100%;height:100%;background:url('${imageUrl}') center/cover no-repeat;"></div>` : `<div class="card-image-placeholder"><i class="fas fa-newspaper"></i></div>`}
                             </div>
-                            <div class="article-content">
-                                <h3>${article.title}</h3>
-                                <p class="article-excerpt">${article.summary || ''}</p>
-                                <div class="article-meta">
-                                    <span class="article-date">${date}</span>
-                                    ${article.category ? `<span class="article-category">${article.category}</span>` : ''}
+                            <div class="card-content">
+                                <div class="card-topline">
+                                    <span class="card-index">${date || 'Latest'}</span>
+                                    ${article.category ? `<span class="card-chip">${escapeHtml(article.category)}</span>` : ''}
                                 </div>
-                                <a href="articles.html?slug=${article.slug}" class="btn btn-outline">Read More</a>
+                                <h4>${escapeHtml(article.title)}</h4>
+                                <p>${escapeHtml(article.summary || '').substring(0, 140)}</p>
+                                <span class="read-more">Read article <i class="fas fa-arrow-right"></i></span>
+                            </div>
+                        </a>`;
+                }).join('');
+                initContentCarousel({
+                    name: 'articles',
+                    viewportId: 'articlesViewport',
+                    trackId: 'articlesGrid',
+                    prevId: 'articlesPrev',
+                    nextId: 'articlesNext',
+                    dotsId: 'articlesDots',
+                    slideSelector: '.article-card',
+                    perPage: width => width < 700 ? 1 : width < 1024 ? 2 : 3
+                });
+            } catch (err) {
+                grid.innerHTML = '<p class="articles-loading">Could not load articles.</p>';
+            }
+        }
+
+        async function loadEvents() {
+            const container = document.getElementById('eventsContainer');
+            try {
+                const res = await fetch(`${API_BASE}/api/events`);
+                const events = await res.json();
+                if (!events.length) {
+                    container.innerHTML = '<p class="articles-loading">No upcoming events at the moment.</p>';
+                    return;
+                }
+                container.innerHTML = events.map(event => {
+                    const date = event.eventDate ? new Date(event.eventDate).toLocaleDateString('en-KE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : '';
+                    const time = event.eventDate ? new Date(event.eventDate).toLocaleTimeString('en-KE', { hour: '2-digit', minute: '2-digit' }) : '';
+                    return `
+                        <article class="event-card">
+                            <span class="event-badge">${event.isVirtual ? 'Virtual Event' : 'In Person'}</span>
+                            <h3 class="event-title">${escapeHtml(event.title)}</h3>
+                            ${event.description ? `<p>${escapeHtml(event.description)}</p>` : ''}
+                            <div class="event-details">
+                                <span><i class="fas fa-calendar"></i>${date}</span>
+                                <span><i class="fas fa-clock"></i>${time}${event.isVirtual ? ' Virtual' : ''}</span>
+                                ${event.location ? `<span><i class="fas fa-location-dot"></i>${escapeHtml(event.location)}</span>` : ''}
+                            </div>
+                            ${event.registrationUrl ? `<a href="${event.registrationUrl}" class="btn btn-primary" target="_blank" rel="noopener">Register Now</a>` : ''}
+                        </article>`;
+                }).join('');
+            } catch (err) {
+                container.innerHTML = '<p class="articles-loading">Could not load events.</p>';
+            }
+        }
+
+        async function loadGallery() {
+            const grid = document.getElementById('galleryGrid');
+            try {
+                const res = await fetch(`${API_BASE}/api/gallery`);
+                allPhotos = await res.json();
+                if (!allPhotos.length) {
+                    grid.innerHTML = '<p class="articles-loading">No gallery photos yet.</p>';
+                    return;
+                }
+                grid.innerHTML = allPhotos.map(photo => {
+                    const imageUrl = getImageUrl(photo.imageUrl);
+                    return `
+                        <div class="gallery-item">
+                            <img src="${imageUrl}" alt="${escapeHtml(photo.caption || 'Gallery photo')}" loading="lazy">
+                            ${photo.caption ? `<div class="gallery-overlay"><p>${escapeHtml(photo.caption)}</p></div>` : ''}
+                        </div>`;
+                }).join('');
+                initContentCarousel({
+                    name: 'gallery',
+                    viewportId: 'galleryViewport',
+                    trackId: 'galleryGrid',
+                    prevId: 'galleryPrev',
+                    nextId: 'galleryNext',
+                    dotsId: 'galleryDots',
+                    slideSelector: '.gallery-item',
+                    perPage: width => width < 700 ? 1 : width < 1024 ? 2 : 3
+                });
+            } catch (err) {
+                grid.innerHTML = '<p class="articles-loading">Could not load gallery.</p>';
+            }
+        }
+
+        async function loadTeam() {
+            const grid = document.getElementById('teamGrid');
+            try {
+                const res = await fetch(`${API_BASE}/api/team`);
+                const members = await res.json();
+                if (!members.length) {
+                    grid.innerHTML = '<p class="articles-loading">No team members yet.</p>';
+                    return;
+                }
+                window._teamMembers = members;
+                grid.innerHTML = members.map((m, i) => {
+                    const initials = (m.name || '?').split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+                    const avatar = m.imageUrl ? `<img class="team-avatar" src="${m.imageUrl}" alt="${escapeHtml(m.name)}">` : `<div class="team-avatar-placeholder">${initials}</div>`;
+                    return `
+                        <article class="team-card" onclick="openTeamModal(${i})">
+                            ${avatar}
+                            <div class="team-name">${escapeHtml(m.name)}</div>
+                            <div class="team-role">${escapeHtml(m.role || '')}</div>
+                            ${m.bio ? `<div class="team-bio">${escapeHtml(m.bio).substring(0, 120)}</div>` : ''}
+                            <div class="team-socials">
+                                ${m.linkedinUrl ? `<a href="${m.linkedinUrl}" class="team-social-link" target="_blank" rel="noopener" onclick="event.stopPropagation()"><i class="fab fa-linkedin-in"></i></a>` : ''}
+                                ${m.twitterUrl ? `<a href="${m.twitterUrl}" class="team-social-link" target="_blank" rel="noopener" onclick="event.stopPropagation()"><i class="fab fa-twitter"></i></a>` : ''}
                             </div>
                         </article>`;
-                    }).join('');
-                } catch (err) {
-                    grid.innerHTML = '<p style="text-align:center;color:#888;">Could not load articles.</p>';
-                    console.error('Articles fetch error:', err);
-                }
-            }
-
-            // ── EVENTS ────────────────────────────────────────────────
-            async function loadEvents() {
-                const container = document.getElementById('eventsContainer');
-                try {
-                    const res = await fetch(`${API_BASE}/api/events`);
-                    const events = await res.json();
-
-                    if (!events.length) {
-                        container.innerHTML = '<p style="text-align:center;color:#888;">No upcoming events at the moment.</p>';
-                        return;
-                    }
-
-                    container.innerHTML = events.map(event => {
-                        const date = event.eventDate
-                            ? new Date(event.eventDate).toLocaleDateString('en-KE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
-                            : '';
-                        const time = event.eventDate
-                            ? new Date(event.eventDate).toLocaleTimeString('en-KE', { hour: '2-digit', minute: '2-digit' })
-                            : '';
-                        return `
-                        <div class="event-card">
-                            <div class="event-badge">${event.isVirtual ? 'Virtual Event' : 'In Person'}</div>
-                            <h3 class="event-title">${event.title}</h3>
-                            ${event.description ? `<p style="margin-bottom:1rem;opacity:0.9;">${event.description}</p>` : ''}
-                            <div class="event-details">
-                                <span class="event-date">📅 ${date}</span>
-                                <span class="event-time">⏰ ${time}${event.isVirtual ? ' (Virtual)' : ''}</span>
-                                ${event.location ? `<span>📍 ${event.location}</span>` : ''}
-                            </div>
-                            ${event.registrationUrl
-                                ? `<a href="${event.registrationUrl}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Register Now</a>`
-                                : ''
-                            }
-                        </div>`;
-                    }).join('');
-                } catch (err) {
-                    container.innerHTML = '<p style="text-align:center;color:#888;">Could not load events.</p>';
-                    console.error('Events fetch error:', err);
-                }
-            }
-
-            // ── GALLERY ───────────────────────────────────────────────
-            let allPhotos = [];
-
-            async function loadGallery() {
-                const grid = document.getElementById('galleryGrid');
-                try {
-                    const res = await fetch(`${API_BASE}/api/gallery`);
-                    allPhotos = await res.json();
-
-                    if (!allPhotos.length) {
-                        grid.innerHTML = '<p style="text-align:center;color:#888;grid-column:1/-1;">No gallery photos yet.</p>';
-                        return;
-                    }
-
-                    // Show first 4 as preview
-                    grid.innerHTML = allPhotos.slice(0, 4).map(photo => {
-                        const imageUrl = getImageUrl(photo.imageUrl);
-                        return `
-                        <div class="gallery-item">
-                            <img src="${imageUrl}" alt="${photo.caption || 'Gallery photo'}" loading="lazy"
-                                data-full="${imageUrl}" onerror="this.src='https://via.placeholder.com/300x200?text=Career+Café'">
-                        </div>
-                    `}).join('');
-
-                } catch (err) {
-                    grid.innerHTML = '<p style="text-align:center;color:#888;grid-column:1/-1;">Could not load gallery.</p>';
-                    console.error('Gallery fetch error:', err);
-                }
-            }
-
-            // ── GALLERY MODAL ─────────────────────────────────────────
-            document.addEventListener('DOMContentLoaded', function() {
-                const galleryModal = document.getElementById('galleryModal');
-                const viewMoreBtn = document.getElementById('viewMorePhotos');
-                const closeModalBtn = document.getElementById('closeGalleryModal');
-                const galleryModalGrid = document.getElementById('galleryModalGrid');
-
-                if (viewMoreBtn) {
-                    viewMoreBtn.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        openGalleryModal();
-                    });
-                }
-
-                if (closeModalBtn) {
-                    closeModalBtn.addEventListener('click', closeGalleryModal);
-                }
-                
-                if (galleryModal) {
-                    galleryModal.addEventListener('click', function(e) {
-                        if (e.target === galleryModal) closeGalleryModal();
-                    });
-                }
-
-                function openGalleryModal() {
-                    if (galleryModal) {
-                        galleryModal.style.display = 'block';
-                        renderGalleryImages();
-                    }
-                }
-
-                function closeGalleryModal() {
-                    if (galleryModal) {
-                        galleryModal.style.display = 'none';
-                    }
-                }
-
-                function renderGalleryImages() {
-                    if (!galleryModalGrid) return;
-                    
-                    if (!allPhotos.length) {
-                        galleryModalGrid.innerHTML = '<p style="text-align:center;padding:2rem;color:#888;">No photos available.</p>';
-                        return;
-                    }
-                    
-                    galleryModalGrid.innerHTML = allPhotos.map(photo => {
-                        const imageUrl = getImageUrl(photo.imageUrl);
-                        return `
-                        <div class="modal-gallery-item">
-                            <img src="${imageUrl}" alt="${photo.caption || 'Gallery photo'}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x200?text=Career+Café'">
-                            ${photo.caption ? `<p style="font-size:0.8rem;text-align:center;margin-top:6px;color:#666;">${photo.caption}</p>` : ''}
-                        </div>
-                    `}).join('');
-                }
-
-                document.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape' && galleryModal && galleryModal.style.display === 'block') {
-                        closeGalleryModal();
-                    }
+                }).join('');
+                initContentCarousel({
+                    name: 'team',
+                    viewportId: 'teamViewport',
+                    trackId: 'teamGrid',
+                    prevId: 'teamPrev',
+                    nextId: 'teamNext',
+                    dotsId: 'teamDots',
+                    slideSelector: '.team-card',
+                    perPage: width => width < 700 ? 1 : width < 1024 ? 2 : 3
                 });
+            } catch (err) {
+                grid.innerHTML = '<p class="articles-loading">Could not load team.</p>';
+            }
+        }
+
+        function openTeamModal(index) {
+            const m = window._teamMembers && window._teamMembers[index];
+            if (!m) return;
+            const initials = (m.name || '?').split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+            document.getElementById('tmAvatar').innerHTML = m.imageUrl ? `<img src="${m.imageUrl}" alt="${escapeHtml(m.name)}">` : `<div class="tm-initials">${initials}</div>`;
+            document.getElementById('tmName').textContent = m.name || '';
+            document.getElementById('tmRole').textContent = m.role || '';
+            document.getElementById('tmBio').textContent = m.bio || '';
+            document.getElementById('tmSocials').innerHTML = [
+                m.linkedinUrl ? `<a href="${m.linkedinUrl}" class="tm-social" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i> LinkedIn</a>` : '',
+                m.twitterUrl ? `<a href="${m.twitterUrl}" class="tm-social" target="_blank" rel="noopener"><i class="fab fa-twitter"></i> Twitter</a>` : ''
+            ].join('');
+            document.getElementById('teamMemberModal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTeamModal() {
+            document.getElementById('teamMemberModal').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function showFormToast(message, error) {
+            const toast = document.getElementById('formToast');
+            toast.textContent = message;
+            toast.style.background = error ? '#ef4444' : '#10b981';
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 4500);
+        }
+
+        function closeModalById(id) {
+            const modal = document.getElementById(id);
+            if (!modal) return;
+            modal.style.display = 'none';
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        async function submitMembership() {
+            const fullName = document.getElementById('memberFullName').value.trim();
+            const email = document.getElementById('memberEmail').value.trim();
+            const phone = document.getElementById('memberPhone').value.trim();
+            const occupation = document.getElementById('memberOccupation').value.trim();
+            const reason = document.getElementById('memberReason').value.trim();
+            if (!fullName || !email || !occupation) {
+                showFormToast('Please fill in all required fields.', true);
+                return;
+            }
+            const btn = document.getElementById('memberSubmit');
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+            try {
+                const res = await fetch(`${API_BASE}/api/memberships`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ fullName, email, phone, occupation, reason })
+                });
+                if (!res.ok) throw new Error();
+                showFormToast('Thank you. Your membership request has been received.');
+                document.getElementById('memberForm').reset();
+                closeModalById('memberModal');
+            } catch {
+                showFormToast('Submission failed. Please try again.', true);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Join Now';
+            }
+        }
+
+        async function submitPartnership() {
+            const fullName = document.getElementById('partnerFullName').value.trim();
+            const email = document.getElementById('partnerEmail').value.trim();
+            const organization = document.getElementById('partnerOrganization').value.trim();
+            const phone = document.getElementById('partnerPhone').value.trim();
+            const partnershipType = document.getElementById('partnershipType').value;
+            const message = document.getElementById('partnerMessage').value.trim();
+            const consentsContact = document.getElementById('partnerConsent').checked;
+            if (!fullName || !email) {
+                showFormToast('Please fill in all required fields.', true);
+                return;
+            }
+            const btn = document.querySelector('#partnerForm .btn-primary');
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+            try {
+                const res = await fetch(`${API_BASE}/api/partnerships`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ fullName, email, phone, organization, partnershipType, message, consentsContact })
+                });
+                if (!res.ok) throw new Error();
+                showFormToast('Thank you. Your partnership request has been received.');
+                document.getElementById('partnerForm').reset();
+                closeModalById('partnerModal');
+            } catch {
+                showFormToast('Submission failed. Please try again.', true);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Submit Request';
+            }
+        }
+
+        async function submitNewsletter() {
+            const email = document.getElementById('newsletterEmail').value.trim();
+            if (!email) return;
+            const btn = document.getElementById('newsletterSubmit');
+            btn.disabled = true;
+            btn.textContent = 'Subscribing...';
+            try {
+                const res = await fetch(`${API_BASE}/api/newsletter/subscribe`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                if (!res.ok) throw new Error();
+                showFormToast('You are subscribed.');
+                document.getElementById('newsletterEmail').value = '';
+                document.getElementById('newsletterPopup').style.display = 'none';
+                localStorage.setItem('newsletterDontShow', 'true');
+            } catch {
+                showFormToast('Could not subscribe. Please try again.', true);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Subscribe';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+            navMenu.addEventListener('click', event => {
+                if (!event.target.closest('a')) return;
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
             });
 
-            // Load all data
+            const memberModal = document.getElementById('memberModal');
+            const partnerModal = document.getElementById('partnerModal');
+            const openModal = modal => {
+                modal.style.display = 'flex';
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            };
+            const closeModal = modal => {
+                modal.style.display = 'none';
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            };
+            ['openMemberModal', 'openMemberModalSecondary'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.addEventListener('click', event => { event.preventDefault(); openModal(memberModal); });
+            });
+            ['openPartnerModal', 'openPartnerModalSecondary'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.addEventListener('click', event => { event.preventDefault(); openModal(partnerModal); });
+            });
+            document.getElementById('memberCancel').addEventListener('click', () => closeModal(memberModal));
+            document.getElementById('partnerCancel').addEventListener('click', () => closeModal(partnerModal));
+            [memberModal, partnerModal].forEach(modal => modal.addEventListener('click', event => {
+                if (event.target === modal) closeModal(modal);
+            }));
+
+            const galleryModal = document.getElementById('galleryModal');
+            document.getElementById('viewMorePhotos').addEventListener('click', event => {
+                event.preventDefault();
+                document.getElementById('galleryModalGrid').innerHTML = allPhotos.map(photo => {
+                    const imageUrl = getImageUrl(photo.imageUrl);
+                    return `<div class="modal-gallery-item"><img src="${imageUrl}" alt="${escapeHtml(photo.caption || 'Gallery photo')}" loading="lazy">${photo.caption ? `<p>${escapeHtml(photo.caption)}</p>` : ''}</div>`;
+                }).join('') || '<p class="articles-loading">No photos available.</p>';
+                galleryModal.style.display = 'flex';
+            });
+            document.getElementById('closeGalleryModal').addEventListener('click', () => { galleryModal.style.display = 'none'; });
+            galleryModal.addEventListener('click', event => {
+                if (event.target === galleryModal) galleryModal.style.display = 'none';
+            });
+
+            const newsletterPopup = document.getElementById('newsletterPopup');
+            if (!localStorage.getItem('newsletterDontShow')) {
+                setTimeout(() => { newsletterPopup.style.display = 'grid'; }, 5000);
+            }
+            document.getElementById('closePopup').addEventListener('click', () => {
+                newsletterPopup.style.display = 'none';
+                if (document.getElementById('dontShowAgain').checked) localStorage.setItem('newsletterDontShow', 'true');
+            });
+            newsletterPopup.addEventListener('click', event => {
+                if (event.target === newsletterPopup) newsletterPopup.style.display = 'none';
+            });
+            document.addEventListener('keydown', event => {
+                if (event.key !== 'Escape') return;
+                closeModal(memberModal);
+                closeModal(partnerModal);
+                galleryModal.style.display = 'none';
+                closeTeamModal();
+            });
+
             loadArticles();
             loadEvents();
             loadGallery();
-            loadArticles().then(() => initArticlesCarousel());
-            loadEvents();
-            loadGallery();
             loadTeam();
-
-            // ── FORM SUBMISSIONS ──────────────────────────────────────
-            function showFormToast(message, error) {
-                const toast = document.getElementById('formToast');
-                toast.innerHTML = (error ? '✗ ' : '✓ ') + message;
-                toast.style.background = error ? '#ef4444' : '#10b981';
-                toast.style.display = 'block';
-                setTimeout(() => { toast.style.display = 'none'; }, 4500);
-            }
-
-            function closeModalById(id) {
-                const modal = document.getElementById(id);
-                if (modal) { 
-                    modal.style.display = 'none'; 
-                    modal.setAttribute('aria-hidden', 'true'); 
-                    document.body.style.overflow = ''; 
-                }
-            }
-            // ── TEAM ──────────────────────────────────────────────────
-            async function loadTeam() {
-                const grid = document.getElementById('teamGrid');
-                if (!grid) return;
-                try {
-                    const res = await fetch(`${API_BASE}/api/team`);
-                    const members = await res.json();
-                    if (!members.length) {
-                        grid.innerHTML = '<p style="text-align:center;color:#888;grid-column:1/-1;">No team members yet.</p>';
-                        return;
-                    }
-                    grid.innerHTML = members.map((m, i) => {
-                        const initials = (m.name || '?').split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
-                        const avatar = m.imageUrl
-                            ? `<img class="team-avatar" src="${m.imageUrl}" alt="${m.name}" onerror="this.outerHTML='<div class=\\'team-avatar-placeholder\\'>${initials}</div>'">`
-                            : `<div class="team-avatar-placeholder">${initials}</div>`;
-                        return `
-                        <div class="team-card" onclick="openTeamModal(${i})" style="cursor:pointer;">
-                            ${avatar}
-                            <div class="team-name">${m.name}</div>
-                            <div class="team-role">${m.role || ''}</div>
-                            ${m.bio ? `<div class="team-bio">${m.bio}</div>` : ''}
-                            <div class="team-socials">
-                                ${m.linkedinUrl ? `<a href="${m.linkedinUrl}" class="team-social-link" target="_blank" rel="noopener" onclick="event.stopPropagation()"><i class="fab fa-linkedin-in"></i></a>` : ''}
-                                ${m.twitterUrl  ? `<a href="${m.twitterUrl}"  class="team-social-link" target="_blank" rel="noopener" onclick="event.stopPropagation()"><i class="fab fa-twitter"></i></a>` : ''}
-                            </div>
-                        </div>`;
-                    }).join('');
-
-                    // store for modal use
-                    window._teamMembers = members;
-                } catch (err) {
-                    grid.innerHTML = '<p style="text-align:center;color:#888;grid-column:1/-1;">Could not load team.</p>';
-                }
-            }
-
-            function openTeamModal(index) {
-                const m = window._teamMembers[index];
-                if (!m) return;
-                const initials = (m.name || '?').split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
-                const modal = document.getElementById('teamMemberModal');
-                
-                document.getElementById('tmAvatar').innerHTML = m.imageUrl
-                    ? `<img src="${m.imageUrl}" alt="${m.name}" onerror="this.outerHTML='<div class=\\'tm-initials\\'>${initials}</div>'">`
-                    : `<div class="tm-initials">${initials}</div>`;
-                document.getElementById('tmName').textContent = m.name || '';
-                document.getElementById('tmRole').textContent = m.role || '';
-                document.getElementById('tmBio').textContent = m.bio || '';
-                document.getElementById('tmBio').style.display = m.bio ? 'block' : 'none';
-
-                const socials = document.getElementById('tmSocials');
-                socials.innerHTML = [
-                    m.linkedinUrl ? `<a href="${m.linkedinUrl}" class="tm-social" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i> LinkedIn</a>` : '',
-                    m.twitterUrl  ? `<a href="${m.twitterUrl}"  class="tm-social" target="_blank" rel="noopener"><i class="fab fa-twitter"></i> Twitter</a>`  : ''
-                ].join('');
-
-                modal.classList.add('open');
-                document.body.style.overflow = 'hidden';
-            }
-
-            function closeTeamModal() {
-                const modal = document.getElementById('teamMemberModal');
-                modal.classList.remove('open');
-                document.body.style.overflow = '';
-            }
-                            // ── ARTICLES CAROUSEL ─────────────────────────────────────
-                function initArticlesCarousel() {
-                    const track     = document.getElementById('articlesGrid');
-                    const viewport  = document.getElementById('articlesViewport');
-                    const prevBtn   = document.getElementById('articlesPrev');
-                    const nextBtn   = document.getElementById('articlesNext');
-                    const dotsEl    = document.getElementById('articlesDots');
-                    if (!track || !prevBtn) return;
-
-                    const cards = track.querySelectorAll('.article-card');
-                    if (!cards.length) return;
-
-                    // How many cards visible at once
-                    function perPage() {
-                        const w = viewport.offsetWidth;
-                        if (w < 600) return 1;
-                        if (w < 900) return 2;
-                        return 3;
-                    }
-
-                    let current = 0;
-
-                    function totalPages() { return Math.ceil(cards.length / perPage()); }
-
-                    function goTo(page) {
-                        const pp = perPage();
-                        current = Math.max(0, Math.min(page, totalPages() - 1));
-                        const cardWidth = cards[0].offsetWidth + 24; // gap = 24px
-                        track.style.transform = `translateX(-${current * pp * cardWidth}px)`;
-                        prevBtn.disabled = current === 0;
-                        nextBtn.disabled = current >= totalPages() - 1;
-                        dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === current));
-                    }
-
-                    function buildDots() {
-                        dotsEl.innerHTML = Array.from({ length: totalPages() }, (_, i) =>
-                            `<button class="carousel-dot${i === 0 ? ' active' : ''}" aria-label="Page ${i+1}"></button>`
-                        ).join('');
-                        dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) => d.addEventListener('click', () => goTo(i)));
-                    }
-
-                    buildDots();
-                    goTo(0);
-
-                    prevBtn.addEventListener('click', () => goTo(current - 1));
-                    nextBtn.addEventListener('click', () => goTo(current + 1));
-                    window.addEventListener('resize', () => { buildDots(); goTo(0); });
-                }
-
-
-            // ── MEMBERSHIP ────────────────────────────────────────────
-            async function submitMembership() {
-                const fullName = document.getElementById('memberFullName').value.trim();
-                const email = document.getElementById('memberEmail').value.trim();
-                const phone = document.getElementById('memberPhone').value.trim();
-                const occupation = document.getElementById('memberOccupation').value.trim();
-                const reason = document.getElementById('memberReason').value.trim();
-
-                if (!fullName || !email || !occupation) {
-                    showFormToast('Please fill in all required fields.', true);
-                    return;
-                }
-
-                const btn = document.getElementById('memberSubmit');
-                btn.disabled = true;
-                btn.textContent = 'Submitting...';
-
-                try {
-                    const res = await fetch(`${API_BASE}/api/memberships`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ fullName, email, phone, occupation, reason })
-                    });
-                    if (!res.ok) throw new Error();
-                    showFormToast('Thank you! Your membership request has been received.');
-                    document.getElementById('memberForm').reset();
-                    closeModalById('memberModal');
-                } catch {
-                    showFormToast('Submission failed. Please try again.', true);
-                } finally {
-                    btn.disabled = false;
-                    btn.textContent = 'Join Now';
-                }
-            }
-
-            // ── PARTNERSHIP ───────────────────────────────────────────
-            async function submitPartnership() {
-                const fullName = document.getElementById('partnerFullName').value.trim();
-                const email = document.getElementById('partnerEmail').value.trim();
-                const organization = document.getElementById('partnerOrganization').value.trim();
-                const phone = document.getElementById('partnerPhone').value.trim();
-                const partnershipType = document.getElementById('partnershipType').value;
-                const message = document.getElementById('partnerMessage').value.trim();
-                const consentsContact = document.getElementById('partnerConsent').checked;
-
-                if (!fullName || !email) {
-                    showFormToast('Please fill in all required fields.', true);
-                    return;
-                }
-
-                const btn = document.querySelector('#partnerForm .btn-primary');
-                btn.disabled = true;
-                btn.textContent = 'Submitting...';
-
-                try {
-                    const res = await fetch(`${API_BASE}/api/partnerships`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ fullName, email, phone, organization, partnershipType, message, consentsContact })
-                    });
-                    if (!res.ok) throw new Error();
-                    showFormToast('Thank you! Your partnership request has been received.');
-                    document.getElementById('partnerForm').reset();
-                    closeModalById('partnerModal');
-                } catch {
-                    showFormToast('Submission failed. Please try again.', true);
-                } finally {
-                    btn.disabled = false;
-                    btn.textContent = 'Submit Partnership Request';
-                }
-            }
-
-            // ── NEWSLETTER ────────────────────────────────────────────
-            async function submitNewsletter() {
-                const email = document.getElementById('newsletterEmail').value.trim();
-                if (!email) return;
-
-                const btn = document.getElementById('newsletterSubmit');
-                btn.disabled = true;
-                btn.textContent = 'Subscribing...';
-
-                try {
-                    const res = await fetch(`${API_BASE}/api/newsletter/subscribe`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email })
-                    });
-                    if (!res.ok) throw new Error();
-                    showFormToast("You're subscribed! Welcome to Career Café 🎉");
-                    document.getElementById('newsletterEmail').value = '';
-                    const popup = document.getElementById('newsletterPopup');
-                    if (popup) { 
-                        popup.style.display = 'none'; 
-                        localStorage.setItem('newsletterDontShow', 'true'); 
-                    }
-                } catch {
-                    showFormToast('Could not subscribe. Please try again.', true);
-                } finally {
-                    btn.disabled = false;
-                    btn.textContent = 'Subscribe';
-                }
-            }
-
-            // ── NEWSLETTER POPUP ──────────────────────────────────────
-            document.addEventListener('DOMContentLoaded', function() {
-                const newsletterPopup = document.getElementById('newsletterPopup');
-                const closePopup = document.getElementById('closePopup');
-                const dontShowAgain = document.getElementById('dontShowAgain');
-                
-                // Check if user has previously opted out
-                if (!localStorage.getItem('newsletterDontShow')) {
-                    // Show popup after a delay (e.g., 5 seconds)
-                    setTimeout(() => {
-                        if (newsletterPopup) {
-                            newsletterPopup.style.display = 'block';
-                        }
-                    }, 5000);
-                }
-                
-                // Close popup when X is clicked
-                if (closePopup) {
-                    closePopup.addEventListener('click', function() {
-                        if (newsletterPopup) {
-                            newsletterPopup.style.display = 'none';
-                            
-                            // If "Don't show again" is checked, save preference
-                            if (dontShowAgain && dontShowAgain.checked) {
-                                localStorage.setItem('newsletterDontShow', 'true');
-                            }
-                        }
-                    });
-                }
-                
-                // Close popup when clicking outside of it
-                window.addEventListener('click', function(e) {
-                    if (e.target === newsletterPopup) {
-                        if (newsletterPopup) {
-                            newsletterPopup.style.display = 'none';
-                            if (dontShowAgain && dontShowAgain.checked) {
-                                localStorage.setItem('newsletterDontShow', 'true');
-                            }
-                        }
-                    }
-                });
-            });
-
-            // ── HAMBURGER MENU ────────────────────────────────────────
-            document.addEventListener('DOMContentLoaded', function() {
-                const hamburger = document.getElementById('hamburger');
-                const navMenu = document.getElementById('nav-menu');
-
-                if (hamburger && navMenu) {
-                    hamburger.addEventListener('click', () => {
-                        hamburger.classList.toggle('active');
-                        navMenu.classList.toggle('active');
-                        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
-                    });
-
-                    // Close menu when a nav item is selected
-                    navMenu.addEventListener('click', (e) => {
-                        const link = e.target.closest('a');
-                        if (!link) return;
-                        hamburger.classList.remove('active');
-                        navMenu.classList.remove('active');
-                        document.body.style.overflow = '';
-                    });
-                }
-            });
-
-            // ── MODAL CONTROLS ────────────────────────────────────────
-            document.addEventListener('DOMContentLoaded', function() {
-                const memberModal = document.getElementById('memberModal');
-                const partnerModal = document.getElementById('partnerModal');
-
-                const openMemberBtn = document.getElementById('openMemberModal');
-                const openPartnerBtn = document.getElementById('openPartnerModal');
-
-                const closeMemberBtn = document.getElementById('memberCancel');
-                const closePartnerBtn = document.getElementById('partnerCancel');
-
-                function openModal(modal) {
-                    modal.style.display = 'flex';
-                    modal.setAttribute('aria-hidden', 'false');
-                    document.body.style.overflow = 'hidden';
-                }
-
-                function closeModal(modal) {
-                    modal.style.display = 'none';
-                    modal.setAttribute('aria-hidden', 'true');
-                    document.body.style.overflow = '';
-                }
-
-                if (openMemberBtn) {
-                    openMemberBtn.addEventListener('click', function (e) { 
-                        e.preventDefault(); 
-                        openModal(memberModal); 
-                    });
-                }
-
-                if (openPartnerBtn) {
-                    openPartnerBtn.addEventListener('click', function (e) { 
-                        e.preventDefault(); 
-                        openModal(partnerModal); 
-                    });
-                }
-
-                if (closeMemberBtn) {
-                    closeMemberBtn.addEventListener('click', function () { 
-                        closeModal(memberModal); 
-                    });
-                }
-
-                if (closePartnerBtn) {
-                    closePartnerBtn.addEventListener('click', function () { 
-                        closeModal(partnerModal); 
-                    });
-                }
-
-                [memberModal, partnerModal].forEach(modal => {
-                    if (modal) {
-                        modal.addEventListener('click', function (e) {
-                            if (e.target === modal) closeModal(modal);
-                        });
-
-                        const content = modal.querySelector('.modal-content');
-                        if (content) content.addEventListener('click', e => e.stopPropagation());
-                    }
-                });
-
-                document.addEventListener('keydown', function (e) {
-                    if (e.key === 'Escape') {
-                        if (memberModal && memberModal.style.display === 'flex') closeModal(memberModal);
-                        if (partnerModal && partnerModal.style.display === 'flex') closeModal(partnerModal);
-                    }
-                });
-            });
-        </script>
-    </body>
-    </html>
+        });
+    </script>
+</body>
+</html>

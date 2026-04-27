@@ -128,6 +128,41 @@
         </div>
     </main>
 
+    <div class="modal course-enroll-modal" id="courseEnrollModal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="courseEnrollTitle">
+            <button class="close-modal" type="button" aria-label="Close enrollment form" onclick="closeCourseEnrollment()">&times;</button>
+            <h3 id="courseEnrollTitle">Enroll In Course</h3>
+            <p class="modal-subtext" id="courseEnrollSummary">Share your details and the Career Cafe team will follow up.</p>
+            <form id="courseEnrollForm">
+                <input type="hidden" id="courseEnrollCourse">
+                <div class="form-row">
+                    <input type="text" id="courseEnrollName" placeholder="Full name" autocomplete="name" required>
+                    <input type="email" id="courseEnrollEmail" placeholder="Email address" autocomplete="email" required>
+                </div>
+                <div class="form-row">
+                    <input type="tel" id="courseEnrollPhone" placeholder="Phone number" autocomplete="tel">
+                    <select id="courseEnrollLevel">
+                        <option value="">Career level</option>
+                        <option value="Student">Student</option>
+                        <option value="Entry-level">Entry-level</option>
+                        <option value="Mid-level">Mid-level</option>
+                        <option value="Senior">Senior</option>
+                        <option value="Entrepreneur">Entrepreneur</option>
+                    </select>
+                </div>
+                <div class="form-checkbox">
+                    <label><input type="checkbox" id="courseEnrollUpdates" checked> Send me course updates and related Career Cafe opportunities.</label>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeCourseEnrollment()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="courseEnrollSubmit"><i class="fas fa-paper-plane"></i> Submit Enrollment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="form-toast" id="courseFormToast" role="status" aria-live="polite"></div>
+
     <footer class="site-footer">
         <div class="container">
             <div class="site-footer-top">
@@ -161,7 +196,7 @@
                 <div>
                     <h3 class="site-footer-title">Follow</h3>
                     <div class="site-footer-socials">
-                        <a href="https://www.linkedin.com/in/the-career-caf%C3%A9-africa-a63269370" class="site-footer-social" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.linkedin.com/in/the-career-café-africa-a63269370?utm_source=share_via&utm_content=profile&utm_medium=member_ios" class="site-footer-social" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                         <a href="https://whatsapp.com/channel/0029Vb6zUUTDeON0FtpHPW2P" class="site-footer-social" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                         <a href="https://www.instagram.com/thecareercafeafrica?igsh=M2wyendibDhuNHI0&utm_source=qr" class="site-footer-social" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -182,6 +217,7 @@
             'images/8Z9A1636.jpg',
             'images/345A4668.jpg'
         ];
+        let currentCourses = [];
 
         async function loadCourses() {
             const container = document.getElementById('coursesContainer');
@@ -191,6 +227,7 @@
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 const courses = await response.json();
                 const publishedCourses = Array.isArray(courses) ? courses.filter(course => course && course.published !== false) : [];
+                currentCourses = publishedCourses;
                 updateStats(publishedCourses);
                 if (!publishedCourses.length) {
                     featuredContainer.classList.remove('active');
@@ -227,7 +264,7 @@
         function renderFeaturedCourse(course) {
             const featuredContainer = document.getElementById('featuredCourse');
             const imageUrl = getCourseImage(course, 0);
-            const safeEnrollUrl = sanitizeUrl(course.enrollmentUrl);
+            const courseKey = escapeJsString(getCourseKey(course));
             featuredContainer.classList.add('active');
             featuredContainer.innerHTML = `
                 <div class="featured-media">
@@ -245,14 +282,14 @@
                     ${course.content ? `<div class="learning-outcomes">${course.content}</div>` : ''}
                     <div class="course-footer" style="padding:0;">
                         <div class="course-status">${course.isFree || Number(course.price) === 0 ? 'Open access course' : `KES ${formatPrice(course.price)}`}</div>
-                        ${safeEnrollUrl ? `<a href="${escapeAttribute(safeEnrollUrl)}" class="enroll-btn" target="_blank" rel="noopener">Enroll Now</a>` : `<a href="index.html#contact" class="ghost-btn">Ask About Enrollment</a>`}
+                        <button type="button" class="enroll-btn" onclick="openCourseEnrollment('${escapeAttribute(courseKey)}')">Enroll Now</button>
                     </div>
                 </div>`;
         }
 
         function renderCourseCard(course, displayIndex) {
             const imageUrl = getCourseImage(course, displayIndex);
-            const safeEnrollUrl = sanitizeUrl(course.enrollmentUrl);
+            const courseKey = escapeJsString(getCourseKey(course));
             const tags = typeof course.tags === 'string' ? course.tags.split(',').map(tag => tag.trim()).filter(Boolean).slice(0, 4) : [];
             const metaItems = [
                 course.duration ? `<span class="meta-item"><i class="fas fa-clock"></i>${escapeHtml(course.duration)}</span>` : '',
@@ -280,10 +317,85 @@
                     ${tags.length ? `<div class="course-tags">${tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}</div>` : ''}
                     ${course.content ? `<div class="learning-outcomes">${course.content}</div>` : ''}
                     <div class="course-footer">
-                        <div class="course-status">${safeEnrollUrl ? 'Enrollment available' : 'Enrollment opening soon'}</div>
-                        ${safeEnrollUrl ? `<a href="${escapeAttribute(safeEnrollUrl)}" class="enroll-btn" target="_blank" rel="noopener">Enroll</a>` : `<a href="index.html#contact" class="ghost-btn">Get Notified</a>`}
+                        <div class="course-status">Enrollment available</div>
+                        <button type="button" class="enroll-btn" onclick="openCourseEnrollment('${escapeAttribute(courseKey)}')">Enroll</button>
                     </div>
                 </article>`;
+        }
+
+        function getCourseKey(course) {
+            return String(course && (course.id || course.slug || course.title) || '');
+        }
+
+        function findCourse(courseKey) {
+            return currentCourses.find(course => getCourseKey(course) === String(courseKey));
+        }
+
+        function openCourseEnrollment(courseKey) {
+            const course = findCourse(courseKey);
+            if (!course) return;
+            document.getElementById('courseEnrollCourse').value = course.title || '';
+            document.getElementById('courseEnrollTitle').textContent = `Enroll In ${course.title || 'Course'}`;
+            document.getElementById('courseEnrollSummary').textContent = `${course.duration || 'Self-paced'}${course.level ? ` - ${course.level}` : ''}${course.category ? ` - ${course.category}` : ''}`;
+            document.getElementById('courseEnrollModal').style.display = 'flex';
+            document.getElementById('courseEnrollModal').setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => document.getElementById('courseEnrollName').focus(), 0);
+        }
+
+        function closeCourseEnrollment() {
+            document.getElementById('courseEnrollModal').style.display = 'none';
+            document.getElementById('courseEnrollModal').setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        function showCourseToast(message, error) {
+            const toast = document.getElementById('courseFormToast');
+            toast.textContent = message;
+            toast.classList.toggle('error', Boolean(error));
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 4500);
+        }
+
+        async function submitCourseEnrollment(event) {
+            event.preventDefault();
+            const fullName = document.getElementById('courseEnrollName').value.trim();
+            const email = document.getElementById('courseEnrollEmail').value.trim();
+            const phone = document.getElementById('courseEnrollPhone').value.trim();
+            const careerLevel = document.getElementById('courseEnrollLevel').value;
+            const selectedCourse = document.getElementById('courseEnrollCourse').value;
+            const acceptsUpdates = document.getElementById('courseEnrollUpdates').checked;
+            if (!fullName || !email || !selectedCourse) {
+                showCourseToast('Please fill in your name and email.', true);
+                return;
+            }
+
+            const submitBtn = document.getElementById('courseEnrollSubmit');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            try {
+                const response = await fetch(`${API_BASE}/api/memberships`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        fullName,
+                        email,
+                        phone,
+                        careerLevel,
+                        membershipPlan: `Course enrollment: ${selectedCourse}`,
+                        acceptsUpdates
+                    })
+                });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                document.getElementById('courseEnrollForm').reset();
+                closeCourseEnrollment();
+                showCourseToast('Enrollment request received. Career Cafe will follow up shortly.');
+            } catch (error) {
+                showCourseToast('Enrollment failed. Please try again or contact careercafeke@gmail.com.', true);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Enrollment';
+            }
         }
 
         function getCourseImage(course, index) {
@@ -317,6 +429,10 @@
             return escapeHtml(text).replace(/"/g, '&quot;');
         }
 
+        function escapeJsString(text) {
+            return String(text).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        }
+
         function formatPrice(price) {
             const numericPrice = Number(price);
             if (!Number.isFinite(numericPrice) || numericPrice <= 0) return '0';
@@ -325,6 +441,10 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             loadCourses();
+            document.getElementById('courseEnrollForm').addEventListener('submit', submitCourseEnrollment);
+            document.getElementById('courseEnrollModal').addEventListener('click', event => {
+                if (event.target.id === 'courseEnrollModal') closeCourseEnrollment();
+            });
             const hamburger = document.getElementById('hamburger');
             const navMenu = document.getElementById('nav-menu');
             hamburger.addEventListener('click', () => {

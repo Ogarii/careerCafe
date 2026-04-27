@@ -67,7 +67,7 @@
                 <div>
                     <h3 class="site-footer-title">Follow</h3>
                     <div class="site-footer-socials">
-                        <a href="https://www.linkedin.com/in/the-career-caf%C3%A9-africa-a63269370" class="site-footer-social" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.linkedin.com/in/the-career-café-africa-a63269370?utm_source=share_via&utm_content=profile&utm_medium=member_ios" class="site-footer-social" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                         <a href="https://whatsapp.com/channel/0029Vb6zUUTDeON0FtpHPW2P" class="site-footer-social" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                         <a href="https://www.instagram.com/thecareercafeafrica?igsh=M2wyendibDhuNHI0&utm_source=qr" class="site-footer-social" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -81,8 +81,40 @@
     </footer>
 
     <script>
-        const API_BASE = 'https://careercafe-backend-1.onrender.com';
+        const REMOTE_API_BASE = 'https://careercafe-backend-1.onrender.com';
+        const LOCAL_API_BASE = '';
+        const USE_LOCAL_PROXY = window.location.hostname === 'localhost'
+            || window.location.hostname === '127.0.0.1'
+            || window.location.hostname.endsWith('.trycloudflare.com');
+        const FALLBACK_ARTICLES = [
+            { title: 'Employability in 2026: The Skills Professionals Cannot Afford to Ignore', slug: 'employability-2026', summary: 'Employability is no longer just about doing your job well. It is about staying relevant as work changes.', category: 'Future of Work', fileUrl: 'articles/Employability in 2026.docx' },
+            { title: 'The Invisible Resume: What the Internet Says About You', slug: 'invisible-resume', summary: 'Your online presence speaks before you do. Learn how to polish your digital footprint and make it work for you.', category: 'Personal Branding', fileUrl: 'articles/The Invisible Resume-What the Internet says about You.pdf' },
+            { title: 'Free Career Training Is a Strategic Investment, Not Charity', slug: 'free-career-training', summary: 'Free training can be overlooked because it feels optional, but it can become a practical career advantage.', category: 'Career Growth', fileUrl: 'articles/Free Training.docx' },
+            { title: 'Career Decisions as Strategy, Not Emotion', slug: 'career-decisions-strategy', summary: 'A grounded look at making career moves through clarity and long-term positioning instead of pressure.', category: 'Career Strategy', fileUrl: 'articles/Career Decisions as strategy not emotion.docx' },
+            { title: 'Cash Flow vs. Profit: Understanding Money Beyond the Paycheck or Sales', slug: 'cash-flow-vs-profit', summary: 'You can be profitable on paper and still feel financially stretched. This article explains the difference.', category: 'Financial Clarity', fileUrl: 'articles/Cash Flow vs. Profit Understanding Money Beyond the Paycheck or Sales.pdf' },
+            { title: 'Clarity Is the First Step to Entrepreneurship', slug: 'clarity-first-step-entrepreneurship', summary: 'Niche, focus, and customer clarity create a stronger foundation for entrepreneurship.', category: 'Entrepreneurship', fileUrl: 'articles/Clarity Is the First Step to Entrepreneurship - How Niche.pdf' },
+            { title: 'Personal Branding Article', slug: 'personal-branding', summary: 'A practical guide to shaping how people understand your work, value, and professional story.', category: 'Personal Branding', fileUrl: 'articles/Personal-Branding-Article.pdf' },
+            { title: 'Visibility Over Perfection', slug: 'visibility-over-perfection', summary: 'Done is better than invisible. A reminder that progress and presence beat waiting to be perfect.', category: 'Mindset', fileUrl: 'articles/Visibility over Perfection.pdf' }
+        ];
 
+        async function fetchJsonFromApi(path) {
+            const bases = USE_LOCAL_PROXY ? [LOCAL_API_BASE, REMOTE_API_BASE] : [REMOTE_API_BASE, LOCAL_API_BASE];
+            let lastError;
+            for (const base of bases) {
+                try {
+                    const res = await fetch(`${base}${path}`);
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    return await res.json();
+                } catch (error) {
+                    lastError = error;
+                }
+            }
+            throw lastError || new Error('API request failed');
+        }
+
+        function getFallbackArticle(slug) {
+            return FALLBACK_ARTICLES.find(article => article.slug === slug);
+        }
         async function loadArticle() {
             const urlParams = new URLSearchParams(window.location.search);
             const slug = urlParams.get('slug');
@@ -95,11 +127,8 @@
             container.innerHTML = `<div class="article-container"><div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Loading article...</p></div></div>`;
 
             try {
-                const res = await fetch(`${API_BASE}/api/articles/${slug}`);
-                if (!res.ok) throw new Error('Article not found');
-                const article = await res.json();
-                const allRes = await fetch(`${API_BASE}/api/articles`);
-                const allArticlesData = await allRes.json();
+                const article = await fetchJsonFromApi(`/api/articles/${slug}`);
+                const allArticlesData = await fetchJsonFromApi('/api/articles');
                 const otherArticles = allArticlesData.filter(a => a.slug !== slug && a.published !== false);
                 const date = article.createdAt ? new Date(article.createdAt).toLocaleDateString('en-KE', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Published recently';
 
@@ -125,23 +154,37 @@
                                     </div>
                                 </article>
                                 <aside class="article-sidebar">
-                                    <div class="article-panel">
-                                        <h3>Article Focus</h3>
-                                        <div class="article-sidebar-list">
-                                            <div class="article-sidebar-link">
-                                                <strong>${escapeHtml(article.category || 'Career Insight')}</strong>
-                                                <span>Practical clarity and grounded professional growth.</span>
+                                    <div class="article-panel article-focus-panel">
+                                        <div class="article-panel-heading">
+                                            <span class="article-panel-icon"><i class="fas fa-bullseye"></i></span>
+                                            <div>
+                                                <span class="article-panel-kicker">Article Focus</span>
+                                                <h3>${escapeHtml(article.category || 'Career Insight')}</h3>
                                             </div>
+                                        </div>
+                                        <p>Practical clarity and grounded professional growth for readers making their next career move.</p>
+                                        <div class="article-focus-meta">
+                                            <span><i class="fas fa-mug-hot"></i> Career Cafe Journal</span>
+                                            <span><i class="fas fa-clock"></i> Short read</span>
                                         </div>
                                     </div>
                                     ${otherArticles.length > 0 ? `
-                                        <div class="article-panel">
-                                            <h3>Read Next</h3>
+                                        <div class="article-panel read-next-panel">
+                                            <div class="article-panel-heading">
+                                                <span class="article-panel-icon"><i class="fas fa-arrow-right"></i></span>
+                                                <div>
+                                                    <span class="article-panel-kicker">Keep Reading</span>
+                                                    <h3>Read Next</h3>
+                                                </div>
+                                            </div>
                                             <div class="article-sidebar-list">
-                                                ${otherArticles.slice(0, 4).map(otherArticle => `
+                                                ${otherArticles.slice(0, 4).map((otherArticle, index) => `
                                                     <a href="?slug=${otherArticle.slug}" class="article-sidebar-link">
-                                                        <strong>${escapeHtml(otherArticle.title)}</strong>
-                                                        <span>${otherArticle.category ? escapeHtml(otherArticle.category) : 'Career Cafe Article'}</span>
+                                                        <span class="article-link-index">${String(index + 1).padStart(2, '0')}</span>
+                                                        <span class="article-link-copy">
+                                                            <strong>${escapeHtml(otherArticle.title)}</strong>
+                                                            <span>${otherArticle.category ? escapeHtml(otherArticle.category) : 'Career Cafe Article'}</span>
+                                                        </span>
                                                     </a>
                                                 `).join('')}
                                             </div>
@@ -153,12 +196,63 @@
                     </section>`;
                 document.title = `${article.title} - Career Cafe`;
             } catch (err) {
+                const fallbackArticle = getFallbackArticle(slug);
+                if (fallbackArticle) {
+                    const otherArticles = FALLBACK_ARTICLES.filter(article => article.slug !== slug);
+                    container.innerHTML = `
+                    <section class="article-container">
+                        <div class="container articles-shell">
+                            <div class="article-layout">
+                                <article class="article-main">
+                                    <header class="article-header">
+                                        <span class="article-category">${escapeHtml(fallbackArticle.category)}</span>
+                                        <h1 class="article-title">${escapeHtml(fallbackArticle.title)}</h1>
+                                        <div class="article-meta">
+                                            <span class="meta-item"><i class="fas fa-mug-hot"></i>Career Cafe Journal</span>
+                                        </div>
+                                        <div class="article-image"><div class="article-image-content"><i class="fas fa-newspaper"></i></div></div>
+                                    </header>
+                                    <div class="article-body">
+                                        <p>${escapeHtml(fallbackArticle.summary)}</p>
+                                        <p>The live article API is unavailable from this page right now, but this article is available as a source document.</p>
+                                        <p><a href="${encodeURI(fallbackArticle.fileUrl)}" class="btn btn-primary" target="_blank" rel="noopener">Open Article File</a></p>
+                                    </div>
+                                </article>
+                                <aside class="article-sidebar">
+                                    <div class="article-panel read-next-panel">
+                                        <div class="article-panel-heading">
+                                            <span class="article-panel-icon"><i class="fas fa-arrow-right"></i></span>
+                                            <div>
+                                                <span class="article-panel-kicker">Keep Reading</span>
+                                                <h3>Read Next</h3>
+                                            </div>
+                                        </div>
+                                        <div class="article-sidebar-list">
+                                            ${otherArticles.slice(0, 4).map((otherArticle, index) => `
+                                                <a href="${getArticleHref(otherArticle)}" class="article-sidebar-link" target="_blank" rel="noopener">
+                                                    <span class="article-link-index">${String(index + 1).padStart(2, '0')}</span>
+                                                    <span class="article-link-copy">
+                                                        <strong>${escapeHtml(otherArticle.title)}</strong>
+                                                        <span>${escapeHtml(otherArticle.category)}</span>
+                                                    </span>
+                                                </a>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                </aside>
+                            </div>
+                            ${renderArticleShelf('More Articles', 'Keep reading through ideas on career clarity, growth, visibility, and practical professional development.', otherArticles)}
+                        </div>
+                    </section>`;
+                    document.title = `${fallbackArticle.title} - Career Cafe`;
+                    return;
+                }
                 container.innerHTML = `
                     <div class="article-container">
                         <div class="container">
                             <div class="error-message">
                                 <i class="fas fa-exclamation-circle" style="font-size: 2rem; color: var(--primary);"></i>
-                                <p>Article not found. Please check back later.</p>
+                                <p>Could not load this article from the live article API.</p>
                                 <a href="articles.html" class="btn btn-primary">View All Articles</a>
                             </div>
                         </div>
@@ -168,12 +262,17 @@
 
         async function loadAllArticles() {
             const container = document.getElementById('articleContent');
-            container.innerHTML = `<div class="article-container"><div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Loading articles...</p></div></div>`;
+            renderArticlesIndex(
+                container,
+                FALLBACK_ARTICLES,
+                'The live article API is still loading, so these articles are available from the local article files.',
+                'Available articles',
+                'Files',
+                'Readable source documents'
+            );
 
             try {
-                const res = await fetch(`${API_BASE}/api/articles`);
-                if (!res.ok) throw new Error('Failed to fetch articles');
-                const articles = await res.json();
+                const articles = await fetchJsonFromApi('/api/articles');
                 const publishedArticles = articles.filter(article => article.published !== false);
                 if (!publishedArticles.length) {
                     container.innerHTML = `
@@ -188,46 +287,52 @@
                     return;
                 }
 
-                container.innerHTML = `
-                    <section class="articles-hero">
-                        <div class="container">
-                            <span class="articles-kicker"><i class="fas fa-mug-hot"></i> Career Cafe Journal</span>
-                            <h1>Articles for clear thinking and stronger career decisions.</h1>
-                            <p>Explore practical writing on visibility, employability, growth, entrepreneurship, and the habits that shape meaningful work.</p>
-                            <div class="articles-stats">
-                                <div class="articles-stat">
-                                    <strong>${publishedArticles.length}</strong>
-                                    <span>Published articles</span>
-                                </div>
-                                <div class="articles-stat">
-                                    <strong>${new Set(publishedArticles.map(article => article.category).filter(Boolean)).size || 1}</strong>
-                                    <span>Editorial themes</span>
-                                </div>
-                                <div class="articles-stat">
-                                    <strong>Fresh</strong>
-                                    <span>Insights for professionals</span>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <section class="article-container">
-                        <div class="container">
-                            ${renderArticleShelf('All Articles', 'A curated reading shelf from Career Cafe. Start anywhere and follow the threads that matter to your next move.', publishedArticles)}
-                        </div>
-                    </section>`;
-                document.title = 'All Articles - Career Cafe';
+                renderArticlesIndex(
+                    container,
+                    publishedArticles,
+                    'A curated reading shelf from Career Cafe. Start anywhere and follow the threads that matter to your next move.',
+                    'Published articles',
+                    'Fresh',
+                    'Insights for professionals'
+                );
             } catch (err) {
-                container.innerHTML = `
-                    <div class="article-container">
-                        <div class="container">
-                            <div class="error-message">
-                                <i class="fas fa-exclamation-circle" style="font-size: 2rem; color: var(--primary);"></i>
-                                <p>Unable to load articles. Please check your connection and try again.</p>
-                                <button onclick="location.reload()" class="retry-btn">Retry</button>
+                document.title = 'All Articles - Career Cafe';
+            }
+        }
+
+        function getArticleHref(article) {
+            return article.fileUrl ? encodeURI(article.fileUrl) : `?slug=${encodeURIComponent(article.slug)}`;
+        }
+
+        function renderArticlesIndex(container, articles, intro, countLabel, statusValue, statusLabel) {
+            container.innerHTML = `
+                <section class="articles-hero">
+                    <div class="container">
+                        <span class="articles-kicker"><i class="fas fa-mug-hot"></i> Career Cafe Journal</span>
+                        <h1>Articles for clear thinking and stronger career decisions.</h1>
+                        <p>Explore practical writing on visibility, employability, growth, entrepreneurship, and the habits that shape meaningful work.</p>
+                        <div class="articles-stats">
+                            <div class="articles-stat">
+                                <strong>${articles.length}</strong>
+                                <span>${countLabel}</span>
+                            </div>
+                            <div class="articles-stat">
+                                <strong>${new Set(articles.map(article => article.category).filter(Boolean)).size || 1}</strong>
+                                <span>Editorial themes</span>
+                            </div>
+                            <div class="articles-stat">
+                                <strong>${statusValue}</strong>
+                                <span>${statusLabel}</span>
                             </div>
                         </div>
-                    </div>`;
-            }
+                    </div>
+                </section>
+                <section class="article-container">
+                    <div class="container">
+                        ${renderArticleShelf('All Articles', intro, articles)}
+                    </div>
+                </section>`;
+            document.title = 'All Articles - Career Cafe';
         }
 
         function renderArticleShelf(title, intro, articles) {
@@ -237,7 +342,7 @@
                     <p class="all-articles-intro">${intro}</p>
                     <div class="articles-grid">
                         ${articles.map((article, index) => `
-                            <a href="?slug=${article.slug}" class="article-card">
+                            <a href="${getArticleHref(article)}" class="article-card"${article.fileUrl ? ' target="_blank" rel="noopener"' : ''}>
                                 <div class="card-image">
                                     ${article.imageUrl ? `<div style="width:100%;height:100%;background:url('${article.imageUrl}') center/cover no-repeat;"></div>` : `<div class="card-image-placeholder"><i class="fas fa-newspaper"></i></div>`}
                                 </div>

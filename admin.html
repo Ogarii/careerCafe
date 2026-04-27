@@ -26,25 +26,37 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
         body {
             font-family: 'DM Sans', sans-serif;
             background: #F7F4F1;
             color: var(--text);
             min-height: 100vh;
-            display: flex;
+            display: block;
+            overflow-x: hidden;
         }
+
+        body.nav-open { overflow: hidden; }
 
         /* ── SIDEBAR ── */
         .sidebar {
             width: var(--sidebar-w);
             background: var(--dark);
             min-height: 100vh;
+            height: 100vh;
             position: fixed;
             left: 0; top: 0;
             display: flex;
             flex-direction: column;
             z-index: 100;
-            overflow: hidden;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.25) transparent;
         }
 
         .sidebar::before {
@@ -132,6 +144,30 @@
             border-top: 1px solid rgba(255,255,255,0.07);
         }
 
+        .mobile-nav-toggle {
+            display: none;
+            width: 42px;
+            height: 42px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: #fff;
+            color: var(--dark);
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .sidebar-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(26,26,46,0.45);
+            z-index: 90;
+        }
+
+        .sidebar-backdrop.open { display: block; }
+
         .logout-btn {
             display: flex;
             align-items: center;
@@ -153,10 +189,12 @@
         /* ── MAIN ── */
         .main {
             margin-left: var(--sidebar-w);
-            flex: 1;
+            width: calc(100% - var(--sidebar-w));
+            max-width: calc(100% - var(--sidebar-w));
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            min-width: 0;
         }
 
         .topbar {
@@ -169,6 +207,7 @@
             position: sticky;
             top: 0;
             z-index: 50;
+            min-height: 72px;
         }
 
         .topbar-title {
@@ -201,7 +240,42 @@
             font-weight: 700;
         }
 
-        .content { padding: 32px; flex: 1; }
+        .content {
+            padding: 32px;
+            flex: 1;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .admin-footer {
+            margin-top: auto;
+            padding: 18px 32px 24px;
+            border-top: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            font-size: 0.86rem;
+            color: #7d746d;
+        }
+
+        .admin-footer strong {
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .admin-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .admin-footer a:hover {
+            color: var(--secondary);
+        }
 
         /* ── PANELS ── */
         .panel { display: none; }
@@ -275,6 +349,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
         .card-title {
@@ -297,7 +373,9 @@
             transition: all 0.2s;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 7px;
+            min-height: 38px;
         }
 
         .btn-primary { background: var(--primary); color: #fff; }
@@ -311,9 +389,13 @@
         .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
 
         /* ── TABLE ── */
-        .table-wrap { overflow-x: auto; }
+        .table-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            max-width: 100%;
+        }
 
-        table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+        table { width: 100%; min-width: 760px; border-collapse: collapse; font-size: 0.88rem; }
         thead tr { background: var(--gray); }
         th { padding: 12px 16px; text-align: left; font-weight: 600; font-size: 0.8rem; color: #666; letter-spacing: 0.5px; }
         td { padding: 13px 16px; border-bottom: 1px solid #f0ede9; vertical-align: middle; }
@@ -354,6 +436,7 @@
             background: #fff;
             transition: border-color 0.2s;
             outline: none;
+            min-height: 42px;
         }
 
         input:focus, textarea:focus, select:focus { border-color: var(--primary); }
@@ -378,6 +461,8 @@
             backdrop-filter: blur(4px);
             align-items: center;
             justify-content: center;
+            padding: 18px;
+            overflow-y: auto;
         }
 
         .modal-overlay.open { display: flex; }
@@ -387,8 +472,9 @@
             border-radius: 18px;
             width: 90%;
             max-width: 620px;
-            max-height: 90vh;
+            max-height: calc(100vh - 36px);
             overflow-y: auto;
+            overscroll-behavior: contain;
             box-shadow: 0 24px 80px rgba(0,0,0,0.2);
             animation: slideUp 0.25s ease;
         }
@@ -404,6 +490,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 2;
         }
 
         .modal-title {
@@ -413,7 +503,7 @@
         }
 
         .modal-close {
-            width: 32px; height: 32px;
+            width: 38px; height: 38px;
             border-radius: 8px;
             background: var(--gray);
             border: none;
@@ -620,10 +710,41 @@
             font-family: 'DM Sans', sans-serif !important;
             font-size: 0.9rem !important;
         }
-        .ql-editor { min-height: 260px; }
+        .ql-editor {
+            min-height: 260px;
+            max-height: 58vh;
+            overflow-y: auto;
+        }
         .ql-editor p { margin-bottom: 0.6em; }
         #articleEditor:focus-within .ql-toolbar,
-        #articleEditor:focus-within .ql-container { border-color: var(--primary) !important; }
+        #articleEditor:focus-within .ql-container,
+        #newsletterEditor:focus-within .ql-toolbar,
+        #newsletterEditor:focus-within .ql-container { border-color: var(--primary) !important; }
+
+        .email-composer .ql-toolbar {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.15) !important;
+        }
+
+        .email-composer .ql-container {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.15) !important;
+            color: #fff;
+        }
+
+        .email-composer .ql-editor {
+            min-height: 180px;
+            max-height: 42vh;
+        }
+
+        .email-composer .ql-editor.ql-blank::before {
+            color: rgba(255,255,255,0.38);
+        }
+
+        .email-composer .ql-stroke { stroke: rgba(255,255,255,0.72); }
+        .email-composer .ql-fill { fill: rgba(255,255,255,0.72); }
+        .email-composer .ql-picker { color: rgba(255,255,255,0.72); }
+        .email-composer .ql-picker-options { color: var(--dark); }
 
         /* ── LOADING ── */
         .spinner {
@@ -681,17 +802,168 @@
         }
 
         /* ── RESPONSIVE ── */
-        @media (max-width: 1100px) {
+        @media (max-width: 1200px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .analytics-grid { grid-template-columns: 1fr; }
+            .content { padding: 24px; }
         }
 
-        @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+        @media (max-width: 980px) {
+            #panel-dashboard > div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+        }
+
+        @media (max-width: 640px) {
+            body { display: block; }
+            .mobile-nav-toggle { display: inline-flex; flex-shrink: 0; }
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+                width: min(86vw, 320px);
+                box-shadow: 24px 0 60px rgba(0,0,0,0.24);
+            }
             .sidebar.open { transform: translateX(0); }
-            .main { margin-left: 0; }
+            .main {
+                margin-left: 0;
+                width: 100%;
+                max-width: 100%;
+            }
+            .topbar {
+                padding: 12px 16px;
+                min-height: 64px;
+                gap: 12px;
+            }
+            .topbar-title {
+                font-size: 1.15rem;
+                line-height: 1.1;
+            }
+            .topbar-actions { margin-left: auto; min-width: 0; }
+            .topbar-user {
+                padding: 5px;
+                gap: 0;
+                max-width: 46px;
+                overflow: hidden;
+            }
+            .topbar-user span { display: none; }
+            .content { padding: 18px 14px 28px; }
             .stats-grid { grid-template-columns: 1fr 1fr; }
             .form-grid { grid-template-columns: 1fr; }
+            .card { border-radius: 10px; margin-bottom: 16px; }
+            .card-header { padding: 16px; align-items: flex-start; }
+            .card-body { padding: 16px; }
+            .card-header .btn { width: 100%; }
+            .stat-card { padding: 16px; border-radius: 10px; }
+            .stat-number { font-size: 1.65rem; }
+            .stat-label { font-size: 0.78rem; }
+            .table-wrap {
+                margin: 0 -16px;
+                padding: 0 16px 8px;
+            }
+            table { min-width: 680px; }
+            th, td { padding: 11px 12px; }
+            .btn-sm {
+                min-width: 38px;
+                padding: 8px 10px;
+            }
+            .modal-overlay {
+                padding: 0;
+                align-items: stretch;
+                justify-content: stretch;
+            }
+            .modal {
+                width: 100%;
+                max-width: none;
+                max-height: 100vh;
+                border-radius: 0;
+            }
+            .modal-header { padding: 14px 16px; }
+            .modal-body { padding: 16px; }
+            .form-actions {
+                position: sticky;
+                bottom: 0;
+                background: #fff;
+                margin: 16px -16px -16px;
+                padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+                z-index: 2;
+            }
+            .form-actions .btn { flex: 1; }
+            .ql-toolbar { overflow-x: auto; white-space: nowrap; }
+            .ql-editor {
+                min-height: 220px;
+                max-height: 52vh;
+            }
+            .email-composer { padding: 20px; border-radius: 10px; }
+            .admin-footer {
+                padding: 16px;
+                display: block;
+            }
+            .admin-footer > div + div { margin-top: 8px; }
+            .toast {
+                left: 14px;
+                right: 14px;
+                bottom: 14px;
+                justify-content: center;
+            }
+            .login-box {
+                width: min(100% - 28px, 380px);
+                padding: 32px 24px;
+                border-radius: 14px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .topbar-title { max-width: 54vw; }
+            .btn { width: 100%; }
+            .card-header .card-title { width: 100%; }
+            .form-actions { flex-direction: column-reverse; }
+            .table-wrap {
+                border-top: 1px solid var(--border);
+                overflow-x: visible;
+            }
+            table {
+                min-width: 0;
+                display: block;
+            }
+            thead { display: none; }
+            tbody, tr, td { display: block; width: 100%; }
+            tr {
+                background: #fff;
+                border: 1px solid #f0ede9;
+                border-radius: 10px;
+                margin: 12px 0;
+                overflow: hidden;
+            }
+            tr:hover td { background: transparent; }
+            td {
+                border-bottom: 1px solid #f5f0ec;
+                padding: 10px 12px 10px 42%;
+                min-height: 42px;
+                position: relative;
+                word-break: break-word;
+            }
+            td:last-child { border-bottom: none; }
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 12px;
+                top: 10px;
+                width: calc(42% - 18px);
+                color: #8b8179;
+                font-size: 0.72rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+            }
+            td[data-actions="true"] {
+                padding-left: 12px;
+                display: flex;
+                gap: 8px;
+            }
+            td[data-actions="true"]::before { display: none; }
+            td[data-actions="true"] .btn {
+                width: auto;
+                flex: 1;
+            }
         }
     </style>
 </head>
@@ -718,7 +990,8 @@
 </div>
 
 <!-- SIDEBAR -->
-<aside class="sidebar">
+<div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+<aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
         <h2>The Career Café</h2>
         <span>Admin Dashboard</span>
@@ -778,6 +1051,9 @@
 <!-- MAIN -->
 <div class="main">
     <div class="topbar">
+        <button class="mobile-nav-toggle" type="button" onclick="toggleSidebar()" aria-label="Open admin navigation">
+            <i class="fas fa-bars"></i>
+        </button>
         <div class="topbar-title" id="topbarTitle">Dashboard</div>
         <div class="topbar-actions">
             <div class="topbar-user">
@@ -1020,7 +1296,8 @@
                     </div>
                     <div class="form-group">
                         <label>Message Body</label>
-                        <textarea id="emailBody" rows="5" placeholder="Write your newsletter content here..."></textarea>
+                        <div id="newsletterEditor" style="border-radius:8px;font-family:'DM Sans',sans-serif;"></div>
+                        <textarea id="emailBody" rows="5" style="display:none;"></textarea>
                     </div>
                 </div>
                 <button class="btn btn-primary" onclick="sendMassEmail()">
@@ -1185,7 +1462,11 @@
         </div>
     </div>
 </div>
-
+    <footer class="admin-footer">
+        <div><strong>The Career Café Admin</strong> manages public content, community requests, and newsletter operations.</div>
+        <div><a href="index.html" target="_blank" rel="noopener">View live site</a></div>
+    </footer>
+</div>
 <!-- Gallery Modal -->
 <div class="modal-overlay" id="galleryModal">
     <div class="modal">
@@ -1297,25 +1578,122 @@ const CLOUDINARY_FOLDERS = {
 
 // ── QUILL EDITOR ─────────────────────────────────────────────
 let quill;
+let newsletterQuill;
 function initQuill() {
     if (quill) return;
     quill = new Quill('#articleEditor', {
         theme: 'snow',
         placeholder: 'Write your article content here...',
         modules: {
+            toolbar: {
+                container: [
+                    [{ header: [1, 2, 3, false] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ color: [] }, { background: [] }],
+                    [{ list: 'ordered' }, { list: 'bullet' }],
+                    [{ indent: '-1' }, { indent: '+1' }],
+                    ['blockquote', 'code-block'],
+                    ['link', 'image'],
+                    ['clean']
+                ],
+                handlers: {
+                    image: handleQuillImageUpload
+                }
+            }
+        }
+    });
+    bindQuillImageUploads();
+}
+
+function initNewsletterQuill() {
+    if (newsletterQuill) return;
+    newsletterQuill = new Quill('#newsletterEditor', {
+        theme: 'snow',
+        placeholder: 'Write your newsletter content here...',
+        modules: {
             toolbar: [
                 [{ header: [1, 2, 3, false] }],
-                ['bold', 'italic', 'underline', 'strike'],
+                ['bold', 'italic', 'underline'],
                 [{ color: [] }, { background: [] }],
                 [{ list: 'ordered' }, { list: 'bullet' }],
-                [{ indent: '-1' }, { indent: '+1' }],
-                ['blockquote', 'code-block'],
+                ['blockquote'],
                 ['link'],
                 ['clean']
             ]
         }
     });
+
+    newsletterQuill.root.addEventListener('paste', blockNewsletterImages);
+    newsletterQuill.root.addEventListener('drop', blockNewsletterImages);
 }
+
+function blockNewsletterImages(event) {
+    const files = event.type === 'paste'
+        ? Array.from(event.clipboardData?.items || []).filter(item => item.kind === 'file' && item.type.startsWith('image/'))
+        : Array.from(event.dataTransfer?.files || []).filter(file => file.type.startsWith('image/'));
+
+    if (!files.length) return;
+    event.preventDefault();
+    toast('Newsletter editor supports text formatting only. Upload images separately and paste a link.', 'error');
+}
+
+function bindQuillImageUploads() {
+    if (!quill || quill.__imageUploadBound) return;
+    quill.__imageUploadBound = true;
+
+    quill.root.addEventListener('paste', async (event) => {
+        const files = Array.from(event.clipboardData?.items || [])
+            .filter(item => item.kind === 'file' && item.type.startsWith('image/'))
+            .map(item => item.getAsFile())
+            .filter(Boolean);
+        if (!files.length) return;
+
+        event.preventDefault();
+        await insertImagesIntoQuill(files, quill.getSelection(true)?.index ?? quill.getLength());
+    });
+
+    quill.root.addEventListener('drop', async (event) => {
+        const files = Array.from(event.dataTransfer?.files || [])
+            .filter(file => file.type.startsWith('image/'));
+        if (!files.length) return;
+
+        event.preventDefault();
+        quill.focus();
+        const selection = quill.getSelection(true);
+        await insertImagesIntoQuill(files, selection?.index ?? quill.getLength());
+    });
+}
+
+function handleQuillImageUpload() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = async () => {
+        const file = input.files && input.files[0];
+        if (!file) return;
+        const selection = quill.getSelection(true);
+        await insertImagesIntoQuill([file], selection?.index ?? quill.getLength());
+    };
+    input.click();
+}
+
+async function insertImagesIntoQuill(files, startIndex) {
+    let index = startIndex;
+    try {
+        toast('Uploading article image...');
+        for (const file of files) {
+            const imageUrl = await uploadImageToCloudinary(file, CLOUDINARY_FOLDERS.article, 1.5, 1400);
+            quill.insertEmbed(index, 'image', imageUrl, 'user');
+            quill.insertText(index + 1, '\n', 'user');
+            index += 2;
+        }
+        quill.setSelection(index, 0);
+        toast('Article image uploaded.');
+    } catch (error) {
+        toast('Failed to upload article image.', 'error');
+    }
+}
+
 async function uploadToCloudinary(file, folder) {
     if (!file) return;
 
@@ -1337,13 +1715,6 @@ async function uploadToCloudinary(file, folder) {
     status.style.color = '#888';
     bar.style.background = 'var(--primary)';
 
-    status.textContent = 'Compressing image...';
-    file = await compressImage(file);
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', CLOUDINARY_PRESET);
-    formData.append('folder', folder);
-
     try {
         let fakeProgress = 0;
         const ticker = setInterval(() => {
@@ -1351,21 +1722,15 @@ async function uploadToCloudinary(file, folder) {
             bar.style.width = fakeProgress + '%';
         }, 150);
 
-        const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, {
-            method: 'POST',
-            body: formData
-        });
+        const imageUrl = await uploadImageToCloudinary(file, folder, 1.5, 1600);
         clearInterval(ticker);
-
-        if (!res.ok) throw new Error('Upload failed');
-        const data = await res.json();
 
         bar.style.width = '100%';
         status.textContent = '✓ Uploaded successfully';
         status.style.color = 'var(--secondary)';
 
-        input.value = data.secure_url;
-        preview.src = data.secure_url;
+        input.value = imageUrl;
+        preview.src = imageUrl;
         preview.style.display = 'block';
 
     } catch (e) {
@@ -1376,10 +1741,33 @@ async function uploadToCloudinary(file, folder) {
     }
 }
 
-function compressImage(file, maxSizeMB = 9) {
+async function uploadImageToCloudinary(file, folder, maxSizeMB = 1.5, maxDimension = 1600) {
+    const compressedFile = await compressImage(file, maxSizeMB, maxDimension);
+    const formData = new FormData();
+    formData.append('file', compressedFile);
+    formData.append('upload_preset', CLOUDINARY_PRESET);
+    formData.append('folder', folder);
+
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, {
+        method: 'POST',
+        body: formData
+    });
+
+    if (!res.ok) throw new Error('Upload failed');
+    const data = await res.json();
+    return cloudinaryOptimizedUrl(data.secure_url);
+}
+
+function cloudinaryOptimizedUrl(url) {
+    if (!url || !url.includes('/image/upload/')) return url;
+    if (url.includes('/image/upload/f_auto,')) return url;
+    return url.replace('/image/upload/', '/image/upload/f_auto,q_auto,w_1200/');
+}
+
+function compressImage(file, maxSizeMB = 1.5, maxDimension = 1600) {
     return new Promise((resolve) => {
+        if (!file.type.startsWith('image/')) { resolve(file); return; }
         const maxBytes = maxSizeMB * 1024 * 1024;
-        if (file.size <= maxBytes) { resolve(file); return; }
 
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -1388,21 +1776,24 @@ function compressImage(file, maxSizeMB = 9) {
                 const canvas = document.createElement('canvas');
                 let { width, height } = img;
 
-                // Scale down dimensions if very large
-                const MAX_DIM = 2000;
-                if (width > MAX_DIM || height > MAX_DIM) {
-                    if (width > height) { height = Math.round(height * MAX_DIM / width); width = MAX_DIM; }
-                    else { width = Math.round(width * MAX_DIM / height); height = MAX_DIM; }
+                if (file.size <= maxBytes && width <= maxDimension && height <= maxDimension) {
+                    resolve(file);
+                    return;
+                }
+
+                if (width > maxDimension || height > maxDimension) {
+                    if (width > height) { height = Math.round(height * maxDimension / width); width = maxDimension; }
+                    else { width = Math.round(width * maxDimension / height); height = maxDimension; }
                 }
 
                 canvas.width = width;
                 canvas.height = height;
                 canvas.getContext('2d').drawImage(img, 0, 0, width, height);
 
-                // Try reducing quality until under maxSizeMB
                 let quality = 0.85;
                 const tryCompress = () => {
                     canvas.toBlob((blob) => {
+                        if (!blob) { resolve(file); return; }
                         if (blob.size <= maxBytes || quality <= 0.2) {
                             resolve(new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), { type: 'image/jpeg' }));
                         } else {
@@ -1415,6 +1806,7 @@ function compressImage(file, maxSizeMB = 9) {
             };
             img.src = e.target.result;
         };
+        reader.onerror = () => resolve(file);
         reader.readAsDataURL(file);
     });
 }
@@ -1465,6 +1857,7 @@ async function doLogin() {
 function doLogout() {
     TOKEN = '';
     document.getElementById('loginScreen').style.display = 'flex';
+    closeSidebar();
 }
 
 // Allow Enter key on login
@@ -1507,6 +1900,7 @@ function toast(msg, type = 'success') {
 }
 
 function openModal(id) {
+    closeSidebar();
     document.getElementById(id).classList.add('open');
     if (id === 'articleModal') {
         initQuill();
@@ -1515,6 +1909,20 @@ function openModal(id) {
             quill.setContents([]);
         }
     }
+}
+
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const backdrop = document.getElementById('sidebarBackdrop');
+    sidebar.classList.toggle('open');
+    backdrop.classList.toggle('open', sidebar.classList.contains('open'));
+    document.body.classList.toggle('nav-open', sidebar.classList.contains('open'));
+}
+
+function closeSidebar() {
+    document.getElementById('sidebar')?.classList.remove('open');
+    document.getElementById('sidebarBackdrop')?.classList.remove('open');
+    document.body.classList.remove('nav-open');
 }
 
 function closeModal(id) {
@@ -1585,6 +1993,7 @@ const panelTitles = {
 };
 
 function showPanel(name) {
+    closeSidebar();
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     document.getElementById(`panel-${name}`).classList.add('active');
@@ -1594,6 +2003,7 @@ function showPanel(name) {
         }
     });
     document.getElementById('topbarTitle').textContent = panelTitles[name] || name;
+    if (name === 'newsletter') setTimeout(initNewsletterQuill, 0);
     if (panelLoaders[name]) panelLoaders[name]();
 }
 
@@ -1667,12 +2077,12 @@ async function loadArticles() {
         document.getElementById('badge-articles').textContent = data.length;
         tbody.innerHTML = data.length ? data.map(a => `
             <tr>
-                <td><strong>${truncate(a.title, 45)}</strong></td>
-                <td><code style="font-size:0.78rem;color:#888;">${a.slug}</code></td>
-                <td>${a.category || '—'}</td>
-                <td>${statusBadge(a.published)}</td>
-                <td>${fmtDate(a.createdAt)}</td>
-                <td style="display:flex;gap:6px;">
+                <td data-label="Title"><strong>${truncate(a.title, 45)}</strong></td>
+                <td data-label="Slug"><code style="font-size:0.78rem;color:#888;">${a.slug}</code></td>
+                <td data-label="Category">${a.category || '—'}</td>
+                <td data-label="Status">${statusBadge(a.published)}</td>
+                <td data-label="Created">${fmtDate(a.createdAt)}</td>
+                <td data-actions="true" style="display:flex;gap:6px;">
                     <button class="btn btn-ghost btn-sm" onclick="editArticle(${JSON.stringify(a).replace(/"/g,'&quot;')})"><i class="fas fa-edit"></i></button>
                     <button class="btn btn-danger btn-sm" onclick="deleteItem('articles', ${a.id}, loadArticles)"><i class="fas fa-trash"></i></button>
                 </td>
@@ -1710,6 +2120,10 @@ function editArticle(a) {
 async function saveArticle() {
     const id = document.getElementById('articleId').value;
     const content = quill ? quill.root.innerHTML : document.getElementById('articleContent').value;
+    if (content.includes('src="data:image') || content.includes("src='data:image")) {
+        toast('Upload inline images before saving. Base64 images are blocked to reduce egress.', 'error');
+        return;
+    }
     const body = {
         title: document.getElementById('articleTitle').value,
         slug: document.getElementById('articleSlug').value,
@@ -1743,12 +2157,12 @@ async function loadEvents() {
         document.getElementById('badge-events').textContent = data.length;
         tbody.innerHTML = data.length ? data.map(e => `
             <tr>
-                <td><strong>${truncate(e.title, 40)}</strong></td>
-                <td>${fmtDatetime(e.eventDate)}</td>
-                <td>${e.location || '—'}</td>
-                <td>${e.isVirtual ? '<span class="badge badge-virtual">Virtual</span>' : '<span class="badge badge-inperson">In Person</span>'}</td>
-                <td>${statusBadge(e.published)}</td>
-                <td style="display:flex;gap:6px;">
+                <td data-label="Title"><strong>${truncate(e.title, 40)}</strong></td>
+                <td data-label="Date">${fmtDatetime(e.eventDate)}</td>
+                <td data-label="Location">${e.location || '—'}</td>
+                <td data-label="Type">${e.isVirtual ? '<span class="badge badge-virtual">Virtual</span>' : '<span class="badge badge-inperson">In Person</span>'}</td>
+                <td data-label="Status">${statusBadge(e.published)}</td>
+                <td data-actions="true" style="display:flex;gap:6px;">
                     <button class="btn btn-ghost btn-sm" onclick="editEvent(${JSON.stringify(e).replace(/"/g,'&quot;')})"><i class="fas fa-edit"></i></button>
                     <button class="btn btn-danger btn-sm" onclick="deleteItem('events', ${e.id}, loadEvents)"><i class="fas fa-trash"></i></button>
                 </td>
@@ -1808,13 +2222,13 @@ async function loadCourses() {
         document.getElementById('badge-courses').textContent = data.length;
         tbody.innerHTML = data.length ? data.map(c => `
             <tr>
-                <td><strong>${truncate(c.title, 40)}</strong></td>
-                <td><code style="font-size:0.78rem;color:#888;">${c.slug}</code></td>
-                <td>${c.level || '—'}</td>
-                <td>${c.duration || '—'}</td>
-                <td>${c.isFree ? '<span class="badge badge-published">Free</span>' : (c.price ? `KES ${c.price}` : '—')}</td>
-                <td>${statusBadge(c.published)}</td>
-                <td style="display:flex;gap:6px;">
+                <td data-label="Title"><strong>${truncate(c.title, 40)}</strong></td>
+                <td data-label="Slug"><code style="font-size:0.78rem;color:#888;">${c.slug}</code></td>
+                <td data-label="Level">${c.level || '—'}</td>
+                <td data-label="Duration">${c.duration || '—'}</td>
+                <td data-label="Price">${c.isFree ? '<span class="badge badge-published">Free</span>' : (c.price ? `KES ${c.price}` : '—')}</td>
+                <td data-label="Status">${statusBadge(c.published)}</td>
+                <td data-actions="true" style="display:flex;gap:6px;">
                     <button class="btn btn-ghost btn-sm" onclick="editCourse(${JSON.stringify(c).replace(/"/g,'&quot;')})"><i class="fas fa-edit"></i></button>
                     <button class="btn btn-danger btn-sm" onclick="deleteItem('courses', ${c.id}, loadCourses)"><i class="fas fa-trash"></i></button>
                 </td>
@@ -1880,12 +2294,12 @@ async function loadGallery() {
         document.getElementById('badge-gallery').textContent = data.length;
         tbody.innerHTML = data.length ? data.map(g => `
             <tr>
-                <td><a href="${g.imageUrl}" target="_blank" style="color:var(--primary);font-size:0.82rem;">${truncate(g.imageUrl, 35)}</a></td>
-                <td>${truncate(g.caption, 35)}</td>
-                <td>${g.category || '—'}</td>
-                <td>${g.displayOrder ?? 0}</td>
-                <td>${statusBadge(g.published)}</td>
-                <td style="display:flex;gap:6px;">
+                <td data-label="Image"><a href="${g.imageUrl}" target="_blank" style="color:var(--primary);font-size:0.82rem;">${truncate(g.imageUrl, 35)}</a></td>
+                <td data-label="Caption">${truncate(g.caption, 35)}</td>
+                <td data-label="Category">${g.category || '—'}</td>
+                <td data-label="Order">${g.displayOrder ?? 0}</td>
+                <td data-label="Status">${statusBadge(g.published)}</td>
+                <td data-actions="true" style="display:flex;gap:6px;">
                     <button class="btn btn-ghost btn-sm" onclick="editGallery(${JSON.stringify(g).replace(/"/g,'&quot;')})"><i class="fas fa-edit"></i></button>
                     <button class="btn btn-danger btn-sm" onclick="deleteItem('gallery', ${g.id}, loadGallery)"><i class="fas fa-trash"></i></button>
                 </td>
@@ -1946,12 +2360,12 @@ async function loadTeam() {
         document.getElementById('badge-team').textContent = data.length;
         tbody.innerHTML = data.length ? data.map(m => `
             <tr>
-                <td><strong>${m.name}</strong></td>
-                <td>${m.role}</td>
-                <td>${m.linkedinUrl ? `<a href="${m.linkedinUrl}" target="_blank" style="color:var(--primary);">View</a>` : '—'}</td>
-                <td>${m.displayOrder ?? 0}</td>
-                <td>${statusBadge(m.published)}</td>
-                <td style="display:flex;gap:6px;">
+                <td data-label="Name"><strong>${m.name}</strong></td>
+                <td data-label="Role">${m.role}</td>
+                <td data-label="LinkedIn">${m.linkedinUrl ? `<a href="${m.linkedinUrl}" target="_blank" style="color:var(--primary);">View</a>` : '—'}</td>
+                <td data-label="Order">${m.displayOrder ?? 0}</td>
+                <td data-label="Status">${statusBadge(m.published)}</td>
+                <td data-actions="true" style="display:flex;gap:6px;">
                     <button class="btn btn-ghost btn-sm" onclick="editTeam(${JSON.stringify(m).replace(/"/g,'&quot;')})"><i class="fas fa-edit"></i></button>
                     <button class="btn btn-danger btn-sm" onclick="deleteItem('team', ${m.id}, loadTeam)"><i class="fas fa-trash"></i></button>
                 </td>
@@ -2018,12 +2432,12 @@ async function loadMemberships() {
         document.getElementById('badge-memberships').textContent = data.length;
         tbody.innerHTML = data.length ? data.map(m => `
             <tr>
-                <td><strong>${m.fullName || m.name || '—'}</strong></td>
-                <td>${m.email}</td>
-                <td>${m.phone || '—'}</td>
-                <td>${m.occupation || '—'}</td>
-                <td><span class="badge badge-${(m.status||'pending').toLowerCase()}">${m.status || 'PENDING'}</span></td>
-                <td style="display:flex;gap:4px;flex-wrap:wrap;">
+                <td data-label="Name"><strong>${m.fullName || m.name || '—'}</strong></td>
+                <td data-label="Email">${m.email}</td>
+                <td data-label="Phone">${m.phone || '—'}</td>
+                <td data-label="Occupation">${m.occupation || '—'}</td>
+                <td data-label="Status"><span class="badge badge-${(m.status||'pending').toLowerCase()}">${m.status || 'PENDING'}</span></td>
+                <td data-actions="true" style="display:flex;gap:4px;flex-wrap:wrap;">
                     <button class="btn btn-secondary btn-sm" onclick="updateStatus('memberships', ${m.id}, 'APPROVED', loadMemberships)">Approve</button>
                     <button class="btn btn-danger btn-sm" onclick="updateStatus('memberships', ${m.id}, 'REJECTED', loadMemberships)">Reject</button>
                     <button class="btn btn-ghost btn-sm" onclick="deleteItem('memberships', ${m.id}, loadMemberships)"><i class="fas fa-trash"></i></button>
@@ -2041,12 +2455,12 @@ async function loadPartnerships() {
         document.getElementById('badge-partnerships').textContent = data.length;
         tbody.innerHTML = data.length ? data.map(p => `
             <tr>
-                <td><strong>${p.fullName || '—'}</strong></td>
-                <td>${p.email}</td>
-                <td>${p.organization || '—'}</td>
-                <td>${p.partnershipType || '—'}</td>
-                <td><span class="badge badge-${(p.status||'pending').toLowerCase()}">${p.status || 'PENDING'}</span></td>
-                <td style="display:flex;gap:4px;flex-wrap:wrap;">
+                <td data-label="Name"><strong>${p.fullName || '—'}</strong></td>
+                <td data-label="Email">${p.email}</td>
+                <td data-label="Organization">${p.organization || '—'}</td>
+                <td data-label="Type">${p.partnershipType || '—'}</td>
+                <td data-label="Status"><span class="badge badge-${(p.status||'pending').toLowerCase()}">${p.status || 'PENDING'}</span></td>
+                <td data-actions="true" style="display:flex;gap:4px;flex-wrap:wrap;">
                     <button class="btn btn-secondary btn-sm" onclick="updateStatus('partnerships', ${p.id}, 'APPROVED', loadPartnerships)">Approve</button>
                     <button class="btn btn-danger btn-sm" onclick="updateStatus('partnerships', ${p.id}, 'REJECTED', loadPartnerships)">Reject</button>
                     <button class="btn btn-ghost btn-sm" onclick="deleteItem('partnerships', ${p.id}, loadPartnerships)"><i class="fas fa-trash"></i></button>
@@ -2065,9 +2479,9 @@ async function loadNewsletter() {
         document.getElementById('subscriberCount').textContent = `${data.length} subscriber${data.length !== 1 ? 's' : ''}`;
         tbody.innerHTML = data.length ? data.map(s => `
             <tr>
-                <td>${s.email}</td>
-                <td>${fmtDate(s.subscribedAt || s.createdAt)}</td>
-                <td>
+                <td data-label="Email">${s.email}</td>
+                <td data-label="Subscribed">${fmtDate(s.subscribedAt || s.createdAt)}</td>
+                <td data-actions="true">
                     <button class="btn btn-danger btn-sm" onclick="unsubscribe('${s.email}')">
                         <i class="fas fa-user-minus"></i> Remove
                     </button>
@@ -2088,8 +2502,11 @@ async function unsubscribe(email) {
 
 function sendMassEmail() {
     const subject = document.getElementById('emailSubject').value.trim();
-    const body = document.getElementById('emailBody').value.trim();
-    if (!subject || !body) { toast('Please fill in subject and message.', 'error'); return; }
+    const body = newsletterQuill ? newsletterQuill.root.innerHTML.trim() : document.getElementById('emailBody').value.trim();
+    const bodyText = newsletterQuill
+        ? newsletterQuill.getText().trim()
+        : body.replace(/<[^>]+>/g, '').trim();
+    if (!subject || !bodyText) { toast('Please fill in subject and message.', 'error'); return; }
 
     if (!confirm(`Send this newsletter to all subscribers?\n\nSubject: ${subject}`)) return;
 
@@ -2108,6 +2525,7 @@ function sendMassEmail() {
         toast('Newsletter sent successfully to all subscribers! 🎉');
         document.getElementById('emailSubject').value = '';
         document.getElementById('emailBody').value = '';
+        if (newsletterQuill) newsletterQuill.setContents([]);
     })
     .catch(err => {
         toast(err.message || 'Failed to send newsletter.', 'error');

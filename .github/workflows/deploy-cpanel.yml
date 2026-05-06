@@ -1,0 +1,39 @@
+name: Deploy Frontend to cPanel
+
+on:
+  push:
+    branches:
+      - devBranch
+  workflow_dispatch:
+
+concurrency:
+  group: cpanel-frontend-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Upload static site
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout frontend
+        uses: actions/checkout@v4
+
+      - name: Deploy to cPanel
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.CPANEL_FTP_SERVER }}
+          username: ${{ secrets.CPANEL_FTP_USERNAME }}
+          password: ${{ secrets.CPANEL_FTP_PASSWORD }}
+          local-dir: ./
+          server-dir: ${{ secrets.CPANEL_FTP_DIR }}
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/node_modules/**
+            backups/**
+            scripts/**
+            preview_server.py
+            Screenshot*.png

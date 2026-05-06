@@ -1303,7 +1303,6 @@
                 <button class="btn btn-primary" onclick="sendMassEmail()">
                     <i class="fas fa-paper-plane"></i> Send to All Subscribers
                 </button>
-                <span style="font-size:0.78rem;opacity:0.5;margin-left:10px;">Mass email endpoint to be wired in backend</span>
             </div>
 
             <div class="card">
@@ -2311,7 +2310,7 @@ async function loadGallery() {
 function editGallery(g) {
     document.getElementById('galleryModalTitle').textContent = 'Edit Photo';
     document.getElementById('galleryId').value = g.id;
-    document.getElementById('galleryCaption').value = g.caption || '';
+    document.getElementById('ga lleryCaption').value = g.caption || '';
     document.getElementById('galleryCategory').value = g.category || '';
     document.getElementById('galleryOrder').value = g.displayOrder ?? 0;
     document.getElementById('galleryPublished').value = String(g.published);

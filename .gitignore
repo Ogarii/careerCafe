@@ -1,0 +1,89 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Backups / dumps
+backups/
+*.bak
+*.dump
+*.sql
+
+# Logs
+*.log
+logs/
+
+# Build / temp
+dist/
+build/
+tmp/
+.tmp/
+.cache/
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+*.log
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Backups & dumps
+backups/
+*.bak
+*.dump
+*.sql
+
+# Build / temp
+dist/
+build/
+tmp/
+.tmp/
+.cache/

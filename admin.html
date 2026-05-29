@@ -2310,7 +2310,7 @@ async function loadGallery() {
 function editGallery(g) {
     document.getElementById('galleryModalTitle').textContent = 'Edit Photo';
     document.getElementById('galleryId').value = g.id;
-    document.getElementById('ga lleryCaption').value = g.caption || '';
+    document.getElementById('galleryCaption').value = g.caption || '';
     document.getElementById('galleryCategory').value = g.category || '';
     document.getElementById('galleryOrder').value = g.displayOrder ?? 0;
     document.getElementById('galleryPublished').value = String(g.published);

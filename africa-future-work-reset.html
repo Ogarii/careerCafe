@@ -1,0 +1,1147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Africa Future of Work Reset | Career Cafe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #030712;
+      --bg-surface: #0f172a;
+      --bg-elevated: #1e293b;
+      --bg-glass: rgba(15, 23, 42, 0.7);
+      --gold: #d4a853;
+      --gold-light: #f0d78c;
+      --gold-dim: rgba(212, 168, 83, 0.15);
+      --accent: #38bdf8;
+      --white: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: rgba(148, 163, 184, 0.1);
+      --border-gold: rgba(212, 168, 83, 0.3);
+      --gradient-hero: linear-gradient(135deg, #030712 0%, #0c1524 40%, #111827 100%);
+      --gradient-gold: linear-gradient(135deg, #d4a853, #f0d78c);
+      --gradient-card: linear-gradient(180deg, rgba(30,41,59,0.5) 0%, rgba(15,23,42,0.8) 100%);
+      --shadow-glow: 0 0 60px rgba(212, 168, 83, 0.08);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-deep);
+      color: var(--white);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .hidden { display: none !important; }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      background: rgba(3, 7, 18, 0.6);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.4s ease;
+    }
+
+    .nav.scrolled {
+      background: rgba(3, 7, 18, 0.92);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand { display: flex; align-items: center; gap: 14px; }
+
+    .brand-logo {
+      height: 38px; width: auto;
+      filter: brightness(0) invert(1) sepia(1) saturate(0.4) hue-rotate(10deg) brightness(1.3);
+      opacity: 0.95;
+      transition: opacity 0.3s ease;
+    }
+
+    .brand-text {
+      font-size: 14px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      background: var(--gradient-gold);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+
+    .nav-links a {
+      font-size: 13px; font-weight: 500; color: var(--text-secondary);
+      letter-spacing: 0.04em; transition: all 0.3s ease;
+      padding: 8px 16px; border-radius: 100px; border: 1px solid transparent;
+    }
+    .nav-links a:hover {
+      color: var(--gold-light); background: var(--gold-dim);
+      border-color: var(--border-gold);
+    }
+
+    .nav-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 24px; background: var(--gradient-gold); color: #000;
+      border-radius: 100px; font-size: 12px; font-weight: 800;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 2px 16px rgba(212,168,83,0.25);
+      border: none;
+    }
+    .nav-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(212,168,83,0.4);
+      color: #000;
+      background: var(--gradient-gold);
+      border-color: transparent;
+    }
+
+    /* Layout */
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .section { padding: 120px 0; position: relative; }
+
+    /* Hero — Split layout */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding-top: 80px; background: var(--gradient-hero);
+      position: relative; overflow: hidden;
+    }
+
+    .hero::before {
+      content: ''; position: absolute; top: -40%; right: -15%;
+      width: 900px; height: 900px;
+      background: radial-gradient(circle, rgba(212,168,83,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: -30%; left: -10%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(56,189,248,0.03) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+      align-items: center; position: relative; z-index: 2;
+    }
+
+    .hero-image {
+      position: relative; border-radius: var(--radius); overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+    }
+    .hero-image img { width: 100%; height: 480px; object-fit: cover; display: block; }
+    .hero-image::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(212,168,83,0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-image-badge {
+      position: absolute; bottom: 24px; left: 24px;
+      padding: 12px 20px; background: rgba(3,7,18,0.85);
+      backdrop-filter: blur(12px); border: 1px solid var(--border-gold);
+      border-radius: var(--radius-sm); display: flex; align-items: center; gap: 10px;
+    }
+    .hero-image-badge .dot {
+      width: 8px; height: 8px; background: #22c55e; border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    .hero-image-badge span {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--white);
+    }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px; margin-bottom: 24px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .eyebrow-line { width: 40px; height: 1px; background: var(--gradient-gold); }
+
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(44px, 6vw, 72px); font-weight: 800;
+      line-height: 1.0; letter-spacing: -0.02em;
+    }
+    h1 .highlight {
+      background: var(--gradient-gold);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .hero-description {
+      max-width: 540px; margin-top: 24px; font-size: 17px;
+      font-weight: 300; line-height: 1.8; color: var(--text-secondary);
+    }
+
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+
+    .meta-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 16px; background: var(--bg-glass); backdrop-filter: blur(8px);
+      border: 1px solid var(--border); border-radius: 100px;
+      font-size: 12px; font-weight: 500; color: var(--text-secondary);
+    }
+    .meta-chip svg { width: 15px; height: 15px; color: var(--gold); }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    /* Buttons */
+    .btn {
+      appearance: none; border: none; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      min-height: 54px; padding: 0 30px; font-family: inherit;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; text-decoration: none; border-radius: 100px;
+      transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .btn-primary {
+      background: var(--gradient-gold); color: #1a1207;
+      box-shadow: 0 4px 24px rgba(212,168,83,0.25), inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(212,168,83,0.35), inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+    .btn-secondary {
+      background: transparent; color: var(--white);
+      border: 1px solid rgba(148,163,184,0.25); backdrop-filter: blur(8px);
+    }
+    .btn-secondary:hover {
+      border-color: var(--gold); color: var(--gold-light); background: var(--gold-dim);
+    }
+    .btn:disabled { cursor: not-allowed; opacity: 0.5; transform: none !important; }
+    .btn-icon { width: 18px; height: 18px; }
+
+    /* Stats */
+    .stats-section {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 80px 0;
+    }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+
+    .stat-card {
+      text-align: center; padding: 32px 20px;
+      background: var(--gradient-card); border: 1px solid var(--border);
+      border-radius: var(--radius); transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    .stat-card:hover { border-color: var(--border-gold); transform: translateY(-4px); }
+
+    .stat-icon {
+      width: 52px; height: 52px; margin: 0 auto 16px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--gold-dim); border: 1px solid var(--border-gold); border-radius: 50%;
+    }
+    .stat-icon svg { width: 22px; height: 22px; color: var(--gold); }
+
+    .stat-number {
+      font-size: 40px; font-weight: 800;
+      background: var(--gradient-gold);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      line-height: 1.1;
+    }
+    .stat-label {
+      margin-top: 8px; font-size: 13px; font-weight: 500; color: var(--text-secondary);
+      text-transform: uppercase; letter-spacing: 0.1em;
+    }
+
+    /* Photo Gallery Strip */
+    .gallery-section {
+      background: var(--bg-deep); padding: 80px 0; overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+    }
+    .gallery-item {
+      position: relative; border-radius: var(--radius-sm); overflow: hidden;
+      aspect-ratio: 4/3; border: 1px solid var(--border);
+      transition: transform 0.4s ease, border-color 0.3s ease;
+    }
+    .gallery-item:hover { transform: scale(1.03); border-color: var(--border-gold); }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-item::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(3,7,18,0.4) 100%);
+      pointer-events: none;
+    }
+    .countdown-section {
+      background: var(--bg-deep); padding: 100px 0;
+      position: relative; overflow: hidden;
+    }
+    .countdown-section::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(212,168,83,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .countdown-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+      align-items: center; position: relative; z-index: 2;
+    }
+
+    .countdown-content h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(32px, 4vw, 48px); font-weight: 800; line-height: 1.1;
+    }
+    .countdown-content p { margin-top: 20px; font-size: 16px; color: var(--text-secondary); line-height: 1.8; }
+
+    .countdown-timer { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
+
+    .countdown-item {
+      text-align: center; padding: 24px 12px;
+      background: var(--gradient-card); border: 1px solid var(--border-gold); border-radius: var(--radius);
+    }
+    .countdown-item .number {
+      font-size: 36px; font-weight: 800;
+      background: var(--gradient-gold);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      line-height: 1;
+    }
+    .countdown-item .label {
+      margin-top: 8px; font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted);
+    }
+
+    .countdown-image {
+      position: relative; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border);
+    }
+    .countdown-image img { width: 100%; height: 400px; object-fit: cover; display: block; }
+
+    /* Schedule */
+    .schedule-section { background: var(--bg-surface); border-top: 1px solid var(--border); }
+
+    .schedule-tabs { display: flex; gap: 12px; justify-content: center; margin-bottom: 48px; }
+
+    .schedule-tab {
+      padding: 14px 28px; background: var(--gradient-card); border: 1px solid var(--border);
+      border-radius: 100px; font-size: 13px; font-weight: 600;
+      color: var(--text-secondary); cursor: pointer; transition: all 0.3s ease;
+    }
+    .schedule-tab.active { background: var(--gradient-gold); color: #1a1207; border-color: var(--gold); }
+    .schedule-tab:hover:not(.active) { border-color: var(--border-gold); color: var(--gold-light); }
+    .schedule-tab span { font-weight: 700; }
+
+    .schedule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    .schedule-item {
+      display: flex; gap: 20px; padding: 24px;
+      background: var(--gradient-card); border: 1px solid var(--border);
+      border-radius: var(--radius); transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    .schedule-item:hover { border-color: var(--border-gold); transform: translateY(-2px); }
+
+    .schedule-time {
+      min-width: 80px; text-align: center; padding: 12px;
+      background: var(--gold-dim); border: 1px solid var(--border-gold);
+      border-radius: var(--radius-sm); align-self: flex-start;
+    }
+    .schedule-time .hour { font-size: 18px; font-weight: 700; color: var(--gold-light); }
+    .schedule-time .period { font-size: 10px; font-weight: 600; text-transform: uppercase; color: var(--text-muted); }
+
+    .schedule-info h4 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .schedule-info p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* Section header */
+    .section-header { text-align: center; max-width: 600px; margin: 0 auto 64px; }
+    .section-header .eyebrow { justify-content: center; }
+
+    h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(36px, 5vw, 56px); font-weight: 800; line-height: 1.05; letter-spacing: -0.01em;
+    }
+    .section-subtitle { margin-top: 16px; font-size: 17px; color: var(--text-secondary); font-weight: 300; }
+
+    /* Pricing */
+    .pricing-section { background: var(--bg-deep); border-top: 1px solid var(--border); }
+
+    .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 800px; margin: 0 auto; }
+
+    .pricing-card {
+      position: relative; padding: 48px 36px; background: var(--gradient-card);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      backdrop-filter: blur(12px); transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+      overflow: hidden; text-align: center;
+    }
+    .pricing-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: var(--radius); padding: 1px;
+      background: linear-gradient(180deg, rgba(148,163,184,0.1) 0%, transparent 50%);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: xor; -webkit-mask-composite: xor; pointer-events: none;
+    }
+    .pricing-card:hover { transform: translateY(-4px); }
+    .pricing-card.active { border-color: var(--border-gold); box-shadow: var(--shadow-glow), 0 20px 60px rgba(0,0,0,0.3); }
+    .pricing-card.active::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--gradient-gold);
+    }
+
+    .best-offer-badge {
+      position: absolute; top: 16px; right: 16px; padding: 5px 12px;
+      background: var(--gradient-gold); color: #1a1207; border-radius: 100px;
+      font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+
+    .tier-badge {
+      display: inline-flex; padding: 6px 14px; border-radius: 100px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    }
+    .tier-badge.gold { background: var(--gold-dim); color: var(--gold-light); border: 1px solid var(--border-gold); }
+    .tier-badge.neutral { background: rgba(148,163,184,0.08); color: var(--text-secondary); border: 1px solid var(--border); }
+
+    .price-amount { margin-top: 24px; font-size: 52px; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
+    .pricing-card.active .price-amount {
+      background: var(--gradient-gold);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .price-note { margin-top: 12px; font-size: 14px; color: var(--text-muted); }
+
+    .pricing-features {
+      margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border);
+      list-style: none; text-align: left;
+    }
+    .pricing-features li {
+      display: flex; align-items: center; gap: 10px; padding: 8px 0;
+      font-size: 14px; color: var(--text-secondary);
+    }
+    .pricing-features li svg { width: 16px; height: 16px; color: var(--gold); flex-shrink: 0; }
+
+    /* Benefits */
+    .benefits-section { background: var(--bg-surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+    .benefit-card {
+      padding: 36px 28px; background: var(--gradient-card); border: 1px solid var(--border);
+      border-radius: var(--radius); transition: border-color 0.3s ease, transform 0.3s ease;
+      text-align: center;
+    }
+    .benefit-card:hover { border-color: var(--border-gold); transform: translateY(-4px); }
+
+    .benefit-icon {
+      width: 64px; height: 64px; display: flex; align-items: center; justify-content: center;
+      background: var(--gold-dim); border: 1px solid var(--border-gold);
+      border-radius: 50%; margin: 0 auto 20px;
+    }
+    .benefit-icon svg { width: 26px; height: 26px; color: var(--gold); }
+    .benefit-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+    .benefit-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* Payment methods */
+    .payment-methods { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; justify-content: center; }
+    .payment-method {
+      display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px;
+      background: var(--bg-glass); border: 1px solid var(--border); border-radius: 100px;
+      font-size: 12px; font-weight: 500; color: var(--text-secondary);
+    }
+
+    /* Registration form */
+    .registration-section { background: var(--bg-deep); border-top: 1px solid var(--border); }
+
+    .form-wrapper {
+      max-width: 720px; margin: 0 auto; padding: 48px;
+      background: var(--gradient-card); border: 1px solid var(--border);
+      border-radius: var(--radius); backdrop-filter: blur(12px);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.2);
+    }
+    .field-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+    .field label {
+      display: block; margin-bottom: 10px; font-size: 12px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary);
+    }
+    .field input {
+      width: 100%; min-height: 52px; padding: 0 18px;
+      background: var(--bg-deep); border: 1px solid var(--border); border-radius: 100px;
+      color: var(--white); font-family: inherit; font-size: 15px; outline: none;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .field input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-dim); }
+    .field input::placeholder { color: var(--text-muted); }
+
+    .check-row {
+      display: flex; align-items: center; gap: 12px; margin-top: 28px;
+      padding: 16px 20px; background: var(--gold-dim);
+      border: 1px solid var(--border-gold); border-radius: 100px;
+    }
+    .check-row input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--gold); cursor: pointer; }
+    .check-row label {
+      font-size: 14px; font-weight: 500; color: var(--text-secondary); cursor: pointer;
+      margin: 0; letter-spacing: 0; text-transform: none;
+    }
+
+    .form-actions { margin-top: 32px; }
+    .form-actions .btn { width: 100%; }
+
+    .status-line { min-height: 24px; margin-top: 16px; font-size: 14px; font-weight: 500; color: var(--gold); text-align: center; }
+
+    /* Payment section */
+    .payment-section { background: var(--bg-surface); border-top: 1px solid var(--border); }
+    .payment-layout {
+      display: grid; grid-template-columns: 1fr 360px; gap: 28px;
+      max-width: 900px; margin: 48px auto 0; align-items: start;
+    }
+    .checkout-card { padding: 40px; background: var(--gradient-card); border: 1px solid var(--border); border-radius: var(--radius); }
+    .checkout-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+    .checkout-description { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 28px; }
+    .checkout-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .order-summary {
+      padding: 32px; background: var(--gradient-card); border: 1px solid var(--border-gold);
+      border-radius: var(--radius); box-shadow: var(--shadow-glow);
+    }
+    .order-summary h3 { font-size: 14px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
+    .summary-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+    .summary-value { font-size: 15px; font-weight: 600; }
+
+    .spinner { width: 28px; height: 28px; margin-top: 20px; border: 2px solid var(--border); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .payment-note { margin-top: 16px; font-size: 13px; color: var(--text-muted); }
+
+    /* Confirmation */
+    .confirmation-section { background: var(--bg-deep); border-top: 1px solid var(--border); text-align: center; }
+    .confirmation-icon {
+      width: 80px; height: 80px; margin: 0 auto 28px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--gold-dim); border: 2px solid var(--gold); border-radius: 50%;
+      animation: scale-in 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+    @keyframes scale-in { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .confirmation-icon svg { width: 36px; height: 36px; color: var(--gold); }
+    .confirmation-section .hero-description { margin: 20px auto 0; text-align: center; }
+    .confirmation-actions { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 40px; }
+
+    /* Footer */
+    .footer { padding: 60px 0 40px; border-top: 1px solid var(--border); text-align: center; }
+    .footer-brand { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px; }
+    .footer-brand img { height: 28px; filter: brightness(0) invert(1) sepia(1) saturate(0.4) hue-rotate(10deg) brightness(1.3); opacity: 0.7; }
+    .footer-brand span { font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+    .footer p { font-size: 13px; color: var(--text-muted); }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-image { max-width: 500px; }
+      .countdown-grid { grid-template-columns: 1fr; }
+      .countdown-image { display: none; }
+      .schedule-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+      .payment-layout { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .nav-inner { padding: 14px 20px; }
+      .brand-logo { height: 32px; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item:nth-child(5) { display: none; }
+    }
+    @media (max-width: 680px) {
+      .section { padding: 80px 0; }
+      .wrap { padding: 0 20px; }
+      .hero { padding-top: 90px; min-height: auto; padding-bottom: 60px; }
+      h1 { font-size: clamp(36px, 9vw, 48px); }
+      h2 { font-size: clamp(28px, 7vw, 40px); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .stat-card { padding: 20px 12px; }
+      .stat-number { font-size: 28px; }
+      .countdown-timer { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .field-grid { grid-template-columns: 1fr; }
+      .form-wrapper { padding: 28px 20px; }
+      .hero-actions { flex-direction: column; }
+      .btn { width: 100%; min-height: 52px; }
+      .payment-layout { grid-template-columns: 1fr; }
+      .checkout-card, .order-summary { padding: 24px; }
+      .schedule-tabs { flex-wrap: wrap; }
+      .confirmation-actions { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <img src="careerLogoNew.png" alt="The Career Café" class="brand-logo">
+        <span class="brand-text">The Career Café</span>
+      </div>
+      <div class="nav-links">
+        <a href="#landing">Home</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#registration" class="nav-btn">Register Now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero — Split layout -->
+  <section class="hero" id="landing">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="eyebrow">
+            <span class="eyebrow-line"></span>
+            <span>Virtual Masterclass</span>
+          </div>
+          <h1>The Africa Future of Work <span class="highlight">Reset</span></h1>
+          <p class="hero-description">A two-day virtual masterclass for professionals, founders, and teams ready to lead the next cycle of work, skills, capital, and opportunity across Africa.</p>
+          <div class="hero-meta">
+            <span class="meta-chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M8 7v0M16 7v0M2 11h20"/></svg>
+              20–21 Aug 2026
+            </span>
+            <span class="meta-chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>
+              Virtual
+            </span>
+            <span class="meta-chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+              Executive Briefings
+            </span>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#registration">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              Register for the Masterclass
+            </a>
+            <a class="btn btn-secondary" href="#pricing">View Pricing</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="images/345A4619.jpg" alt="Africa Future of Work Reset — Career Café event">
+          <div class="hero-image-badge">
+            <div class="dot"></div>
+            <span>Registrations Open</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats-section">
+    <div class="wrap">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <div class="stat-number">10+</div>
+          <div class="stat-label">Expert Speakers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg></div>
+          <div class="stat-number">2</div>
+          <div class="stat-label">Days of Sessions</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+          <div class="stat-number">8+</div>
+          <div class="stat-label">Key Topics</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+          <div class="stat-number">Pan-African</div>
+          <div class="stat-label">Reach</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photo Gallery -->
+  <section class="gallery-section">
+    <div class="wrap">
+      <div class="section-header" style="margin-bottom:40px">
+        <div class="eyebrow"><span class="eyebrow-line"></span><span>Past Events</span></div>
+        <h2>Our Community in Action</h2>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item"><img src="images/345A4562.jpg" alt="Career Café event"></div>
+        <div class="gallery-item"><img src="images/8Z9A1676.jpg" alt="Career Café event"></div>
+        <div class="gallery-item"><img src="images/345A4690.jpg" alt="Career Café event"></div>
+        <div class="gallery-item"><img src="images/8Z9A1595.jpg" alt="Career Café event"></div>
+        <div class="gallery-item"><img src="images/345A4675.jpg" alt="Career Café event"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Countdown -->
+  <section class="countdown-section">
+    <div class="wrap">
+      <div class="countdown-grid">
+        <div class="countdown-content">
+          <div class="eyebrow"><span class="eyebrow-line"></span><span>Mark Your Calendar</span></div>
+          <h2>The Masterclass Begins In</h2>
+          <p>Two days of executive briefings, panels, and hands-on sessions designed to equip Africa's professionals with the skills, networks, and mindsets needed for the future of work.</p>
+          <div class="countdown-timer">
+            <div class="countdown-item"><div class="number" id="cd-days">00</div><div class="label">Days</div></div>
+            <div class="countdown-item"><div class="number" id="cd-hours">00</div><div class="label">Hours</div></div>
+            <div class="countdown-item"><div class="number" id="cd-minutes">00</div><div class="label">Minutes</div></div>
+            <div class="countdown-item"><div class="number" id="cd-seconds">00</div><div class="label">Seconds</div></div>
+          </div>
+        </div>
+        <div class="countdown-image">
+          <img src="images/8Z9A1740.jpg" alt="Career Café Event">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Schedule -->
+  <section class="section schedule-section" id="schedule">
+    <div class="wrap">
+      <div class="section-header">
+        <div class="eyebrow"><span class="eyebrow-line"></span><span>Programme</span></div>
+        <h2>Masterclass Schedule</h2>
+        <p class="section-subtitle">Two days of transformative sessions and executive insights.</p>
+      </div>
+      <div class="schedule-tabs">
+        <div class="schedule-tab active" data-day="1"><span>Day 1</span> — 20 August 2026</div>
+        <div class="schedule-tab" data-day="2"><span>Day 2</span> — 21 August 2026</div>
+      </div>
+      <div class="schedule-grid" id="scheduleDay1">
+        <div class="schedule-item">
+          <div class="schedule-time"><div class="hour">9:00</div><div class="period">AM EAT</div></div>
+          <div class="schedule-info"><h4>Opening Keynote: The Africa Work Reset</h4><p>Setting the stage — why the continent's workforce must evolve now.</p></div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time"><div class="hour">10:30</div><div class="period">AM EAT</div></div>
+          <div class="schedule-info"><h4>Future Skills & Digital Fluency</h4><p>The top skills shaping employability in 2027 and beyond.</p></div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time"><div class="hour">1:00</div><div class="period">PM EAT</div></div>
+          <div class="schedule-info"><h4>Panel: Capital, Innovation & Opportunity</h4><p>How funding flows are reshaping African career paths.</p></div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time"><div class="hour">3:00</div><div class="period">PM EAT</div></div>
+          <div class="schedule-info"><h4>Workshop: Personal Brand Strategy</h4><p>Build a professional presence that attracts global opportunities.</p></div>
+        </div>
+      </div>
+      <div class="schedule-grid hidden" id="scheduleDay2">
+        <div class="schedule-item">
+          <div class="schedule-time"><div class="hour">9:00</div><div class="period">AM EAT</div></div>
+          <div class="schedule-info"><h4>Remote Work & Global Teams</h4><p>Navigating cross-border employment and distributed teams.</p></div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time"><div class="hour">10:30</div><div class="period">AM EAT</div></div>
+          <div class="schedule-info"><h4>AI in the African Workplace</h4><p>Practical applications and ethical considerations for professionals.</p></div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time"><div class="hour">1:00</div><div class="period">PM EAT</div></div>
+          <div class="schedule-info"><h4>Panel: Entrepreneurship vs Employment</h4><p>Charting your path — when to build and when to join.</p></div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time"><div class="hour">3:00</div><div class="period">PM EAT</div></div>
+          <div class="schedule-info"><h4>Closing: Action Plan & Community Launch</h4><p>Leave with a concrete roadmap and join the alumni network.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="section pricing-section" id="pricing">
+    <div class="wrap">
+      <div class="section-header">
+        <div class="eyebrow"><span class="eyebrow-line"></span><span>Investment</span></div>
+        <h2>Choose Your Ticket</h2>
+        <p class="section-subtitle">Secure your spot at the masterclass shaping Africa's professional future.</p>
+      </div>
+      <div class="pricing-grid" aria-label="Pricing tiers">
+        <article class="pricing-card" id="earlyBirdCard">
+          <span class="best-offer-badge">Best Value</span>
+          <span class="tier-badge gold">Early Bird</span>
+          <div class="price-amount">KES 6,500</div>
+          <p class="price-note">Available through 31 July 2026</p>
+          <ul class="pricing-features">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Full 2-day access</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Certificate of Training</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Resource pack</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Community access</li>
+          </ul>
+        </article>
+        <article class="pricing-card" id="standardCard">
+          <span class="tier-badge neutral">Standard</span>
+          <div class="price-amount">KES 8,500</div>
+          <p class="price-note">Applies after early-bird window closes</p>
+          <ul class="pricing-features">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Full 2-day access</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Certificate of Training</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Resource pack</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Community access</li>
+          </ul>
+        </article>
+      </div>
+      <div class="payment-methods">
+        <span class="payment-method"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg> M-PESA</span>
+        <span class="payment-method"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg> Card Payment</span>
+        <span class="payment-method"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg> Flutterwave / Paystack</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- What You Get -->
+  <section class="section benefits-section">
+    <div class="wrap">
+      <div class="section-header">
+        <div class="eyebrow"><span class="eyebrow-line"></span><span>What You Receive</span></div>
+        <h2>Your Masterclass Includes</h2>
+      </div>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg></div>
+          <h3>2-Day Virtual Masterclass</h3>
+          <p>Full access to both days of live sessions, panels, and executive briefings.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <h3>Certificate of Training</h3>
+          <p>A verifiable certificate recognising your participation and professional development.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+          <h3>Future of Work Resources</h3>
+          <p>Curated insights, frameworks, and updates on Africa's evolving work landscape.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Registration Form -->
+  <section class="section registration-section" id="registration">
+    <div class="wrap">
+      <div class="section-header">
+        <div class="eyebrow"><span class="eyebrow-line"></span><span>Registration</span></div>
+        <h2>Reserve Your Access</h2>
+        <p class="section-subtitle">Complete the form below to begin your registration.</p>
+      </div>
+      <form class="form-wrapper" id="registrationForm">
+        <div class="field-grid">
+          <div class="field"><label for="fullName">Full Name</label><input id="fullName" name="fullName" autocomplete="name" placeholder="Your full name" required></div>
+          <div class="field"><label for="email">Email Address</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+          <div class="field"><label for="phone">Phone Number</label><input id="phone" name="phone" autocomplete="tel" placeholder="+254 700 000 000" required></div>
+          <div class="field"><label for="professionIndustry">Profession / Industry</label><input id="professionIndustry" name="professionIndustry" placeholder="e.g. Finance, Technology" required></div>
+        </div>
+        <div class="check-row">
+          <input id="subscribeNewsletter" name="subscribeNewsletter" type="checkbox">
+          <label for="subscribeNewsletter">Subscribe to The Career Café LinkedIn Newsletter</label>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" type="submit" id="submitRegistration">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Continue to Payment
+          </button>
+        </div>
+        <div class="status-line" id="registrationStatus" role="status"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Payment -->
+  <section class="section payment-section hidden" id="payment">
+    <div class="wrap">
+      <div class="section-header">
+        <div class="eyebrow"><span class="eyebrow-line"></span><span>Payment</span></div>
+        <h2>Complete Your Registration</h2>
+      </div>
+      <div class="payment-layout">
+        <div class="checkout-card">
+          <h3>Secure Checkout</h3>
+          <p class="checkout-description">Click below to open the PesaPal payment page. This page will automatically detect when payment is complete.</p>
+          <div class="checkout-actions">
+            <a class="btn btn-primary" id="payNow" href="#" target="_blank" rel="noopener">Open PesaPal Payment</a>
+            <button class="btn btn-secondary" type="button" id="checkStatus">Check Status</button>
+          </div>
+          <div class="spinner hidden" id="paymentSpinner" aria-label="Waiting for confirmation"></div>
+          <p class="payment-note" id="paymentMessage">Waiting for payment confirmation…</p>
+        </div>
+        <aside class="order-summary">
+          <h3>Order Summary</h3>
+          <div class="summary-row"><span class="summary-label">Tier</span><span class="summary-value" id="selectedTier">Early Bird</span></div>
+          <div class="summary-row"><span class="summary-label">Amount</span><span class="summary-value" id="selectedAmount">KES 6,500</span></div>
+          <div class="summary-row"><span class="summary-label">Tracking ID</span><span class="summary-value" id="trackingId">Pending</span></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Confirmation -->
+  <section class="section confirmation-section hidden" id="confirmation">
+    <div class="wrap">
+      <div class="confirmation-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <h2>Your Spot is Confirmed</h2>
+      <p class="hero-description">Payment received for The Africa Future of Work Reset. Welcome to the community — join other participants and add the event to your calendar.</p>
+      <div class="confirmation-actions">
+        <a class="btn btn-primary" href="https://wa.me/254700000000" target="_blank" rel="noopener">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+          Join WhatsApp Community
+        </a>
+        <button class="btn btn-secondary" type="button" id="addCalendar">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Add to Calendar
+        </button>
+        <a class="btn btn-secondary" id="googleCalendar" target="_blank" rel="noopener">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Google Calendar
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-brand">
+        <img src="careerLogoNew.png" alt="The Career Café">
+        <span>The Career Café</span>
+      </div>
+      <p>&copy; 2026 The Career Café. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const API_BASE = window.CAREER_CAFE_API_BASE || '';
+    const EARLY_BIRD_CUTOFF = new Date('2026-07-31T23:59:59+03:00');
+    const EVENT_DATE = new Date('2026-08-20T09:00:00+03:00');
+    const eventStartUtc = '20260820T060000Z';
+    const eventEndUtc = '20260821T140000Z';
+    const state = { trackingId: null, redirectUrl: null, pollTimer: null };
+
+    const els = {
+      earlyBirdCard: document.getElementById('earlyBirdCard'),
+      standardCard: document.getElementById('standardCard'),
+      form: document.getElementById('registrationForm'),
+      submit: document.getElementById('submitRegistration'),
+      registrationStatus: document.getElementById('registrationStatus'),
+      payment: document.getElementById('payment'),
+      confirmation: document.getElementById('confirmation'),
+      payNow: document.getElementById('payNow'),
+      checkStatus: document.getElementById('checkStatus'),
+      spinner: document.getElementById('paymentSpinner'),
+      paymentMessage: document.getElementById('paymentMessage'),
+      selectedTier: document.getElementById('selectedTier'),
+      selectedAmount: document.getElementById('selectedAmount'),
+      trackingId: document.getElementById('trackingId'),
+      addCalendar: document.getElementById('addCalendar'),
+      googleCalendar: document.getElementById('googleCalendar')
+    };
+
+    // Countdown timer
+    function updateCountdown() {
+      const now = new Date();
+      const diff = EVENT_DATE - now;
+      if (diff <= 0) {
+        document.getElementById('cd-days').textContent = '00';
+        document.getElementById('cd-hours').textContent = '00';
+        document.getElementById('cd-minutes').textContent = '00';
+        document.getElementById('cd-seconds').textContent = '00';
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+      document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('cd-minutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('cd-seconds').textContent = String(seconds).padStart(2, '0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Schedule tabs
+    document.querySelectorAll('.schedule-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.schedule-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const day = tab.dataset.day;
+        document.getElementById('scheduleDay1').classList.toggle('hidden', day !== '1');
+        document.getElementById('scheduleDay2').classList.toggle('hidden', day !== '2');
+      });
+    });
+
+    function selectedTier() {
+      return new Date() <= EARLY_BIRD_CUTOFF
+        ? { code: 'EARLY_BIRD', label: 'Early Bird', amount: 'KES 6,500' }
+        : { code: 'STANDARD', label: 'Standard', amount: 'KES 8,500' };
+    }
+
+    function updatePricingDisplay() {
+      const tier = selectedTier();
+      els.earlyBirdCard.classList.toggle('active', tier.code === 'EARLY_BIRD');
+      els.standardCard.classList.toggle('active', tier.code === 'STANDARD');
+      els.selectedTier.textContent = tier.label;
+      els.selectedAmount.textContent = tier.amount;
+    }
+
+    async function register(payload) {
+      const response = await fetch(`${API_BASE}/api/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({}));
+        throw new Error(error.message || 'Registration could not be completed.');
+      }
+      return response.json();
+    }
+
+    async function fetchStatus() {
+      if (!state.trackingId) return;
+      const response = await fetch(`${API_BASE}/api/register/status/${encodeURIComponent(state.trackingId)}`);
+      if (!response.ok) return;
+      const data = await response.json();
+      const status = (data.paymentStatus || '').toUpperCase();
+      els.paymentMessage.textContent = data.paymentStatusDescription || `Payment status: ${status || 'PENDING'}`;
+      if (status === 'COMPLETED') showConfirmation();
+    }
+
+    function revealPayment(data) {
+      state.trackingId = data.trackingId;
+      state.redirectUrl = data.redirectUrl;
+      els.payment.classList.remove('hidden');
+      els.spinner.classList.remove('hidden');
+      els.payNow.href = data.redirectUrl;
+      els.trackingId.textContent = data.trackingId;
+      els.selectedTier.textContent = data.pricingTier === 'STANDARD' ? 'Standard' : 'Early Bird';
+      els.selectedAmount.textContent = `${data.currency} ${Number(data.amount).toLocaleString('en-KE')}`;
+      els.payment.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      startPolling();
+    }
+
+    function startPolling() {
+      clearInterval(state.pollTimer);
+      fetchStatus();
+      state.pollTimer = setInterval(fetchStatus, 8000);
+    }
+
+    function showConfirmation() {
+      clearInterval(state.pollTimer);
+      els.spinner.classList.add('hidden');
+      els.paymentMessage.textContent = 'Payment confirmed.';
+      els.confirmation.classList.remove('hidden');
+      els.confirmation.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function calendarText() {
+      return [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Career Cafe//Africa Future of Work Reset//EN',
+        'BEGIN:VEVENT',
+        'UID:africa-future-work-reset-2026@careercafe.co.ke',
+        `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`,
+        `DTSTART:${eventStartUtc}`,
+        `DTEND:${eventEndUtc}`,
+        'SUMMARY:The Africa Future of Work Reset',
+        'DESCRIPTION:Virtual masterclass by The Career Cafe.',
+        'LOCATION:Virtual',
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');
+    }
+
+    function downloadCalendar() {
+      const blob = new Blob([calendarText()], { type: 'text/calendar' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'africa-future-work-reset.ics';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function setupGoogleCalendar() {
+      const params = new URLSearchParams({
+        action: 'TEMPLATE',
+        text: 'The Africa Future of Work Reset',
+        dates: `${eventStartUtc}/${eventEndUtc}`,
+        details: 'Virtual masterclass by The Career Cafe.',
+        location: 'Virtual'
+      });
+      els.googleCalendar.href = `https://calendar.google.com/calendar/render?${params.toString()}`;
+    }
+
+    els.form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      els.submit.disabled = true;
+      els.registrationStatus.textContent = 'Creating your registration…';
+      const formData = new FormData(els.form);
+      try {
+        const data = await register({
+          fullName: formData.get('fullName'),
+          email: formData.get('email'),
+          phone: formData.get('phone'),
+          professionIndustry: formData.get('professionIndustry'),
+          subscribeNewsletter: formData.has('subscribeNewsletter')
+        });
+        els.registrationStatus.textContent = 'Registration created. Redirecting to payment…';
+        revealPayment(data);
+      } catch (error) {
+        els.registrationStatus.textContent = error.message;
+      } finally {
+        els.submit.disabled = false;
+      }
+    });
+
+    els.payNow.addEventListener('click', () => {
+      els.paymentMessage.textContent = 'PesaPal payment opened. Waiting for confirmation…';
+      els.spinner.classList.remove('hidden');
+    });
+
+    els.checkStatus.addEventListener('click', fetchStatus);
+    els.addCalendar.addEventListener('click', downloadCalendar);
+
+    function hydrateFromPesapalCallback() {
+      const params = new URLSearchParams(window.location.search);
+      const trackingId = params.get('OrderTrackingId');
+      if (trackingId) {
+        state.trackingId = trackingId;
+        els.payment.classList.remove('hidden');
+        els.spinner.classList.remove('hidden');
+        els.trackingId.textContent = trackingId;
+        els.payNow.classList.add('hidden');
+        els.payment.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        startPolling();
+      }
+    }
+
+    updatePricingDisplay();
+    setupGoogleCalendar();
+    hydrateFromPesapalCallback();
+
+    // Navbar scroll effect
+    const navEl = document.querySelector('.nav');
+    window.addEventListener('scroll', () => {
+      navEl.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+  </script>
+</body>
+</html>

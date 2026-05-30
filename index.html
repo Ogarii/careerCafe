@@ -692,6 +692,7 @@
                     const time = event.eventDate ? new Date(event.eventDate).toLocaleTimeString('en-KE', { hour: '2-digit', minute: '2-digit' }) : '';
                     return `
                         <article class="event-card">
+                            ${event.imageUrl ? `<img src="${event.imageUrl}" alt="${escapeHtml(event.title)}" class="event-image">` : ''}
                             <span class="event-badge">${event.isVirtual ? 'Virtual Event' : 'In Person'}</span>
                             <h3 class="event-title">${escapeHtml(event.title)}</h3>
                             ${event.description ? `<p>${escapeHtml(event.description)}</p>` : ''}

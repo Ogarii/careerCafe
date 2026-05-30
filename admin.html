@@ -1392,7 +1392,19 @@
                 <div class="form-group"><label>End Date</label><input type="datetime-local" id="eventEndDate"></div>
                 <div class="form-group"><label>Location</label><input type="text" id="eventLocation" placeholder="e.g. Nairobi, Kenya"></div>
                 <div class="form-group"><label>Registration URL</label><input type="url" id="eventRegUrl" placeholder="https://..."></div>
-                <div class="form-group"><label>Image URL or Google Drive Link</label><input type="text" id="eventImage" placeholder="Paste Drive link or direct URL" oninput="convertDriveUrl(this)"><small class="drive-hint"></small><img class="img-preview" alt="Preview"></div>
+                <div class="form-group"><label>Upload Event Image</label>
+                    <div id="eventUploadZone" style="border:2px dashed #e8e4de;border-radius:10px;padding:28px 20px;text-align:center;cursor:pointer;transition:border-color 0.2s;background:#faf8f6;" onclick="document.getElementById('eventFileInput').click()" ondragover="event.preventDefault();this.style.borderColor='var(--primary)'" ondragleave="this.style.borderColor='#e8e4de'" ondrop="handleEventDrop(event)">
+                        <i class="fas fa-cloud-upload-alt" style="font-size:1.8rem;color:#ccc;margin-bottom:8px;display:block;"></i>
+                        <span style="font-size:0.85rem;color:#aaa;">Click or drag & drop an image here</span>
+                        <input type="file" id="eventFileInput" accept="image/*" style="display:none" onchange="uploadToCloudinary(this.files[0], CLOUDINARY_FOLDERS.event)">
+                    </div>
+                    <div id="eventUploadProgress" style="display:none;margin-top:10px;">
+                        <div style="background:#eee;border-radius:6px;height:6px;overflow:hidden;"><div id="eventProgressBar" style="height:100%;width:0%;background:var(--primary);transition:width 0.2s;border-radius:6px;"></div></div>
+                        <span id="eventUploadStatus" style="font-size:0.78rem;color:#888;margin-top:4px;display:block;">Uploading...</span>
+                    </div>
+                    <img id="eventUploadPreview" style="display:none;margin-top:10px;width:100%;max-height:160px;object-fit:cover;border-radius:8px;border:1px solid #e8e4de;" alt="Preview">
+                    <input type="hidden" id="eventImage">
+                </div>
                 <div class="form-group"><label>Type</label>
                     <select id="eventVirtual">
                         <option value="false">In Person</option>
@@ -1572,7 +1584,8 @@ const CLOUDINARY_PRESET = 'careercafe_gallery';
 const CLOUDINARY_FOLDERS = {
     gallery: 'careerCafe/Gallery',
     article: 'careerCafe/article',
-    team:    'careerCafe/team'
+    team:    'careerCafe/team',
+    event:   'careerCafe/event'
 };
 
 // ── QUILL EDITOR ─────────────────────────────────────────────
@@ -1698,6 +1711,7 @@ async function uploadToCloudinary(file, folder) {
 
     const key = folder === CLOUDINARY_FOLDERS.gallery ? 'gallery'
               : folder === CLOUDINARY_FOLDERS.article ? 'article'
+              : folder === CLOUDINARY_FOLDERS.event ? 'event'
               : 'team';
 
     const zone     = document.getElementById(`${key}UploadZone`);
@@ -1830,6 +1844,13 @@ function handleTeamDrop(e) {
     if (file && file.type.startsWith('image/')) uploadToCloudinary(file, CLOUDINARY_FOLDERS.team);
 }
 
+function handleEventDrop(e) {
+    e.preventDefault();
+    document.getElementById('eventUploadZone').style.borderColor = '#e8e4de';
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) uploadToCloudinary(file, CLOUDINARY_FOLDERS.event);
+}
+
 // ── AUTH ─────────────────────────────────────────────────────
 async function doLogin() {
     const email = document.getElementById('loginEmail').value;
@@ -1949,7 +1970,14 @@ function closeModal(id) {
         document.getElementById('articleUploadZone').style.display = 'block';
         document.getElementById('articleFileInput').value = '';
     }
-    if (id === 'eventModal') document.getElementById('eventId').value = '';
+    if (id === 'eventModal') {
+        document.getElementById('eventId').value = '';
+        document.getElementById('eventImage').value = '';
+        document.getElementById('eventUploadPreview').style.display = 'none';
+        document.getElementById('eventUploadProgress').style.display = 'none';
+        document.getElementById('eventUploadZone').style.display = 'block';
+        document.getElementById('eventFileInput').value = '';
+    }
     if (id === 'courseModal') document.getElementById('courseId').value = '';
     if (id === 'teamModal') {
         document.getElementById('teamId').value = '';
@@ -2180,6 +2208,16 @@ function editEvent(e) {
     document.getElementById('eventLocation').value = e.location || '';
     document.getElementById('eventRegUrl').value = e.registrationUrl || '';
     setImageField('eventImage', e.imageUrl);
+    if (e.imageUrl) {
+        document.getElementById('eventUploadPreview').src = e.imageUrl;
+        document.getElementById('eventUploadPreview').style.display = 'block';
+        document.getElementById('eventUploadZone').style.display = 'none';
+        document.getElementById('eventUploadProgress').style.display = 'none';
+    } else {
+        document.getElementById('eventUploadPreview').style.display = 'none';
+        document.getElementById('eventUploadZone').style.display = 'block';
+        document.getElementById('eventUploadProgress').style.display = 'none';
+    }
     document.getElementById('eventVirtual').value = String(e.isVirtual);
     document.getElementById('eventPublished').value = String(e.published);
     openModal('eventModal');

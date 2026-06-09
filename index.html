@@ -325,7 +325,7 @@
                 <div class="section-header">
                     <div>
                         <span class="section-kicker"><i class="fas fa-calendar-days"></i> Events</span>
-                        <h2>Upcoming rooms for learning and connection.</h2>
+                        <h2>Rooms for learning and connection.</h2>
                     </div>
                     <p>Live sessions, workshops, and gatherings for career growth and professional development.</p>
                 </div>
@@ -684,16 +684,22 @@
                 const res = await fetch(`${API_BASE}/api/events`);
                 const events = await res.json();
                 if (!events.length) {
-                    container.innerHTML = '<p class="articles-loading">No upcoming events at the moment.</p>';
+                    container.innerHTML = '<p class="articles-loading">No events at the moment.</p>';
                     return;
                 }
-                container.innerHTML = events.map(event => {
+                const now = new Date();
+                const upcoming = events.filter(e => e.eventDate && new Date(e.eventDate) >= now);
+                const past = events.filter(e => !e.eventDate || new Date(e.eventDate) < now);
+                upcoming.sort((a, b) => new Date(a.eventDate) - new Date(b.eventDate));
+                past.sort((a, b) => new Date(b.eventDate) - new Date(a.eventDate));
+
+                const renderCard = (event, isPast) => {
                     const date = event.eventDate ? new Date(event.eventDate).toLocaleDateString('en-KE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : '';
                     const time = event.eventDate ? new Date(event.eventDate).toLocaleTimeString('en-KE', { hour: '2-digit', minute: '2-digit' }) : '';
                     return `
-                        <article class="event-card">
+                        <article class="event-card${isPast ? ' event-past' : ''}">
                             ${event.imageUrl ? `<img src="${event.imageUrl}" alt="${escapeHtml(event.title)}" class="event-image">` : ''}
-                            <span class="event-badge">${event.isVirtual ? 'Virtual Event' : 'In Person'}</span>
+                            <span class="event-badge">${isPast ? 'Past Event' : (event.isVirtual ? 'Virtual Event' : 'In Person')}</span>
                             <h3 class="event-title">${escapeHtml(event.title)}</h3>
                             ${event.description ? `<p>${escapeHtml(event.description)}</p>` : ''}
                             <div class="event-details">
@@ -701,9 +707,20 @@
                                 <span><i class="fas fa-clock"></i>${time}${event.isVirtual ? ' Virtual' : ''}</span>
                                 ${event.location ? `<span><i class="fas fa-location-dot"></i>${escapeHtml(event.location)}</span>` : ''}
                             </div>
-                            ${event.registrationUrl ? `<a href="${event.registrationUrl}" class="btn btn-primary" target="_blank" rel="noopener">Register Now</a>` : ''}
+                            ${!isPast && event.registrationUrl ? `<a href="${event.registrationUrl}" class="btn btn-primary" target="_blank" rel="noopener">Register Now</a>` : ''}
                         </article>`;
-                }).join('');
+                };
+
+                let html = '';
+                if (upcoming.length) {
+                    html += '<h3 class="events-section-label">Upcoming Events</h3>';
+                    html += upcoming.map(e => renderCard(e, false)).join('');
+                }
+                if (past.length) {
+                    html += '<h3 class="events-section-label">Past Events</h3>';
+                    html += past.map(e => renderCard(e, true)).join('');
+                }
+                container.innerHTML = html;
             } catch (err) {
                 container.innerHTML = '<p class="articles-loading">Could not load events.</p>';
             }

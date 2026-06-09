@@ -681,7 +681,7 @@
         async function loadEvents() {
             const container = document.getElementById('eventsContainer');
             try {
-                const res = await fetch(`${API_BASE}/api/events`);
+                const res = await fetch(`${API_BASE}/api/events/all`);
                 const events = await res.json();
                 if (!events.length) {
                     container.innerHTML = '<p class="articles-loading">No events at the moment.</p>';

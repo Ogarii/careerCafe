@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard — The Career Café</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
     <style>
@@ -32,7 +33,7 @@
         }
 
         body {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background: #F7F4F1;
             color: var(--text);
             min-height: 100vh;
@@ -74,7 +75,7 @@
         }
 
         .sidebar-logo h2 {
-            font-family: 'DM Serif Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             color: var(--light);
             font-size: 1.2rem;
             line-height: 1.2;
@@ -87,7 +88,7 @@
             text-transform: uppercase;
             display: block;
             margin-top: 4px;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 500;
         }
 
@@ -211,7 +212,7 @@
         }
 
         .topbar-title {
-            font-family: 'DM Serif Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             font-size: 1.4rem;
             color: var(--dark);
         }
@@ -324,7 +325,7 @@
         .stat-icon.blue { background: linear-gradient(135deg, #2d6a9f, #4a9fd4); }
 
         .stat-number {
-            font-family: 'DM Serif Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             font-size: 2rem;
             color: var(--dark);
             line-height: 1;
@@ -354,7 +355,7 @@
         }
 
         .card-title {
-            font-family: 'DM Serif Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             font-size: 1.1rem;
             color: var(--dark);
         }
@@ -497,7 +498,7 @@
         }
 
         .modal-title {
-            font-family: 'DM Serif Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             font-size: 1.15rem;
             color: var(--dark);
         }
@@ -654,7 +655,7 @@
         }
 
         .email-composer h3 {
-            font-family: 'DM Serif Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             font-size: 1.2rem;
             margin-bottom: 6px;
         }
@@ -702,12 +703,12 @@
             border-radius: 8px 8px 0 0 !important;
             border-color: #e8e4de !important;
             background: var(--gray);
-            font-family: 'DM Sans', sans-serif !important;
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
         }
         .ql-container {
             border-radius: 0 0 8px 8px !important;
             border-color: #e8e4de !important;
-            font-family: 'DM Sans', sans-serif !important;
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
             font-size: 0.9rem !important;
         }
         .ql-editor {
@@ -780,7 +781,7 @@
         }
 
         .login-box h1 {
-            font-family: 'DM Serif Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             font-size: 1.8rem;
             color: var(--dark);
             margin-bottom: 4px;
@@ -1296,7 +1297,7 @@
                     </div>
                     <div class="form-group">
                         <label>Message Body</label>
-                        <div id="newsletterEditor" style="border-radius:8px;font-family:'DM Sans',sans-serif;"></div>
+                        <div id="newsletterEditor" style="border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;"></div>
                         <textarea id="emailBody" rows="5" style="display:none;"></textarea>
                     </div>
                 </div>
@@ -1340,7 +1341,7 @@
                 <div class="form-group full"><label>Summary</label><input type="text" id="articleSummary" placeholder="Brief summary shown on listing"></div>
                 <div class="form-group full">
                     <label>Content</label>
-                    <div id="articleEditor" style="height:320px;border-radius:8px;font-family:'DM Sans',sans-serif;"></div>
+                    <div id="articleEditor" style="height:320px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;"></div>
                     <textarea id="articleContent" style="display:none;"></textarea>
                 </div>
 
@@ -1387,7 +1388,11 @@
             <input type="hidden" id="eventId">
             <div class="form-grid">
                 <div class="form-group full"><label>Title *</label><input type="text" id="eventTitle" placeholder="Event title"></div>
-                <div class="form-group full"><label>Description</label><textarea id="eventDescription" rows="3" placeholder="Event description"></textarea></div>
+                <div class="form-group full">
+                    <label>Description</label>
+                    <div id="eventEditor" style="min-height:180px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;"></div>
+                    <textarea id="eventDescription" rows="3" placeholder="Event description" style="display:none;"></textarea>
+                </div>
                 <div class="form-group"><label>Event Date *</label><input type="datetime-local" id="eventDate"></div>
                 <div class="form-group"><label>End Date</label><input type="datetime-local" id="eventEndDate"></div>
                 <div class="form-group"><label>Location</label><input type="text" id="eventLocation" placeholder="e.g. Nairobi, Kenya"></div>
@@ -1591,6 +1596,7 @@ const CLOUDINARY_FOLDERS = {
 // ── QUILL EDITOR ─────────────────────────────────────────────
 let quill;
 let newsletterQuill;
+let eventQuill;
 function initQuill() {
     if (quill) return;
     quill = new Quill('#articleEditor', {
@@ -1617,6 +1623,26 @@ function initQuill() {
     bindQuillImageUploads();
 }
 
+function initEventQuill() {
+    if (eventQuill) return;
+    eventQuill = new Quill('#eventEditor', {
+        theme: 'snow',
+        placeholder: 'Add the event description here...',
+        modules: {
+            toolbar: [
+                [{ header: [1, 2, 3, false] }],
+                ['bold', 'italic', 'underline'],
+                [{ list: 'ordered' }, { list: 'bullet' }],
+                ['blockquote', 'link'],
+                ['clean']
+            ]
+        }
+    });
+
+    eventQuill.root.addEventListener('paste', event => blockRichTextMedia(event, 'Event editor'));
+    eventQuill.root.addEventListener('drop', event => blockRichTextMedia(event, 'Event editor'));
+}
+
 function initNewsletterQuill() {
     if (newsletterQuill) return;
     newsletterQuill = new Quill('#newsletterEditor', {
@@ -1635,18 +1661,81 @@ function initNewsletterQuill() {
         }
     });
 
-    newsletterQuill.root.addEventListener('paste', blockNewsletterImages);
-    newsletterQuill.root.addEventListener('drop', blockNewsletterImages);
+    newsletterQuill.root.addEventListener('paste', event => blockRichTextMedia(event, 'Newsletter editor'));
+    newsletterQuill.root.addEventListener('drop', event => blockRichTextMedia(event, 'Newsletter editor'));
 }
 
-function blockNewsletterImages(event) {
+function blockRichTextMedia(event, label) {
     const files = event.type === 'paste'
         ? Array.from(event.clipboardData?.items || []).filter(item => item.kind === 'file' && item.type.startsWith('image/'))
         : Array.from(event.dataTransfer?.files || []).filter(file => file.type.startsWith('image/'));
 
     if (!files.length) return;
     event.preventDefault();
-    toast('Newsletter editor supports text formatting only. Upload images separately and paste a link.', 'error');
+    toast(`${label} supports text formatting only. Upload images separately and paste a link.`, 'error');
+}
+
+function sanitizeEventEditorHtml(html) {
+    const template = document.createElement('template');
+    template.innerHTML = html || '';
+
+    const blockedTags = new Set(['SCRIPT', 'STYLE', 'IFRAME', 'OBJECT', 'EMBED', 'VIDEO', 'AUDIO', 'IMG', 'PICTURE', 'FIGURE', 'FIGCAPTION', 'SVG', 'CANVAS']);
+    const allowedTags = new Set(['P', 'BR', 'STRONG', 'B', 'EM', 'I', 'U', 'S', 'A', 'UL', 'OL', 'LI', 'BLOCKQUOTE', 'CODE', 'PRE', 'H1', 'H2', 'H3']);
+
+    const sanitizeNode = node => {
+        Array.from(node.childNodes).forEach(child => {
+            if (child.nodeType === Node.ELEMENT_NODE) {
+                if (blockedTags.has(child.tagName)) {
+                    child.remove();
+                    return;
+                }
+
+                if (!allowedTags.has(child.tagName)) {
+                    child.replaceWith(...Array.from(child.childNodes));
+                    sanitizeNode(node);
+                    return;
+                }
+
+                Array.from(child.attributes).forEach(attr => {
+                    const isSafeLinkAttr = child.tagName === 'A' && ['href', 'target', 'rel'].includes(attr.name);
+                    if (!isSafeLinkAttr) child.removeAttribute(attr.name);
+                });
+
+                if (child.tagName === 'A') {
+                    const href = child.getAttribute('href') || '';
+                    if (/^\s*javascript:/i.test(href)) {
+                        child.removeAttribute('href');
+                    } else {
+                        child.setAttribute('target', '_blank');
+                        child.setAttribute('rel', 'noopener');
+                    }
+                }
+
+                sanitizeNode(child);
+                return;
+            }
+
+            if (child.nodeType === Node.COMMENT_NODE) child.remove();
+        });
+    };
+
+    sanitizeNode(template.content);
+    return template.innerHTML.trim();
+}
+
+function setEventEditorHtml(html) {
+    initEventQuill();
+    const safeHtml = sanitizeEventEditorHtml(html);
+    if (!safeHtml) {
+        eventQuill.setContents([]);
+        return;
+    }
+    eventQuill.clipboard.dangerouslyPasteHTML(safeHtml);
+}
+
+function getEventEditorHtml() {
+    if (!eventQuill || !eventQuill.getText().trim()) return '';
+    return sanitizeEventEditorHtml(eventQuill.root.innerHTML);
 }
 
 function bindQuillImageUploads() {
@@ -1929,6 +2018,12 @@ function openModal(id) {
             quill.setContents([]);
         }
     }
+    if (id === 'eventModal') {
+        initEventQuill();
+        if (!document.getElementById('eventId').value) {
+            eventQuill.setContents([]);
+        }
+    }
 }
 
 function toggleSidebar() {
@@ -1973,10 +2068,12 @@ function closeModal(id) {
     if (id === 'eventModal') {
         document.getElementById('eventId').value = '';
         document.getElementById('eventImage').value = '';
+        document.getElementById('eventDescription').value = '';
         document.getElementById('eventUploadPreview').style.display = 'none';
         document.getElementById('eventUploadProgress').style.display = 'none';
         document.getElementById('eventUploadZone').style.display = 'block';
         document.getElementById('eventFileInput').value = '';
+        if (eventQuill) eventQuill.setContents([]);
     }
     if (id === 'courseModal') document.getElementById('courseId').value = '';
     if (id === 'teamModal') {
@@ -2221,13 +2318,16 @@ function editEvent(e) {
     document.getElementById('eventVirtual').value = String(e.isVirtual);
     document.getElementById('eventPublished').value = String(e.published);
     openModal('eventModal');
+    setTimeout(() => setEventEditorHtml(e.description || ''), 50);
 }
 
 async function saveEvent() {
     const id = document.getElementById('eventId').value;
+    const description = getEventEditorHtml();
+    document.getElementById('eventDescription').value = description;
     const body = {
         title: document.getElementById('eventTitle').value,
-        description: document.getElementById('eventDescription').value,
+        description,
         eventDate: document.getElementById('eventDate').value,
         endDate: document.getElementById('eventEndDate').value || null,
         location: document.getElementById('eventLocation').value,

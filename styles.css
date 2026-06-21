@@ -27,7 +27,7 @@ html {
 body {
     min-height: 100vh;
     color: var(--text);
-    font-family: "Manrope", "Segoe UI", sans-serif;
+    font-family: "Plus Jakarta Sans", "Segoe UI", sans-serif;
     line-height: 1.6;
     background: var(--light);
     overflow-x: hidden;
@@ -100,7 +100,7 @@ a {
 }
 
 .brand-wordmark strong {
-    font-family: "Fraunces", Georgia, serif;
+    font-family: "Cormorant Garamond", Georgia, serif;
     font-size: 1.1rem;
 }
 
@@ -277,7 +277,7 @@ a {
 .hero-title,
 .articles-hero h1 {
     margin-top: 0.9rem;
-    font-family: "Fraunces", Georgia, serif;
+    font-family: "Cormorant Garamond", Georgia, serif;
     font-size: clamp(3.2rem, 8vw, 7.5rem);
     line-height: 0.92;
     font-weight: 800;
@@ -366,7 +366,7 @@ a {
 .section-header h2 {
     margin-top: 0.7rem;
     color: var(--dark);
-    font-family: "Fraunces", Georgia, serif;
+    font-family: "Cormorant Garamond", Georgia, serif;
     font-size: clamp(2.1rem, 4.6vw, 4.25rem);
     line-height: 1;
     font-weight: 800;
@@ -420,7 +420,7 @@ a {
 
 .mission-strip strong {
     color: var(--secondary);
-    font-family: "Fraunces", Georgia, serif;
+    font-family: "Cormorant Garamond", Georgia, serif;
     font-size: clamp(1.6rem, 3vw, 2.45rem);
     line-height: 1.08;
 }
@@ -530,7 +530,7 @@ a {
 
 .solution-number {
     color: var(--primary);
-    font-family: "Fraunces", Georgia, serif;
+    font-family: "Cormorant Garamond", Georgia, serif;
     font-size: 2.5rem;
     line-height: 1;
 }
@@ -561,7 +561,7 @@ a {
 
 .stat-number {
     color: var(--secondary);
-    font-family: "Fraunces", Georgia, serif;
+    font-family: "Cormorant Garamond", Georgia, serif;
     font-size: clamp(2.4rem, 5vw, 4rem);
     line-height: 1;
 }
@@ -584,34 +584,100 @@ a {
 
 .quote-mark {
     color: var(--primary);
-    font-family: "Fraunces", Georgia, serif;
+    font-family: "Cormorant Garamond", Georgia, serif;
     font-size: 4rem;
     line-height: 1;
 }
 
 .testimonial-text {
     margin-top: 0.5rem;
-    font-family: "Fraunces", Georgia, serif;
+    font-family: "Cormorant Garamond", Georgia, serif;
     font-size: clamp(2rem, 4.5vw, 4.2rem);
     line-height: 1.04;
 }
 
 .event-card {
     display: grid;
-    gap: 1rem;
-    max-width: 900px;
-    padding: 1.4rem;
+    gap: 1.2rem;
+    max-width: none;
+    padding: 1.85rem;
     border: 1px solid var(--line);
     border-left: 7px solid var(--primary);
-    border-radius: 8px;
+    border-radius: 16px;
     background: var(--light);
+    box-shadow: 0 20px 40px rgba(26, 26, 46, 0.06);
 }
 
 .event-image {
     width: 100%;
-    max-height: 300px;
+    max-height: 320px;
     object-fit: cover;
-    border-radius: 6px;
+    border-radius: 12px;
+}
+
+.event-title {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(1.6rem, 1.9vw, 2rem);
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+}
+
+.event-description {
+    display: grid;
+    gap: 0.95rem;
+    max-width: 64ch;
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1.85;
+}
+
+.event-description p,
+.event-description ul,
+.event-description ol,
+.event-description blockquote,
+.event-description pre {
+    margin: 0;
+}
+
+.event-description li + li {
+    margin-top: 0.35rem;
+}
+
+.event-description ul,
+.event-description ol {
+    padding-left: 1.35rem;
+}
+
+.event-description a {
+    color: var(--primary);
+    font-weight: 800;
+    text-underline-offset: 0.16em;
+}
+
+.event-description blockquote {
+    padding-left: 1rem;
+    border-left: 3px solid rgba(226, 114, 91, 0.28);
+    color: #4b5563;
+}
+
+.event-description h1,
+.event-description h2,
+.event-description h3 {
+    color: var(--dark);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    line-height: 1.15;
+}
+
+.event-description h1 {
+    font-size: 1.55rem;
+}
+
+.event-description h2 {
+    font-size: 1.4rem;
+}
+
+.event-description h3 {
+    font-size: 1.22rem;
 }
 
 .event-badge,
@@ -662,11 +728,11 @@ a {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    padding: 0.55rem 0.7rem;
+    padding: 0.62rem 0.82rem;
     color: var(--muted);
     background: var(--gray);
     border-radius: 8px;
-    font-size: 0.86rem;
+    font-size: 0.9rem;
     font-weight: 800;
 }
 
@@ -681,8 +747,39 @@ a {
     margin-top: 0;
 }
 
+.events-group + .events-group {
+    margin-top: 2.5rem;
+}
+
+.events-stack {
+    display: grid;
+    gap: 1.75rem;
+}
+
+.events-past-scroll {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - 3rem) / 3);
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding: 0.1rem 0 1rem;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+}
+
+.events-past-scroll .event-card {
+    height: 100%;
+    scroll-snap-align: start;
+}
+
+.events-scroll-hint {
+    margin: -0.15rem 0 1rem;
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
 .event-past {
-    opacity: 0.7;
+    opacity: 0.8;
     border-left-color: var(--muted);
 }
 
@@ -772,7 +869,7 @@ a {
 .site-footer-mark-text strong {
     display: block;
     color: var(--light);
-    font-family: "Fraunces", Georgia, serif;
+    font-family: "Cormorant Garamond", Georgia, serif;
 }
 
 .site-footer-mark-text span,
@@ -901,7 +998,7 @@ a {
     display: grid;
     place-items: center;
     color: var(--secondary);
-    font-family: "Fraunces", Georgia, serif;
+    font-family: "Cormorant Garamond", Georgia, serif;
     font-size: 2.2rem;
 }
 
@@ -1004,7 +1101,7 @@ a {
 .popup-content h3,
 .tm-modal h3 {
     color: var(--dark);
-    font-family: "Fraunces", Georgia, serif;
+    font-family: "Cormorant Garamond", Georgia, serif;
     font-size: 2rem;
 }
 
@@ -1195,7 +1292,7 @@ label {
 .article-title {
     margin: 0.8rem 0;
     color: var(--dark);
-    font-family: "Fraunces", Georgia, serif;
+    font-family: "Cormorant Garamond", Georgia, serif;
     font-size: clamp(2.5rem, 6vw, 5rem);
     line-height: 0.98;
 }
@@ -1280,7 +1377,7 @@ label {
 .article-panel h3 {
     margin: 0.16rem 0 0;
     color: var(--dark);
-    font-family: "Fraunces", Georgia, serif;
+    font-family: "Cormorant Garamond", Georgia, serif;
     font-size: 1.35rem;
     line-height: 1.05;
 }
@@ -1421,7 +1518,7 @@ label {
 .overview-card h2,
 .catalog-header h2 {
     color: var(--dark);
-    font-family: "Fraunces", Georgia, serif;
+    font-family: "Cormorant Garamond", Georgia, serif;
     line-height: 1.08;
 }
 
@@ -1494,7 +1591,7 @@ label {
 .stat-card strong {
     display: block;
     color: var(--dark);
-    font-family: "Fraunces", Georgia, serif;
+    font-family: "Cormorant Garamond", Georgia, serif;
     font-size: 2rem;
 }
 
@@ -1637,6 +1734,10 @@ label {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .events-past-scroll {
+        grid-auto-columns: calc((100% - 1.5rem) / 2);
+    }
+
     .article-sidebar {
         position: static;
     }
@@ -1681,6 +1782,10 @@ label {
 
     .articles-carousel-wrapper {
         grid-template-columns: 1fr;
+    }
+
+    .events-past-scroll {
+        grid-auto-columns: 100%;
     }
 
     .articles-carousel-wrapper > .carousel-btn {

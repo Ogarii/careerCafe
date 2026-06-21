@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="./careerLogoNew.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -553,6 +553,55 @@
             return div.innerHTML;
         }
 
+        function sanitizeEventMarkup(html) {
+            if (!html) return '';
+
+            const template = document.createElement('template');
+            template.innerHTML = String(html);
+            const blockedTags = new Set(['SCRIPT', 'STYLE', 'IFRAME', 'OBJECT', 'EMBED', 'VIDEO', 'AUDIO', 'IMG', 'PICTURE', 'FIGURE', 'FIGCAPTION', 'SVG', 'CANVAS']);
+            const allowedTags = new Set(['P', 'BR', 'STRONG', 'B', 'EM', 'I', 'U', 'S', 'A', 'UL', 'OL', 'LI', 'BLOCKQUOTE', 'CODE', 'PRE', 'H1', 'H2', 'H3']);
+
+            const sanitizeNode = node => {
+                Array.from(node.childNodes).forEach(child => {
+                    if (child.nodeType === Node.ELEMENT_NODE) {
+                        if (blockedTags.has(child.tagName)) {
+                            child.remove();
+                            return;
+                        }
+
+                        if (!allowedTags.has(child.tagName)) {
+                            child.replaceWith(...Array.from(child.childNodes));
+                            sanitizeNode(node);
+                            return;
+                        }
+
+                        Array.from(child.attributes).forEach(attr => {
+                            const isSafeLinkAttr = child.tagName === 'A' && ['href', 'target', 'rel'].includes(attr.name);
+                            if (!isSafeLinkAttr) child.removeAttribute(attr.name);
+                        });
+
+                        if (child.tagName === 'A') {
+                            const href = child.getAttribute('href') || '';
+                            if (/^\s*javascript:/i.test(href)) {
+                                child.removeAttribute('href');
+                            } else {
+                                child.setAttribute('target', '_blank');
+                                child.setAttribute('rel', 'noopener');
+                            }
+                        }
+
+                        sanitizeNode(child);
+                        return;
+                    }
+
+                    if (child.nodeType === Node.COMMENT_NODE) child.remove();
+                });
+            };
+
+            sanitizeNode(template.content);
+            return template.innerHTML.trim();
+        }
+
         function destroyCarousel(name) {
             const existing = carouselControllers.get(name);
             if (existing && typeof existing.destroy === 'function') existing.destroy();
@@ -696,12 +745,13 @@
                 const renderCard = (event, isPast) => {
                     const date = event.eventDate ? new Date(event.eventDate).toLocaleDateString('en-KE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : '';
                     const time = event.eventDate ? new Date(event.eventDate).toLocaleTimeString('en-KE', { hour: '2-digit', minute: '2-digit' }) : '';
+                    const imageUrl = getImageUrl(event.imageUrl) || event.imageUrl;
                     return `
                         <article class="event-card${isPast ? ' event-past' : ''}">
-                            ${event.imageUrl ? `<img src="${event.imageUrl}" alt="${escapeHtml(event.title)}" class="event-image">` : ''}
+                            ${imageUrl ? `<img src="${imageUrl}" alt="${escapeHtml(event.title)}" class="event-image" loading="lazy">` : ''}
                             <span class="event-badge">${isPast ? 'Past Event' : (event.isVirtual ? 'Virtual Event' : 'In Person')}</span>
                             <h3 class="event-title">${escapeHtml(event.title)}</h3>
-                            ${event.description ? `<p>${escapeHtml(event.description)}</p>` : ''}
+                            ${event.description ? `<div class="event-description">${sanitizeEventMarkup(event.description)}</div>` : ''}
                             <div class="event-details">
                                 <span><i class="fas fa-calendar"></i>${date}</span>
                                 <span><i class="fas fa-clock"></i>${time}${event.isVirtual ? ' Virtual' : ''}</span>
@@ -713,12 +763,17 @@
 
                 let html = '';
                 if (upcoming.length) {
+                    html += '<section class="events-group">';
                     html += '<h3 class="events-section-label">Upcoming Events</h3>';
-                    html += upcoming.map(e => renderCard(e, false)).join('');
+                    html += `<div class="events-stack">${upcoming.map(e => renderCard(e, false)).join('')}</div>`;
+                    html += '</section>';
                 }
                 if (past.length) {
+                    html += '<section class="events-group">';
                     html += '<h3 class="events-section-label">Past Events</h3>';
-                    html += past.map(e => renderCard(e, true)).join('');
+                    if (past.length > 3) html += '<p class="events-scroll-hint">Scroll sideways to browse earlier events.</p>';
+                    html += `<div class="events-past-scroll" aria-label="Past events">${past.map(e => renderCard(e, true)).join('')}</div>`;
+                    html += '</section>';
                 }
                 container.innerHTML = html;
             } catch (err) {

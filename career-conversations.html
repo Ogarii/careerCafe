@@ -232,7 +232,7 @@
         /* Speaker split cards (text + media) */
         .speaker-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
             gap: 1.4rem;
         }
         .speaker-card {
@@ -307,10 +307,10 @@
             color: var(--light);
             background: linear-gradient(160deg, var(--primary), var(--primary-light));
         }
-        @media (max-width: 480px) {
+        @media (max-width: 560px) {
             .speaker-grid { grid-template-columns: 1fr; }
             .speaker-card { grid-template-columns: 1fr; }
-            .speaker-media { min-height: 180px; }
+            .speaker-media { min-height: 200px; order: -1; }
         }
 
         /* Program */
@@ -562,6 +562,39 @@
         .glass-card.lg-active .lg-trail { opacity: 0.75; }
         @media (prefers-reduced-motion: reduce) {
             .lg-glow, .lg-trail { display: none; }
+        }
+
+        /* let grid/flex children shrink rather than forcing horizontal overflow */
+        .glass-card, .glass-value, .countdown-body, .count-unit,
+        .speaker-info, .speaker-card, .quote-card-body { min-width: 0; }
+        .glass-value, .speaker-bio, .speaker-topic, .quote-card-headline { overflow-wrap: anywhere; }
+
+        /* Mobile refinements */
+        @media (max-width: 600px) {
+            .event-hero { padding: 6.5rem 0 2.8rem; }
+            .hero-partner { margin-bottom: 1.1rem; padding: 0.4rem 0.85rem 0.4rem 0.5rem; }
+            .hero-partner span { font-size: 0.72rem; }
+            .hero-glass-grid { gap: 0.75rem; margin: 1.8rem 0 2rem; }
+            .glass-card { padding: 1.1rem; border-radius: 18px; }
+            .glass-card i { font-size: 1.4rem; }
+            .glass-value { font-size: 0.92rem; }
+            .hero-buttons { flex-wrap: wrap; gap: 0.7rem; }
+            .hero-buttons .btn { flex: 1 1 100%; justify-content: center; }
+
+            .countdown-card { justify-content: center; text-align: center; gap: 1.4rem; padding: 1.7rem 1.2rem; }
+            .count-ring { width: 150px; height: 150px; }
+            .countdown-body { flex-basis: 100%; }
+            .countdown-body h3 { font-size: 1.6rem; }
+            .countdown-units { justify-content: center; }
+            .count-unit { min-width: 62px; padding: 0.75rem 0.5rem; }
+            .count-unit .count-num { font-size: 1.45rem; }
+
+            .quote-card-headline { font-size: 1.45rem; }
+            .register-section { padding: 1.8rem 1rem; }
+            .form-embed-wrap iframe { height: 560px; }
+
+            /* slide up only (sideways reveals would push past the screen edge) */
+            .reveal, .reveal.reveal-left, .reveal.reveal-right { transform: translateY(30px); }
         }
     </style>
 </head>
@@ -954,7 +987,7 @@
                     <div class="form-embed-wrap">
                         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScKPRgApbeXDHIrwgL8dCIS_FvfHPWMe1QlKvJJpiWpL11_-w/viewform?embedded=true" title="Career Conversations Registration">Loading</iframe>
                     </div>
-                    <p class="fallback-link">Form not loading? <a href="https://forms.gle/UHY7zEQdWN8hjgQcA" target="_blank" rel="noopener">Open registration in a new tab</a></p>
+                    <p class="fallback-link">Form not loading? <a href="https://forms.gle/sydwG6rCHFpNobXG6" target="_blank" rel="noopener">Open registration in a new tab</a></p>
                 </div>
             </div>
         </section>

@@ -504,6 +504,14 @@
         </div>
     </div>
 
+    <div class="event-popup" id="eventPopup" role="dialog" aria-label="Upcoming event">
+        <button class="event-popup-close" id="eventPopupClose" type="button" aria-label="Close event announcement">&times;</button>
+        <span class="event-popup-kicker"><i class="fas fa-calendar-days"></i> Upcoming Webinar</span>
+        <h4>Career Conversations: Beyond Convention</h4>
+        <p>Honest reflections on building meaningful careers in an uncertain world. Tuesday, 28 July 2026, 5:00 PM EAT. Free and virtual.</p>
+        <a href="career-conversations.html" class="event-popup-cta">View event <i class="fas fa-arrow-right"></i></a>
+    </div>
+
     <div class="newsletter-popup" id="newsletterPopup">
         <div class="popup-content">
             <button class="close-popup" id="closePopup" type="button" aria-label="Close newsletter">&times;</button>
@@ -1050,6 +1058,20 @@
                 galleryModal.style.display = 'none';
                 closeTeamModal();
             });
+
+            const eventPopup = document.getElementById('eventPopup');
+            if (eventPopup) {
+                // Popup auto-hides once the event has passed; until then it can be dismissed manually.
+                const EVENT_END = new Date('2026-07-28T18:30:00+03:00');
+                const dismissed = localStorage.getItem('eventPopupDismissed') === 'true';
+                if (Date.now() < EVENT_END.getTime() && !dismissed) {
+                    setTimeout(() => eventPopup.classList.add('open'), 2000);
+                }
+                document.getElementById('eventPopupClose').addEventListener('click', () => {
+                    eventPopup.classList.remove('open');
+                    localStorage.setItem('eventPopupDismissed', 'true');
+                });
+            }
 
             loadArticles();
             loadEvents();

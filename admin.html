@@ -1615,12 +1615,12 @@ function initQuill() {
                     ['clean']
                 ],
                 handlers: {
-                    image: handleQuillImageUpload
+                    image: () => handleQuillImageUpload(quill)
                 }
             }
         }
     });
-    bindQuillImageUploads();
+    bindQuillImageUploads(quill);
 }
 
 function initEventQuill() {
@@ -1645,24 +1645,29 @@ function initEventQuill() {
 
 function initNewsletterQuill() {
     if (newsletterQuill) return;
+    // Same editor as the articles one: identical toolbar + inline image upload.
     newsletterQuill = new Quill('#newsletterEditor', {
         theme: 'snow',
         placeholder: 'Write your newsletter content here...',
         modules: {
-            toolbar: [
-                [{ header: [1, 2, 3, false] }],
-                ['bold', 'italic', 'underline'],
-                [{ color: [] }, { background: [] }],
-                [{ list: 'ordered' }, { list: 'bullet' }],
-                ['blockquote'],
-                ['link'],
-                ['clean']
-            ]
+            toolbar: {
+                container: [
+                    [{ header: [1, 2, 3, false] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ color: [] }, { background: [] }],
+                    [{ list: 'ordered' }, { list: 'bullet' }],
+                    [{ indent: '-1' }, { indent: '+1' }],
+                    ['blockquote', 'code-block'],
+                    ['link', 'image'],
+                    ['clean']
+                ],
+                handlers: {
+                    image: () => handleQuillImageUpload(newsletterQuill)
+                }
+            }
         }
     });
-
-    newsletterQuill.root.addEventListener('paste', event => blockRichTextMedia(event, 'Newsletter editor'));
-    newsletterQuill.root.addEventListener('drop', event => blockRichTextMedia(event, 'Newsletter editor'));
+    bindQuillImageUploads(newsletterQuill);
 }
 
 function blockRichTextMedia(event, label) {
@@ -1738,11 +1743,11 @@ function getEventEditorHtml() {
     return sanitizeEventEditorHtml(eventQuill.root.innerHTML);
 }
 
-function bindQuillImageUploads() {
-    if (!quill || quill.__imageUploadBound) return;
-    quill.__imageUploadBound = true;
+function bindQuillImageUploads(editor = quill) {
+    if (!editor || editor.__imageUploadBound) return;
+    editor.__imageUploadBound = true;
 
-    quill.root.addEventListener('paste', async (event) => {
+    editor.root.addEventListener('paste', async (event) => {
         const files = Array.from(event.clipboardData?.items || [])
             .filter(item => item.kind === 'file' && item.type.startsWith('image/'))
             .map(item => item.getAsFile())
@@ -1750,48 +1755,48 @@ function bindQuillImageUploads() {
         if (!files.length) return;
 
         event.preventDefault();
-        await insertImagesIntoQuill(files, quill.getSelection(true)?.index ?? quill.getLength());
+        await insertImagesIntoQuill(files, editor.getSelection(true)?.index ?? editor.getLength(), editor);
     });
 
-    quill.root.addEventListener('drop', async (event) => {
+    editor.root.addEventListener('drop', async (event) => {
         const files = Array.from(event.dataTransfer?.files || [])
             .filter(file => file.type.startsWith('image/'));
         if (!files.length) return;
 
         event.preventDefault();
-        quill.focus();
-        const selection = quill.getSelection(true);
-        await insertImagesIntoQuill(files, selection?.index ?? quill.getLength());
+        editor.focus();
+        const selection = editor.getSelection(true);
+        await insertImagesIntoQuill(files, selection?.index ?? editor.getLength(), editor);
     });
 }
 
-function handleQuillImageUpload() {
+function handleQuillImageUpload(editor = quill) {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*';
     input.onchange = async () => {
         const file = input.files && input.files[0];
         if (!file) return;
-        const selection = quill.getSelection(true);
-        await insertImagesIntoQuill([file], selection?.index ?? quill.getLength());
+        const selection = editor.getSelection(true);
+        await insertImagesIntoQuill([file], selection?.index ?? editor.getLength(), editor);
     };
     input.click();
 }
 
-async function insertImagesIntoQuill(files, startIndex) {
+async function insertImagesIntoQuill(files, startIndex, editor = quill) {
     let index = startIndex;
     try {
-        toast('Uploading article image...');
+        toast('Uploading image...');
         for (const file of files) {
             const imageUrl = await uploadImageToCloudinary(file, CLOUDINARY_FOLDERS.article, 1.5, 1400);
-            quill.insertEmbed(index, 'image', imageUrl, 'user');
-            quill.insertText(index + 1, '\n', 'user');
+            editor.insertEmbed(index, 'image', imageUrl, 'user');
+            editor.insertText(index + 1, '\n', 'user');
             index += 2;
         }
-        quill.setSelection(index, 0);
-        toast('Article image uploaded.');
+        editor.setSelection(index, 0);
+        toast('Image uploaded.');
     } catch (error) {
-        toast('Failed to upload article image.', 'error');
+        toast('Failed to upload image.', 'error');
     }
 }
 
@@ -2241,6 +2246,46 @@ function editArticle(a) {
     }, 50);
 }
 
+// ── FORM VALIDATION ──────────────────────────────────────────
+// Runs an ordered list of field checks and shows a specific message for the
+// first problem it finds (required, too short, too long, bad slug/url/email).
+function validateForm(checks) {
+    for (const c of checks) {
+        const raw = c.value == null ? '' : String(c.value);
+        const val = c.trim === false ? raw : raw.trim();
+
+        if (c.required && !val) return failValidation(c, `${c.label} is required.`);
+        if (!val) continue; // optional and empty: skip the rest of its checks
+
+        if (c.min && val.length < c.min) {
+            return failValidation(c, `${c.label} is too short. Use at least ${c.min} character${c.min === 1 ? '' : 's'} (currently ${val.length}).`);
+        }
+        if (c.max && val.length > c.max) {
+            return failValidation(c, `${c.label} is too long. Maximum ${c.max} characters allowed (currently ${val.length}).`);
+        }
+        if (c.slug && !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(val)) {
+            return failValidation(c, `${c.label} can only use lowercase letters, numbers, and single hyphens, e.g. career-growth-tips.`);
+        }
+        if (c.url && !/^https?:\/\/\S+$/i.test(val)) {
+            return failValidation(c, `${c.label} must be a valid link starting with http:// or https://.`);
+        }
+        if (c.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+            return failValidation(c, `${c.label} must be a valid email address.`);
+        }
+    }
+    return true;
+}
+
+function failValidation(check, message) {
+    toast(message, 'error');
+    const el = check.focusId ? document.getElementById(check.focusId)
+             : check.id ? document.getElementById(check.id) : null;
+    if (el && typeof el.focus === 'function') {
+        try { el.focus(); } catch (e) { /* ignore */ }
+    }
+    return false;
+}
+
 async function saveArticle() {
     const id = document.getElementById('articleId').value;
     const content = quill ? quill.root.innerHTML : document.getElementById('articleContent').value;
@@ -2248,6 +2293,16 @@ async function saveArticle() {
         toast('Upload inline images before saving. Base64 images are blocked to reduce egress.', 'error');
         return;
     }
+    const contentText = quill ? quill.getText().trim() : content.replace(/<[^>]+>/g, '').trim();
+    if (!validateForm([
+        { label: 'Title', id: 'articleTitle', value: document.getElementById('articleTitle').value, required: true, max: 200 },
+        { label: 'Slug', id: 'articleSlug', value: document.getElementById('articleSlug').value, required: true, max: 120, slug: true },
+        { label: 'Category', id: 'articleCategory', value: document.getElementById('articleCategory').value, max: 80 },
+        { label: 'Summary', id: 'articleSummary', value: document.getElementById('articleSummary').value, max: 300 },
+        { label: 'Content', value: contentText, required: true },
+        { label: 'Content', value: content, max: 60000 },
+        { label: 'Image link', value: document.getElementById('articleImage').value, url: true }
+    ])) return;
     const body = {
         title: document.getElementById('articleTitle').value,
         slug: document.getElementById('articleSlug').value,
@@ -2325,6 +2380,20 @@ async function saveEvent() {
     const id = document.getElementById('eventId').value;
     const description = getEventEditorHtml();
     document.getElementById('eventDescription').value = description;
+    const eventDateVal = document.getElementById('eventDate').value;
+    const endDateVal = document.getElementById('eventEndDate').value;
+    if (!validateForm([
+        { label: 'Title', id: 'eventTitle', value: document.getElementById('eventTitle').value, required: true, max: 200 },
+        { label: 'Description', value: description, max: 20000 },
+        { label: 'Event date', id: 'eventDate', value: eventDateVal, required: true },
+        { label: 'Location', id: 'eventLocation', value: document.getElementById('eventLocation').value, max: 160 },
+        { label: 'Registration URL', id: 'eventRegUrl', value: document.getElementById('eventRegUrl').value, url: true }
+    ])) return;
+    if (endDateVal && new Date(endDateVal) <= new Date(eventDateVal)) {
+        toast('End date must be after the start date.', 'error');
+        document.getElementById('eventEndDate').focus();
+        return;
+    }
     const body = {
         title: document.getElementById('eventTitle').value,
         description,
@@ -2467,6 +2536,11 @@ function editGallery(g) {
 
 async function saveGallery() {
     const id = document.getElementById('galleryId').value;
+    if (!validateForm([
+        { label: 'Image', value: document.getElementById('galleryImageUrl').value, required: true, url: true },
+        { label: 'Caption', id: 'galleryCaption', value: document.getElementById('galleryCaption').value, max: 200 },
+        { label: 'Category', id: 'galleryCategory', value: document.getElementById('galleryCategory').value, max: 80 }
+    ])) return;
     const body = {
         imageUrl: document.getElementById('galleryImageUrl').value,
         caption: document.getElementById('galleryCaption').value,
@@ -2536,6 +2610,13 @@ if (m.imageUrl) {
 
 async function saveTeam() {
     const id = document.getElementById('teamId').value;
+    if (!validateForm([
+        { label: 'Name', id: 'teamName', value: document.getElementById('teamName').value, required: true, max: 120 },
+        { label: 'Role', id: 'teamRole', value: document.getElementById('teamRole').value, required: true, max: 120 },
+        { label: 'Bio', id: 'teamBio', value: document.getElementById('teamBio').value, max: 1000 },
+        { label: 'LinkedIn URL', id: 'teamLinkedin', value: document.getElementById('teamLinkedin').value, url: true },
+        { label: 'Twitter URL', id: 'teamTwitter', value: document.getElementById('teamTwitter').value, url: true }
+    ])) return;
     const body = {
         name: document.getElementById('teamName').value,
         role: document.getElementById('teamRole').value,
@@ -2643,7 +2724,11 @@ function sendMassEmail() {
     const bodyText = newsletterQuill
         ? newsletterQuill.getText().trim()
         : body.replace(/<[^>]+>/g, '').trim();
-    if (!subject || !bodyText) { toast('Please fill in subject and message.', 'error'); return; }
+    if (!validateForm([
+        { label: 'Subject line', id: 'emailSubject', value: subject, required: true, max: 200 },
+        { label: 'Message', value: bodyText, required: true },
+        { label: 'Message', value: body, max: 100000 }
+    ])) return;
 
     if (!confirm(`Send this newsletter to all subscribers?\n\nSubject: ${subject}`)) return;
 

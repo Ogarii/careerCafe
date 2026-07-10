@@ -1907,6 +1907,37 @@ label {
     color: var(--dark);
 }
 
+.event-popup-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.event-popup-qr {
+    flex: 0 0 auto;
+    margin: 0;
+    text-align: center;
+}
+
+.event-popup-qr img {
+    width: 78px;
+    height: 78px;
+    display: block;
+    padding: 5px;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.event-popup-qr figcaption {
+    margin-top: 0.35rem;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.65);
+}
+
 @media (max-width: 480px) {
     .event-popup {
         left: 0.75rem;

@@ -1,5 +1,10 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/careerca/public_html/
-    - /bin/cp -R * $DEPLOYPATH
+    - export DEPLOYPATH=/home/careerca/public_html
+    - /bin/mkdir -p "$DEPLOYPATH"
+    # Remove anything that may have been deployed before but must never be public
+    # (database dumps, migration scripts, source control, CI + tooling config).
+    - /bin/rm -rf "$DEPLOYPATH/backups" "$DEPLOYPATH/scripts" "$DEPLOYPATH/.git" "$DEPLOYPATH/.github" "$DEPLOYPATH/.claude" "$DEPLOYPATH/node_modules" "$DEPLOYPATH/preview_server.py"
+    # Publish the site. Excludes source control, CI, backups, and dev-only files.
+    - /usr/bin/rsync -a --exclude='.git' --exclude='.git/**' --exclude='.github' --exclude='.github/**' --exclude='.claude' --exclude='.claude/**' --exclude='backups' --exclude='backups/**' --exclude='scripts' --exclude='scripts/**' --exclude='node_modules' --exclude='node_modules/**' --exclude='preview_server.py' --exclude='*.bak' --exclude='Screenshot*.png' --exclude='.gitignore' --exclude='.cpanel.yml' ./ "$DEPLOYPATH/"

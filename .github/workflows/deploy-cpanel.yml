@@ -3,6 +3,7 @@ name: Deploy Frontend to cPanel
 on:
   push:
     branches:
+      - main
       - devBranch
   workflow_dispatch:
 
@@ -14,12 +15,26 @@ jobs:
   deploy:
     name: Upload static site
     runs-on: ubuntu-latest
+    env:
+      FTP_SERVER: ${{ secrets.CPANEL_FTP_SERVER }}
 
     steps:
       - name: Checkout frontend
         uses: actions/checkout@v4
 
-      - name: Deploy to cPanel
+      # Without the CPANEL_FTP_* secrets the FTP step cannot run, so skip it
+      # cleanly (a green run) instead of failing. cPanel Git Version Control
+      # (.cpanel.yml) is the no-secret fallback that deploys the same files.
+      - name: FTP not configured
+        if: ${{ env.FTP_SERVER == '' }}
+        run: |
+          echo "::notice::CPANEL_FTP_SERVER secret is not set - skipping FTP deploy."
+          echo "Add repo secrets CPANEL_FTP_SERVER, CPANEL_FTP_USERNAME,"
+          echo "CPANEL_FTP_PASSWORD and CPANEL_FTP_DIR to enable this workflow,"
+          echo "or rely on cPanel Git Version Control which runs .cpanel.yml."
+
+      - name: Deploy to cPanel over FTP
+        if: ${{ env.FTP_SERVER != '' }}
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.CPANEL_FTP_SERVER }}
@@ -32,8 +47,12 @@ jobs:
             **/.git*
             **/.git*/**
             **/.github/**
+            **/.claude/**
             **/node_modules/**
             backups/**
             scripts/**
             preview_server.py
             Screenshot*.png
+            **/*.bak
+            .gitignore
+            .cpanel.yml

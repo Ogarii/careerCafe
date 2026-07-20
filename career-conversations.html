@@ -62,7 +62,7 @@
             backdrop-filter: blur(26px) saturate(190%);
             -webkit-backdrop-filter: blur(26px) saturate(190%);
         }
-        .glass-card > *:not(.lg-warp):not(.lg-glow):not(.lg-trail) { position: relative; z-index: 1; }
+        .glass-card > *:not(.lg-warp) { position: relative; z-index: 1; }
         .glass-card::before {
             content: "";
             position: absolute;
@@ -436,12 +436,6 @@
         /* Hover animations */
         .btn { transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease; }
         .btn:hover { transform: translateY(-3px); }
-        .glass-card { transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.3, 1), background 0.35s ease, box-shadow 0.35s ease; }
-        .glass-card:hover {
-            transform: translateY(-8px);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.07) 60%, rgba(255, 255, 255, 0.13) 100%);
-            box-shadow: 0 22px 56px rgba(20, 12, 30, 0.42), inset 0 1px 1px rgba(255, 255, 255, 0.7);
-        }
         .countdown-card, .quote-card { transition: transform 0.35s ease, box-shadow 0.35s ease; }
         .countdown-card:hover, .quote-card:hover { transform: translateY(-4px); box-shadow: 0 24px 54px rgba(26, 26, 46, 0.16); }
         .solution-item, .takeaway-card { transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
@@ -534,35 +528,6 @@
             transition: left 0.38s cubic-bezier(0.34, 1.4, 0.5, 1), width 0.38s cubic-bezier(0.34, 1.4, 0.5, 1), opacity 0.3s ease;
         }
 
-        /* Hero card pointer-following ripple (liquid highlight + trailing wake) */
-        .lg-glow,
-        .lg-trail {
-            position: absolute;
-            left: var(--gx, 50%);
-            top: var(--gy, 50%);
-            width: 190px;
-            height: 190px;
-            margin: -95px 0 0 -95px;
-            border-radius: 50%;
-            z-index: 0;
-            opacity: 0;
-            pointer-events: none;
-        }
-        .lg-glow {
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.55), transparent 62%);
-            filter: blur(6px);
-            transition: left 0.09s linear, top 0.09s linear, opacity 0.3s ease;
-        }
-        .lg-trail {
-            background: radial-gradient(circle, rgba(255, 208, 150, 0.42), transparent 62%);
-            filter: blur(16px);
-            transition: left 0.5s cubic-bezier(0.2, 0.7, 0.3, 1), top 0.5s cubic-bezier(0.2, 0.7, 0.3, 1), opacity 0.45s ease;
-        }
-        .glass-card.lg-active .lg-glow { opacity: 0.9; }
-        .glass-card.lg-active .lg-trail { opacity: 0.75; }
-        @media (prefers-reduced-motion: reduce) {
-            .lg-glow, .lg-trail { display: none; }
-        }
 
         /* let grid/flex children shrink rather than forcing horizontal overflow */
         .glass-card, .glass-value, .countdown-body, .count-unit,
@@ -729,32 +694,24 @@
             <div class="hero-glass-grid">
                 <div class="glass-card">
                     <span class="lg-warp" aria-hidden="true"></span>
-                    <span class="lg-trail" aria-hidden="true"></span>
-                    <span class="lg-glow" aria-hidden="true"></span>
                     <i class="fas fa-calendar-days"></i>
                     <span class="glass-label">Date</span>
                     <span class="glass-value">Tuesday, 28 July 2026</span>
                 </div>
                 <div class="glass-card">
                     <span class="lg-warp" aria-hidden="true"></span>
-                    <span class="lg-trail" aria-hidden="true"></span>
-                    <span class="lg-glow" aria-hidden="true"></span>
                     <i class="fas fa-clock"></i>
                     <span class="glass-label">Time</span>
                     <span class="glass-value">5:00 to 6:30 PM EAT</span>
                 </div>
                 <div class="glass-card">
                     <span class="lg-warp" aria-hidden="true"></span>
-                    <span class="lg-trail" aria-hidden="true"></span>
-                    <span class="lg-glow" aria-hidden="true"></span>
                     <i class="fas fa-laptop"></i>
                     <span class="glass-label">Format</span>
                     <span class="glass-value">Virtual webinar</span>
                 </div>
                 <div class="glass-card">
                     <span class="lg-warp" aria-hidden="true"></span>
-                    <span class="lg-trail" aria-hidden="true"></span>
-                    <span class="lg-glow" aria-hidden="true"></span>
                     <i class="fas fa-ticket"></i>
                     <span class="glass-label">Entry</span>
                     <span class="glass-value">Free to attend</span>
@@ -1219,24 +1176,6 @@
                 window.addEventListener('resize', moveWithScroll);
                 moveWithScroll();
             }
-
-            // Pointer-following ripple on the hero glass cards
-            document.querySelectorAll('.glass-card').forEach(card => {
-                const glow = card.querySelector('.lg-glow');
-                const trail = card.querySelector('.lg-trail');
-                if (!glow || !trail) return;
-                card.addEventListener('pointermove', event => {
-                    const r = card.getBoundingClientRect();
-                    const x = event.clientX - r.left;
-                    const y = event.clientY - r.top;
-                    [glow, trail].forEach(el => {
-                        el.style.left = x + 'px';
-                        el.style.top = y + 'px';
-                    });
-                    card.classList.add('lg-active');
-                });
-                card.addEventListener('pointerleave', () => card.classList.remove('lg-active'));
-            });
         });
     </script>
 </body>

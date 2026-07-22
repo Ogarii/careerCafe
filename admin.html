@@ -672,6 +672,39 @@
         .email-composer input::placeholder,
         .email-composer textarea::placeholder { color: rgba(255,255,255,0.35); }
 
+        .email-type-toggle {
+            display: inline-flex;
+            gap: 6px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        .email-type-option input { display: none; }
+
+        .email-type-option span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 18px;
+            border-radius: 7px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.6);
+            cursor: pointer;
+            transition: all 0.18s ease;
+            user-select: none;
+        }
+
+        .email-type-option span:hover { color: rgba(255,255,255,0.85); }
+
+        .email-type-option input:checked + span {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        }
+
         .email-composer input:focus,
         .email-composer textarea:focus { border-color: var(--primary-light); }
 
@@ -717,6 +750,13 @@
             overflow-y: auto;
         }
         .ql-editor p { margin-bottom: 0.6em; }
+        .ql-editor img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin: 12px auto;
+        }
         #articleEditor:focus-within .ql-toolbar,
         #articleEditor:focus-within .ql-container,
         #newsletterEditor:focus-within .ql-toolbar,
@@ -1289,8 +1329,21 @@
         <div class="panel" id="panel-newsletter">
             <div class="email-composer">
                 <h3>Send Mass Email</h3>
-                <p>Compose and send a newsletter to all active subscribers</p>
+                <p>Compose and send a newsletter or article to all active subscribers</p>
                 <div class="form-grid single" style="margin-bottom:14px;">
+                    <div class="form-group">
+                        <label>Email Type</label>
+                        <div class="email-type-toggle" id="emailTypeToggle">
+                            <label class="email-type-option">
+                                <input type="radio" name="emailType" value="NEWSLETTER" checked>
+                                <span><i class="fas fa-envelope-open-text"></i> Newsletter</span>
+                            </label>
+                            <label class="email-type-option">
+                                <input type="radio" name="emailType" value="ARTICLE">
+                                <span><i class="fas fa-newspaper"></i> Article</span>
+                            </label>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label>Subject Line</label>
                         <input type="text" id="emailSubject" placeholder="e.g. Career Café Monthly — March 2026">
@@ -1743,9 +1796,22 @@ function getEventEditorHtml() {
     return sanitizeEventEditorHtml(eventQuill.root.innerHTML);
 }
 
+const IMAGE_URL_RX = /^https?:\/\/\S+\.(?:png|jpe?g|gif|webp)(?:\?\S*)?$/i;
+
 function bindQuillImageUploads(editor = quill) {
     if (!editor || editor.__imageUploadBound) return;
     editor.__imageUploadBound = true;
+
+    // Pasted bare image URLs become embedded images, matching the backend's
+    // email rendering, so the admin sees the actual picture while composing.
+    const Delta = Quill.import('delta');
+    editor.clipboard.addMatcher(Node.TEXT_NODE, (node, delta) => {
+        const text = (node.data || '').trim();
+        if (IMAGE_URL_RX.test(text)) {
+            return new Delta().insert({ image: text });
+        }
+        return delta;
+    });
 
     editor.root.addEventListener('paste', async (event) => {
         const files = Array.from(event.clipboardData?.items || [])
@@ -2720,6 +2786,7 @@ async function unsubscribe(email) {
 
 function sendMassEmail() {
     const subject = document.getElementById('emailSubject').value.trim();
+    const type = document.querySelector('input[name="emailType"]:checked')?.value || 'NEWSLETTER';
     const body = newsletterQuill ? newsletterQuill.root.innerHTML.trim() : document.getElementById('emailBody').value.trim();
     const bodyText = newsletterQuill
         ? newsletterQuill.getText().trim()
@@ -2730,7 +2797,8 @@ function sendMassEmail() {
         { label: 'Message', value: body, max: 100000 }
     ])) return;
 
-    if (!confirm(`Send this newsletter to all subscribers?\n\nSubject: ${subject}`)) return;
+    const typeLabel = type === 'ARTICLE' ? 'article' : 'newsletter';
+    if (!confirm(`Send this ${typeLabel} to all subscribers?\n\nSubject: ${subject}`)) return;
 
     const btn = document.querySelector('.email-composer .btn-primary');
     btn.disabled = true;
@@ -2739,12 +2807,12 @@ function sendMassEmail() {
     fetch(`${API}/api/newsletter/send`, {
         method: 'POST',
         headers: authHeaders(),
-        body: JSON.stringify({ subject, body })
+        body: JSON.stringify({ subject, body, type })
     })
     .then(res => res.json())
     .then(data => {
         if (data.error) throw new Error(data.error);
-        toast('Newsletter sent successfully to all subscribers! 🎉');
+        toast(`${type === 'ARTICLE' ? 'Article' : 'Newsletter'} sent successfully to all subscribers!`);
         document.getElementById('emailSubject').value = '';
         document.getElementById('emailBody').value = '';
         if (newsletterQuill) newsletterQuill.setContents([]);

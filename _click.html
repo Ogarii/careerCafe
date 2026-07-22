@@ -1,0 +1,20 @@
+<!doctype html><html><head><style>html,body{margin:0}iframe{width:390px;height:760px;border:0}</style></head>
+<body><iframe id="f" src="africa-future-work-reset.html"></iframe>
+<script>
+const f=document.getElementById('f');
+f.addEventListener('load',()=>setTimeout(()=>{
+  const d=f.contentDocument, w=f.contentWindow;
+  const timer=d.getElementById('luxTimer'), tab=d.getElementById('luxTimerTab'), panel=d.getElementById('luxTimerPanel');
+  if(!timer||!tab){document.title='ELEMENTS MISSING';return;}
+  const log=[], state=()=>timer.classList.contains('open')?'OPEN':'closed';
+  const click=el=>el.dispatchEvent(new w.MouseEvent('click',{bubbles:true,cancelable:true,view:w}));
+  log.push('initial='+state());
+  click(tab);                            log.push('tabClick='+state());
+  click(panel);                          log.push('insidePanel='+state());
+  click(d.querySelector('h1')||d.body);  log.push('outside='+state());
+  click(tab);                            log.push('reopen='+state());
+  d.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
+  log.push('esc='+state()+' aria='+tab.getAttribute('aria-expanded'));
+  document.title=log.join(' | ');
+},1200));
+</script></body></html>

@@ -583,18 +583,496 @@
       .schedule-tabs { flex-wrap: wrap; }
       .confirmation-actions { flex-direction: column; align-items: center; }
     }
+
+    /* ═══════════════════════════════════════════════════════════════
+       Design library: motion + luxury polish
+       · components/animations/scroll-reveal-fade-up.html
+       · components/animations/card-hover-lift.html
+       One easing curve everywhere; GPU-cheap (opacity/transform only).
+       ═══════════════════════════════════════════════════════════════ */
+    :root { --ease-lux: cubic-bezier(0.22, 1, 0.36, 1); }
+
+    /* Scroll reveal — staggered fade up */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(30px);
+      transition:
+        opacity   0.7s var(--ease-lux),
+        transform 0.7s var(--ease-lux);
+      transition-delay: var(--d, 0ms);
+      will-change: opacity, transform;
+    }
+    [data-reveal].in { opacity: 1; transform: none; }
+
+    /* Card hover lift — one consistent micro-interaction across every surface */
+    .stat-card, .benefit-card, .schedule-item, .countdown-item, .pricing-card, .gallery-item {
+      transition:
+        transform    0.35s var(--ease-lux),
+        box-shadow   0.35s var(--ease-lux),
+        border-color 0.35s var(--ease-lux);
+    }
+    .stat-card:hover, .benefit-card:hover, .schedule-item:hover, .countdown-item:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-gold);
+      box-shadow: 0 18px 44px rgba(3, 7, 18, 0.55), var(--shadow-glow);
+    }
+    .pricing-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--border-gold);
+      box-shadow: 0 26px 60px rgba(3, 7, 18, 0.62), var(--shadow-glow);
+    }
+    .gallery-item:hover {
+      transform: translateY(-5px) scale(1.02);
+      border-color: var(--border-gold);
+      box-shadow: 0 20px 46px rgba(3, 7, 18, 0.55);
+    }
+
+    /* Exclusive detail: hairline gold rule under section eyebrows */
+    .section-header .eyebrow-line { background: var(--gradient-gold); }
+
+    /* Quiet luxury: let headings breathe */
+    .section-header h2 { letter-spacing: -0.01em; }
+
+    @media (prefers-reduced-motion: reduce) {
+      [data-reveal] { opacity: 1; transform: none; transition: none; }
+      .stat-card:hover, .benefit-card:hover, .schedule-item:hover,
+      .countdown-item:hover, .pricing-card:hover, .gallery-item:hover { transform: none; }
+    }
+    /* ═══════════════════════════════════════════════════════════════
+       Design library: liquid glass + luminous CTA treatments
+       · components/cards/liquid-glass-cta-cards.html  (glass + lg-dist)
+       · components/buttons/cta-hover-effects.html     (glow ring, scan line)
+       Techniques kept; palette re-skinned from neon to gold for luxury.
+       ═══════════════════════════════════════════════════════════════ */
+
+    /* Midnight-water backdrop, re-tinted navy + gold (scoped to pricing) */
+    .pricing-section { position: relative; overflow: hidden; }
+    .pricing-section .wrap { position: relative; z-index: 1; }
+    .lux-water { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+    .lux-water .blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.38; mix-blend-mode: screen; }
+    .lux-water .b1 { width: 460px; height: 460px; left: -110px; top: -90px;
+      background: radial-gradient(circle, #1e3a6e, transparent 66%); animation: luxDrift1 26s ease-in-out infinite alternate; }
+    .lux-water .b2 { width: 400px; height: 400px; right: -90px; top: 22%;
+      background: radial-gradient(circle, rgba(212,168,83,0.5), transparent 68%); animation: luxDrift2 32s ease-in-out infinite alternate; }
+    .lux-water .b3 { width: 520px; height: 520px; left: 34%; bottom: -230px;
+      background: radial-gradient(circle, #16305f, transparent 68%); animation: luxDrift1 36s ease-in-out infinite alternate-reverse; }
+    @keyframes luxDrift1 { to { transform: translate(90px, 60px) scale(1.10); } }
+    @keyframes luxDrift2 { to { transform: translate(-80px, 50px) scale(1.08); } }
+
+    /* Liquid glass surface on the ticket cards */
+    .pricing-card > *:not(.lg-warp):not(.lux-scan) { position: relative; z-index: 1; }
+    .lg-warp {
+      position: absolute; inset: 0; z-index: 0; border-radius: inherit; pointer-events: none;
+      backdrop-filter: blur(4px) saturate(150%); -webkit-backdrop-filter: blur(4px) saturate(150%);
+      filter: url(#lg-dist);
+    }
+
+    /* Gold shimmer ring behind the glass (rainbow-glow technique, gold palette) */
+    .glow-wrap { position: relative; border-radius: calc(var(--radius) + 2px); }
+    .glow-wrap::before {
+      content: ''; position: absolute; inset: -3px; z-index: 0;
+      border-radius: calc(var(--radius) + 4px);
+      background: linear-gradient(45deg, #6b4c17, #d4a853, #f0d78c, #fff3cf, #d4a853, #8a6520, #d4a853);
+      background-size: 400%; filter: blur(8px); opacity: 0;
+      transition: opacity 0.45s ease-in-out; animation: luxGlow 18s linear infinite;
+    }
+    .glow-wrap:hover::before, .glow-wrap:focus-within::before { opacity: 0.7; }
+    .glow-wrap > .pricing-card { position: relative; z-index: 1; height: 100%; }
+    @keyframes luxGlow { 0% { background-position: 0 0; } 50% { background-position: 400% 0; } 100% { background-position: 0 0; } }
+
+    /* Gold light sweep inside the selected card (scan-line technique, de-glitched) */
+    .lux-scan {
+      position: absolute; left: 0; top: 0; width: 100%; height: 2px; z-index: 1;
+      filter: blur(1px); pointer-events: none; opacity: 0;
+      background: linear-gradient(to right, transparent, rgba(240,215,140,0.8), transparent);
+    }
+    .pricing-card.active .lux-scan { opacity: 1; animation: luxSweep 5s linear infinite; }
+    @keyframes luxSweep { 0% { top: -6%; } 100% { top: 106%; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .lux-water .blob, .glow-wrap::before, .pricing-card.active .lux-scan { animation: none; }
+    }
+    /* ── Same glass + gold-ring treatment on the remaining cards ──────
+       These sit on a flat backdrop, so they use the glass *surface* only
+       (gradient, light border, inner highlight, sheen, shimmer ring).
+       No displacement filter or backdrop blur: nothing to refract there,
+       and it keeps ~19 extra cards free of per-scroll repaint cost.
+       The ring is drawn border-only via a mask (same trick as
+       .pricing-card::before) so it survives the hover transform, which
+       creates a stacking context and would otherwise wash the card gold. */
+    .stat-card, .benefit-card, .schedule-item, .countdown-item {
+      position: relative;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.015) 55%, rgba(255,255,255,0.045)),
+        var(--gradient-card);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.16);
+    }
+
+    /* specular sheen, kept inside the card (these have no overflow clip) */
+    .stat-card::after, .benefit-card::after, .schedule-item::after, .countdown-item::after {
+      content: ''; position: absolute; inset: 0; z-index: 0;
+      border-radius: inherit; pointer-events: none;
+      background: radial-gradient(60% 50% at 30% 12%, rgba(240, 215, 140, 0.10), transparent 70%);
+    }
+
+    /* gold shimmer ring: border-only, so a transformed card never gets washed */
+    .stat-card::before, .benefit-card::before, .schedule-item::before, .countdown-item::before {
+      content: ''; position: absolute; inset: -2px; z-index: 0;
+      border-radius: calc(var(--radius) + 2px); padding: 2px;
+      background: linear-gradient(45deg, #6b4c17, #d4a853, #f0d78c, #fff3cf, #d4a853, #8a6520, #d4a853);
+      background-size: 400%;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: xor;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      filter: blur(3px); opacity: 0; pointer-events: none;
+      transition: opacity 0.45s ease-in-out;
+      animation: luxGlow 18s linear infinite;
+    }
+    .stat-card:hover::before, .benefit-card:hover::before,
+    .schedule-item:hover::before, .countdown-item:hover::before { opacity: 0.85; }
+
+    /* card content sits above sheen + ring */
+    .stat-card > *, .benefit-card > *, .schedule-item > *, .countdown-item > * {
+      position: relative; z-index: 1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .stat-card::before, .benefit-card::before,
+      .schedule-item::before, .countdown-item::before { animation: none; }
+    }
+    /* ── CTA buttons (components/buttons/cta-hover-effects.html) ───────
+       · hologram scan line  → a light sweep across the gold pill
+       · rainbow glow border → gold shimmer ring on the outline button
+       Both re-skinned from neon to gold. The ring is border-only (mask)
+       so it survives the hover transform's stacking context.            */
+
+    /* Primary + nav pill: light sweeps across on hover */
+    .btn-primary, .nav-btn { position: relative; overflow: hidden; }
+    .btn-primary::before, .nav-btn::before {
+      content: ''; position: absolute; top: 0; left: -60%;
+      width: 45%; height: 100%; pointer-events: none;
+      background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+      transform: skewX(-18deg);
+      transition: left 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .btn-primary:hover::before, .nav-btn:hover::before { left: 120%; }
+
+    /* Outline button: gold shimmer ring blooms on hover */
+    .btn-secondary { position: relative; }
+    .btn-secondary::before {
+      content: ''; position: absolute; inset: -2px; border-radius: 100px; padding: 2px;
+      background: linear-gradient(45deg, #6b4c17, #d4a853, #f0d78c, #fff3cf, #d4a853, #8a6520, #d4a853);
+      background-size: 400%;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: xor;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      filter: blur(2.5px); opacity: 0; pointer-events: none;
+      transition: opacity 0.4s ease-in-out;
+      animation: luxGlow 18s linear infinite;
+    }
+    .btn-secondary:hover::before { opacity: 0.9; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .btn-primary::before, .nav-btn::before { transition: none; }
+      .btn-secondary::before { animation: none; }
+    }
+    /* ── Liquid glass navbar, gold (liquid-glass skill + library glass) ──
+       The warp layer carries the frost + #lg-dist refraction; the bar itself
+       carries a warm gold tint, a gold hairline and a soft gold underglow.   */
+    .nav {
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(212, 168, 83, 0.10), rgba(3, 7, 18, 0.55) 55%, rgba(212, 168, 83, 0.07));
+      border-bottom: 1px solid rgba(212, 168, 83, 0.28);
+      box-shadow: 0 1px 0 rgba(240, 215, 140, 0.10), 0 10px 34px rgba(3, 7, 18, 0.45);
+      backdrop-filter: none; -webkit-backdrop-filter: none;
+    }
+    .nav .lg-warp {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      filter: url(#lg-dist);
+    }
+    .nav .nav-inner { position: relative; z-index: 1; }
+    /* top-edge catch-light, the tell of a glass surface */
+    .nav::after {
+      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background: linear-gradient(180deg, rgba(255, 245, 220, 0.14), transparent 45%);
+    }
+    .nav.scrolled {
+      background: linear-gradient(135deg, rgba(212, 168, 83, 0.13), rgba(3, 7, 18, 0.80) 55%, rgba(212, 168, 83, 0.09));
+      border-bottom-color: rgba(212, 168, 83, 0.42);
+      box-shadow: 0 1px 0 rgba(240, 215, 140, 0.14), 0 14px 40px rgba(3, 7, 18, 0.6);
+    }
+    /* ═══════════════════════════════════════════════════════════════
+       Loader · liquid-cheese backdrop · floating glass countdown · nav blob
+       ═══════════════════════════════════════════════════════════════ */
+
+    /* ── Preloader: fill-the-box (gold) with the logo in the middle ── */
+    .lux-loader {
+      position: fixed; inset: 0; z-index: 9999;
+      display: grid; place-content: center; justify-items: center; gap: 26px;
+      background: var(--bg-deep) url('images/bg-liquid-cheese.svg') center/cover no-repeat;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    .lux-loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+    .lux-loader-mark { position: relative; width: 128px; height: 128px; display: grid; place-items: center; }
+    .lux-loader-mark .ltb { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .lux-loader-logo {
+      position: relative; z-index: 1; width: 66px; height: 66px; padding: 11px;
+      object-fit: contain; border-radius: 50%;
+      background: rgba(255, 253, 248, 0.95);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+    }
+    .lux-loader-word {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 20px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold-light); opacity: 0.9;
+    }
+
+    /* ── Liquid-cheese backdrop behind the whole page ── */
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+      background: var(--bg-deep) url('images/bg-liquid-cheese.svg') center center/cover no-repeat;
+      opacity: 0.85;
+    }
+
+    /* ── Navbar: more transparent so the backdrop reads through ── */
+    .nav {
+      background: linear-gradient(135deg, rgba(212, 168, 83, 0.07), rgba(3, 7, 18, 0.26) 55%, rgba(212, 168, 83, 0.05));
+      border-bottom: 1px solid rgba(212, 168, 83, 0.22);
+    }
+    .nav.scrolled {
+      background: linear-gradient(135deg, rgba(212, 168, 83, 0.10), rgba(3, 7, 18, 0.52) 55%, rgba(212, 168, 83, 0.07));
+      border-bottom-color: rgba(212, 168, 83, 0.34);
+    }
+
+    /* ── Sliding blob marking the section you are in ── */
+    .nav-links { position: relative; }
+    .nav-links > a { position: relative; z-index: 1; }
+    .nav-blob {
+      position: absolute; top: 50%; left: 0; width: 0; height: 34px;
+      transform: translateY(-50%); border-radius: 100px; z-index: 0; opacity: 0;
+      background: linear-gradient(135deg, rgba(212, 168, 83, 0.34), rgba(240, 215, 140, 0.16));
+      border: 1px solid rgba(212, 168, 83, 0.45);
+      box-shadow: 0 0 18px rgba(212, 168, 83, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      transition: left 0.45s cubic-bezier(0.34, 1.3, 0.5, 1), width 0.45s cubic-bezier(0.34, 1.3, 0.5, 1), opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    /* ── Floating liquid-glass countdown (desktop: top right) ── */
+    .lux-timer { position: fixed; top: 92px; right: 22px; z-index: 90; }
+    .lux-timer-panel {
+      position: relative; overflow: hidden; border-radius: 18px; padding: 14px 18px 12px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.13), rgba(255,255,255,0.03) 55%, rgba(212,168,83,0.08));
+      border: 1px solid rgba(212, 168, 83, 0.30);
+      box-shadow: 0 16px 44px rgba(3, 7, 18, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.30);
+    }
+    .lux-timer-panel > *:not(.lg-warp) { position: relative; z-index: 1; }
+    .lux-timer-panel .lg-warp {
+      position: absolute; inset: 0; z-index: 0; border-radius: inherit; pointer-events: none;
+      backdrop-filter: blur(6px) saturate(160%); -webkit-backdrop-filter: blur(6px) saturate(160%);
+      filter: url(#lg-dist);
+    }
+    .lux-timer-title {
+      display: block; margin-bottom: 8px; font-size: 9.5px; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-light); opacity: 0.85;
+    }
+    .lux-timer-units { display: flex; gap: 10px; }
+    .lux-u { min-width: 46px; text-align: center; }
+    .lux-u b {
+      display: block; font-size: 20px; font-weight: 800; line-height: 1; color: #fff;
+      font-variant-numeric: tabular-nums;
+    }
+    .lux-u span {
+      display: block; margin-top: 4px; font-size: 8.5px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary);
+    }
+
+    /* tab is desktop-hidden */
+    .lux-timer-tab { display: none; }
+
+    /* ── Mobile: small ticking-clock tab that opens a full-width timer ── */
+    @media (max-width: 768px) {
+      .lux-timer { top: auto; bottom: 16px; right: 12px; left: 12px; }
+      .lux-timer-tab {
+        display: inline-flex; align-items: center; gap: 8px; margin-left: auto;
+        padding: 9px 14px 9px 11px; cursor: pointer; float: right;
+        font: 700 12px/1 'Plus Jakarta Sans', system-ui, sans-serif;
+        letter-spacing: 0.06em; color: var(--gold-light);
+        background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(212,168,83,0.10));
+        border: 1px solid rgba(212, 168, 83, 0.38); border-radius: 100px;
+        box-shadow: 0 10px 26px rgba(3, 7, 18, 0.5), inset 0 1px 1px rgba(255,255,255,0.28);
+        backdrop-filter: blur(10px) saturate(160%); -webkit-backdrop-filter: blur(10px) saturate(160%);
+      }
+      .lux-clock { width: 18px; height: 18px; color: var(--gold-light); overflow: visible; }
+      /* the clock keeps ticking so the tab never reads as static */
+      .lux-clock .hand-m { transform-origin: 12px 12px; animation: luxTickM 6s steps(12) infinite; }
+      .lux-clock .hand-h { transform-origin: 12px 12px; animation: luxTickH 72s steps(12) infinite; }
+      @keyframes luxTickM { to { transform: rotate(360deg); } }
+      @keyframes luxTickH { to { transform: rotate(360deg); } }
+
+      .lux-timer-panel {
+        position: absolute; left: 0; right: 0; bottom: calc(100% + 10px);
+        opacity: 0; transform: translateY(12px) scale(0.98);
+        transform-origin: bottom center; pointer-events: none;
+        transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.3, 0.5, 1);
+      }
+      .lux-timer.open .lux-timer-panel { opacity: 1; transform: none; pointer-events: auto; }
+      .lux-timer-units { justify-content: space-between; gap: 6px; }
+      .lux-u { flex: 1; min-width: 0; }
+      .lux-u b { font-size: 22px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .lux-clock .hand-m, .lux-clock .hand-h { animation: none; }
+      .nav-blob, .lux-timer-panel { transition: none; }
+    }
+    /* ── Floating timer: thinner tint so the backdrop reads through ── */
+    .lux-timer-panel {
+      background: linear-gradient(135deg, rgba(255,255,255,0.055), rgba(255,255,255,0.01) 55%, rgba(212,168,83,0.035));
+      border-color: rgba(212, 168, 83, 0.20);
+      box-shadow: 0 14px 38px rgba(3, 7, 18, 0.30), inset 0 1px 1px rgba(255, 255, 255, 0.18);
+    }
+    .lux-timer-panel .lg-warp {
+      backdrop-filter: blur(3px) saturate(150%); -webkit-backdrop-filter: blur(3px) saturate(150%);
+    }
+    @media (max-width: 768px) {
+      .lux-timer-tab {
+        background: linear-gradient(135deg, rgba(255,255,255,0.07), rgba(212,168,83,0.05));
+        border-color: rgba(212, 168, 83, 0.26);
+        box-shadow: 0 10px 24px rgba(3, 7, 18, 0.30), inset 0 1px 1px rgba(255,255,255,0.20);
+        backdrop-filter: blur(6px) saturate(150%); -webkit-backdrop-filter: blur(6px) saturate(150%);
+      }
+    }
+
+    /* ── All CTAs as liquid glass, for uniformity ── */
+    .btn-primary, .nav-btn {
+      background: linear-gradient(135deg, rgba(212,168,83,0.30), rgba(240,215,140,0.13) 55%, rgba(212,168,83,0.22));
+      border: 1px solid rgba(212, 168, 83, 0.55);
+      color: #fff5e2;
+      text-shadow: 0 1px 8px rgba(3, 7, 18, 0.55);
+      box-shadow: 0 8px 28px rgba(212, 168, 83, 0.18), inset 0 1px 1px rgba(255, 255, 255, 0.32);
+      backdrop-filter: blur(8px) saturate(165%); -webkit-backdrop-filter: blur(8px) saturate(165%);
+    }
+    .btn-primary:hover, .nav-btn:hover {
+      background: linear-gradient(135deg, rgba(212,168,83,0.42), rgba(240,215,140,0.20) 55%, rgba(212,168,83,0.32));
+      border-color: rgba(240, 215, 140, 0.75);
+      box-shadow: 0 12px 38px rgba(212, 168, 83, 0.30), inset 0 1px 1px rgba(255, 255, 255, 0.42);
+    }
+    .btn-secondary {
+      background: linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.015) 60%, rgba(212,168,83,0.05));
+      border: 1px solid rgba(212, 168, 83, 0.28);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.20);
+      backdrop-filter: blur(8px) saturate(160%); -webkit-backdrop-filter: blur(8px) saturate(160%);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       TEST: let the liquid-cheese artwork show through the whole page.
+       Delete this one block to restore the solid section backgrounds.
+       ═══════════════════════════════════════════════════════════════ */
+    body::before { opacity: 1; }
+    .hero, .stats-section, .gallery-section, .countdown-section,
+    .schedule-section, .pricing-section, .benefits-section,
+    .registration-section, .payment-section, .confirmation-section,
+    .footer { background: transparent; }
+    .hero { background-image: none; }
+    /* ── Navbar legibility over the gold waves ──────────────────────
+       Still glass, but with a dark base under the tint so the links
+       never sit gold-on-gold. Register Now becomes a dark glass pill
+       with a gold rim, which reads on both the gold band and navy.   */
+    .nav {
+      background: linear-gradient(135deg, rgba(212,168,83,0.10), rgba(3,7,18,0.58) 55%, rgba(212,168,83,0.08));
+      border-bottom: 1px solid rgba(212, 168, 83, 0.30);
+    }
+    .nav.scrolled {
+      background: linear-gradient(135deg, rgba(212,168,83,0.12), rgba(3,7,18,0.78) 55%, rgba(212,168,83,0.09));
+      border-bottom-color: rgba(212, 168, 83, 0.40);
+    }
+    .nav-links a {
+      color: #f4f7ff; font-weight: 600;
+      text-shadow: 0 1px 10px rgba(3, 7, 18, 0.9), 0 0 2px rgba(3, 7, 18, 0.7);
+    }
+    .nav-links a:hover { color: #fff8e6; background: transparent; border-color: transparent; }
+    .brand-text { text-shadow: 0 1px 10px rgba(3, 7, 18, 0.85); }
+
+    /* Register Now: dark glass pill, gold rim + gold label */
+    .nav-btn, .nav-btn:hover {
+      background: linear-gradient(135deg, rgba(6, 11, 26, 0.72), rgba(24, 17, 6, 0.60) 55%, rgba(6, 11, 26, 0.72));
+      border: 1px solid rgba(240, 215, 140, 0.75);
+      color: #f6dc9e;
+      text-shadow: 0 1px 8px rgba(3, 7, 18, 0.9);
+      box-shadow: 0 8px 26px rgba(3, 7, 18, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.18);
+    }
+    .nav-btn:hover {
+      border-color: #f0d78c; color: #fff3d0;
+      box-shadow: 0 10px 32px rgba(212, 168, 83, 0.30), inset 0 1px 1px rgba(255, 255, 255, 0.28);
+    }
+
+    /* Hero primary CTA was muddy over the artwork: give it a dark base too */
+    .btn-primary {
+      background: linear-gradient(135deg, rgba(212,168,83,0.38), rgba(24,17,6,0.55) 55%, rgba(212,168,83,0.32));
+      color: #fff3d0;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, rgba(212,168,83,0.52), rgba(24,17,6,0.45) 55%, rgba(212,168,83,0.44));
+    }
   </style>
 </head>
 <body>
+<div class="lux-loader" id="luxLoader">
+  <div class="lux-loader-mark">
+    <svg class="ltb" viewBox="0 0 200 200" aria-hidden="true">
+      <g fill="none" stroke="#d4a853" stroke-width="15"><rect x="15" y="15" width="170" height="170"></rect></g>
+      <g transform-origin="center">
+        <rect fill="none" width="200" height="200"></rect>
+        <rect fill="#d4a853" x="15" y="15" width="170" height="170" transform-origin="100 100">
+          <animate attributeName="height" calcMode="spline" dur="2s" values="0;170;0" keySplines="0 0.5 .5 1;0 0.5 .5 1" repeatCount="indefinite"></animate>
+        </rect>
+        <animateTransform attributeName="transform" type="rotate" calcMode="discrete" dur="2s" values="0;0;180;180" repeatCount="indefinite"></animateTransform>
+      </g>
+    </svg>
+    <img src="careerLogoNew.png" alt="The Career Cafe" class="lux-loader-logo">
+  </div>
+  <span class="lux-loader-word">The Career Caf&eacute;</span>
+</div>
+<svg aria-hidden="true" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden">
+    <defs>
+      <filter id="lg-dist" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
+        <feImage x="0" y="0" width="100%" height="100%" result="MAP" preserveAspectRatio="xMidYMid slice" href="data:image/jpeg;base64,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"></feImage>
+        <feColorMatrix in="MAP" type="matrix" values="0.3 0.3 0.3 0 0 0.3 0.3 0.3 0 0 0.3 0.3 0.3 0 0 0 0 0 1 0" result="EDGE_I"></feColorMatrix>
+        <feComponentTransfer in="EDGE_I" result="EDGE_MASK"><feFuncA type="discrete" tableValues="0 0.1 1"></feFuncA></feComponentTransfer>
+        <feOffset in="SourceGraphic" dx="0" dy="0" result="CENTER"></feOffset>
+        <feDisplacementMap in="SourceGraphic" in2="MAP" scale="-70" xChannelSelector="R" yChannelSelector="B" result="RED_D"></feDisplacementMap>
+        <feColorMatrix in="RED_D" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="RED_C"></feColorMatrix>
+        <feDisplacementMap in="SourceGraphic" in2="MAP" scale="-77" xChannelSelector="R" yChannelSelector="B" result="GREEN_D"></feDisplacementMap>
+        <feColorMatrix in="GREEN_D" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="GREEN_C"></feColorMatrix>
+        <feDisplacementMap in="SourceGraphic" in2="MAP" scale="-84" xChannelSelector="R" yChannelSelector="B" result="BLUE_D"></feDisplacementMap>
+        <feColorMatrix in="BLUE_D" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="BLUE_C"></feColorMatrix>
+        <feBlend in="GREEN_C" in2="BLUE_C" mode="screen" result="GB"></feBlend>
+        <feBlend in="RED_C" in2="GB" mode="screen" result="RGB"></feBlend>
+        <feGaussianBlur in="RGB" stdDeviation="0.3" result="ABERR"></feGaussianBlur>
+        <feComposite in="ABERR" in2="EDGE_MASK" operator="in" result="EDGE_ABERR"></feComposite>
+        <feComponentTransfer in="EDGE_MASK" result="INV"><feFuncA type="table" tableValues="1 0"></feFuncA></feComponentTransfer>
+        <feComposite in="CENTER" in2="INV" operator="in" result="CENTER_CLEAN"></feComposite>
+        <feComposite in="EDGE_ABERR" in2="CENTER_CLEAN" operator="over"></feComposite>
+      </filter>
+    </defs>
+  </svg>
 
   <!-- Navigation -->
   <nav class="nav">
+    <span class="lg-warp" aria-hidden="true"></span>
     <div class="nav-inner">
       <div class="brand">
         <img src="careerLogoNew.png" alt="The Career Café" class="brand-logo">
         <span class="brand-text">The Career Café</span>
       </div>
       <div class="nav-links">
+        <span class="nav-blob" aria-hidden="true"></span>
         <a href="#landing">Home</a>
         <a href="#schedule">Schedule</a>
         <a href="#pricing">Pricing</a>
@@ -767,6 +1245,7 @@
 
   <!-- Pricing -->
   <section class="section pricing-section" id="pricing">
+    <div class="lux-water" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
     <div class="wrap">
       <div class="section-header">
         <div class="eyebrow"><span class="eyebrow-line"></span><span>Investment</span></div>
@@ -774,7 +1253,10 @@
         <p class="section-subtitle">Secure your spot at the masterclass shaping Africa's professional future.</p>
       </div>
       <div class="pricing-grid" aria-label="Pricing tiers">
+        <div class="glow-wrap">
         <article class="pricing-card" id="earlyBirdCard">
+          <span class="lg-warp" aria-hidden="true"></span>
+          <span class="lux-scan" aria-hidden="true"></span>
           <span class="best-offer-badge">Best Value</span>
           <span class="tier-badge gold">Early Bird</span>
           <div class="price-amount">KES 6,500</div>
@@ -786,7 +1268,11 @@
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Community access</li>
           </ul>
         </article>
+        </div>
+        <div class="glow-wrap">
         <article class="pricing-card" id="standardCard">
+          <span class="lg-warp" aria-hidden="true"></span>
+          <span class="lux-scan" aria-hidden="true"></span>
           <span class="tier-badge neutral">Standard</span>
           <div class="price-amount">KES 8,500</div>
           <p class="price-note">Applies after early-bird window closes</p>
@@ -797,6 +1283,7 @@
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Community access</li>
           </ul>
         </article>
+        </div>
       </div>
       <div class="payment-methods">
         <span class="payment-method"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg> M-PESA</span>
@@ -925,6 +1412,26 @@
     </div>
   </footer>
 
+<div class="lux-timer" id="luxTimer">
+  <button class="lux-timer-tab" id="luxTimerTab" type="button" aria-expanded="false" aria-controls="luxTimerPanel" aria-label="Show countdown">
+    <svg class="lux-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9"></circle>
+      <line class="hand-h" x1="12" y1="12" x2="12" y2="7.6"></line>
+      <line class="hand-m" x1="12" y1="12" x2="12" y2="5.8"></line>
+    </svg>
+    <span id="luxTabDays">00d</span>
+  </button>
+  <div class="lux-timer-panel" id="luxTimerPanel">
+    <span class="lg-warp" aria-hidden="true"></span>
+    <span class="lux-timer-title">Masterclass begins in</span>
+    <div class="lux-timer-units">
+      <div class="lux-u"><b id="fcd-days">00</b><span>Days</span></div>
+      <div class="lux-u"><b id="fcd-hours">00</b><span>Hrs</span></div>
+      <div class="lux-u"><b id="fcd-minutes">00</b><span>Min</span></div>
+      <div class="lux-u"><b id="fcd-seconds">00</b><span>Sec</span></div>
+    </div>
+  </div>
+</div>
   <script>
     const API_BASE = window.CAREER_CAFE_API_BASE || '';
     const EARLY_BIRD_CUTOFF = new Date('2026-07-31T23:59:59+03:00');
@@ -1136,6 +1643,134 @@
     updatePricingDisplay();
     setupGoogleCalendar();
     hydrateFromPesapalCallback();
+
+    // ── Scroll reveal (design library: animations/scroll-reveal-fade-up) ──
+    // Elements are tagged in JS so the markup stays clean; children of a group
+    // stagger via --d, matching the library's staggered fade-up.
+    (function initScrollReveal() {
+      const groups = [
+        '.section-header',
+        '.stat-card',
+        '.gallery-item',
+        '.countdown-item',
+        '.schedule-item',
+        '.pricing-card',
+        '.benefit-card',
+        '.form-wrapper'
+      ];
+
+      groups.forEach(selector => {
+        document.querySelectorAll(selector).forEach((el, i) => {
+          // Never hide content inside sections that start hidden (payment,
+          // confirmation) - they are revealed by JS and must never stay blank.
+          if (el.closest('.hidden')) return;
+          el.setAttribute('data-reveal', '');
+          el.style.setProperty('--d', Math.min(i, 6) * 90 + 'ms');
+        });
+      });
+
+      const targets = document.querySelectorAll('[data-reveal]');
+      if (!('IntersectionObserver' in window)) {
+        targets.forEach(el => el.classList.add('in'));
+        return;
+      }
+      const io = new IntersectionObserver(entries => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      targets.forEach(el => io.observe(el));
+    })();
+
+
+    // ── Preloader: hide once everything has painted ─────────────────
+    (function initLoader() {
+      const loader = document.getElementById('luxLoader');
+      if (!loader) return;
+      const hide = () => setTimeout(() => loader.classList.add('done'), 450);
+      if (document.readyState === 'complete') hide();
+      else window.addEventListener('load', hide);
+      // never trap the page if something stalls
+      setTimeout(() => loader.classList.add('done'), 6000);
+    })();
+
+    // ── Floating countdown: mirror the main timer, drive the mobile tab ──
+    (function initFloatingTimer() {
+      const timer = document.getElementById('luxTimer');
+      const tab = document.getElementById('luxTimerTab');
+      const panel = document.getElementById('luxTimerPanel');
+      if (!timer || !tab || !panel) return;
+
+      const parts = ['days', 'hours', 'minutes', 'seconds'];
+      const sync = () => {
+        parts.forEach(k => {
+          const src = document.getElementById('cd-' + k);
+          const dst = document.getElementById('fcd-' + k);
+          if (src && dst && dst.textContent !== src.textContent) dst.textContent = src.textContent;
+        });
+        const days = document.getElementById('cd-days');
+        const tabDays = document.getElementById('luxTabDays');
+        if (days && tabDays) tabDays.textContent = days.textContent + 'd';
+      };
+      sync();
+      setInterval(sync, 500);
+
+      // mobile: tab opens the full-width panel
+      tab.addEventListener('click', event => {
+        event.stopPropagation();
+        const open = timer.classList.toggle('open');
+        tab.setAttribute('aria-expanded', String(open));
+      });
+      // clicking anywhere that is not the card closes it
+      document.addEventListener('click', event => {
+        if (!timer.classList.contains('open')) return;
+        if (timer.contains(event.target)) return;
+        timer.classList.remove('open');
+        tab.setAttribute('aria-expanded', 'false');
+      });
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') { timer.classList.remove('open'); tab.setAttribute('aria-expanded', 'false'); }
+      });
+    })();
+
+    // ── Sliding blob: marks the section you are currently in ─────────
+    (function initNavBlob() {
+      const links = Array.from(document.querySelectorAll('.nav-links > a[href^="#"]'));
+      const blob = document.querySelector('.nav-blob');
+      if (!blob || !links.length) return;
+
+      const sections = links
+        .map(a => ({ link: a, el: document.querySelector(a.getAttribute('href')) }))
+        .filter(s => s.el);
+
+      const moveTo = link => {
+        const r = link.getBoundingClientRect();
+        const p = link.parentElement.getBoundingClientRect();
+        blob.style.width = r.width + 'px';
+        blob.style.left = (r.left - p.left) + 'px';
+        blob.style.opacity = '1';
+      };
+
+      let current = null;
+      const update = () => {
+        const line = window.scrollY + window.innerHeight * 0.35;
+        let active = null;
+        for (const s of sections) {
+          const top = s.el.offsetTop;
+          if (line >= top - 120) active = s.link;
+        }
+        if (active && active !== current) { current = active; moveTo(active); }
+        if (!active) { blob.style.opacity = '0'; current = null; }
+      };
+
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', () => { if (current) moveTo(current); }, { passive: true });
+      links.forEach(a => a.addEventListener('mouseenter', () => moveTo(a)));
+      document.querySelector('.nav-links').addEventListener('mouseleave', () => { if (current) moveTo(current); });
+      update();
+    })();
 
     // Navbar scroll effect
     const navEl = document.querySelector('.nav');

@@ -115,7 +115,7 @@ a {
 .nav-menu {
     display: flex;
     align-items: center;
-    gap: 1.35rem;
+    gap: clamp(0.75rem, 1.2vw, 1.25rem);
     list-style: none;
 }
 
@@ -125,6 +125,7 @@ a {
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 800;
+    white-space: nowrap;
 }
 
 .nav-menu a::after {
@@ -143,6 +144,53 @@ a {
 .nav-menu a:hover::after,
 .nav-menu a.active::after {
     transform: scaleX(1);
+}
+
+/* Social & action icons in top nav */
+.nav-social-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-left: 0.4rem;
+    padding-left: 0.85rem;
+    border-left: 1.5px solid var(--line);
+    list-style: none;
+    flex-shrink: 0;
+}
+
+.nav-social-group a {
+    color: var(--muted);
+    font-size: 0.85rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(26, 26, 46, 0.04);
+    border: 1px solid rgba(26, 26, 46, 0.06);
+    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.nav-social-group a i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.nav-social-group a:hover {
+    color: var(--primary);
+    background-color: var(--wash);
+    border-color: rgba(226, 114, 91, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(226, 114, 91, 0.15);
+}
+
+.nav-social-group a::after {
+    display: none !important;
 }
 
 .hamburger {
@@ -1704,6 +1752,26 @@ label {
     .nav-menu a {
         display: block;
         padding: 0.78rem 0;
+    }
+
+    .nav-social-group {
+        margin-left: 0;
+        padding: 1.2rem 0 0.8rem;
+        border-top: 1px solid rgba(26, 26, 46, 0.08);
+        border-left: none;
+        padding-left: 0;
+        gap: 0.75rem;
+        justify-content: flex-start;
+    }
+
+    .nav-social-group a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        font-size: 0.95rem;
+        padding: 0;
     }
 
     .hamburger {

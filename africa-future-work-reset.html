@@ -1685,15 +1685,33 @@
     })();
 
 
-    // ── Preloader: hide once everything has painted ─────────────────
+    // ── Preloader: hide on first meaningful paint, not full asset load ──
     (function initLoader() {
       const loader = document.getElementById('luxLoader');
       if (!loader) return;
-      const hide = () => setTimeout(() => loader.classList.add('done'), 450);
-      if (document.readyState === 'complete') hide();
-      else window.addEventListener('load', hide);
-      // never trap the page if something stalls
-      setTimeout(() => loader.classList.add('done'), 6000);
+      let hidden = false;
+      const hide = (delay = 220) => {
+        if (hidden) return;
+        hidden = true;
+        setTimeout(() => loader.classList.add('done'), delay);
+      };
+
+      const hideAfterFirstPaint = () => {
+        // Two RAF ticks let layout + first frame settle before fading out.
+        requestAnimationFrame(() => requestAnimationFrame(() => hide(180)));
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', hideAfterFirstPaint, { once: true });
+      } else {
+        hideAfterFirstPaint();
+      }
+
+      // Fallback if DOMContentLoaded is delayed by unusual parser stalls.
+      window.addEventListener('load', () => hide(120), { once: true });
+
+      // Never trap the page if something stalls unexpectedly.
+      setTimeout(() => hide(0), 4000);
     })();
 
     // ── Floating countdown: mirror the main timer, drive the mobile tab ──

@@ -731,6 +731,104 @@
             display: none;
         }
 
+        .team-image-field {
+            display: grid;
+            grid-template-columns: 180px minmax(0, 1fr);
+            gap: 16px;
+            padding: 14px;
+            border: 1px solid #eee8e1;
+            border-radius: 12px;
+            background: #fcfaf8;
+        }
+
+        .team-image-panel-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #777;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .team-image-preview-frame {
+            position: relative;
+            display: grid;
+            min-height: 176px;
+            place-items: center;
+            overflow: hidden;
+            border: 1px solid #e8e4de;
+            border-radius: 10px;
+            background: #f3eee9;
+            color: #aaa;
+            font-size: 0.78rem;
+            text-align: center;
+        }
+
+        .team-image-preview-frame::before {
+            content: '\f2bd';
+            position: absolute;
+            color: #d4c8be;
+            font: 2.5rem/1 'Font Awesome 6 Free';
+            font-weight: 900;
+        }
+
+        .team-image-empty {
+            position: relative;
+            z-index: 1;
+            margin-top: 4.5rem;
+        }
+
+        .team-image-preview {
+            position: relative;
+            z-index: 2;
+            display: none;
+            width: 100%;
+            height: 176px;
+            margin: 0;
+            object-fit: cover;
+            border: 0;
+            border-radius: 10px;
+        }
+
+        .team-upload-panel { min-width: 0; }
+
+        .team-upload-zone {
+            display: grid;
+            min-height: 176px;
+            place-items: center;
+            padding: 20px;
+            border: 1.5px dashed #d8cec5;
+            border-radius: 10px;
+            background: #fff;
+            color: #8a8179;
+            cursor: pointer;
+            text-align: center;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .team-upload-zone:hover {
+            border-color: var(--primary);
+            background: #fffaf7;
+        }
+
+        .team-upload-zone i {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .team-upload-copy strong,
+        .team-upload-copy span { display: block; }
+
+        .team-upload-copy strong { color: var(--dark); font-size: 0.84rem; }
+        .team-upload-copy span { margin-top: 4px; font-size: 0.76rem; }
+
+        @media (max-width: 620px) {
+            .team-image-field { grid-template-columns: 1fr; }
+        }
+
         /* ── QUILL OVERRIDES ── */
         .ql-toolbar {
             border-radius: 8px 8px 0 0 !important;
@@ -1286,7 +1384,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">Team Members</div>
-                    <button class="btn btn-primary btn-sm" onclick="openModal('teamModal')">
+                    <button class="btn btn-primary btn-sm" onclick="prepareNewTeam()">
                         <i class="fas fa-plus"></i> Add Member
                     </button>
                 </div>
@@ -1594,19 +1692,33 @@
                 <div class="form-group"><label>Role *</label><input type="text" id="teamRole" placeholder="Executive Director"></div>
                 <div class="form-group full"><label>Bio</label><textarea id="teamBio" rows="3" placeholder="Short bio"></textarea></div>
                 <div class="form-group full">
-                    <label>Upload Image</label>
-                    <div id="teamUploadZone" style="border:2px dashed #e8e4de;border-radius:10px;padding:28px 20px;text-align:center;cursor:pointer;transition:border-color 0.2s;background:#faf8f6;" onclick="document.getElementById('teamFileInput').click()" ondragover="event.preventDefault();this.style.borderColor='var(--primary)'" ondragleave="this.style.borderColor='#e8e4de'" ondrop="handleTeamDrop(event)">
-                        <i class="fas fa-cloud-upload-alt" style="font-size:1.8rem;color:#ccc;margin-bottom:8px;display:block;"></i>
-                        <span style="font-size:0.85rem;color:#aaa;">Click or drag & drop an image here</span>
-                        <input type="file" id="teamFileInput" accept="image/*" style="display:none" onchange="uploadToCloudinary(this.files[0], CLOUDINARY_FOLDERS.team)">
-                    </div>
-                    <div id="teamUploadProgress" style="display:none;margin-top:10px;">
-                        <div style="background:#f0ede9;border-radius:20px;height:6px;overflow:hidden;">
-                            <div id="teamProgressBar" style="height:100%;width:0%;background:var(--primary);border-radius:20px;transition:width 0.3s;"></div>
+                    <label>Profile Photo</label>
+                    <div class="team-image-field">
+                        <div class="team-image-preview-panel">
+                            <span class="team-image-panel-label">Current photo</span>
+                            <div class="team-image-preview-frame">
+                                <span class="team-image-empty">No photo selected</span>
+                                <img id="teamUploadPreview" class="team-image-preview" alt="Team member preview">
+                            </div>
                         </div>
-                        <span id="teamUploadStatus" style="font-size:0.78rem;color:#888;margin-top:4px;display:block;">Uploading...</span>
+                        <div class="team-upload-panel">
+                            <span class="team-image-panel-label">Replace photo</span>
+                            <div id="teamUploadZone" class="team-upload-zone" onclick="document.getElementById('teamFileInput').click()" ondragover="event.preventDefault();this.style.borderColor='var(--primary)'" ondragleave="this.style.borderColor='#d8cec5'" ondrop="handleTeamDrop(event)">
+                                <div class="team-upload-copy">
+                                    <i class="fas fa-cloud-arrow-up"></i>
+                                    <strong>Choose a new photo</strong>
+                                    <span>Click here or drag and drop an image</span>
+                                </div>
+                                <input type="file" id="teamFileInput" accept="image/*" style="display:none" onchange="uploadToCloudinary(this.files[0], CLOUDINARY_FOLDERS.team)">
+                            </div>
+                            <div id="teamUploadProgress" style="display:none;margin-top:10px;">
+                                <div style="background:#f0ede9;border-radius:20px;height:6px;overflow:hidden;">
+                                    <div id="teamProgressBar" style="height:100%;width:0%;background:var(--primary);border-radius:20px;transition:width 0.3s;"></div>
+                                </div>
+                                <span id="teamUploadStatus" style="font-size:0.78rem;color:#888;margin-top:4px;display:block;">Uploading...</span>
+                            </div>
+                        </div>
                     </div>
-                    <img id="teamUploadPreview" style="display:none;margin-top:10px;width:100%;max-height:160px;object-fit:cover;border-radius:8px;border:1px solid #e8e4de;" alt="Preview">
                     <input type="hidden" id="teamImage">
                 </div>
                 <div class="form-group"><label>LinkedIn URL</label><input type="url" id="teamLinkedin" placeholder="https://linkedin.com/in/..."></div>
@@ -2149,7 +2261,14 @@ function closeModal(id) {
     if (id === 'courseModal') document.getElementById('courseId').value = '';
     if (id === 'teamModal') {
         document.getElementById('teamId').value = '';
+        document.getElementById('teamName').value = '';
+        document.getElementById('teamRole').value = '';
+        document.getElementById('teamBio').value = '';
         document.getElementById('teamImage').value = '';
+        document.getElementById('teamLinkedin').value = '';
+        document.getElementById('teamTwitter').value = '';
+        document.getElementById('teamOrder').value = '1';
+        document.getElementById('teamPublished').value = 'true';
         document.getElementById('teamUploadPreview').style.display = 'none';
         document.getElementById('teamUploadProgress').style.display = 'none';
         document.getElementById('teamProgressBar').style.width = '0%';
@@ -2658,19 +2777,25 @@ function editTeam(m) {
     document.getElementById('teamRole').value = m.role || '';
     document.getElementById('teamBio').value = m.bio || '';
     document.getElementById('teamImage').value = m.imageUrl || '';
-if (m.imageUrl) {
-    document.getElementById('teamUploadZone').style.display = 'none';
-    document.getElementById('teamUploadPreview').src = m.imageUrl;
-    document.getElementById('teamUploadPreview').style.display = 'block';
-    document.getElementById('teamUploadProgress').style.display = 'block';
-    document.getElementById('teamUploadStatus').textContent = '✓ Existing image';
-    document.getElementById('teamUploadStatus').style.color = 'var(--secondary)';
-    document.getElementById('teamProgressBar').style.width = '100%';
-}
+    document.getElementById('teamUploadZone').style.display = 'block';
+    document.getElementById('teamUploadProgress').style.display = 'none';
+    document.getElementById('teamProgressBar').style.width = '0%';
+    document.getElementById('teamUploadStatus').textContent = m.imageUrl
+        ? 'Current image loaded. Choose a new file to replace it.'
+        : 'Click or drag & drop an image here';
+    document.getElementById('teamUploadStatus').style.color = '#888';
+    document.getElementById('teamUploadPreview').src = m.imageUrl || '';
+    document.getElementById('teamUploadPreview').style.display = m.imageUrl ? 'block' : 'none';
     document.getElementById('teamLinkedin').value = m.linkedinUrl || '';
     document.getElementById('teamTwitter').value = m.twitterUrl || '';
     document.getElementById('teamOrder').value = m.displayOrder ?? 1;
     document.getElementById('teamPublished').value = String(m.published);
+    openModal('teamModal');
+}
+
+function prepareNewTeam() {
+    closeModal('teamModal');
+    document.getElementById('teamModalTitle').textContent = 'Add Team Member';
     openModal('teamModal');
 }
 
@@ -2694,7 +2819,8 @@ async function saveTeam() {
         published: document.getElementById('teamPublished').value === 'true'
     };
     try {
-        const res = await fetch(`${API}/api/team${id ? '/'+id : ''}`, {
+        const endpoint = id ? `${API}/api/team/${encodeURIComponent(id)}` : `${API}/api/team`;
+        const res = await fetch(endpoint, {
             method: id ? 'PUT' : 'POST',
             headers: authHeaders(),
             body: JSON.stringify(body)
@@ -2704,7 +2830,7 @@ async function saveTeam() {
         closeModal('teamModal');
         document.getElementById('teamId').value = '';
         document.getElementById('teamModalTitle').textContent = 'Add Team Member';
-        loadTeam();
+        await loadTeam();
     } catch { toast('Failed to save member.', 'error'); }
 }
 

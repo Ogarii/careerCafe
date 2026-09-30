@@ -1229,6 +1229,18 @@
                 </div>
             </div>
 
+            <div class="card" style="margin-bottom:20px;">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">Masterclass Payment Test</div>
+                        <div style="font-size:0.82rem;color:#8b8179;margin-top:4px;">Create an administrator-only KES 10 Pesapal test order.</div>
+                    </div>
+                    <button class="btn btn-primary btn-sm" type="button" onclick="openTestPaymentModal()">
+                        <i class="fas fa-flask"></i> Create KES 10 Test
+                    </button>
+                </div>
+            </div>
+
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
                 <div class="card">
                     <div class="card-header">
@@ -1475,6 +1487,28 @@
 </div><!-- /main -->
 
 <!-- ── MODALS ── -->
+
+<!-- Masterclass Test Payment Modal -->
+<div class="modal-overlay" id="testPaymentModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">Create KES 10 Test Payment</div>
+            <button class="modal-close" type="button" onclick="closeModal('testPaymentModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-grid">
+                <div class="form-group full"><label for="testPaymentName">Full Name *</label><input type="text" id="testPaymentName" value="Career Cafe Payment Test" required></div>
+                <div class="form-group"><label for="testPaymentEmail">Email Address *</label><input type="email" id="testPaymentEmail" value="payments-test@careercafe.co.ke" required></div>
+                <div class="form-group"><label for="testPaymentPhone">Phone Number *</label><input type="tel" id="testPaymentPhone" value="+254700000000" required></div>
+                <div class="form-group full"><label for="testPaymentProfession">Profession / Industry *</label><input type="text" id="testPaymentProfession" value="Payment QA" required></div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-ghost" type="button" onclick="closeModal('testPaymentModal')">Cancel</button>
+                <button class="btn btn-primary" type="button" id="createTestPaymentButton" onclick="createTestPayment()"><i class="fas fa-external-link-alt"></i> Continue to Pesapal</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Article Modal -->
 <div class="modal-overlay" id="articleModal">
@@ -2158,6 +2192,44 @@ document.getElementById('loginPassword').addEventListener('keydown', e => { if (
 // ── HELPERS ──────────────────────────────────────────────────
 function authHeaders() {
     return { 'Content-Type': 'application/json', 'Authorization': `Bearer ${TOKEN}` };
+}
+
+function openTestPaymentModal() {
+    openModal('testPaymentModal');
+}
+
+async function createTestPayment() {
+    const button = document.getElementById('createTestPaymentButton');
+    const payload = {
+        fullName: document.getElementById('testPaymentName').value.trim(),
+        email: document.getElementById('testPaymentEmail').value.trim(),
+        phone: document.getElementById('testPaymentPhone').value.trim(),
+        professionIndustry: document.getElementById('testPaymentProfession').value.trim()
+    };
+
+    if (!payload.fullName || !payload.email || !payload.phone || !payload.professionIndustry) {
+        toast('Complete all test registration fields.', 'error');
+        return;
+    }
+
+    button.disabled = true;
+    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating test order...';
+    try {
+        const response = await fetch(`${API}/api/pesapal/test-payment`, {
+            method: 'POST',
+            headers: authHeaders(),
+            body: JSON.stringify(payload)
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !data.redirectUrl) {
+            throw new Error(data.message || 'Could not create the KES 10 test payment.');
+        }
+        window.location.assign(data.redirectUrl);
+    } catch (error) {
+        toast(error.message || 'Could not create the KES 10 test payment.', 'error');
+        button.disabled = false;
+        button.innerHTML = '<i class="fas fa-external-link-alt"></i> Continue to Pesapal';
+    }
 }
 
 function fmtDate(str) {

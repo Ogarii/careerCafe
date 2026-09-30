@@ -1,1800 +1,462 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The Africa Future of Work Reset | Career Cafe</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-deep: #030712;
-      --bg-surface: #0f172a;
-      --bg-elevated: #1e293b;
-      --bg-glass: rgba(15, 23, 42, 0.7);
-      --gold: #d4a853;
-      --gold-light: #f0d78c;
-      --gold-dim: rgba(212, 168, 83, 0.15);
-      --accent: #38bdf8;
-      --white: #f8fafc;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      --border: rgba(148, 163, 184, 0.1);
-      --border-gold: rgba(212, 168, 83, 0.3);
-      --gradient-hero: linear-gradient(135deg, #030712 0%, #0c1524 40%, #111827 100%);
-      --gradient-gold: linear-gradient(135deg, #d4a853, #f0d78c);
-      --gradient-card: linear-gradient(180deg, rgba(30,41,59,0.5) 0%, rgba(15,23,42,0.8) 100%);
-      --shadow-glow: 0 0 60px rgba(212, 168, 83, 0.08);
-      --radius: 16px;
-      --radius-sm: 10px;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg-deep);
-      color: var(--white);
-      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-      font-weight: 400;
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    .hidden { display: none !important; }
-
-    /* Navigation */
-    .nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      background: rgba(3, 7, 18, 0.6);
-      border-bottom: 1px solid var(--border);
-      transition: all 0.4s ease;
-    }
-
-    .nav.scrolled {
-      background: rgba(3, 7, 18, 0.92);
-      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
-    }
-
-    .nav-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 18px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .brand { display: flex; align-items: center; gap: 14px; }
-
-    .brand-logo {
-      height: 38px; width: auto;
-      filter: brightness(0) invert(1) sepia(1) saturate(0.4) hue-rotate(10deg) brightness(1.3);
-      opacity: 0.95;
-      transition: opacity 0.3s ease;
-    }
-
-    .brand-text {
-      font-size: 14px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-      background: var(--gradient-gold);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-
-    .nav-links { display: flex; align-items: center; gap: 8px; }
-
-    .nav-links a {
-      font-size: 13px; font-weight: 500; color: var(--text-secondary);
-      letter-spacing: 0.04em; transition: all 0.3s ease;
-      padding: 8px 16px; border-radius: 100px; border: 1px solid transparent;
-    }
-    .nav-links a:hover {
-      color: var(--gold-light); background: var(--gold-dim);
-      border-color: var(--border-gold);
-    }
-
-    .nav-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 11px 24px; background: var(--gradient-gold); color: #000;
-      border-radius: 100px; font-size: 12px; font-weight: 800;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 2px 16px rgba(212,168,83,0.25);
-      border: none;
-    }
-    .nav-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 24px rgba(212,168,83,0.4);
-      color: #000;
-      background: var(--gradient-gold);
-      border-color: transparent;
-    }
-
-    /* Layout */
-    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
-    .section { padding: 120px 0; position: relative; }
-
-    /* Hero — Split layout */
-    .hero {
-      min-height: 100vh; display: flex; align-items: center;
-      padding-top: 80px; background: var(--gradient-hero);
-      position: relative; overflow: hidden;
-    }
-
-    .hero::before {
-      content: ''; position: absolute; top: -40%; right: -15%;
-      width: 900px; height: 900px;
-      background: radial-gradient(circle, rgba(212,168,83,0.06) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    .hero::after {
-      content: ''; position: absolute; bottom: -30%; left: -10%;
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(56,189,248,0.03) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
-      align-items: center; position: relative; z-index: 2;
-    }
-
-    .hero-image {
-      position: relative; border-radius: var(--radius); overflow: hidden;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.4);
-    }
-    .hero-image img { width: 100%; height: 480px; object-fit: cover; display: block; }
-    .hero-image::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(212,168,83,0.08) 0%, transparent 50%);
-      pointer-events: none;
-    }
-
-    .hero-image-badge {
-      position: absolute; bottom: 24px; left: 24px;
-      padding: 12px 20px; background: rgba(3,7,18,0.85);
-      backdrop-filter: blur(12px); border: 1px solid var(--border-gold);
-      border-radius: var(--radius-sm); display: flex; align-items: center; gap: 10px;
-    }
-    .hero-image-badge .dot {
-      width: 8px; height: 8px; background: #22c55e; border-radius: 50%;
-      animation: pulse-dot 2s ease-in-out infinite;
-    }
-    .hero-image-badge span {
-      font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--white);
-    }
-
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 10px; margin-bottom: 24px;
-      font-size: 12px; font-weight: 600; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--gold);
-    }
-    .eyebrow-line { width: 40px; height: 1px; background: var(--gradient-gold); }
-
-    h1 {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: clamp(44px, 6vw, 72px); font-weight: 800;
-      line-height: 1.0; letter-spacing: -0.02em;
-    }
-    h1 .highlight {
-      background: var(--gradient-gold);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-
-    .hero-description {
-      max-width: 540px; margin-top: 24px; font-size: 17px;
-      font-weight: 300; line-height: 1.8; color: var(--text-secondary);
-    }
-
-    .hero-meta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
-
-    .meta-chip {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 16px; background: var(--bg-glass); backdrop-filter: blur(8px);
-      border: 1px solid var(--border); border-radius: 100px;
-      font-size: 12px; font-weight: 500; color: var(--text-secondary);
-    }
-    .meta-chip svg { width: 15px; height: 15px; color: var(--gold); }
-
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
-
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
-    }
-
-    /* Buttons */
-    .btn {
-      appearance: none; border: none; cursor: pointer;
-      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      min-height: 54px; padding: 0 30px; font-family: inherit;
-      font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; text-decoration: none; border-radius: 100px;
-      transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-    }
-    .btn-primary {
-      background: var(--gradient-gold); color: #1a1207;
-      box-shadow: 0 4px 24px rgba(212,168,83,0.25), inset 0 1px 0 rgba(255,255,255,0.2);
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 40px rgba(212,168,83,0.35), inset 0 1px 0 rgba(255,255,255,0.2);
-    }
-    .btn-secondary {
-      background: transparent; color: var(--white);
-      border: 1px solid rgba(148,163,184,0.25); backdrop-filter: blur(8px);
-    }
-    .btn-secondary:hover {
-      border-color: var(--gold); color: var(--gold-light); background: var(--gold-dim);
-    }
-    .btn:disabled { cursor: not-allowed; opacity: 0.5; transform: none !important; }
-    .btn-icon { width: 18px; height: 18px; }
-
-    /* Stats */
-    .stats-section {
-      background: var(--bg-surface);
-      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      padding: 80px 0;
-    }
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
-
-    .stat-card {
-      text-align: center; padding: 32px 20px;
-      background: var(--gradient-card); border: 1px solid var(--border);
-      border-radius: var(--radius); transition: border-color 0.3s ease, transform 0.3s ease;
-    }
-    .stat-card:hover { border-color: var(--border-gold); transform: translateY(-4px); }
-
-    .stat-icon {
-      width: 52px; height: 52px; margin: 0 auto 16px;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--gold-dim); border: 1px solid var(--border-gold); border-radius: 50%;
-    }
-    .stat-icon svg { width: 22px; height: 22px; color: var(--gold); }
-
-    .stat-number {
-      font-size: 40px; font-weight: 800;
-      background: var(--gradient-gold);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      line-height: 1.1;
-    }
-    .stat-label {
-      margin-top: 8px; font-size: 13px; font-weight: 500; color: var(--text-secondary);
-      text-transform: uppercase; letter-spacing: 0.1em;
-    }
-
-    /* Photo Gallery Strip */
-    .gallery-section {
-      background: var(--bg-deep); padding: 80px 0; overflow: hidden;
-      border-bottom: 1px solid var(--border);
-    }
-    .gallery-grid {
-      display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
-    }
-    .gallery-item {
-      position: relative; border-radius: var(--radius-sm); overflow: hidden;
-      aspect-ratio: 4/3; border: 1px solid var(--border);
-      transition: transform 0.4s ease, border-color 0.3s ease;
-    }
-    .gallery-item:hover { transform: scale(1.03); border-color: var(--border-gold); }
-    .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .gallery-item::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(180deg, transparent 60%, rgba(3,7,18,0.4) 100%);
-      pointer-events: none;
-    }
-    .countdown-section {
-      background: var(--bg-deep); padding: 100px 0;
-      position: relative; overflow: hidden;
-    }
-    .countdown-section::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at center, rgba(212,168,83,0.04) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .countdown-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
-      align-items: center; position: relative; z-index: 2;
-    }
-
-    .countdown-content h2 {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: clamp(32px, 4vw, 48px); font-weight: 800; line-height: 1.1;
-    }
-    .countdown-content p { margin-top: 20px; font-size: 16px; color: var(--text-secondary); line-height: 1.8; }
-
-    .countdown-timer { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
-
-    .countdown-item {
-      text-align: center; padding: 24px 12px;
-      background: var(--gradient-card); border: 1px solid var(--border-gold); border-radius: var(--radius);
-    }
-    .countdown-item .number {
-      font-size: 36px; font-weight: 800;
-      background: var(--gradient-gold);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      line-height: 1;
-    }
-    .countdown-item .label {
-      margin-top: 8px; font-size: 11px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted);
-    }
-
-    .countdown-image {
-      position: relative; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border);
-    }
-    .countdown-image img { width: 100%; height: 400px; object-fit: cover; display: block; }
-
-    /* Schedule */
-    .schedule-section { background: var(--bg-surface); border-top: 1px solid var(--border); }
-
-    .schedule-tabs { display: flex; gap: 12px; justify-content: center; margin-bottom: 48px; }
-
-    .schedule-tab {
-      padding: 14px 28px; background: var(--gradient-card); border: 1px solid var(--border);
-      border-radius: 100px; font-size: 13px; font-weight: 600;
-      color: var(--text-secondary); cursor: pointer; transition: all 0.3s ease;
-    }
-    .schedule-tab.active { background: var(--gradient-gold); color: #1a1207; border-color: var(--gold); }
-    .schedule-tab:hover:not(.active) { border-color: var(--border-gold); color: var(--gold-light); }
-    .schedule-tab span { font-weight: 700; }
-
-    .schedule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-
-    .schedule-item {
-      display: flex; gap: 20px; padding: 24px;
-      background: var(--gradient-card); border: 1px solid var(--border);
-      border-radius: var(--radius); transition: border-color 0.3s ease, transform 0.3s ease;
-    }
-    .schedule-item:hover { border-color: var(--border-gold); transform: translateY(-2px); }
-
-    .schedule-time {
-      min-width: 80px; text-align: center; padding: 12px;
-      background: var(--gold-dim); border: 1px solid var(--border-gold);
-      border-radius: var(--radius-sm); align-self: flex-start;
-    }
-    .schedule-time .hour { font-size: 18px; font-weight: 700; color: var(--gold-light); }
-    .schedule-time .period { font-size: 10px; font-weight: 600; text-transform: uppercase; color: var(--text-muted); }
-
-    .schedule-info h4 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-    .schedule-info p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
-
-    /* Section header */
-    .section-header { text-align: center; max-width: 600px; margin: 0 auto 64px; }
-    .section-header .eyebrow { justify-content: center; }
-
-    h2 {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: clamp(36px, 5vw, 56px); font-weight: 800; line-height: 1.05; letter-spacing: -0.01em;
-    }
-    .section-subtitle { margin-top: 16px; font-size: 17px; color: var(--text-secondary); font-weight: 300; }
-
-    /* Pricing */
-    .pricing-section { background: var(--bg-deep); border-top: 1px solid var(--border); }
-
-    .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 800px; margin: 0 auto; }
-
-    .pricing-card {
-      position: relative; padding: 48px 36px; background: var(--gradient-card);
-      border: 1px solid var(--border); border-radius: var(--radius);
-      backdrop-filter: blur(12px); transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
-      overflow: hidden; text-align: center;
-    }
-    .pricing-card::before {
-      content: ''; position: absolute; inset: 0; border-radius: var(--radius); padding: 1px;
-      background: linear-gradient(180deg, rgba(148,163,184,0.1) 0%, transparent 50%);
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask-composite: xor; -webkit-mask-composite: xor; pointer-events: none;
-    }
-    .pricing-card:hover { transform: translateY(-4px); }
-    .pricing-card.active { border-color: var(--border-gold); box-shadow: var(--shadow-glow), 0 20px 60px rgba(0,0,0,0.3); }
-    .pricing-card.active::after {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: var(--gradient-gold);
-    }
-
-    .best-offer-badge {
-      position: absolute; top: 16px; right: 16px; padding: 5px 12px;
-      background: var(--gradient-gold); color: #1a1207; border-radius: 100px;
-      font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
-    }
-
-    .tier-badge {
-      display: inline-flex; padding: 6px 14px; border-radius: 100px;
-      font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
-    }
-    .tier-badge.gold { background: var(--gold-dim); color: var(--gold-light); border: 1px solid var(--border-gold); }
-    .tier-badge.neutral { background: rgba(148,163,184,0.08); color: var(--text-secondary); border: 1px solid var(--border); }
-
-    .price-amount { margin-top: 24px; font-size: 52px; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
-    .pricing-card.active .price-amount {
-      background: var(--gradient-gold);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .price-note { margin-top: 12px; font-size: 14px; color: var(--text-muted); }
-
-    .pricing-features {
-      margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border);
-      list-style: none; text-align: left;
-    }
-    .pricing-features li {
-      display: flex; align-items: center; gap: 10px; padding: 8px 0;
-      font-size: 14px; color: var(--text-secondary);
-    }
-    .pricing-features li svg { width: 16px; height: 16px; color: var(--gold); flex-shrink: 0; }
-
-    /* Benefits */
-    .benefits-section { background: var(--bg-surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-
-    .benefit-card {
-      padding: 36px 28px; background: var(--gradient-card); border: 1px solid var(--border);
-      border-radius: var(--radius); transition: border-color 0.3s ease, transform 0.3s ease;
-      text-align: center;
-    }
-    .benefit-card:hover { border-color: var(--border-gold); transform: translateY(-4px); }
-
-    .benefit-icon {
-      width: 64px; height: 64px; display: flex; align-items: center; justify-content: center;
-      background: var(--gold-dim); border: 1px solid var(--border-gold);
-      border-radius: 50%; margin: 0 auto 20px;
-    }
-    .benefit-icon svg { width: 26px; height: 26px; color: var(--gold); }
-    .benefit-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
-    .benefit-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
-
-    /* Payment methods */
-    .payment-methods { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; justify-content: center; }
-    .payment-method {
-      display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px;
-      background: var(--bg-glass); border: 1px solid var(--border); border-radius: 100px;
-      font-size: 12px; font-weight: 500; color: var(--text-secondary);
-    }
-
-    /* Registration form */
-    .registration-section { background: var(--bg-deep); border-top: 1px solid var(--border); }
-
-    .form-wrapper {
-      max-width: 720px; margin: 0 auto; padding: 48px;
-      background: var(--gradient-card); border: 1px solid var(--border);
-      border-radius: var(--radius); backdrop-filter: blur(12px);
-      box-shadow: 0 24px 48px rgba(0,0,0,0.2);
-    }
-    .field-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-
-    .field label {
-      display: block; margin-bottom: 10px; font-size: 12px; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary);
-    }
-    .field input {
-      width: 100%; min-height: 52px; padding: 0 18px;
-      background: var(--bg-deep); border: 1px solid var(--border); border-radius: 100px;
-      color: var(--white); font-family: inherit; font-size: 15px; outline: none;
-      transition: border-color 0.25s ease, box-shadow 0.25s ease;
-    }
-    .field input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-dim); }
-    .field input::placeholder { color: var(--text-muted); }
-
-    .check-row {
-      display: flex; align-items: center; gap: 12px; margin-top: 28px;
-      padding: 16px 20px; background: var(--gold-dim);
-      border: 1px solid var(--border-gold); border-radius: 100px;
-    }
-    .check-row input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--gold); cursor: pointer; }
-    .check-row label {
-      font-size: 14px; font-weight: 500; color: var(--text-secondary); cursor: pointer;
-      margin: 0; letter-spacing: 0; text-transform: none;
-    }
-
-    .form-actions { margin-top: 32px; }
-    .form-actions .btn { width: 100%; }
-
-    .status-line { min-height: 24px; margin-top: 16px; font-size: 14px; font-weight: 500; color: var(--gold); text-align: center; }
-
-    /* Payment section */
-    .payment-section { background: var(--bg-surface); border-top: 1px solid var(--border); }
-    .payment-layout {
-      display: grid; grid-template-columns: 1fr 360px; gap: 28px;
-      max-width: 900px; margin: 48px auto 0; align-items: start;
-    }
-    .checkout-card { padding: 40px; background: var(--gradient-card); border: 1px solid var(--border); border-radius: var(--radius); }
-    .checkout-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
-    .checkout-description { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 28px; }
-    .checkout-actions { display: flex; flex-wrap: wrap; gap: 12px; }
-
-    .order-summary {
-      padding: 32px; background: var(--gradient-card); border: 1px solid var(--border-gold);
-      border-radius: var(--radius); box-shadow: var(--shadow-glow);
-    }
-    .order-summary h3 { font-size: 14px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
-    .summary-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border); }
-    .summary-row:last-child { border-bottom: none; }
-    .summary-label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
-    .summary-value { font-size: 15px; font-weight: 600; }
-
-    .spinner { width: 28px; height: 28px; margin-top: 20px; border: 2px solid var(--border); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .payment-note { margin-top: 16px; font-size: 13px; color: var(--text-muted); }
-
-    /* Confirmation */
-    .confirmation-section { background: var(--bg-deep); border-top: 1px solid var(--border); text-align: center; }
-    .confirmation-icon {
-      width: 80px; height: 80px; margin: 0 auto 28px;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--gold-dim); border: 2px solid var(--gold); border-radius: 50%;
-      animation: scale-in 0.5s cubic-bezier(0.4,0,0.2,1);
-    }
-    @keyframes scale-in { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    .confirmation-icon svg { width: 36px; height: 36px; color: var(--gold); }
-    .confirmation-section .hero-description { margin: 20px auto 0; text-align: center; }
-    .confirmation-actions { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 40px; }
-
-    /* Footer */
-    .footer { padding: 60px 0 40px; border-top: 1px solid var(--border); text-align: center; }
-    .footer-brand { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px; }
-    .footer-brand img { height: 28px; filter: brightness(0) invert(1) sepia(1) saturate(0.4) hue-rotate(10deg) brightness(1.3); opacity: 0.7; }
-    .footer-brand span { font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
-    .footer p { font-size: 13px; color: var(--text-muted); }
-
-    /* Responsive */
-    @media (max-width: 1024px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-      .hero-image { max-width: 500px; }
-      .countdown-grid { grid-template-columns: 1fr; }
-      .countdown-image { display: none; }
-      .schedule-grid { grid-template-columns: 1fr; }
-      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 900px) {
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
-      .payment-layout { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      .nav-inner { padding: 14px 20px; }
-      .brand-logo { height: 32px; }
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-      .gallery-item:nth-child(5) { display: none; }
-    }
-    @media (max-width: 680px) {
-      .section { padding: 80px 0; }
-      .wrap { padding: 0 20px; }
-      .hero { padding-top: 90px; min-height: auto; padding-bottom: 60px; }
-      h1 { font-size: clamp(36px, 9vw, 48px); }
-      h2 { font-size: clamp(28px, 7vw, 40px); }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-      .stat-card { padding: 20px 12px; }
-      .stat-number { font-size: 28px; }
-      .countdown-timer { grid-template-columns: repeat(2, 1fr); }
-      .pricing-grid { grid-template-columns: 1fr; }
-      .benefits-grid { grid-template-columns: 1fr; }
-      .field-grid { grid-template-columns: 1fr; }
-      .form-wrapper { padding: 28px 20px; }
-      .hero-actions { flex-direction: column; }
-      .btn { width: 100%; min-height: 52px; }
-      .payment-layout { grid-template-columns: 1fr; }
-      .checkout-card, .order-summary { padding: 24px; }
-      .schedule-tabs { flex-wrap: wrap; }
-      .confirmation-actions { flex-direction: column; align-items: center; }
-    }
-
-    /* ═══════════════════════════════════════════════════════════════
-       Design library: motion + luxury polish
-       · components/animations/scroll-reveal-fade-up.html
-       · components/animations/card-hover-lift.html
-       One easing curve everywhere; GPU-cheap (opacity/transform only).
-       ═══════════════════════════════════════════════════════════════ */
-    :root { --ease-lux: cubic-bezier(0.22, 1, 0.36, 1); }
-
-    /* Scroll reveal — staggered fade up */
-    [data-reveal] {
-      opacity: 0;
-      transform: translateY(30px);
-      transition:
-        opacity   0.7s var(--ease-lux),
-        transform 0.7s var(--ease-lux);
-      transition-delay: var(--d, 0ms);
-      will-change: opacity, transform;
-    }
-    [data-reveal].in { opacity: 1; transform: none; }
-
-    /* Card hover lift — one consistent micro-interaction across every surface */
-    .stat-card, .benefit-card, .schedule-item, .countdown-item, .pricing-card, .gallery-item {
-      transition:
-        transform    0.35s var(--ease-lux),
-        box-shadow   0.35s var(--ease-lux),
-        border-color 0.35s var(--ease-lux);
-    }
-    .stat-card:hover, .benefit-card:hover, .schedule-item:hover, .countdown-item:hover {
-      transform: translateY(-6px);
-      border-color: var(--border-gold);
-      box-shadow: 0 18px 44px rgba(3, 7, 18, 0.55), var(--shadow-glow);
-    }
-    .pricing-card:hover {
-      transform: translateY(-8px);
-      border-color: var(--border-gold);
-      box-shadow: 0 26px 60px rgba(3, 7, 18, 0.62), var(--shadow-glow);
-    }
-    .gallery-item:hover {
-      transform: translateY(-5px) scale(1.02);
-      border-color: var(--border-gold);
-      box-shadow: 0 20px 46px rgba(3, 7, 18, 0.55);
-    }
-
-    /* Exclusive detail: hairline gold rule under section eyebrows */
-    .section-header .eyebrow-line { background: var(--gradient-gold); }
-
-    /* Quiet luxury: let headings breathe */
-    .section-header h2 { letter-spacing: -0.01em; }
-
-    @media (prefers-reduced-motion: reduce) {
-      [data-reveal] { opacity: 1; transform: none; transition: none; }
-      .stat-card:hover, .benefit-card:hover, .schedule-item:hover,
-      .countdown-item:hover, .pricing-card:hover, .gallery-item:hover { transform: none; }
-    }
-    /* ═══════════════════════════════════════════════════════════════
-       Design library: liquid glass + luminous CTA treatments
-       · components/cards/liquid-glass-cta-cards.html  (glass + lg-dist)
-       · components/buttons/cta-hover-effects.html     (glow ring, scan line)
-       Techniques kept; palette re-skinned from neon to gold for luxury.
-       ═══════════════════════════════════════════════════════════════ */
-
-    /* Midnight-water backdrop, re-tinted navy + gold (scoped to pricing) */
-    .pricing-section { position: relative; overflow: hidden; }
-    .pricing-section .wrap { position: relative; z-index: 1; }
-    .lux-water { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-    .lux-water .blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.38; mix-blend-mode: screen; }
-    .lux-water .b1 { width: 460px; height: 460px; left: -110px; top: -90px;
-      background: radial-gradient(circle, #1e3a6e, transparent 66%); animation: luxDrift1 26s ease-in-out infinite alternate; }
-    .lux-water .b2 { width: 400px; height: 400px; right: -90px; top: 22%;
-      background: radial-gradient(circle, rgba(212,168,83,0.5), transparent 68%); animation: luxDrift2 32s ease-in-out infinite alternate; }
-    .lux-water .b3 { width: 520px; height: 520px; left: 34%; bottom: -230px;
-      background: radial-gradient(circle, #16305f, transparent 68%); animation: luxDrift1 36s ease-in-out infinite alternate-reverse; }
-    @keyframes luxDrift1 { to { transform: translate(90px, 60px) scale(1.10); } }
-    @keyframes luxDrift2 { to { transform: translate(-80px, 50px) scale(1.08); } }
-
-    /* Liquid glass surface on the ticket cards */
-    .pricing-card > *:not(.lg-warp):not(.lux-scan) { position: relative; z-index: 1; }
-    .lg-warp {
-      position: absolute; inset: 0; z-index: 0; border-radius: inherit; pointer-events: none;
-      backdrop-filter: blur(4px) saturate(150%); -webkit-backdrop-filter: blur(4px) saturate(150%);
-      filter: url(#lg-dist);
-    }
-
-    /* Gold shimmer ring behind the glass (rainbow-glow technique, gold palette) */
-    .glow-wrap { position: relative; border-radius: calc(var(--radius) + 2px); }
-    .glow-wrap::before {
-      content: ''; position: absolute; inset: -3px; z-index: 0;
-      border-radius: calc(var(--radius) + 4px);
-      background: linear-gradient(45deg, #6b4c17, #d4a853, #f0d78c, #fff3cf, #d4a853, #8a6520, #d4a853);
-      background-size: 400%; filter: blur(8px); opacity: 0;
-      transition: opacity 0.45s ease-in-out; animation: luxGlow 18s linear infinite;
-    }
-    .glow-wrap:hover::before, .glow-wrap:focus-within::before { opacity: 0.7; }
-    .glow-wrap > .pricing-card { position: relative; z-index: 1; height: 100%; }
-    @keyframes luxGlow { 0% { background-position: 0 0; } 50% { background-position: 400% 0; } 100% { background-position: 0 0; } }
-
-    /* Gold light sweep inside the selected card (scan-line technique, de-glitched) */
-    .lux-scan {
-      position: absolute; left: 0; top: 0; width: 100%; height: 2px; z-index: 1;
-      filter: blur(1px); pointer-events: none; opacity: 0;
-      background: linear-gradient(to right, transparent, rgba(240,215,140,0.8), transparent);
-    }
-    .pricing-card.active .lux-scan { opacity: 1; animation: luxSweep 5s linear infinite; }
-    @keyframes luxSweep { 0% { top: -6%; } 100% { top: 106%; } }
-
-    @media (prefers-reduced-motion: reduce) {
-      .lux-water .blob, .glow-wrap::before, .pricing-card.active .lux-scan { animation: none; }
-    }
-    /* ── Same glass + gold-ring treatment on the remaining cards ──────
-       These sit on a flat backdrop, so they use the glass *surface* only
-       (gradient, light border, inner highlight, sheen, shimmer ring).
-       No displacement filter or backdrop blur: nothing to refract there,
-       and it keeps ~19 extra cards free of per-scroll repaint cost.
-       The ring is drawn border-only via a mask (same trick as
-       .pricing-card::before) so it survives the hover transform, which
-       creates a stacking context and would otherwise wash the card gold. */
-    .stat-card, .benefit-card, .schedule-item, .countdown-item {
-      position: relative;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.015) 55%, rgba(255,255,255,0.045)),
-        var(--gradient-card);
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.16);
-    }
-
-    /* specular sheen, kept inside the card (these have no overflow clip) */
-    .stat-card::after, .benefit-card::after, .schedule-item::after, .countdown-item::after {
-      content: ''; position: absolute; inset: 0; z-index: 0;
-      border-radius: inherit; pointer-events: none;
-      background: radial-gradient(60% 50% at 30% 12%, rgba(240, 215, 140, 0.10), transparent 70%);
-    }
-
-    /* gold shimmer ring: border-only, so a transformed card never gets washed */
-    .stat-card::before, .benefit-card::before, .schedule-item::before, .countdown-item::before {
-      content: ''; position: absolute; inset: -2px; z-index: 0;
-      border-radius: calc(var(--radius) + 2px); padding: 2px;
-      background: linear-gradient(45deg, #6b4c17, #d4a853, #f0d78c, #fff3cf, #d4a853, #8a6520, #d4a853);
-      background-size: 400%;
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask-composite: xor;
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      filter: blur(3px); opacity: 0; pointer-events: none;
-      transition: opacity 0.45s ease-in-out;
-      animation: luxGlow 18s linear infinite;
-    }
-    .stat-card:hover::before, .benefit-card:hover::before,
-    .schedule-item:hover::before, .countdown-item:hover::before { opacity: 0.85; }
-
-    /* card content sits above sheen + ring */
-    .stat-card > *, .benefit-card > *, .schedule-item > *, .countdown-item > * {
-      position: relative; z-index: 1;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .stat-card::before, .benefit-card::before,
-      .schedule-item::before, .countdown-item::before { animation: none; }
-    }
-    /* ── CTA buttons (components/buttons/cta-hover-effects.html) ───────
-       · hologram scan line  → a light sweep across the gold pill
-       · rainbow glow border → gold shimmer ring on the outline button
-       Both re-skinned from neon to gold. The ring is border-only (mask)
-       so it survives the hover transform's stacking context.            */
-
-    /* Primary + nav pill: light sweeps across on hover */
-    .btn-primary, .nav-btn { position: relative; overflow: hidden; }
-    .btn-primary::before, .nav-btn::before {
-      content: ''; position: absolute; top: 0; left: -60%;
-      width: 45%; height: 100%; pointer-events: none;
-      background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
-      transform: skewX(-18deg);
-      transition: left 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .btn-primary:hover::before, .nav-btn:hover::before { left: 120%; }
-
-    /* Outline button: gold shimmer ring blooms on hover */
-    .btn-secondary { position: relative; }
-    .btn-secondary::before {
-      content: ''; position: absolute; inset: -2px; border-radius: 100px; padding: 2px;
-      background: linear-gradient(45deg, #6b4c17, #d4a853, #f0d78c, #fff3cf, #d4a853, #8a6520, #d4a853);
-      background-size: 400%;
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask-composite: xor;
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      filter: blur(2.5px); opacity: 0; pointer-events: none;
-      transition: opacity 0.4s ease-in-out;
-      animation: luxGlow 18s linear infinite;
-    }
-    .btn-secondary:hover::before { opacity: 0.9; }
-
-    @media (prefers-reduced-motion: reduce) {
-      .btn-primary::before, .nav-btn::before { transition: none; }
-      .btn-secondary::before { animation: none; }
-    }
-    /* ── Liquid glass navbar, gold (liquid-glass skill + library glass) ──
-       The warp layer carries the frost + #lg-dist refraction; the bar itself
-       carries a warm gold tint, a gold hairline and a soft gold underglow.   */
-    .nav {
-      overflow: hidden;
-      background: linear-gradient(135deg, rgba(212, 168, 83, 0.10), rgba(3, 7, 18, 0.55) 55%, rgba(212, 168, 83, 0.07));
-      border-bottom: 1px solid rgba(212, 168, 83, 0.28);
-      box-shadow: 0 1px 0 rgba(240, 215, 140, 0.10), 0 10px 34px rgba(3, 7, 18, 0.45);
-      backdrop-filter: none; -webkit-backdrop-filter: none;
-    }
-    .nav .lg-warp {
-      position: absolute; inset: 0; z-index: 0; pointer-events: none;
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      filter: url(#lg-dist);
-    }
-    .nav .nav-inner { position: relative; z-index: 1; }
-    /* top-edge catch-light, the tell of a glass surface */
-    .nav::after {
-      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-      background: linear-gradient(180deg, rgba(255, 245, 220, 0.14), transparent 45%);
-    }
-    .nav.scrolled {
-      background: linear-gradient(135deg, rgba(212, 168, 83, 0.13), rgba(3, 7, 18, 0.80) 55%, rgba(212, 168, 83, 0.09));
-      border-bottom-color: rgba(212, 168, 83, 0.42);
-      box-shadow: 0 1px 0 rgba(240, 215, 140, 0.14), 0 14px 40px rgba(3, 7, 18, 0.6);
-    }
-    /* ═══════════════════════════════════════════════════════════════
-       Loader · liquid-cheese backdrop · floating glass countdown · nav blob
-       ═══════════════════════════════════════════════════════════════ */
-
-    /* ── Preloader: fill-the-box (gold) with the logo in the middle ── */
-    .lux-loader {
-      position: fixed; inset: 0; z-index: 9999;
-      display: grid; place-content: center; justify-items: center; gap: 26px;
-      background: var(--bg-deep) url('images/bg-liquid-cheese.svg') center/cover no-repeat;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
-    }
-    .lux-loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
-    .lux-loader-mark { position: relative; width: 128px; height: 128px; display: grid; place-items: center; }
-    .lux-loader-mark .ltb { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .lux-loader-logo {
-      position: relative; z-index: 1; width: 66px; height: 66px; padding: 11px;
-      object-fit: contain; border-radius: 50%;
-      background: rgba(255, 253, 248, 0.95);
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
-    }
-    .lux-loader-word {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 20px; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--gold-light); opacity: 0.9;
-    }
-
-    /* ── Liquid-cheese backdrop behind the whole page ── */
-    body::before {
-      content: ''; position: fixed; inset: 0; z-index: -2; pointer-events: none;
-      background: var(--bg-deep) url('images/bg-liquid-cheese.svg') center center/cover no-repeat;
-      opacity: 0.85;
-    }
-
-    /* ── Navbar: more transparent so the backdrop reads through ── */
-    .nav {
-      background: linear-gradient(135deg, rgba(212, 168, 83, 0.07), rgba(3, 7, 18, 0.26) 55%, rgba(212, 168, 83, 0.05));
-      border-bottom: 1px solid rgba(212, 168, 83, 0.22);
-    }
-    .nav.scrolled {
-      background: linear-gradient(135deg, rgba(212, 168, 83, 0.10), rgba(3, 7, 18, 0.52) 55%, rgba(212, 168, 83, 0.07));
-      border-bottom-color: rgba(212, 168, 83, 0.34);
-    }
-
-    /* ── Sliding blob marking the section you are in ── */
-    .nav-links { position: relative; }
-    .nav-links > a { position: relative; z-index: 1; }
-    .nav-blob {
-      position: absolute; top: 50%; left: 0; width: 0; height: 34px;
-      transform: translateY(-50%); border-radius: 100px; z-index: 0; opacity: 0;
-      background: linear-gradient(135deg, rgba(212, 168, 83, 0.34), rgba(240, 215, 140, 0.16));
-      border: 1px solid rgba(212, 168, 83, 0.45);
-      box-shadow: 0 0 18px rgba(212, 168, 83, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.22);
-      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-      transition: left 0.45s cubic-bezier(0.34, 1.3, 0.5, 1), width 0.45s cubic-bezier(0.34, 1.3, 0.5, 1), opacity 0.3s ease;
-      pointer-events: none;
-    }
-
-    /* ── Floating liquid-glass countdown (desktop: top right) ── */
-    .lux-timer { position: fixed; top: 92px; right: 22px; z-index: 90; }
-    .lux-timer-panel {
-      position: relative; overflow: hidden; border-radius: 18px; padding: 14px 18px 12px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.13), rgba(255,255,255,0.03) 55%, rgba(212,168,83,0.08));
-      border: 1px solid rgba(212, 168, 83, 0.30);
-      box-shadow: 0 16px 44px rgba(3, 7, 18, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.30);
-    }
-    .lux-timer-panel > *:not(.lg-warp) { position: relative; z-index: 1; }
-    .lux-timer-panel .lg-warp {
-      position: absolute; inset: 0; z-index: 0; border-radius: inherit; pointer-events: none;
-      backdrop-filter: blur(6px) saturate(160%); -webkit-backdrop-filter: blur(6px) saturate(160%);
-      filter: url(#lg-dist);
-    }
-    .lux-timer-title {
-      display: block; margin-bottom: 8px; font-size: 9.5px; font-weight: 800;
-      letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-light); opacity: 0.85;
-    }
-    .lux-timer-units { display: flex; gap: 10px; }
-    .lux-u { min-width: 46px; text-align: center; }
-    .lux-u b {
-      display: block; font-size: 20px; font-weight: 800; line-height: 1; color: #fff;
-      font-variant-numeric: tabular-nums;
-    }
-    .lux-u span {
-      display: block; margin-top: 4px; font-size: 8.5px; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary);
-    }
-
-    /* tab is desktop-hidden */
-    .lux-timer-tab { display: none; }
-
-    /* ── Mobile: small ticking-clock tab that opens a full-width timer ── */
-    @media (max-width: 768px) {
-      .lux-timer { top: auto; bottom: 16px; right: 12px; left: 12px; }
-      .lux-timer-tab {
-        display: inline-flex; align-items: center; gap: 8px; margin-left: auto;
-        padding: 9px 14px 9px 11px; cursor: pointer; float: right;
-        font: 700 12px/1 'Plus Jakarta Sans', system-ui, sans-serif;
-        letter-spacing: 0.06em; color: var(--gold-light);
-        background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(212,168,83,0.10));
-        border: 1px solid rgba(212, 168, 83, 0.38); border-radius: 100px;
-        box-shadow: 0 10px 26px rgba(3, 7, 18, 0.5), inset 0 1px 1px rgba(255,255,255,0.28);
-        backdrop-filter: blur(10px) saturate(160%); -webkit-backdrop-filter: blur(10px) saturate(160%);
-      }
-      .lux-clock { width: 18px; height: 18px; color: var(--gold-light); overflow: visible; }
-      /* the clock keeps ticking so the tab never reads as static */
-      .lux-clock .hand-m { transform-origin: 12px 12px; animation: luxTickM 6s steps(12) infinite; }
-      .lux-clock .hand-h { transform-origin: 12px 12px; animation: luxTickH 72s steps(12) infinite; }
-      @keyframes luxTickM { to { transform: rotate(360deg); } }
-      @keyframes luxTickH { to { transform: rotate(360deg); } }
-
-      .lux-timer-panel {
-        position: absolute; left: 0; right: 0; bottom: calc(100% + 10px);
-        opacity: 0; transform: translateY(12px) scale(0.98);
-        transform-origin: bottom center; pointer-events: none;
-        transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.3, 0.5, 1);
-      }
-      .lux-timer.open .lux-timer-panel { opacity: 1; transform: none; pointer-events: auto; }
-      .lux-timer-units { justify-content: space-between; gap: 6px; }
-      .lux-u { flex: 1; min-width: 0; }
-      .lux-u b { font-size: 22px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .lux-clock .hand-m, .lux-clock .hand-h { animation: none; }
-      .nav-blob, .lux-timer-panel { transition: none; }
-    }
-    /* ── Floating timer: thinner tint so the backdrop reads through ── */
-    .lux-timer-panel {
-      background: linear-gradient(135deg, rgba(255,255,255,0.055), rgba(255,255,255,0.01) 55%, rgba(212,168,83,0.035));
-      border-color: rgba(212, 168, 83, 0.20);
-      box-shadow: 0 14px 38px rgba(3, 7, 18, 0.30), inset 0 1px 1px rgba(255, 255, 255, 0.18);
-    }
-    .lux-timer-panel .lg-warp {
-      backdrop-filter: blur(3px) saturate(150%); -webkit-backdrop-filter: blur(3px) saturate(150%);
-    }
-    @media (max-width: 768px) {
-      .lux-timer-tab {
-        background: linear-gradient(135deg, rgba(255,255,255,0.07), rgba(212,168,83,0.05));
-        border-color: rgba(212, 168, 83, 0.26);
-        box-shadow: 0 10px 24px rgba(3, 7, 18, 0.30), inset 0 1px 1px rgba(255,255,255,0.20);
-        backdrop-filter: blur(6px) saturate(150%); -webkit-backdrop-filter: blur(6px) saturate(150%);
-      }
-    }
-
-    /* ── All CTAs as liquid glass, for uniformity ── */
-    .btn-primary, .nav-btn {
-      background: linear-gradient(135deg, rgba(212,168,83,0.30), rgba(240,215,140,0.13) 55%, rgba(212,168,83,0.22));
-      border: 1px solid rgba(212, 168, 83, 0.55);
-      color: #fff5e2;
-      text-shadow: 0 1px 8px rgba(3, 7, 18, 0.55);
-      box-shadow: 0 8px 28px rgba(212, 168, 83, 0.18), inset 0 1px 1px rgba(255, 255, 255, 0.32);
-      backdrop-filter: blur(8px) saturate(165%); -webkit-backdrop-filter: blur(8px) saturate(165%);
-    }
-    .btn-primary:hover, .nav-btn:hover {
-      background: linear-gradient(135deg, rgba(212,168,83,0.42), rgba(240,215,140,0.20) 55%, rgba(212,168,83,0.32));
-      border-color: rgba(240, 215, 140, 0.75);
-      box-shadow: 0 12px 38px rgba(212, 168, 83, 0.30), inset 0 1px 1px rgba(255, 255, 255, 0.42);
-    }
-    .btn-secondary {
-      background: linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.015) 60%, rgba(212,168,83,0.05));
-      border: 1px solid rgba(212, 168, 83, 0.28);
-      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.20);
-      backdrop-filter: blur(8px) saturate(160%); -webkit-backdrop-filter: blur(8px) saturate(160%);
-    }
-
-    /* ═══════════════════════════════════════════════════════════════
-       TEST: let the liquid-cheese artwork show through the whole page.
-       Delete this one block to restore the solid section backgrounds.
-       ═══════════════════════════════════════════════════════════════ */
-    body::before { opacity: 1; }
-    .hero, .stats-section, .gallery-section, .countdown-section,
-    .schedule-section, .pricing-section, .benefits-section,
-    .registration-section, .payment-section, .confirmation-section,
-    .footer { background: transparent; }
-    .hero { background-image: none; }
-    /* ── Navbar legibility over the gold waves ──────────────────────
-       Still glass, but with a dark base under the tint so the links
-       never sit gold-on-gold. Register Now becomes a dark glass pill
-       with a gold rim, which reads on both the gold band and navy.   */
-    .nav {
-      background: linear-gradient(135deg, rgba(212,168,83,0.10), rgba(3,7,18,0.58) 55%, rgba(212,168,83,0.08));
-      border-bottom: 1px solid rgba(212, 168, 83, 0.30);
-    }
-    .nav.scrolled {
-      background: linear-gradient(135deg, rgba(212,168,83,0.12), rgba(3,7,18,0.78) 55%, rgba(212,168,83,0.09));
-      border-bottom-color: rgba(212, 168, 83, 0.40);
-    }
-    .nav-links a {
-      color: #f4f7ff; font-weight: 600;
-      text-shadow: 0 1px 10px rgba(3, 7, 18, 0.9), 0 0 2px rgba(3, 7, 18, 0.7);
-    }
-    .nav-links a:hover { color: #fff8e6; background: transparent; border-color: transparent; }
-    .brand-text { text-shadow: 0 1px 10px rgba(3, 7, 18, 0.85); }
-
-    /* Register Now: dark glass pill, gold rim + gold label */
-    .nav-btn, .nav-btn:hover {
-      background: linear-gradient(135deg, rgba(6, 11, 26, 0.72), rgba(24, 17, 6, 0.60) 55%, rgba(6, 11, 26, 0.72));
-      border: 1px solid rgba(240, 215, 140, 0.75);
-      color: #f6dc9e;
-      text-shadow: 0 1px 8px rgba(3, 7, 18, 0.9);
-      box-shadow: 0 8px 26px rgba(3, 7, 18, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.18);
-    }
-    .nav-btn:hover {
-      border-color: #f0d78c; color: #fff3d0;
-      box-shadow: 0 10px 32px rgba(212, 168, 83, 0.30), inset 0 1px 1px rgba(255, 255, 255, 0.28);
-    }
-
-    /* Hero primary CTA was muddy over the artwork: give it a dark base too */
-    .btn-primary {
-      background: linear-gradient(135deg, rgba(212,168,83,0.38), rgba(24,17,6,0.55) 55%, rgba(212,168,83,0.32));
-      color: #fff3d0;
-    }
-    .btn-primary:hover {
-      background: linear-gradient(135deg, rgba(212,168,83,0.52), rgba(24,17,6,0.45) 55%, rgba(212,168,83,0.44));
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#030712">
+<meta name="description" content="A two-day virtual masterclass on work, skills, capital and opportunity across Africa. 20-21 August 2026.">
+<meta property="og:title" content="The Africa Future of Work Reset | Career Café">
+<meta property="og:description" content="Two-day virtual masterclass, 20-21 August 2026.">
+<meta property="og:image" content="images/345A4619.jpg">
+<title>The Africa Future of Work Reset | Career Café</title>
+<link rel="icon" href="careerLogoNew.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#030712;--gold:#d4a853;--gold2:#f0d78c;--gd:rgba(212,168,83,.15);--white:#f8fafc;--t2:#94a3b8;--mut:#64748b;--bd:rgba(148,163,184,.1);--bg-gold:rgba(212,168,83,.3);
+--gg:linear-gradient(135deg,#d4a853,#f0d78c);--gc:linear-gradient(180deg,rgba(30,41,59,.5),rgba(15,23,42,.8));
+--ring:linear-gradient(45deg,#6b4c17,#d4a853,#f0d78c,#fff3cf,#d4a853,#8a6520,#d4a853);--sh:2,6,23;--glow:0 0 60px rgba(212,168,83,.08);
+--r:20px;--rs:10px;--ease:cubic-bezier(.22,1,.36,1);--z-nav:100;--z-float:90}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{background:var(--bg) url(images/bg-liquid-cheese.svg) center/cover fixed;color:var(--white);font:400 16px/1.7 'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--gold2);outline-offset:3px}
+.hidden{display:none!important}
+.skip{position:absolute;left:-999px;top:8px;z-index:200;padding:10px 16px;background:var(--gold);color:#1a1207;border-radius:8px;font-weight:700}.skip:focus{left:8px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+.section{padding:104px 0 136px}
+main>section+section,.footer{border-top:1px solid var(--bd)}
+.i{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.i-fill{fill:currentColor;stroke:none}
+h1,h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;text-wrap:balance}
+h1{font-size:clamp(46px,7vw,88px);line-height:.95;letter-spacing:-.035em}
+h2{font-size:clamp(34px,5vw,56px);line-height:1.05;letter-spacing:-.025em}
+p{text-wrap:pretty}
+.gt{background:var(--gg);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;font:italic 600 20px/1 'Cormorant Garamond',Georgia,serif;color:var(--gold)}
+.eyebrow::before{content:'';width:28px;height:1px;background:var(--gg)}
+.sh{display:grid;grid-template-columns:1fr 1fr;gap:0 64px;align-items:end;margin-bottom:72px}
+.sh .eyebrow{grid-column:1/-1}.sh p{max-width:44ch;justify-self:end;font-size:17px;font-weight:300;color:var(--t2)}
+.sh.center{display:block;text-align:center;max-width:640px;margin-inline:auto}.sh.center .eyebrow{justify-content:center}
+
+/* cards: same colors and backgrounds as before */
+.card{position:relative;border-radius:var(--r);border:1px solid rgba(255,255,255,.1);
+background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.015) 55%,rgba(255,255,255,.045)),var(--gc);
+box-shadow:inset 0 1px 1px rgba(255,255,255,.16);transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease)}
+.card::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(320px circle at var(--mx,30%) var(--my,12%),rgba(240,215,140,.13),transparent 70%)}
+.card::before,.btn-s::before{content:'';position:absolute;inset:-2px;padding:2px;border-radius:calc(var(--r) + 2px);pointer-events:none;background:var(--ring);background-size:400%;filter:blur(3px);opacity:0;
+-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;transition:opacity .45s;animation:ring 18s linear infinite}
+.card>*{position:relative;z-index:1}
+.card:hover{transform:translateY(-6px);border-color:var(--bg-gold);box-shadow:0 18px 44px rgba(var(--sh),.6),var(--glow)}.card:hover::before{opacity:.85}
+@keyframes ring{50%{background-position:400% 0}}
+.badge{display:flex;align-items:center;justify-content:center;width:52px;height:52px;margin:0 auto 16px;background:var(--gd);border:1px solid var(--bg-gold);border-radius:12px;color:var(--gold)}.badge svg{width:22px;height:22px}
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto;z-index:var(--z-nav);background:linear-gradient(135deg,rgba(212,168,83,.1),rgba(3,7,18,.6) 55%,rgba(212,168,83,.08));border-bottom:1px solid rgba(212,168,83,.3);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);transition:background .4s}
+.nav.scrolled{background:linear-gradient(135deg,rgba(212,168,83,.12),rgba(3,7,18,.82) 55%,rgba(212,168,83,.09))}
+.nav-in{max-width:1200px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:14px;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.brand img{height:38px;width:auto;filter:brightness(0) invert(1) sepia(1) saturate(.4) hue-rotate(10deg) brightness(1.3)}
+.links{display:flex;align-items:center;gap:6px}
+.links a:not(.nav-btn){padding:8px 16px;border-radius:100px;font-size:13px;font-weight:600;color:#f4f7ff;text-shadow:0 1px 10px rgba(3,7,18,.9);transition:color .25s,background .25s}
+.links a:not(.nav-btn):hover,.links a.on{color:var(--gold2);background:var(--gd)}
+.toggle{display:none;width:42px;height:42px;align-items:center;justify-content:center;background:none;border:1px solid rgba(212,168,83,.4);border-radius:100px;color:var(--gold2);cursor:pointer}.toggle svg{width:20px;height:20px}
+
+/* buttons */
+.btn,.nav-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;font:600 14px/1 inherit;font-family:inherit;border-radius:100px;cursor:pointer;overflow:hidden;
+transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-color .25s,color .25s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.btn:active,.nav-btn:active,.tab:active{transform:scale(.98) translateY(1px)}.btn:disabled{opacity:.5;cursor:not-allowed}.btn svg{width:18px;height:18px}
+.btn-p{background:linear-gradient(135deg,rgba(212,168,83,.38),rgba(24,17,6,.55) 55%,rgba(212,168,83,.32));border:1px solid rgba(212,168,83,.55);color:#fff3d0;box-shadow:0 8px 28px rgba(212,168,83,.18),inset 0 1px 1px rgba(255,255,255,.32)}
+.btn-p:hover{transform:translateY(-2px);border-color:rgba(240,215,140,.75);box-shadow:0 12px 38px rgba(212,168,83,.3),inset 0 1px 1px rgba(255,255,255,.42)}
+.btn-s{overflow:visible;color:var(--white);border:1px solid rgba(212,168,83,.28);background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.015) 60%,rgba(212,168,83,.05));box-shadow:inset 0 1px 1px rgba(255,255,255,.2)}
+.btn-s::before{border-radius:100px;filter:blur(2.5px)}.btn-s:hover{color:var(--gold2);border-color:var(--gold)}.btn-s:hover::before{opacity:.9}
+.nav-btn{min-height:40px;padding:0 22px;font-size:13px;font-weight:700;background:rgba(6,11,26,.7);border:1px solid rgba(240,215,140,.75);color:#f6dc9e}.nav-btn:hover{color:#fff3d0;border-color:var(--gold2);box-shadow:0 10px 32px rgba(212,168,83,.3)}
+.link{display:inline-flex;align-items:center;gap:8px;padding:8px 2px;font-size:14px;font-weight:600;color:var(--gold2);border-bottom:1px solid transparent;transition:border-color .25s,gap .25s}.link:hover{border-color:var(--gold2);gap:12px}.link svg{width:16px;height:16px}
+
+/* hero */
+.hero{min-height:100dvh;display:flex;align-items:center;padding-top:80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40%;right:-15%;width:900px;height:900px;background:radial-gradient(circle,rgba(212,168,83,.07),transparent 60%);pointer-events:none}
+.hero-g{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;position:relative;z-index:2}
+.lead{max-width:60ch;margin-top:24px;font-size:17px;font-weight:300;line-height:1.8;color:var(--t2)}
+.chips,.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}.actions{gap:18px;margin-top:36px;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;background:rgba(15,23,42,.7);border:1px solid var(--bd);border-radius:100px;font-size:12px;font-weight:500;color:var(--t2)}.chip svg{width:15px;height:15px;color:var(--gold)}
+.hero-img{position:relative;border-radius:28px;overflow:hidden;margin-right:-48px;transform:translateY(24px);box-shadow:0 40px 80px rgba(var(--sh),.55)}
+.hero-img img{width:100%;height:520px;object-fit:cover}
+.live{position:absolute;left:24px;bottom:24px;display:flex;align-items:center;gap:10px;padding:12px 18px;background:rgba(3,7,18,.85);backdrop-filter:blur(12px);border:1px solid var(--bg-gold);border-radius:var(--rs);font-size:12px;font-weight:600}
+.live i{width:8px;height:8px;background:var(--gold);border-radius:50%;animation:pulse 2s ease-in-out infinite}@keyframes pulse{50%{opacity:.4;transform:scale(.8)}}
+
+/* stats, gallery, countdown */
+.stats{padding:80px 0}.stats-g{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.stat{text-align:center;padding:32px 20px}.stat b{display:block;font-size:40px;font-weight:800;line-height:1.1}.stat span{display:block;margin-top:8px;font-size:13px;font-weight:500;color:var(--t2)}
+.gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(120px,15vw,200px);gap:14px}
+.gal div{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--bd);transition:transform .35s var(--ease),border-color .35s}.gal div:hover{transform:translateY(-5px);border-color:var(--bg-gold)}
+.gal div:first-child{grid-column:span 2;grid-row:span 2;border-radius:24px}.gal img{width:100%;height:100%;object-fit:cover}
+.cd{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.cd p{margin-top:20px;color:var(--t2);max-width:60ch}
+.timer{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+.timer .card{text-align:center;padding:22px 10px}.timer b{display:block;font-size:36px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}.timer span{display:block;margin-top:8px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.cd-img{border-radius:24px;overflow:hidden;border:1px solid var(--bd)}.cd-img img{width:100%;height:400px;object-fit:cover}
+
+/* schedule */
+.tabs{display:flex;gap:12px;margin-bottom:40px}
+.tab{padding:13px 26px;background:var(--gc);border:1px solid var(--bd);border-radius:100px;font:600 13px/1.4 'Plus Jakarta Sans',sans-serif;color:var(--t2);cursor:pointer;transition:all .25s}
+.tab.on{background:var(--gg);color:#1a1207;border-color:var(--gold)}.tab:hover:not(.on){border-color:var(--bg-gold);color:var(--gold2)}
+.sched{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.sess{display:flex;gap:20px;padding:24px;border-radius:14px}
+.sess .t{min-width:80px;text-align:center;padding:12px;background:var(--gd);border:1px solid var(--bg-gold);border-radius:var(--rs);align-self:flex-start}
+.sess .t b{display:block;font-size:18px;font-weight:700;color:var(--gold2)}.sess .t span{font-size:10px;font-weight:600;text-transform:uppercase;color:var(--mut)}
+.sess h4{font-size:16px;font-weight:700;margin-bottom:6px}.sess p{font-size:13px;color:var(--t2);line-height:1.6}
+
+/* pricing */
+.pricing{position:relative;overflow:hidden}.pricing::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(500px circle at 10% 0,rgba(30,58,110,.4),transparent 70%),radial-gradient(420px circle at 95% 40%,rgba(212,168,83,.2),transparent 70%)}
+.pricing .wrap{position:relative}
+.pg{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:820px;margin:0 auto}
+.pc{position:relative;display:flex;flex-direction:column;padding:44px 36px 36px;background:var(--gc);border:1px solid var(--bd);border-radius:var(--r);backdrop-filter:blur(12px);box-shadow:0 20px 50px rgba(var(--sh),.35);transition:transform .35s var(--ease),border-color .35s,box-shadow .35s}
+.pc:hover{transform:translateY(-8px);border-color:var(--bg-gold)}.pc:not(.on){opacity:.9}
+.pc.on{border-color:var(--bg-gold);box-shadow:var(--glow),0 20px 60px rgba(var(--sh),.5)}.pc.on::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gg)}
+.best{position:absolute;top:16px;right:16px;padding:5px 10px;background:var(--gg);color:#1a1207;border-radius:6px;font-size:11px;font-weight:800}
+.tier{align-self:flex-start;padding:6px 12px;border-radius:6px;font-size:12px;font-weight:700;background:rgba(148,163,184,.08);color:var(--t2);border:1px solid var(--bd)}.pc.on .tier{background:var(--gd);color:var(--gold2);border-color:var(--bg-gold)}
+.price{margin-top:24px;font-size:50px;font-weight:800;line-height:1;letter-spacing:-.02em}.pc.on .price{background:var(--gg);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.note{margin-top:12px;font-size:14px;color:var(--mut)}
+.feat{margin:28px 0 32px;padding-top:28px;border-top:1px solid var(--bd);list-style:none}.feat li{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:14px;color:var(--t2)}.feat svg{width:16px;height:16px;color:var(--gold);flex-shrink:0}
+.pc .btn{margin-top:auto;width:100%}
+.pm{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;justify-content:center}.pm span{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;background:rgba(15,23,42,.7);border:1px solid var(--bd);border-radius:100px;font-size:12px;color:var(--t2)}.pm svg{width:16px;height:16px}
+
+/* benefits: asymmetric */
+.ben{display:grid;grid-template-columns:1.25fr 1fr;gap:24px}
+.ben .card{padding:36px 32px}.ben .badge{margin-inline:0}
+.ben h3{font-size:17px;font-weight:700;margin-bottom:10px}.ben p{font-size:14px;color:var(--t2)}
+.ben .card:first-child{grid-row:span 2;display:flex;flex-direction:column;min-height:360px;border-radius:28px}.ben .card:first-child .badge{margin-bottom:auto}
+.ben .card:first-child h3{font:700 clamp(28px,3vw,38px)/1.05 'Cormorant Garamond',Georgia,serif}
+
+/* registration */
+.reg{display:grid;grid-template-columns:5fr 7fr;gap:72px;align-items:start}
+.reg .sh{display:block;margin:0;position:sticky;top:120px}.reg .sh p{margin-top:20px;justify-self:auto}
+.form{padding:44px;background:var(--gc);border:1px solid var(--bd);border-radius:24px;backdrop-filter:blur(12px);box-shadow:0 24px 48px rgba(var(--sh),.35)}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.field label{display:block;margin-bottom:10px;font-size:13px;font-weight:600;color:var(--t2)}
+.field input{width:100%;min-height:52px;padding:0 18px;background:var(--bg);border:1px solid var(--bd);border-radius:100px;color:var(--white);font:inherit;font-size:15px;transition:border-color .25s,box-shadow .25s}
+.field input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gd)}.field input::placeholder{color:var(--mut)}.field input[aria-invalid=true]{border-color:#f87171}
+.err{display:block;margin-top:8px;padding-left:18px;font-size:13px;color:#fca5a5}
+.check{display:flex;align-items:center;gap:12px;margin-top:26px;padding:15px 20px;background:var(--gd);border:1px solid var(--bg-gold);border-radius:100px}.check input{width:20px;height:20px;accent-color:var(--gold)}.check label{font-size:14px;color:var(--t2);cursor:pointer}
+.form .btn{width:100%;margin-top:30px}.status{min-height:24px;margin-top:16px;font-size:14px;font-weight:500;color:var(--gold);text-align:center}
+
+/* payment + confirmation */
+.pay{display:grid;grid-template-columns:1fr 360px;gap:28px;max-width:900px;margin:0 auto;align-items:start}
+.co,.sum{padding:36px;background:var(--gc);border:1px solid var(--bd);border-radius:var(--r)}.sum{border-color:var(--bg-gold);box-shadow:var(--glow)}
+.co h3{font-size:22px;margin-bottom:12px}.co>p{color:var(--t2);margin-bottom:26px}.co .acts{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.sum h3{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:18px}.sum div{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid var(--bd)}.sum div:last-child{border:0}
+.sum dt{font-size:13px;color:var(--mut)}.sum dd{font-weight:600;text-align:right;word-break:break-all}
+.skel{height:14px;width:60%;margin-top:18px;border-radius:6px;background:linear-gradient(90deg,rgba(148,163,184,.08),rgba(148,163,184,.22),rgba(148,163,184,.08));background-size:200% 100%;animation:sh 1.4s linear infinite}@keyframes sh{to{background-position:-200% 0}}
+.pnote{margin-top:14px;font-size:13px;color:var(--mut)}
+.conf{text-align:center}.conf .ic{width:80px;height:80px;margin:0 auto 26px;display:flex;align-items:center;justify-content:center;background:var(--gd);border:2px solid var(--gold);border-radius:50%;color:var(--gold);animation:pop .5s var(--ease)}.conf .ic svg{width:36px;height:36px}@keyframes pop{from{transform:scale(0);opacity:0}}
+.conf .lead{margin-inline:auto}.conf .actions{justify-content:center}
+
+/* footer + floating timer */
+.footer{padding:56px 0 40px;text-align:center}.fb{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
+.fb img{height:28px;opacity:.7;filter:brightness(0) invert(1) sepia(1) saturate(.4) hue-rotate(10deg) brightness(1.3)}
+.footer p{font-size:13px;color:var(--mut)}.legal{display:flex;gap:24px;justify-content:center;margin-top:14px;font-size:13px}.legal a{color:var(--t2);transition:color .25s}.legal a:hover{color:var(--gold2)}
+.float{position:fixed;top:92px;right:22px;z-index:var(--z-float)}
+.fp{padding:14px 18px 12px;border-radius:18px;background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(212,168,83,.04));border:1px solid rgba(212,168,83,.22);box-shadow:0 14px 38px rgba(var(--sh),.4),inset 0 1px 1px rgba(255,255,255,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.fp small{display:block;margin-bottom:8px;font-size:11px;font-weight:700;color:var(--gold2)}.fu{display:flex;gap:10px}.fu div{min-width:46px;text-align:center}
+.fu b{display:block;font-size:20px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}.fu span{display:block;margin-top:4px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+.ftab{display:none}
+
+[data-r]:not(.in){opacity:0}[data-r].in{animation:up .7s var(--ease) var(--d,0ms) backwards}@keyframes up{from{opacity:0;transform:translateY(28px)}}
+
+@media (max-width:1024px){.hero-g,.cd,.sched{grid-template-columns:1fr}.hero-g{gap:40px}.hero-img{margin:0;transform:none;max-width:520px}.cd-img{display:none}.sh{grid-template-columns:1fr}.sh p{justify-self:start;margin-top:16px}}
+@media (max-width:900px){
+.nav-in{padding:14px 20px}.brand img{height:32px}.toggle{display:inline-flex}.links{display:none}
+.nav.open .links{display:flex;flex-direction:column;align-items:stretch;text-align:center;position:absolute;top:100%;left:0;right:0;padding:16px 20px 20px;background:rgba(3,7,18,.96);border-bottom:1px solid rgba(212,168,83,.3)}
+.stats-g{grid-template-columns:repeat(2,1fr)}.ben{grid-template-columns:1fr}.ben .card:first-child{grid-row:auto;min-height:0}
+.gal{grid-template-columns:repeat(2,1fr)}.gal div:first-child{grid-row:auto}.pay,.reg{grid-template-columns:1fr;gap:40px}.reg .sh{position:static}}
+@media (max-width:768px){
+.float{top:auto;bottom:16px;left:12px;right:12px}
+.ftab{display:inline-flex;align-items:center;gap:8px;float:right;padding:9px 14px;cursor:pointer;font:700 12px/1 'Plus Jakarta Sans',sans-serif;color:var(--gold2);background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(212,168,83,.06));border:1px solid rgba(212,168,83,.3);border-radius:100px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.ftab svg{width:16px;height:16px}
+.fp{position:absolute;left:0;right:0;bottom:calc(100% + 10px);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .3s,transform .3s}.float.open .fp{opacity:1;transform:none;pointer-events:auto}
+.fu{justify-content:space-between}.fu div{flex:1;min-width:0}}
+@media (max-width:680px){.section{padding:80px 0 96px}.wrap{padding:0 20px}.hero{padding:90px 0 60px;min-height:auto}h2{font-size:clamp(28px,7vw,40px)}
+.stat{padding:20px 12px}.stat b{font-size:28px}.timer{grid-template-columns:repeat(2,1fr)}.pg,.fg{grid-template-columns:1fr}.form{padding:26px 20px}.actions{flex-direction:column;align-items:stretch;text-align:center}.btn{width:100%}.tabs{flex-wrap:wrap}.co,.sum{padding:24px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}[data-r]:not(.in){opacity:1}}
+</style>
 </head>
 <body>
-<div class="lux-loader" id="luxLoader">
-  <div class="lux-loader-mark">
-    <svg class="ltb" viewBox="0 0 200 200" aria-hidden="true">
-      <g fill="none" stroke="#d4a853" stroke-width="15"><rect x="15" y="15" width="170" height="170"></rect></g>
-      <g transform-origin="center">
-        <rect fill="none" width="200" height="200"></rect>
-        <rect fill="#d4a853" x="15" y="15" width="170" height="170" transform-origin="100 100">
-          <animate attributeName="height" calcMode="spline" dur="2s" values="0;170;0" keySplines="0 0.5 .5 1;0 0.5 .5 1" repeatCount="indefinite"></animate>
-        </rect>
-        <animateTransform attributeName="transform" type="rotate" calcMode="discrete" dur="2s" values="0;0;180;180" repeatCount="indefinite"></animateTransform>
-      </g>
-    </svg>
-    <img src="careerLogoNew.png" alt="The Career Cafe" class="lux-loader-logo">
-  </div>
-  <span class="lux-loader-word">The Career Caf&eacute;</span>
+<a class="skip" href="#main">Skip to content</a>
+
+<svg aria-hidden="true" width="0" height="0" style="position:absolute">
+<symbol id="a" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+<symbol id="ck" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
+<symbol id="vd" viewBox="0 0 24 24"><path d="M15 10l4.5-2.3A1 1 0 0121 8.6v6.8a1 1 0 01-1.5.9L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></symbol>
+<symbol id="cp" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/></symbol>
+<symbol id="ly" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></symbol>
+<symbol id="us" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.9M16 3.1a4 4 0 010 7.8"/></symbol>
+<symbol id="gl" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 014 10 15 15 0 01-4 10 15 15 0 01-4-10 15 15 0 014-10z"/></symbol>
+<symbol id="bk" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></symbol>
+<symbol id="cd" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></symbol>
+<symbol id="ca" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+<symbol id="ck2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+<symbol id="mn" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+<symbol id="wa" viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.2L2 22l4.9-1.4A10 10 0 1012 2zm4.7 13.4c-.2.6-1.2 1.1-1.7 1.2-.4.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.6-1.1-4.3-3.8-4.4-4-.1-.2-1-1.3-1-2.5s.6-1.800.9-2c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.1.1.3 0 .5l-.3.4-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.100 1.500 1.800 1 .9 1.800 1.100 2.100 1.300.3.1.4.1.6-.1l.8-1c.2-.2.4-.2.6-.1l1.900.9c.3.1.5.2.5.3.1.1.1.6-.1 1.100z"/></symbol>
+</svg>
+
+<nav class="nav" id="nav" aria-label="Main"><div class="nav-in">
+<a class="brand" href="#landing"><img src="careerLogoNew.png" alt="" width="38" height="38"><span class="gt">The Career Café</span></a>
+<button class="toggle" id="toggle" type="button" aria-expanded="false" aria-controls="links" aria-label="Toggle menu"><svg class="i" aria-hidden="true"><use href="#mn"/></svg></button>
+<div class="links" id="links"><a href="#landing">Home</a><a href="#schedule">Schedule</a><a href="#pricing">Pricing</a><a href="#registration" class="nav-btn">Register now</a></div>
+</div></nav>
+
+<main id="main">
+<section class="hero" id="landing"><div class="wrap"><div class="hero-g">
+<div>
+<div class="eyebrow">Virtual masterclass</div>
+<h1>The Africa Future of Work <span class="gt">Reset</span></h1>
+<p class="lead">A two-day virtual masterclass for professionals, founders, and teams ready to lead the next cycle of work, skills, capital, and opportunity across Africa.</p>
+<div class="chips">
+<span class="chip"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#ca"/></svg>20-21 Aug 2026</span>
+<span class="chip"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#vd"/></svg>Virtual</span>
+<span class="chip"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#cp"/></svg>Executive briefings</span></div>
+<div class="actions">
+<a class="btn btn-p" href="#registration"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#a"/></svg>Register for the masterclass</a>
+<a class="link" href="#pricing">View pricing <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#a"/></svg></a></div>
 </div>
-<svg aria-hidden="true" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden">
-    <defs>
-      <filter id="lg-dist" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
-        <feImage x="0" y="0" width="100%" height="100%" result="MAP" preserveAspectRatio="xMidYMid slice" href="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAZABkAAD/2wCEAAQDAwMDAwQDAwQGBAMEBgcFBAQFBwgHBwcHBwgLCAkJCQkICwsMDAwMDAsNDQ4ODQ0SEhISEhQUFBQUFBQUFBQBBQUFCAgIEAsLEBQODg4UFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFP/CABEIAQABAAMBEQACEQEDEQH/xAAxAAEBAQEBAQAAAAAAAAAAAAADAgQIAQYBAQEBAQEBAQAAAAAAAAAAAAMCBAEACAf/2gAMAwEAAhADEAAAAPjPor6kOgOiKhKgKhKgOhKhOhKxKgKhOgKhKhKgKxOhKhOgKhKhKgKwKhKgKgKwG841nns9J/nn2KVCdCdCVAVCVCVAdCVCdiVAVidCVAVCVAdiVCVCdAVCVCVAVCVAVAViVZxsBrPPY6R/NvsY6E6ErEqAqE6ErAqE6E7E7ErA0ErArAqAqEuiVAXRLol0S6J0JUBWBUI0BXnG88djpH81+xjoToSoSoSoCoTsSoYQTsTsTQSsCsCsCsCsCoC6A0JeAuiXSLwn0SoioCoCoBsBrPFH0j+a/Yx0J0JUJUJ2BUMIR2MIRoBoJIBXnJAK840BUA0BdAegXhLpF4S8R+IuiVgVANAV546fSH5r9jHRHQFQlYxYnZQgnYwhQokgEgEmckzjecazlYD3OPQHoD0S8JcI/EXiPxF0SoSvONBFF0j+a/YxdI7EqA6KLGEKEKEGFI0AlA0AUzimYbzjecazjWce5w6BdEeCXhPhFwz8R+MuiVgVAdF0j+a/Yp0RUJ0MWUIUWUIUKUIJqBoArnJM4pmBMw3nCsw1mCs4+AegPBLxHwi4Z8KPGXSPojYH0ukfzX7FOiKhiyiylDiylDhBNRNQJAJcwpnBMopmC84XlCswdzj3OPQHwlwS8R8M+HHDPxl0ioDoukfzT7GOhOyiimzmzhDlShBNBNBJc4rmFMwJlBMwXlC82esoVmHucOgXgHxH4j4Zyccg/GfiOiKh6R/NPsY6GLOKObOUObOUI0KEAlEkzimYFygmUEyheXPeULzZ6yhWce5x8BeEuGfCj0HyI5EdM/EdD0h+a/Yx0U0cUflxNnNnCHCCdgSiSZgTMK5c6ZQvLnTLnvJnvKFZgrMHc5dAeiXijhn445E8g/RHTPpdI/mn2KdlFR5RzcTUTZxZwglYGgCmcEzAuUEyZ0y57yZ0yZ7yheUKzh3OPc5dEvEfij0RyI9E+iPGfT6T/NPsQ6OKiKmajy4ijmyOyKwNAFM4JlBMudMmdMue8mdMme8me8wVmGsw0A9A+kfjjxx6J9EememfT6W/MvsMqOamKiamKmKOKM7ErErErAUzAmYLyZ0y50yZ0yZkyZ7yBeULzBeYazl0T6R9KPRPYj0T2J9B9Ppj8x+wjo4qY7M9iKmKg6MrIrErALzBeYEyZ0y50yZkyZ7x50yheXPeUbzjWcqA6I+lHYnsT6J7E9iOx0z+YfYBUc1MdmexHZjsHRlRBRDYBecEzZ7yAmXNeTOmTOmPOmXOmULyjeYbzlYnQxRx057E9mexPYij6a/L/r86OOzPpjsR6Y7B9MqIaILDPYZ7zZ0y57y50yZ0x5kyAmXPeUEyjeYUznQnYnRTUTUT2JqJ7EUfTn5d9fFRx2Z9EdmPTHjLsF0h6I2OegzXmzJmzplz3lzJjzpkBMudMoplBM5JnOwOyiimzmomomonsHRdO/l318VFHYj0x6I9McgumXiHpDQ56DPebMmbNebMmXMmQEy50yguQEzCmYkA7GLGEKaObibiaOKOKPp38s+vCsj7EeiPTHIP0Hwx6ReMKDP0M95895syZ815cy5c6ZQTKCZRXMKZiQDQYQYsps5uJs5qIsjounvyz68KyLpx4z9Mcg+GXoLxl4g6IUGes+a8+e82ZM2dMuZMoJmBcwrlJM5IBoMKMoUWc2c3E0cWRUXT/wCV/XQ2R0RdiPQfDPkFwy9BeIOiHQz0Ges+a8+e82ZM2dMwLmBcwpmJc5qBoMIUIUoU2c2cWZ0R0PT/AOV/XQ2RUJdM+wfDL0Hwy5A+EfEHQz0AUGe8+dM2e82dcwJnFcwrnJc5IEKUIMIUoUWc2cWRUJ0PT/5V9dFYjZFRF0z8ZeM+QPDLxD4Q6OfoBQhefPeYEz50ziucUzCoEuclCEKFGUKEKLOLI7E6EqHqD8o+uhsRsisSoi6ZeM+QPiHhj0R8IUIdALALzgmcEzimcVAlzioGomgyhQgwhRZHZFQHQlQ9Qfk/10NiVkNiNiVGXiPxj4x8Q9IfCFCPRCwC84oA3nFQFM5KBKJIMKEIUWRoUUJWJUJ0BUPUH5L9dDZFYigjYjZHRF0x8Q9IvEHRHojQjQhecUAUAkEkziomgGgkoxZGgxZFQFQlYnQHRdPfj/10KCSCKESCNiVkViPSLpD0h6I0Q0I0A2IoBWBIJIBKBIJoJIJ2R2J0JWBUJ0JUB0XTv479dFZDYiglYigkhEgjZFQjRFQjRFQjQigFYigHYigmgEgmglYlYnQlQlYlQHQlQnQ9P/kf1yVkNiNCNkNiVENiNiViNEViNkVCVgKCViViViSCViSCVgdCViVCViVCdgVCVCdD1D+U/XBWQ2I0I2Q2JUQ2I0JWQ0I2JUQ2JUI2JUI2J0JWJWJWA2R0BWJ0I2JUJ2BUJUJ0P//EABkQAQEBAQEBAAAAAAAAAAAAAAECABEDEP/aAAgBAQABAgB1atWrVq1atWrVq1atWrVq1atWrVq1atWrVq+OrVq1atWrVq1atWrVq1atWrVq1atWrVq1atXxVppppppdWrVq1atWrVq1NNNNNNNNNNNPVWmmmmms6tWrVq1atWpppppppppppppp6q0000uc51atWrVq1ammmmmmmmmmmmmt1Vpppc5znVq1atWrVqaaaaaaaaaaaaaaaaaaaaaa5Vaaaaampqampqammmmmmmmmmmlaaaaaaiq0001NTU1NTU1NTTTTTTTTTTSqqtNNNcqtNNSyzU1LNTU1NTTTTTTTTTSqqq001ytNLLLLNTU1NTU1NTbbbTTTTTSqqq001ytNLLLLLNTU1NTU3NttttNNNNNKqq001KrSyyyyyzU1NTU3Nzc02220000qqqqrSqqyyyyyzU1NTU3Nzc3NttttNNNKqqqqqqssssss1NTU3Nzc3NzbbbbTTTSqqqqqqrLLLLLNTU1Nzc3Nzc22220000qqqqqqqqssss1NTU3Nzc3NzbbbbbTTSqqqqqqqqqqzU1NTc3Nzc3Nzbc22000qqqqqqqqqqqtTU3Nzc3Nzc3NtzbTTSqqqqrKqqqqqtNNzc23Nzc3Nzc3NTU1KqqqrKqqqqqtNNNNttzc3Nzc3NzU1NLLLLLKqqqqqqqq0022223Nzc3NzU1NSyyyyyyqqqqqqqrTTbbbbc3Nzc3NTU1LLLLLLKsqqqqqqrTTTTbbbc3Nzc1NTUsssssssqqqqqqrTTTTTbbbTc3NTU1NTUsssssqqqqqqqq0000222023NTU1NTUsssssqqqqqqqq000000003NTU1NTU1LLLLLNKrTSqqqqtNNNNNNtNNTU1NSzUssss00qq0qqqqrTTTTTTTTTU1NTUs1LLLNNNKrTTTSqqq00000000001NTU1LNTU0000qtNNNKqqqtNNNNNNNNTU1NTUs1NNNNNKss1NNNK00qtK0000001NNTU0s000000qq000001NKrStNNNNK1NNNNStNNNNNKqtNNNNNNNK0000000rU0000rTTTTTSq00000rTTTTTTTTTTTTTTTTStNNNNKr/xAAUEQEAAAAAAAAAAAAAAAAAAACg/9oACAEDAQM/AAAf/9k="></feImage>
-        <feColorMatrix in="MAP" type="matrix" values="0.3 0.3 0.3 0 0 0.3 0.3 0.3 0 0 0.3 0.3 0.3 0 0 0 0 0 1 0" result="EDGE_I"></feColorMatrix>
-        <feComponentTransfer in="EDGE_I" result="EDGE_MASK"><feFuncA type="discrete" tableValues="0 0.1 1"></feFuncA></feComponentTransfer>
-        <feOffset in="SourceGraphic" dx="0" dy="0" result="CENTER"></feOffset>
-        <feDisplacementMap in="SourceGraphic" in2="MAP" scale="-70" xChannelSelector="R" yChannelSelector="B" result="RED_D"></feDisplacementMap>
-        <feColorMatrix in="RED_D" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="RED_C"></feColorMatrix>
-        <feDisplacementMap in="SourceGraphic" in2="MAP" scale="-77" xChannelSelector="R" yChannelSelector="B" result="GREEN_D"></feDisplacementMap>
-        <feColorMatrix in="GREEN_D" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="GREEN_C"></feColorMatrix>
-        <feDisplacementMap in="SourceGraphic" in2="MAP" scale="-84" xChannelSelector="R" yChannelSelector="B" result="BLUE_D"></feDisplacementMap>
-        <feColorMatrix in="BLUE_D" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="BLUE_C"></feColorMatrix>
-        <feBlend in="GREEN_C" in2="BLUE_C" mode="screen" result="GB"></feBlend>
-        <feBlend in="RED_C" in2="GB" mode="screen" result="RGB"></feBlend>
-        <feGaussianBlur in="RGB" stdDeviation="0.3" result="ABERR"></feGaussianBlur>
-        <feComposite in="ABERR" in2="EDGE_MASK" operator="in" result="EDGE_ABERR"></feComposite>
-        <feComponentTransfer in="EDGE_MASK" result="INV"><feFuncA type="table" tableValues="1 0"></feFuncA></feComponentTransfer>
-        <feComposite in="CENTER" in2="INV" operator="in" result="CENTER_CLEAN"></feComposite>
-        <feComposite in="EDGE_ABERR" in2="CENTER_CLEAN" operator="over"></feComposite>
-      </filter>
-    </defs>
-  </svg>
+<div class="hero-img"><img src="images/345A4619.jpg" alt="Attendees at a Career Café event" width="800" height="520" fetchpriority="high"><div class="live"><i></i>Registrations open</div></div>
+</div></div></section>
 
-  <!-- Navigation -->
-  <nav class="nav">
-    <span class="lg-warp" aria-hidden="true"></span>
-    <div class="nav-inner">
-      <div class="brand">
-        <img src="careerLogoNew.png" alt="The Career Café" class="brand-logo">
-        <span class="brand-text">The Career Café</span>
-      </div>
-      <div class="nav-links">
-        <span class="nav-blob" aria-hidden="true"></span>
-        <a href="#landing">Home</a>
-        <a href="#schedule">Schedule</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#registration" class="nav-btn">Register Now</a>
-      </div>
-    </div>
-  </nav>
+<section class="stats"><div class="wrap"><div class="stats-g">
+<div class="card stat"><div class="badge"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#us"/></svg></div><b class="gt">10+</b><span>Expert speakers</span></div>
+<div class="card stat"><div class="badge"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#vd"/></svg></div><b class="gt">2</b><span>Days of sessions</span></div>
+<div class="card stat"><div class="badge"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#ly"/></svg></div><b class="gt">8+</b><span>Key topics</span></div>
+<div class="card stat"><div class="badge"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#gl"/></svg></div><b class="gt">Pan-African</b><span>Reach</span></div>
+</div></div></section>
 
-  <!-- Hero — Split layout -->
-  <section class="hero" id="landing">
-    <div class="wrap">
-      <div class="hero-grid">
-        <div class="hero-content">
-          <div class="eyebrow">
-            <span class="eyebrow-line"></span>
-            <span>Virtual Masterclass</span>
-          </div>
-          <h1>The Africa Future of Work <span class="highlight">Reset</span></h1>
-          <p class="hero-description">A two-day virtual masterclass for professionals, founders, and teams ready to lead the next cycle of work, skills, capital, and opportunity across Africa.</p>
-          <div class="hero-meta">
-            <span class="meta-chip">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M8 7v0M16 7v0M2 11h20"/></svg>
-              20–21 Aug 2026
-            </span>
-            <span class="meta-chip">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>
-              Virtual
-            </span>
-            <span class="meta-chip">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
-              Executive Briefings
-            </span>
-          </div>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#registration">
-              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              Register for the Masterclass
-            </a>
-            <a class="btn btn-secondary" href="#pricing">View Pricing</a>
-          </div>
-        </div>
-        <div class="hero-image">
-          <img src="images/345A4619.jpg" alt="Africa Future of Work Reset — Career Café event">
-          <div class="hero-image-badge">
-            <div class="dot"></div>
-            <span>Registrations Open</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<section class="section"><div class="wrap">
+<div class="sh"><div class="eyebrow">Past events</div><h2>Our community in action</h2></div>
+<div class="gal">
+<div><img loading="lazy" width="800" height="600" src="images/345A4562.jpg" alt="Career Café past event, photo 1"></div>
+<div><img loading="lazy" width="400" height="300" src="images/8Z9A1676.jpg" alt="Career Café past event, photo 2"></div>
+<div><img loading="lazy" width="400" height="300" src="images/345A4690.jpg" alt="Career Café past event, photo 3"></div>
+<div><img loading="lazy" width="400" height="300" src="images/8Z9A1595.jpg" alt="Career Café past event, photo 4"></div>
+<div><img loading="lazy" width="400" height="300" src="images/345A4675.jpg" alt="Career Café past event, photo 5"></div>
+</div></div></section>
 
-  <!-- Stats -->
-  <section class="stats-section">
-    <div class="wrap">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
-          <div class="stat-number">10+</div>
-          <div class="stat-label">Expert Speakers</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg></div>
-          <div class="stat-number">2</div>
-          <div class="stat-label">Days of Sessions</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-          <div class="stat-number">8+</div>
-          <div class="stat-label">Key Topics</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
-          <div class="stat-number">Pan-African</div>
-          <div class="stat-label">Reach</div>
-        </div>
-      </div>
-    </div>
-  </section>
+<section class="section"><div class="wrap"><div class="cd">
+<div><div class="eyebrow">Mark your calendar</div><h2 id="cdt">The masterclass begins in</h2>
+<p>Two days of executive briefings, panels, and hands-on sessions built to give Africa's professionals the skills, networks, and mindset for the future of work.</p>
+<div class="timer" role="timer" aria-label="Countdown to the masterclass">
+<div class="card"><b class="gt" id="cd-days">00</b><span>Days</span></div><div class="card"><b class="gt" id="cd-hours">00</b><span>Hours</span></div>
+<div class="card"><b class="gt" id="cd-minutes">00</b><span>Minutes</span></div><div class="card"><b class="gt" id="cd-seconds">00</b><span>Seconds</span></div></div></div>
+<div class="cd-img"><img loading="lazy" width="800" height="400" src="images/8Z9A1740.jpg" alt="Speaker addressing a Career Café audience"></div>
+</div></div></section>
 
-  <!-- Photo Gallery -->
-  <section class="gallery-section">
-    <div class="wrap">
-      <div class="section-header" style="margin-bottom:40px">
-        <div class="eyebrow"><span class="eyebrow-line"></span><span>Past Events</span></div>
-        <h2>Our Community in Action</h2>
-      </div>
-      <div class="gallery-grid">
-        <div class="gallery-item"><img src="images/345A4562.jpg" alt="Career Café event"></div>
-        <div class="gallery-item"><img src="images/8Z9A1676.jpg" alt="Career Café event"></div>
-        <div class="gallery-item"><img src="images/345A4690.jpg" alt="Career Café event"></div>
-        <div class="gallery-item"><img src="images/8Z9A1595.jpg" alt="Career Café event"></div>
-        <div class="gallery-item"><img src="images/345A4675.jpg" alt="Career Café event"></div>
-      </div>
-    </div>
-  </section>
+<section class="section" id="schedule"><div class="wrap">
+<div class="sh"><div class="eyebrow">Programme</div><h2>Masterclass schedule</h2><p>Two days of keynotes, panels and workshops.</p></div>
+<div class="tabs" role="tablist" aria-label="Schedule days">
+<button class="tab on" role="tab" id="tab1" aria-selected="true" aria-controls="day1" data-day="1" type="button">Day 1 | 20 August 2026</button>
+<button class="tab" role="tab" id="tab2" aria-selected="false" aria-controls="day2" data-day="2" type="button">Day 2 | 21 August 2026</button></div>
+<div class="sched" id="day1" role="tabpanel" aria-labelledby="tab1"></div>
+<div class="sched hidden" id="day2" role="tabpanel" aria-labelledby="tab2"></div>
+</div></section>
 
-  <!-- Countdown -->
-  <section class="countdown-section">
-    <div class="wrap">
-      <div class="countdown-grid">
-        <div class="countdown-content">
-          <div class="eyebrow"><span class="eyebrow-line"></span><span>Mark Your Calendar</span></div>
-          <h2>The Masterclass Begins In</h2>
-          <p>Two days of executive briefings, panels, and hands-on sessions designed to equip Africa's professionals with the skills, networks, and mindsets needed for the future of work.</p>
-          <div class="countdown-timer">
-            <div class="countdown-item"><div class="number" id="cd-days">00</div><div class="label">Days</div></div>
-            <div class="countdown-item"><div class="number" id="cd-hours">00</div><div class="label">Hours</div></div>
-            <div class="countdown-item"><div class="number" id="cd-minutes">00</div><div class="label">Minutes</div></div>
-            <div class="countdown-item"><div class="number" id="cd-seconds">00</div><div class="label">Seconds</div></div>
-          </div>
-        </div>
-        <div class="countdown-image">
-          <img src="images/8Z9A1740.jpg" alt="Career Café Event">
-        </div>
-      </div>
-    </div>
-  </section>
+<section class="section pricing" id="pricing"><div class="wrap">
+<div class="sh"><div class="eyebrow">Investment</div><h2>Choose your ticket</h2><p>Secure your spot at the masterclass shaping Africa's professional future.</p></div>
+<div class="pg" id="pg"></div>
+<div class="pm"><span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#cd"/></svg>M-PESA</span><span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#cd"/></svg>Card payment</span><span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#cd"/></svg>Flutterwave / Paystack</span></div>
+</div></section>
 
-  <!-- Schedule -->
-  <section class="section schedule-section" id="schedule">
-    <div class="wrap">
-      <div class="section-header">
-        <div class="eyebrow"><span class="eyebrow-line"></span><span>Programme</span></div>
-        <h2>Masterclass Schedule</h2>
-        <p class="section-subtitle">Two days of transformative sessions and executive insights.</p>
-      </div>
-      <div class="schedule-tabs">
-        <div class="schedule-tab active" data-day="1"><span>Day 1</span> — 20 August 2026</div>
-        <div class="schedule-tab" data-day="2"><span>Day 2</span> — 21 August 2026</div>
-      </div>
-      <div class="schedule-grid" id="scheduleDay1">
-        <div class="schedule-item">
-          <div class="schedule-time"><div class="hour">9:00</div><div class="period">AM EAT</div></div>
-          <div class="schedule-info"><h4>Opening Keynote: The Africa Work Reset</h4><p>Setting the stage — why the continent's workforce must evolve now.</p></div>
-        </div>
-        <div class="schedule-item">
-          <div class="schedule-time"><div class="hour">10:30</div><div class="period">AM EAT</div></div>
-          <div class="schedule-info"><h4>Future Skills & Digital Fluency</h4><p>The top skills shaping employability in 2027 and beyond.</p></div>
-        </div>
-        <div class="schedule-item">
-          <div class="schedule-time"><div class="hour">1:00</div><div class="period">PM EAT</div></div>
-          <div class="schedule-info"><h4>Panel: Capital, Innovation & Opportunity</h4><p>How funding flows are reshaping African career paths.</p></div>
-        </div>
-        <div class="schedule-item">
-          <div class="schedule-time"><div class="hour">3:00</div><div class="period">PM EAT</div></div>
-          <div class="schedule-info"><h4>Workshop: Personal Brand Strategy</h4><p>Build a professional presence that attracts global opportunities.</p></div>
-        </div>
-      </div>
-      <div class="schedule-grid hidden" id="scheduleDay2">
-        <div class="schedule-item">
-          <div class="schedule-time"><div class="hour">9:00</div><div class="period">AM EAT</div></div>
-          <div class="schedule-info"><h4>Remote Work & Global Teams</h4><p>Navigating cross-border employment and distributed teams.</p></div>
-        </div>
-        <div class="schedule-item">
-          <div class="schedule-time"><div class="hour">10:30</div><div class="period">AM EAT</div></div>
-          <div class="schedule-info"><h4>AI in the African Workplace</h4><p>Practical applications and ethical considerations for professionals.</p></div>
-        </div>
-        <div class="schedule-item">
-          <div class="schedule-time"><div class="hour">1:00</div><div class="period">PM EAT</div></div>
-          <div class="schedule-info"><h4>Panel: Entrepreneurship vs Employment</h4><p>Charting your path — when to build and when to join.</p></div>
-        </div>
-        <div class="schedule-item">
-          <div class="schedule-time"><div class="hour">3:00</div><div class="period">PM EAT</div></div>
-          <div class="schedule-info"><h4>Closing: Action Plan & Community Launch</h4><p>Leave with a concrete roadmap and join the alumni network.</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
+<section class="section"><div class="wrap">
+<div class="sh"><div class="eyebrow">What you receive</div><h2>What your ticket includes</h2></div>
+<div class="ben">
+<div class="card"><div class="badge"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#vd"/></svg></div><h3>2-day virtual masterclass</h3><p>Full access to both days of live sessions, panels, and executive briefings.</p></div>
+<div class="card"><div class="badge"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#bk"/></svg></div><h3>Certificate of Training</h3><p>A verifiable certificate recognising your participation and professional development.</p></div>
+<div class="card"><div class="badge"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#ly"/></svg></div><h3>Future of work resources</h3><p>Curated insights, frameworks, and updates on Africa's evolving work landscape.</p></div>
+</div></div></section>
 
-  <!-- Pricing -->
-  <section class="section pricing-section" id="pricing">
-    <div class="lux-water" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
-    <div class="wrap">
-      <div class="section-header">
-        <div class="eyebrow"><span class="eyebrow-line"></span><span>Investment</span></div>
-        <h2>Choose Your Ticket</h2>
-        <p class="section-subtitle">Secure your spot at the masterclass shaping Africa's professional future.</p>
-      </div>
-      <div class="pricing-grid" aria-label="Pricing tiers">
-        <div class="glow-wrap">
-        <article class="pricing-card" id="earlyBirdCard">
-          <span class="lg-warp" aria-hidden="true"></span>
-          <span class="lux-scan" aria-hidden="true"></span>
-          <span class="best-offer-badge">Best Value</span>
-          <span class="tier-badge gold">Early Bird</span>
-          <div class="price-amount">KES 6,500</div>
-          <p class="price-note">Available through 31 July 2026</p>
-          <ul class="pricing-features">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Full 2-day access</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Certificate of Training</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Resource pack</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Community access</li>
-          </ul>
-        </article>
-        </div>
-        <div class="glow-wrap">
-        <article class="pricing-card" id="standardCard">
-          <span class="lg-warp" aria-hidden="true"></span>
-          <span class="lux-scan" aria-hidden="true"></span>
-          <span class="tier-badge neutral">Standard</span>
-          <div class="price-amount">KES 8,500</div>
-          <p class="price-note">Applies after early-bird window closes</p>
-          <ul class="pricing-features">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Full 2-day access</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Certificate of Training</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Resource pack</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Community access</li>
-          </ul>
-        </article>
-        </div>
-      </div>
-      <div class="payment-methods">
-        <span class="payment-method"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg> M-PESA</span>
-        <span class="payment-method"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg> Card Payment</span>
-        <span class="payment-method"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg> Flutterwave / Paystack</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- What You Get -->
-  <section class="section benefits-section">
-    <div class="wrap">
-      <div class="section-header">
-        <div class="eyebrow"><span class="eyebrow-line"></span><span>What You Receive</span></div>
-        <h2>Your Masterclass Includes</h2>
-      </div>
-      <div class="benefits-grid">
-        <div class="benefit-card">
-          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg></div>
-          <h3>2-Day Virtual Masterclass</h3>
-          <p>Full access to both days of live sessions, panels, and executive briefings.</p>
-        </div>
-        <div class="benefit-card">
-          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
-          <h3>Certificate of Training</h3>
-          <p>A verifiable certificate recognising your participation and professional development.</p>
-        </div>
-        <div class="benefit-card">
-          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-          <h3>Future of Work Resources</h3>
-          <p>Curated insights, frameworks, and updates on Africa's evolving work landscape.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Registration Form -->
-  <section class="section registration-section" id="registration">
-    <div class="wrap">
-      <div class="section-header">
-        <div class="eyebrow"><span class="eyebrow-line"></span><span>Registration</span></div>
-        <h2>Reserve Your Access</h2>
-        <p class="section-subtitle">Complete the form below to begin your registration.</p>
-      </div>
-      <form class="form-wrapper" id="registrationForm">
-        <div class="field-grid">
-          <div class="field"><label for="fullName">Full Name</label><input id="fullName" name="fullName" autocomplete="name" placeholder="Your full name" required></div>
-          <div class="field"><label for="email">Email Address</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required></div>
-          <div class="field"><label for="phone">Phone Number</label><input id="phone" name="phone" autocomplete="tel" placeholder="+254 700 000 000" required></div>
-          <div class="field"><label for="professionIndustry">Profession / Industry</label><input id="professionIndustry" name="professionIndustry" placeholder="e.g. Finance, Technology" required></div>
-        </div>
-        <div class="check-row">
-          <input id="subscribeNewsletter" name="subscribeNewsletter" type="checkbox">
-          <label for="subscribeNewsletter">Subscribe to The Career Café LinkedIn Newsletter</label>
-        </div>
-        <div class="form-actions">
-          <button class="btn btn-primary" type="submit" id="submitRegistration">
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            Continue to Payment
-          </button>
-        </div>
-        <div class="status-line" id="registrationStatus" role="status"></div>
-      </form>
-    </div>
-  </section>
-
-  <!-- Payment -->
-  <section class="section payment-section hidden" id="payment">
-    <div class="wrap">
-      <div class="section-header">
-        <div class="eyebrow"><span class="eyebrow-line"></span><span>Payment</span></div>
-        <h2>Complete Your Registration</h2>
-      </div>
-      <div class="payment-layout">
-        <div class="checkout-card">
-          <h3>Secure Checkout</h3>
-          <p class="checkout-description">Click below to open the PesaPal payment page. This page will automatically detect when payment is complete.</p>
-          <div class="checkout-actions">
-            <a class="btn btn-primary" id="payNow" href="#" target="_blank" rel="noopener">Open PesaPal Payment</a>
-            <button class="btn btn-secondary" type="button" id="checkStatus">Check Status</button>
-          </div>
-          <div class="spinner hidden" id="paymentSpinner" aria-label="Waiting for confirmation"></div>
-          <p class="payment-note" id="paymentMessage">Waiting for payment confirmation…</p>
-        </div>
-        <aside class="order-summary">
-          <h3>Order Summary</h3>
-          <div class="summary-row"><span class="summary-label">Tier</span><span class="summary-value" id="selectedTier">Early Bird</span></div>
-          <div class="summary-row"><span class="summary-label">Amount</span><span class="summary-value" id="selectedAmount">KES 6,500</span></div>
-          <div class="summary-row"><span class="summary-label">Tracking ID</span><span class="summary-value" id="trackingId">Pending</span></div>
-        </aside>
-      </div>
-    </div>
-  </section>
-
-  <!-- Confirmation -->
-  <section class="section confirmation-section hidden" id="confirmation">
-    <div class="wrap">
-      <div class="confirmation-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></div>
-      <h2>Your Spot is Confirmed</h2>
-      <p class="hero-description">Payment received for The Africa Future of Work Reset. Welcome to the community — join other participants and add the event to your calendar.</p>
-      <div class="confirmation-actions">
-        <a class="btn btn-primary" href="https://wa.me/254700000000" target="_blank" rel="noopener">
-          <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
-          Join WhatsApp Community
-        </a>
-        <button class="btn btn-secondary" type="button" id="addCalendar">
-          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-          Add to Calendar
-        </button>
-        <a class="btn btn-secondary" id="googleCalendar" target="_blank" rel="noopener">
-          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          Google Calendar
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="wrap">
-      <div class="footer-brand">
-        <img src="careerLogoNew.png" alt="The Career Café">
-        <span>The Career Café</span>
-      </div>
-      <p>&copy; 2026 The Career Café. All rights reserved.</p>
-    </div>
-  </footer>
-
-<div class="lux-timer" id="luxTimer">
-  <button class="lux-timer-tab" id="luxTimerTab" type="button" aria-expanded="false" aria-controls="luxTimerPanel" aria-label="Show countdown">
-    <svg class="lux-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-      <circle cx="12" cy="12" r="9"></circle>
-      <line class="hand-h" x1="12" y1="12" x2="12" y2="7.6"></line>
-      <line class="hand-m" x1="12" y1="12" x2="12" y2="5.8"></line>
-    </svg>
-    <span id="luxTabDays">00d</span>
-  </button>
-  <div class="lux-timer-panel" id="luxTimerPanel">
-    <span class="lg-warp" aria-hidden="true"></span>
-    <span class="lux-timer-title">Masterclass begins in</span>
-    <div class="lux-timer-units">
-      <div class="lux-u"><b id="fcd-days">00</b><span>Days</span></div>
-      <div class="lux-u"><b id="fcd-hours">00</b><span>Hrs</span></div>
-      <div class="lux-u"><b id="fcd-minutes">00</b><span>Min</span></div>
-      <div class="lux-u"><b id="fcd-seconds">00</b><span>Sec</span></div>
-    </div>
-  </div>
+<section class="section" id="registration"><div class="wrap"><div class="reg">
+<div class="sh"><div class="eyebrow">Registration</div><h2>Reserve your access</h2><p>Complete the form to begin your registration.</p></div>
+<form class="form" id="form" novalidate>
+<div class="fg">
+<div class="field"><label for="fullName">Full name</label><input id="fullName" name="fullName" autocomplete="name" placeholder="Your full name" required><span class="err" role="alert"></span></div>
+<div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required><span class="err" role="alert"></span></div>
+<div class="field"><label for="phone">Phone number</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+254 700 000 000" required><span class="err" role="alert"></span></div>
+<div class="field"><label for="professionIndustry">Profession / industry</label><input id="professionIndustry" name="professionIndustry" placeholder="e.g. Finance, Technology" required><span class="err" role="alert"></span></div>
 </div>
-  <script>
-    const API_BASE = window.CAREER_CAFE_API_BASE || '';
-    const EARLY_BIRD_CUTOFF = new Date('2026-07-31T23:59:59+03:00');
-    const EVENT_DATE = new Date('2026-08-20T09:00:00+03:00');
-    const eventStartUtc = '20260820T060000Z';
-    const eventEndUtc = '20260821T140000Z';
-    const state = { trackingId: null, redirectUrl: null, pollTimer: null };
+<div class="check"><input id="news" name="subscribeNewsletter" type="checkbox"><label for="news">Subscribe to The Career Café LinkedIn Newsletter</label></div>
+<button class="btn btn-p" type="submit" id="submit"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#a"/></svg>Continue to payment</button>
+<div class="status" id="status" role="status"></div>
+</form>
+</div></div></section>
 
-    const els = {
-      earlyBirdCard: document.getElementById('earlyBirdCard'),
-      standardCard: document.getElementById('standardCard'),
-      form: document.getElementById('registrationForm'),
-      submit: document.getElementById('submitRegistration'),
-      registrationStatus: document.getElementById('registrationStatus'),
-      payment: document.getElementById('payment'),
-      confirmation: document.getElementById('confirmation'),
-      payNow: document.getElementById('payNow'),
-      checkStatus: document.getElementById('checkStatus'),
-      spinner: document.getElementById('paymentSpinner'),
-      paymentMessage: document.getElementById('paymentMessage'),
-      selectedTier: document.getElementById('selectedTier'),
-      selectedAmount: document.getElementById('selectedAmount'),
-      trackingId: document.getElementById('trackingId'),
-      addCalendar: document.getElementById('addCalendar'),
-      googleCalendar: document.getElementById('googleCalendar')
-    };
+<section class="section hidden" id="payment"><div class="wrap">
+<div class="sh center"><div class="eyebrow">Payment</div><h2>Complete your registration</h2></div>
+<div class="pay">
+<div class="co"><h3>Secure checkout</h3><p>Open the PesaPal payment page below. This page detects when payment is complete.</p>
+<div class="acts"><a class="btn btn-p" id="payNow" href="#">Continue to PesaPal</a><button class="btn btn-s" type="button" id="check">Check status</button><a class="link" href="#registration">Back to your details</a></div>
+<div class="skel hidden" id="skel" aria-hidden="true"></div>
+<p class="pnote" id="pmsg" role="status">Waiting for payment confirmation…</p></div>
+<aside class="sum"><h3>Order summary</h3><dl>
+<div><dt>Tier</dt><dd id="selTier">Early Bird</dd></div><div><dt>Amount</dt><dd id="selAmt">KES 6,500</dd></div><div><dt>Tracking ID</dt><dd id="trk">Pending</dd></div></dl></aside>
+</div></div></section>
 
-    // Countdown timer
-    function updateCountdown() {
-      const now = new Date();
-      const diff = EVENT_DATE - now;
-      if (diff <= 0) {
-        document.getElementById('cd-days').textContent = '00';
-        document.getElementById('cd-hours').textContent = '00';
-        document.getElementById('cd-minutes').textContent = '00';
-        document.getElementById('cd-seconds').textContent = '00';
-        return;
-      }
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
-      document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
-      document.getElementById('cd-minutes').textContent = String(minutes).padStart(2, '0');
-      document.getElementById('cd-seconds').textContent = String(seconds).padStart(2, '0');
-    }
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
+<section class="section conf hidden" id="confirmation"><div class="wrap">
+<div class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#ck"/></svg></div>
+<h2>Your spot is confirmed</h2>
+<p class="lead">Payment received for The Africa Future of Work Reset. Join other participants and add the event to your calendar.</p>
+<div class="actions">
+<a class="btn btn-p" id="wa" target="_blank" rel="noopener"><svg class="i-fill" viewBox="0 0 24 24" aria-hidden="true"><use href="#wa"/></svg>Join WhatsApp community</a>
+<button class="btn btn-s" type="button" id="ics"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#ca"/></svg>Add to calendar</button>
+<a class="btn btn-s" id="gcal" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#ck2"/></svg>Google Calendar</a></div>
+</div></section>
+</main>
 
-    // Schedule tabs
-    document.querySelectorAll('.schedule-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.schedule-tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        const day = tab.dataset.day;
-        document.getElementById('scheduleDay1').classList.toggle('hidden', day !== '1');
-        document.getElementById('scheduleDay2').classList.toggle('hidden', day !== '2');
-      });
-    });
+<footer class="footer"><div class="wrap">
+<div class="fb"><img src="careerLogoNew.png" alt="" width="28" height="28" loading="lazy"><span>The Career Café</span></div>
+<p>&copy; 2026 The Career Café. All rights reserved.</p>
+<nav class="legal" aria-label="Legal"><a href="privacy.html">Privacy policy</a><a href="terms.html">Terms of service</a></nav>
+</div></footer>
 
-    function selectedTier() {
-      return new Date() <= EARLY_BIRD_CUTOFF
-        ? { code: 'EARLY_BIRD', label: 'Early Bird', amount: 'KES 6,500' }
-        : { code: 'STANDARD', label: 'Standard', amount: 'KES 8,500' };
-    }
+<div class="float" id="float">
+<button class="ftab" id="ftab" type="button" aria-expanded="false" aria-controls="fp" aria-label="Show countdown"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#ck2"/></svg><span id="fdays">00d</span></button>
+<div class="fp" id="fp"><small>Masterclass begins in</small><div class="fu">
+<div><b id="fcd-days">00</b><span>Days</span></div><div><b id="fcd-hours">00</b><span>Hrs</span></div><div><b id="fcd-minutes">00</b><span>Min</span></div><div><b id="fcd-seconds">00</b><span>Sec</span></div></div></div>
+</div>
 
-    function updatePricingDisplay() {
-      const tier = selectedTier();
-      els.earlyBirdCard.classList.toggle('active', tier.code === 'EARLY_BIRD');
-      els.standardCard.classList.toggle('active', tier.code === 'STANDARD');
-      els.selectedTier.textContent = tier.label;
-      els.selectedAmount.textContent = tier.amount;
-    }
+<script>
+/* ===== Config: edit content here ===== */
+const CONFIG={
+apiBase:window.CAREER_CAFE_API_BASE||'https://careercafe-backend-j998.onrender.com',
+whatsapp:'', // TODO: real invite link; button stays hidden while empty
+key:'careerCafeMasterclassCheckout',
+earlyCutoff:'2026-07-31T23:59:59+03:00',
+days:[{s:'2026-08-20T09:00:00+03:00',e:'2026-08-20T17:00:00+03:00'},{s:'2026-08-21T09:00:00+03:00',e:'2026-08-21T17:00:00+03:00'}],
+tiers:[{code:'EARLY_BIRD',label:'Early Bird',amount:6500,badge:'Best Value',note:'Available through 31 July 2026'},
+{code:'STANDARD',label:'Standard',amount:8500,note:'Applies after early-bird window closes'}],
+features:['Full 2-day access','Certificate of Training','Resource pack','Community access'],
+schedule:[[
+['9:00','AM','Opening Keynote: The Africa Work Reset',"Setting the stage: why the continent's workforce must evolve now."],
+['10:30','AM','Future Skills & Digital Fluency','The top skills shaping employability in 2027 and beyond.'],
+['1:00','PM','Panel: Capital, Innovation & Opportunity','How funding flows are reshaping African career paths.'],
+['3:00','PM','Workshop: Personal Brand Strategy','Build a professional presence that attracts global opportunities.']],[
+['9:00','AM','Remote Work & Global Teams','Navigating cross-border employment and distributed teams.'],
+['10:30','AM','AI in the African Workplace','Practical applications and ethical considerations for professionals.'],
+['1:00','PM','Panel: Entrepreneurship vs Employment','Charting your path: when to build and when to join.'],
+['3:00','PM','Closing: Action Plan & Community Launch','Leave with a concrete roadmap and join the alumni network.']]]};
 
-    async function register(payload) {
-      const response = await fetch(`${API_BASE}/api/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      if (!response.ok) {
-        const error = await response.json().catch(() => ({}));
-        throw new Error(error.message || 'Registration could not be completed.');
-      }
-      return response.json();
-    }
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const kes=n=>'KES '+Number(n).toLocaleString('en-KE');
+const https=u=>{try{return new URL(u).protocol==='https:'}catch{return false}};
+const EARLY=new Date(CONFIG.earlyCutoff),START=new Date(CONFIG.days[0].s),END=new Date(CONFIG.days.at(-1).e);
+const S={id:null,url:null,timer:null,until:0};
 
-    async function fetchStatus() {
-      if (!state.trackingId) return;
-      const response = await fetch(`${API_BASE}/api/register/status/${encodeURIComponent(state.trackingId)}`);
-      if (!response.ok) return;
-      const data = await response.json();
-      const status = (data.paymentStatus || '').toUpperCase();
-      els.paymentMessage.textContent = data.paymentStatusDescription || `Payment status: ${status || 'PENDING'}`;
-      if (status === 'COMPLETED') showConfirmation();
-    }
+/* render schedule + pricing */
+CONFIG.schedule.forEach((day,i)=>day.forEach(([t,p,h,d])=>{
+ const n=document.createElement('div');n.className='card sess';
+ n.innerHTML=`<div class="t"><b>${esc(t)}</b><span>${esc(p)} EAT</span></div><div><h4>${esc(h)}</h4><p>${esc(d)}</p></div>`;
+ $('day'+(i+1)).appendChild(n)}));
+const ck='<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#ck"/></svg>';
+CONFIG.tiers.forEach(t=>{
+ const n=document.createElement('article');n.className='pc';n.id='tier-'+t.code;
+ n.innerHTML=(t.badge?`<span class="best">${esc(t.badge)}</span>`:'')+`<span class="tier">${esc(t.label)}</span><div class="price">${kes(t.amount)}</div><p class="note">${esc(t.note)}</p>`+
+ `<ul class="feat">${CONFIG.features.map(f=>`<li>${ck}${esc(f)}</li>`).join('')}</ul><a class="btn btn-s" href="#registration">Register at ${kes(t.amount)}</a>`;
+ $('pg').appendChild(n)});
+const cur=()=>CONFIG.tiers[new Date()<=EARLY?0:1];
+function pricing(){const c=cur();
+ CONFIG.tiers.forEach(t=>{const n=$('tier-'+t.code),on=t.code===c.code;n.classList.toggle('on',on);n.querySelector('.btn').className='btn '+(on?'btn-p':'btn-s')});
+ $('selTier').textContent=c.label;$('selAmt').textContent=kes(c.amount)}
 
-    function revealPayment(data) {
-      state.trackingId = data.trackingId;
-      state.redirectUrl = data.redirectUrl;
-      els.payment.classList.remove('hidden');
-      els.spinner.classList.remove('hidden');
-      els.payNow.href = data.redirectUrl;
-      els.trackingId.textContent = data.trackingId;
-      els.selectedTier.textContent = data.pricingTier === 'STANDARD' ? 'Standard' : 'Early Bird';
-      els.selectedAmount.textContent = `${data.currency} ${Number(data.amount).toLocaleString('en-KE')}`;
-      els.payment.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      startPolling();
-    }
+/* single 1s tick */
+const U=['days','hours','minutes','seconds'];
+function tick(){const now=new Date(),d=START-now;
+ const t=d>0?[Math.floor(d/864e5),Math.floor(d%864e5/36e5),Math.floor(d%36e5/6e4),Math.floor(d%6e4/1e3)]:[0,0,0,0];
+ U.forEach((k,i)=>{const v=String(t[i]).padStart(2,'0');$('cd-'+k).textContent=v;$('fcd-'+k).textContent=v});
+ $('fdays').textContent=String(t[0]).padStart(2,'0')+'d';$('float').hidden=d<=0;
+ if(d<=0)$('cdt').textContent=now<END?'The masterclass is underway':'The masterclass has ended'}
+tick();setInterval(tick,1000);
 
-    function startPolling() {
-      clearInterval(state.pollTimer);
-      fetchStatus();
-      state.pollTimer = setInterval(fetchStatus, 8000);
-    }
+/* tabs */
+const tabs=[...document.querySelectorAll('.tab')];
+tabs.forEach(b=>b.addEventListener('click',()=>tabs.forEach(t=>{const on=t===b;t.classList.toggle('on',on);t.setAttribute('aria-selected',on);$('day'+t.dataset.day).classList.toggle('hidden',!on)})));
 
-    function showConfirmation() {
-      clearInterval(state.pollTimer);
-      els.spinner.classList.add('hidden');
-      els.paymentMessage.textContent = 'Payment confirmed.';
-      els.confirmation.classList.remove('hidden');
-      els.confirmation.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+/* api + polling */
+async function api(path,opt){const r=await fetch(CONFIG.apiBase+path,opt);if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.message||'Request failed. Please try again.')}return r.json()}
+async function status(){if(!S.id)return;
+ try{const d=await api('/api/register/status/'+encodeURIComponent(S.id));const st=(d.paymentStatus||'').toUpperCase();
+  $('pmsg').textContent=d.paymentStatusDescription||'Payment status: '+(st||'PENDING');if(st==='COMPLETED')done()}
+ catch(e){$('pmsg').textContent='We could not verify your payment yet. Please try again shortly.'}}
+function poll(){clearInterval(S.timer);S.until=Date.now()+18e5;status();
+ S.timer=setInterval(()=>{if(Date.now()>S.until){clearInterval(S.timer);$('skel').classList.add('hidden');return}if(!document.hidden)status()},8000)}
+function save(d){try{sessionStorage.setItem(CONFIG.key,JSON.stringify(d))}catch{}}
+function saved(){try{return JSON.parse(sessionStorage.getItem(CONFIG.key)||'null')}catch{return null}}
+function done(){clearInterval(S.timer);try{sessionStorage.removeItem(CONFIG.key)}catch{}
+ $('skel').classList.add('hidden');$('pmsg').textContent='Payment confirmed.';$('confirmation').classList.remove('hidden');$('confirmation').scrollIntoView({behavior:'smooth'})}
 
-    function calendarText() {
-      return [
-        'BEGIN:VCALENDAR',
-        'VERSION:2.0',
-        'PRODID:-//Career Cafe//Africa Future of Work Reset//EN',
-        'BEGIN:VEVENT',
-        'UID:africa-future-work-reset-2026@careercafe.co.ke',
-        `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`,
-        `DTSTART:${eventStartUtc}`,
-        `DTEND:${eventEndUtc}`,
-        'SUMMARY:The Africa Future of Work Reset',
-        'DESCRIPTION:Virtual masterclass by The Career Cafe.',
-        'LOCATION:Virtual',
-        'END:VEVENT',
-        'END:VCALENDAR'
-      ].join('\r\n');
-    }
+/* calendar: two daily events */
+const ics=d=>new Date(d).toISOString().replace(/[-:]|\.\d{3}/g,'');
+function icsText(){const st=ics(new Date());
+ return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Career Cafe//Africa Future of Work Reset//EN',...CONFIG.days.flatMap((d,i)=>['BEGIN:VEVENT',`UID:africa-future-work-reset-2026-day${i+1}@careercafe.co.ke`,`DTSTAMP:${st}`,`DTSTART:${ics(d.s)}`,`DTEND:${ics(d.e)}`,`SUMMARY:The Africa Future of Work Reset (Day ${i+1})`,'DESCRIPTION:Virtual masterclass by The Career Cafe.','LOCATION:Virtual','END:VEVENT']),'END:VCALENDAR'].join('\r\n')}
+$('ics').addEventListener('click',()=>{const u=URL.createObjectURL(new Blob([icsText()],{type:'text/calendar'}));
+ Object.assign(document.createElement('a'),{href:u,download:'africa-future-work-reset.ics'}).click();setTimeout(()=>URL.revokeObjectURL(u),1000)});
+const d0=CONFIG.days[0];
+$('gcal').href='https://calendar.google.com/calendar/render?'+new URLSearchParams({action:'TEMPLATE',text:'The Africa Future of Work Reset',dates:`${ics(d0.s)}/${ics(d0.e)}`,recur:`RRULE:FREQ=DAILY;COUNT=${CONFIG.days.length}`,details:'Virtual masterclass by The Career Cafe.',location:'Virtual'});
+CONFIG.whatsapp?$('wa').href=CONFIG.whatsapp:$('wa').classList.add('hidden');
 
-    function downloadCalendar() {
-      const blob = new Blob([calendarText()], { type: 'text/calendar' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'africa-future-work-reset.ics';
-      a.click();
-      URL.revokeObjectURL(url);
-    }
+/* form validation + submit */
+const rules={fullName:v=>v.length>=2||'Enter your full name.',email:v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)||'Enter a valid email address.',
+ phone:v=>/^\+?[0-9\s-]{9,15}$/.test(v)||'Enter a phone number with 9 to 15 digits.',professionIndustry:v=>v.length>=2||'Tell us your profession or industry.'};
+function validate(f){let ok=true;for(const[n,r]of Object.entries(rules)){const i=f.elements[n],m=r(i.value.trim()),bad=m!==true;
+ i.setAttribute('aria-invalid',bad);i.parentElement.querySelector('.err').textContent=bad?m:'';ok=ok&&!bad}return ok}
+$('form').addEventListener('submit',async e=>{e.preventDefault();
+ if(!validate(e.target)){e.target.querySelector('[aria-invalid="true"]').focus();return}
+ const b=$('submit'),s=$('status');b.disabled=true;s.textContent='Creating your registration…';
+ const slow=setTimeout(()=>{s.textContent='Still working. The server may be waking up, please wait…'},4000);
+ const f=new FormData(e.target);
+ try{const d=await api('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+  fullName:f.get('fullName').trim(),email:f.get('email').trim(),phone:f.get('phone').trim(),professionIndustry:f.get('professionIndustry').trim(),subscribeNewsletter:f.has('subscribeNewsletter')})});
+  if(!https(d.redirectUrl))throw new Error('The payment link was invalid. Please try again.');
+  s.textContent='Registration created. Redirecting to secure payment…';
+  save({trackingId:d.trackingId,redirectUrl:d.redirectUrl,pricingTier:d.pricingTier,amount:d.amount,currency:d.currency});location.assign(d.redirectUrl)}
+ catch(err){s.textContent=err.message}finally{clearTimeout(slow);b.disabled=false}});
+$('payNow').addEventListener('click',e=>{e.preventDefault();if(!https(S.url))return;
+ save({trackingId:S.id,redirectUrl:S.url,pricingTier:$('selTier').textContent==='Standard'?'STANDARD':'EARLY_BIRD',amount:$('selAmt').textContent.replace(/[^0-9.]/g,''),currency:'KES'});location.assign(S.url)});
+$('check').addEventListener('click',status);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&S.id)status()});
 
-    function setupGoogleCalendar() {
-      const params = new URLSearchParams({
-        action: 'TEMPLATE',
-        text: 'The Africa Future of Work Reset',
-        dates: `${eventStartUtc}/${eventEndUtc}`,
-        details: 'Virtual masterclass by The Career Cafe.',
-        location: 'Virtual'
-      });
-      els.googleCalendar.href = `https://calendar.google.com/calendar/render?${params.toString()}`;
-    }
+/* PesaPal return */
+(function(){const id=new URLSearchParams(location.search).get('OrderTrackingId');if(!id)return;
+ const c=saved(),m=c&&c.trackingId===id;S.id=id;S.url=m?c.redirectUrl:null;
+ $('payment').classList.remove('hidden');$('skel').classList.remove('hidden');$('trk').textContent=id;
+ if(m){$('selTier').textContent=c.pricingTier==='STANDARD'?'Standard':'Early Bird';$('selAmt').textContent=`${c.currency} ${Number(c.amount).toLocaleString('en-KE')}`}
+ $('payNow').classList.add('hidden');$('payment').scrollIntoView({behavior:'smooth'});poll()})();
+pricing();
 
-    els.form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      els.submit.disabled = true;
-      els.registrationStatus.textContent = 'Creating your registration…';
-      const formData = new FormData(els.form);
-      try {
-        const data = await register({
-          fullName: formData.get('fullName'),
-          email: formData.get('email'),
-          phone: formData.get('phone'),
-          professionIndustry: formData.get('professionIndustry'),
-          subscribeNewsletter: formData.has('subscribeNewsletter')
-        });
-        els.registrationStatus.textContent = 'Registration created. Redirecting to payment…';
-        revealPayment(data);
-      } catch (error) {
-        els.registrationStatus.textContent = error.message;
-      } finally {
-        els.submit.disabled = false;
-      }
-    });
+/* reveal */
+(function(){document.querySelectorAll('.sh,.stat,.gal div,.timer .card,.sess,.pc,.ben .card,.form').forEach((n,i)=>{
+ if(n.closest('.hidden'))return;n.setAttribute('data-r','');n.style.setProperty('--d',(i%4)*90+'ms')});
+ const t=document.querySelectorAll('[data-r]');
+ if(!('IntersectionObserver'in window)){t.forEach(n=>n.classList.add('in'));return}
+ const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+ t.forEach(n=>io.observe(n))})();
 
-    els.payNow.addEventListener('click', () => {
-      els.paymentMessage.textContent = 'PesaPal payment opened. Waiting for confirmation…';
-      els.spinner.classList.remove('hidden');
-    });
+/* spotlight on cards */
+document.addEventListener('pointermove',e=>{const c=e.target.closest&&e.target.closest('.card');if(!c)return;
+ const r=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-r.left+'px');c.style.setProperty('--my',e.clientY-r.top+'px')},{passive:true});
 
-    els.checkStatus.addEventListener('click', fetchStatus);
-    els.addCalendar.addEventListener('click', downloadCalendar);
+/* floating timer (mobile tab) */
+(function(){const b=$('float'),t=$('ftab');const close=()=>{b.classList.remove('open');t.setAttribute('aria-expanded','false')};
+ t.addEventListener('click',e=>{e.stopPropagation();t.setAttribute('aria-expanded',String(b.classList.toggle('open')))});
+ document.addEventListener('click',e=>{if(!b.contains(e.target))close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()})})();
 
-    function hydrateFromPesapalCallback() {
-      const params = new URLSearchParams(window.location.search);
-      const trackingId = params.get('OrderTrackingId');
-      if (trackingId) {
-        state.trackingId = trackingId;
-        els.payment.classList.remove('hidden');
-        els.spinner.classList.remove('hidden');
-        els.trackingId.textContent = trackingId;
-        els.payNow.classList.add('hidden');
-        els.payment.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        startPolling();
-      }
-    }
-
-    updatePricingDisplay();
-    setupGoogleCalendar();
-    hydrateFromPesapalCallback();
-
-    // ── Scroll reveal (design library: animations/scroll-reveal-fade-up) ──
-    // Elements are tagged in JS so the markup stays clean; children of a group
-    // stagger via --d, matching the library's staggered fade-up.
-    (function initScrollReveal() {
-      const groups = [
-        '.section-header',
-        '.stat-card',
-        '.gallery-item',
-        '.countdown-item',
-        '.schedule-item',
-        '.pricing-card',
-        '.benefit-card',
-        '.form-wrapper'
-      ];
-
-      groups.forEach(selector => {
-        document.querySelectorAll(selector).forEach((el, i) => {
-          // Never hide content inside sections that start hidden (payment,
-          // confirmation) - they are revealed by JS and must never stay blank.
-          if (el.closest('.hidden')) return;
-          el.setAttribute('data-reveal', '');
-          el.style.setProperty('--d', Math.min(i, 6) * 90 + 'ms');
-        });
-      });
-
-      const targets = document.querySelectorAll('[data-reveal]');
-      if (!('IntersectionObserver' in window)) {
-        targets.forEach(el => el.classList.add('in'));
-        return;
-      }
-      const io = new IntersectionObserver(entries => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          entry.target.classList.add('in');
-          io.unobserve(entry.target);
-        }
-      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-      targets.forEach(el => io.observe(el));
-    })();
-
-
-    // ── Preloader: hide on first meaningful paint, not full asset load ──
-    (function initLoader() {
-      const loader = document.getElementById('luxLoader');
-      if (!loader) return;
-      let hidden = false;
-      const hide = (delay = 220) => {
-        if (hidden) return;
-        hidden = true;
-        setTimeout(() => loader.classList.add('done'), delay);
-      };
-
-      const hideAfterFirstPaint = () => {
-        // Two RAF ticks let layout + first frame settle before fading out.
-        requestAnimationFrame(() => requestAnimationFrame(() => hide(180)));
-      };
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', hideAfterFirstPaint, { once: true });
-      } else {
-        hideAfterFirstPaint();
-      }
-
-      // Fallback if DOMContentLoaded is delayed by unusual parser stalls.
-      window.addEventListener('load', () => hide(120), { once: true });
-
-      // Never trap the page if something stalls unexpectedly.
-      setTimeout(() => hide(0), 4000);
-    })();
-
-    // ── Floating countdown: mirror the main timer, drive the mobile tab ──
-    (function initFloatingTimer() {
-      const timer = document.getElementById('luxTimer');
-      const tab = document.getElementById('luxTimerTab');
-      const panel = document.getElementById('luxTimerPanel');
-      if (!timer || !tab || !panel) return;
-
-      const parts = ['days', 'hours', 'minutes', 'seconds'];
-      const sync = () => {
-        parts.forEach(k => {
-          const src = document.getElementById('cd-' + k);
-          const dst = document.getElementById('fcd-' + k);
-          if (src && dst && dst.textContent !== src.textContent) dst.textContent = src.textContent;
-        });
-        const days = document.getElementById('cd-days');
-        const tabDays = document.getElementById('luxTabDays');
-        if (days && tabDays) tabDays.textContent = days.textContent + 'd';
-      };
-      sync();
-      setInterval(sync, 500);
-
-      // mobile: tab opens the full-width panel
-      tab.addEventListener('click', event => {
-        event.stopPropagation();
-        const open = timer.classList.toggle('open');
-        tab.setAttribute('aria-expanded', String(open));
-      });
-      // clicking anywhere that is not the card closes it
-      document.addEventListener('click', event => {
-        if (!timer.classList.contains('open')) return;
-        if (timer.contains(event.target)) return;
-        timer.classList.remove('open');
-        tab.setAttribute('aria-expanded', 'false');
-      });
-      document.addEventListener('keydown', event => {
-        if (event.key === 'Escape') { timer.classList.remove('open'); tab.setAttribute('aria-expanded', 'false'); }
-      });
-    })();
-
-    // ── Sliding blob: marks the section you are currently in ─────────
-    (function initNavBlob() {
-      const links = Array.from(document.querySelectorAll('.nav-links > a[href^="#"]'));
-      const blob = document.querySelector('.nav-blob');
-      if (!blob || !links.length) return;
-
-      const sections = links
-        .map(a => ({ link: a, el: document.querySelector(a.getAttribute('href')) }))
-        .filter(s => s.el);
-
-      const moveTo = link => {
-        const r = link.getBoundingClientRect();
-        const p = link.parentElement.getBoundingClientRect();
-        blob.style.width = r.width + 'px';
-        blob.style.left = (r.left - p.left) + 'px';
-        blob.style.opacity = '1';
-      };
-
-      let current = null;
-      const update = () => {
-        const line = window.scrollY + window.innerHeight * 0.35;
-        let active = null;
-        for (const s of sections) {
-          const top = s.el.offsetTop;
-          if (line >= top - 120) active = s.link;
-        }
-        if (active && active !== current) { current = active; moveTo(active); }
-        if (!active) { blob.style.opacity = '0'; current = null; }
-      };
-
-      window.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', () => { if (current) moveTo(current); }, { passive: true });
-      links.forEach(a => a.addEventListener('mouseenter', () => moveTo(a)));
-      document.querySelector('.nav-links').addEventListener('mouseleave', () => { if (current) moveTo(current); });
-      update();
-    })();
-
-    // Navbar scroll effect
-    const navEl = document.querySelector('.nav');
-    window.addEventListener('scroll', () => {
-      navEl.classList.toggle('scrolled', window.scrollY > 60);
-    }, { passive: true });
-  </script>
+/* nav: scrolled state, current section, mobile menu */
+(function(){const nav=$('nav'),tg=$('toggle'),box=$('links');
+ const links=[...box.querySelectorAll('a:not(.nav-btn)')],secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+ const upd=()=>{nav.classList.toggle('scrolled',scrollY>60);const line=scrollY+innerHeight*.35;let a=0;
+  secs.forEach((s,i)=>{if(s&&line>=s.offsetTop-120)a=i});links.forEach((l,i)=>l.classList.toggle('on',i===a))};
+ addEventListener('scroll',upd,{passive:true});upd();
+ tg.addEventListener('click',()=>tg.setAttribute('aria-expanded',String(nav.classList.toggle('open'))));
+ box.addEventListener('click',e=>{if(e.target.closest('a')){nav.classList.remove('open');tg.setAttribute('aria-expanded','false')}})})();
+</script>
 </body>
 </html>

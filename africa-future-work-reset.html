@@ -41,6 +41,16 @@ p{text-wrap:pretty}
 .sh .eyebrow{grid-column:1/-1}.sh p{max-width:44ch;justify-self:end;font-size:17px;font-weight:300;color:var(--t2)}
 .sh.center{display:block;text-align:center;max-width:640px;margin-inline:auto}.sh.center .eyebrow{justify-content:center}
 
+/* modal styles */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(3,7,18,.75);z-index:1000;backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:18px;overflow-y:auto}
+.modal-overlay.open{display:flex}
+.modal{background:#0f172a;border-radius:18px;width:90%;max-width:620px;max-height:calc(100vh - 36px);overflow-y:auto;border:1px solid var(--bd);box-shadow:0 24px 80px rgba(0,0,0,.4)}
+.modal-header{padding:22px 26px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;background:rgba(15,23,42,.9);position:sticky;top:0;z-index:2}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:var(--gold)}
+.modal-close{width:38px;height:38px;border-radius:8px;background:var(--bd);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--white);font-size:1rem}
+.modal-close:hover{background:#fee2e2;color:#dc2626}
+.modal-body{padding:26px}
+
 /* cards: same colors and backgrounds as before */
 .card{position:relative;border-radius:var(--r);border:1px solid rgba(255,255,255,.1);
 background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.015) 55%,rgba(255,255,255,.045)),var(--gc);
@@ -284,7 +294,10 @@ transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-col
 <div class="field"><label for="professionIndustry">Profession / industry</label><input id="professionIndustry" name="professionIndustry" placeholder="e.g. Finance, Technology" required><span class="err" role="alert"></span></div>
 </div>
 <div class="check"><input id="news" name="subscribeNewsletter" type="checkbox"><label for="news">Subscribe to The Career Café LinkedIn Newsletter</label></div>
+<div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:16px;">
 <button class="btn btn-p" type="submit" id="submit"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#a"/></svg>Continue to payment</button>
+<button class="btn btn-s" type="button" onclick="openTestPaymentModal()"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#a"/></svg>KES 10 Test Payment</button>
+</div>
 <div class="status" id="status" role="status"></div>
 </form>
 </div></div></section>
@@ -309,6 +322,29 @@ transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-col
 <button class="btn btn-s" type="button" id="ics"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#ca"/></svg>Add to calendar</button>
 <a class="btn btn-s" id="gcal" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#ck2"/></svg>Google Calendar</a></div>
 </div></section>
+
+<!-- Masterclass Test Payment Modal -->
+<div class="modal-overlay" id="testPaymentModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">Create KES 10 Test Payment</div>
+            <button class="modal-close" type="button" onclick="closeModal('testPaymentModal')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="color:var(--t2);font-size:0.9rem;margin-bottom:20px;">Create an administrator-only KES 10 Pesapal test order.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div style="grid-column:1/-1"><label for="testPaymentName" style="display:block;margin-bottom:6px;font-size:0.85rem;color:var(--t2);">Full Name *</label><input type="text" id="testPaymentName" value="Career Cafe Payment Test" required style="width:100%;padding:12px;border-radius:8px;border:1px solid var(--bd);background:rgba(255,255,255,0.05);color:var(--white);font-size:1rem;"></div>
+                <div><label for="testPaymentEmail" style="display:block;margin-bottom:6px;font-size:0.85rem;color:var(--t2);">Email Address *</label><input type="email" id="testPaymentEmail" value="payments-test@careercafe.co.ke" required style="width:100%;padding:12px;border-radius:8px;border:1px solid var(--bd);background:rgba(255,255,255,0.05);color:var(--white);font-size:1rem;"></div>
+                <div><label for="testPaymentPhone" style="display:block;margin-bottom:6px;font-size:0.85rem;color:var(--t2);">Phone Number *</label><input type="tel" id="testPaymentPhone" value="+254700000000" required style="width:100%;padding:12px;border-radius:8px;border:1px solid var(--bd);background:rgba(255,255,255,0.05);color:var(--white);font-size:1rem;"></div>
+                <div style="grid-column:1/-1"><label for="testPaymentProfession" style="display:block;margin-bottom:6px;font-size:0.85rem;color:var(--t2);">Profession / Industry *</label><input type="text" id="testPaymentProfession" value="Payment QA" required style="width:100%;padding:12px;border-radius:8px;border:1px solid var(--bd);background:rgba(255,255,255,0.05);color:var(--white);font-size:1rem;"></div>
+            </div>
+            <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:24px;">
+                <button class="btn btn-s" type="button" onclick="closeModal('testPaymentModal')" style="padding:10px 20px;">Cancel</button>
+                <button class="btn btn-p" type="button" id="createTestPaymentButton" onclick="createTestPayment()" style="padding:10px 20px;">Continue to Pesapal</button>
+            </div>
+        </div>
+    </div>
+</div>
 </main>
 
 <footer class="footer"><div class="wrap">
@@ -343,6 +379,50 @@ schedule:[[
 ['10:30','AM','AI in the African Workplace','Practical applications and ethical considerations for professionals.'],
 ['1:00','PM','Panel: Entrepreneurship vs Employment','Charting your path: when to build and when to join.'],
 ['3:00','PM','Closing: Action Plan & Community Launch','Leave with a concrete roadmap and join the alumni network.']]]};
+
+const API = CONFIG.apiBase;
+
+function openTestPaymentModal() {
+    document.getElementById('testPaymentModal').classList.add('open');
+}
+
+function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+}
+
+async function createTestPayment() {
+    const button = document.getElementById('createTestPaymentButton');
+    const payload = {
+        fullName: document.getElementById('testPaymentName').value.trim(),
+        email: document.getElementById('testPaymentEmail').value.trim(),
+        phone: document.getElementById('testPaymentPhone').value.trim(),
+        professionIndustry: document.getElementById('testPaymentProfession').value.trim()
+    };
+
+    if (!payload.fullName || !payload.email || !payload.phone || !payload.professionIndustry) {
+        alert('Complete all test registration fields.');
+        return;
+    }
+
+    button.disabled = true;
+    button.innerHTML = 'Creating test order...';
+    try {
+        const response = await fetch(`${API}/api/pesapal/test-payment`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !data.redirectUrl) {
+            throw new Error(data.message || 'Could not create the KES 10 test payment.');
+        }
+        window.location.assign(data.redirectUrl);
+    } catch (error) {
+        alert(error.message || 'Could not create the KES 10 test payment.');
+        button.disabled = false;
+        button.innerHTML = 'Continue to Pesapal';
+    }
+}
 
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));

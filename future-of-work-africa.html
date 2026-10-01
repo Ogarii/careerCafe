@@ -86,6 +86,16 @@
     .think-tank p { max-width:690px; color:rgba(255,255,255,.76); }
     .think-list { margin:0; padding:0; list-style:none; border-top:1px solid rgba(255,255,255,.22); }
     .think-list li { padding:15px 0; border-bottom:1px solid rgba(255,255,255,.22); font-weight:700; }
+    .platforms { background:var(--paper); }
+    .platform-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); }
+    .platform-card { padding:34px; background:#fff; }
+    .platform-card h3 { font-family:'Cormorant Garamond',Georgia,serif; font-size:34px; line-height:1.03; margin:0 0 14px; color:var(--plum); }
+    .platform-card p { color:var(--muted); margin:0; }
+    .advisor { margin-top:64px; padding:36px; background:var(--sand); border-left:3px solid var(--coral); }
+    .advisor h3 { font-family:'Cormorant Garamond',Georgia,serif; font-size:34px; line-height:1.03; margin:0 0 8px; color:var(--plum); }
+    .advisor-role { color:var(--violet); font-size:13px; font-weight:800; margin-bottom:18px; }
+    .advisor p { color:var(--muted); margin:0 0 10px; }
+    .advisor-links { display:flex; flex-wrap:wrap; gap:10px 18px; margin-top:18px; color:var(--violet); font-size:13px; font-weight:800; }
     .closing { background:var(--gold); padding:110px 0; }
     .closing-grid { display:grid; grid-template-columns:1.1fr .9fr; gap:64px; align-items:end; }
     .closing h2 { color:var(--plum); }
@@ -102,6 +112,7 @@
       .hero { min-height:690px; }
       .hero-content { padding:165px 0 74px; }
       .intro-grid,.section-heading,.forum-grid,.think-grid,.closing-grid { grid-template-columns:1fr; gap:30px; }
+      .platform-grid { grid-template-columns:1fr; }
       .journey-list::before { left:10px; }
       .journey-item,.journey-item:nth-child(even) { display:flex; flex-direction:column; padding-left:36px; }
       .journey-copy,.journey-item:nth-child(even) .journey-copy,.journey-visual,.journey-item:nth-child(even) .journey-visual { padding:22px 0; }
@@ -111,7 +122,7 @@
       .priority-grid { grid-template-columns:1fr 1fr; }
       .forum-photo { height:370px; }
     }
-    @media (max-width:520px) { .container { width:min(100% - 32px,1160px); } section { padding:72px 0; } .hero { min-height:650px; } .hero-mark { padding:11px 16px; } .priority-grid { grid-template-columns:1fr; } .footer-inner { align-items:flex-start; flex-direction:column; } }
+    @media (max-width:520px) { .container { width:min(100% - 32px,1160px); } section { padding:72px 0; } .hero { min-height:650px; } .priority-grid { grid-template-columns:1fr; } .footer-inner { align-items:flex-start; flex-direction:column; } .platform-card,.advisor { padding:26px; } }
   </style>
 </head>
 <body>
@@ -127,12 +138,10 @@
 
   <header class="hero">
     <div class="container hero-content">
-      <div class="eyebrow">Career Cafe Africa Initiative</div>
       <h1>Future of Work <span>in Africa</span></h1>
       <p>From conversation to evidence. From evidence to action. An Africa-led initiative connecting dialogue, strategic foresight, professional development and partnership.</p>
-      <div class="actions"><a class="btn btn-primary" href="#journey">Explore Our Journey <i class="fas fa-arrow-down"></i></a><a class="btn btn-light" href="reports/CC-Report.pdf" target="_blank" rel="noopener">Read the Report <i class="fas fa-arrow-up-right-from-square"></i></a><a class="btn btn-light" href="index.html#contact">Partner With Us</a></div>
+      <div class="actions"><a class="btn btn-primary" href="reports/CC-Report.pdf" target="_blank" rel="noopener">Read the Report <i class="fas fa-arrow-up-right-from-square"></i></a><a class="btn btn-light" href="#journey">Explore Our Journey <i class="fas fa-arrow-down"></i></a><a class="btn btn-light" href="index.html#contact">Partner With Us</a></div>
     </div>
-    <div class="hero-mark">Rethinking Africa's Future of Work</div>
   </header>
 
   <main>
@@ -156,6 +165,8 @@
     <section class="forum"><div class="container forum-grid"><img class="forum-photo" src="images/345A4690.jpg" alt="Career Cafe programme celebration"><div class="forum-copy"><div class="eyebrow">Professional development</div><h2>Turning insight into practical capability.</h2><p class="tagline">Identifying, creating and nurturing value in the future of work.</p><p>At the Future of Work Knowledge-to-Action Forum and Masterclass, participants worked on how to identify their value and transferable skills, communicate expertise with clarity, strengthen their positioning and build purposeful professional relationships.</p><a class="gallery-link" href="https://iclement58.pixieset.com/futureofworkforumandmasterclass/" target="_blank" rel="noopener">Explore the forum gallery <i class="fas fa-arrow-up-right-from-square"></i></a></div></div></section>
 
     <section class="think-tank"><div class="container think-grid"><div><div class="eyebrow">The horizon</div><h2>From convenings to a Pan-African platform.</h2><p>Isolated events and periodic conversations will not be enough. The proposed Africa Future of Work Think Tank is an Africa-led platform envisioned to connect governments, the private sector, academia, development partners, civil society and young leaders around the changing world of work.</p><p>Its role is to anticipate workforce challenges and opportunities, strengthen labour-market intelligence and turn timely evidence into practical recommendations.</p></div><ul class="think-list"><li>Anticipate workforce trends</li><li>Generate useful evidence</li><li>Strengthen strategic foresight</li><li>Translate knowledge into action</li></ul></div></section>
+
+    <section class="platforms"><div class="container"><div class="section-heading"><div><div class="eyebrow">The work ahead</div><h2>Building a fit-for-purpose workforce in real time.</h2></div><p>The Career Cafe is committed to actively contributing, in real time, to building a fit-for-purpose workforce in Africa through the African Future of Work Think Tank and the Africa Work Futures Summit.</p></div><div class="platform-grid"><article class="platform-card"><h3>African Future of Work Think Tank</h3><p>The African Future of Work Think Tank is a lean, Africa-led, data-driven and research-intensive platform dedicated to building a fit-for-purpose, future-ready workforce. It generates real-time labour market intelligence, strategic foresight, policy analysis and actionable evidence to guide governments, employers, academia and development partners. Its work spans education, artificial intelligence, health, agriculture, entrepreneurship and foresight, with a strong focus on inclusion, youth leadership, gender equity, reskilling and translating evidence into action.</p></article><article class="platform-card"><h3>Africa Work Futures Summit</h3><p>The Africa Work Futures Summit is The Career Cafe's flagship continental convening on the future of work. It brings together leaders from government, business, academia, civil society, development institutions and young people to move from analysis to coordinated action. The Summit will showcase evidence, emerging workforce trends, practical solutions and partnerships, while generating measurable commitments, pilot initiatives and policy dialogue. It is designed as a platform for Africa to anticipate change and actively shape its workforce future.</p></article></div><div class="advisor"><h3>Luchuo E. Bain, MD, PhD, MSc (Bioethics), MPH, MBA, FAAS</h3><div class="advisor-role">Global Health | Implementation Science | Empirical Bioethics | Research Ethics | Curriculum Design Advisor | Disruptive Writer</div><p>Convener, <em>Global Health Otherwise</em></p><div class="advisor-links"><a href="https://globalhealthotherwise.com/" target="_blank" rel="noopener">Global Health Otherwise</a><a href="https://luchuoengelbertbain.com/luchuo-academy/" target="_blank" rel="noopener">LuchuoAcademy</a><a href="https://www.youtube.com/@GlobalHealthOtherwise" target="_blank" rel="noopener">YouTube</a><a href="https://www.linkedin.com/company/global-health-otherwise/posts/?feedView=all&amp;viewAsMember=true" target="_blank" rel="noopener">LinkedIn</a><a href="https://bsky.app/profile/gh-otherwise.bsky.social" target="_blank" rel="noopener">Bluesky: @gh-otherwise</a><a href="https://bsky.app/profile/luchuobain.bsky.social" target="_blank" rel="noopener">Bluesky: @luchuobain</a></div><p style="margin-top:22px;font-weight:800;color:var(--plum);">What God Cannot Do Does Not Exist</p><p style="font-weight:700;color:var(--plum);">Powered by Grace | Sustained by Favor | Living the Miracle</p></div></div></section>
 
     <section class="closing"><div class="container closing-grid"><div><div class="eyebrow">The journey continues</div><h2>Be part of the Future of Work in Africa.</h2></div><div><p>The future of work will be shaped by the decisions, investments, partnerships and actions we take today. There is a place in this conversation for professionals, employers, policymakers, researchers, educators, entrepreneurs and emerging leaders.</p><div class="actions"><a class="btn btn-primary" href="reports/CC-Report.pdf" target="_blank" rel="noopener">Read the Report</a><a class="btn btn-outline" href="index.html#contact">Partner With Us</a><a class="btn btn-outline" href="index.html#events">Explore Events</a></div></div></div></section>
   </main>

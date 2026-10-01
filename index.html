@@ -78,12 +78,10 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="#about">About</a></li>
                 <li><a href="#solution">Services</a></li>
-                <li><a href="#events">Events</a></li>
                 <li><a href="future-of-work-africa.html">Future of Work</a></li>
                 <li><a href="https://careercafe.co.ke/africa-future-work-reset.html" target="_blank" rel="noopener">Masterclass</a></li>
-                <li><a href="#articles">Publications</a></li>
+                <li class="nav-dropdown"><a href="#articles">Publications</a><ul class="nav-submenu"><li><a href="#articles">Articles</a></li><li><a href="#events">Events</a></li><li><a href="#gallery">Gallery</a></li></ul></li>
                 <li><a href="courses.html">Courses</a></li>
-                <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#team">Team</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li class="nav-social-group">
@@ -572,20 +570,6 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                 <h3>Our Gallery</h3>
             </div>
             <div class="gallery-modal-grid" id="galleryModalGrid"></div>
-        </div>
-    </div>
-
-    <div class="event-popup" id="eventPopup" role="dialog" aria-label="Upcoming event">
-        <button class="event-popup-close" id="eventPopupClose" type="button" aria-label="Close event announcement">&times;</button>
-        <span class="event-popup-kicker"><i class="fas fa-calendar-days"></i> Upcoming Webinar</span>
-        <h4>Career Conversations: Beyond Convention</h4>
-        <p>Honest reflections on building meaningful careers in an uncertain world. Tuesday, 28 July 2026, 5:00 PM EAT. Free and virtual.</p>
-        <div class="event-popup-foot">
-            <a href="career-conversations.html" class="event-popup-cta">View event <i class="fas fa-arrow-right"></i></a>
-            <figure class="event-popup-qr">
-                <img src="images/career-conversations-qr-logo.png" alt="QR code linking to the Career Conversations event page">
-                <figcaption>Scan to open</figcaption>
-            </figure>
         </div>
     </div>
 
@@ -1154,20 +1138,6 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                 closeTeamModal();
             });
 
-            const eventPopup = document.getElementById('eventPopup');
-            if (eventPopup) {
-                // Popup auto-hides once the event has passed; until then it can be dismissed manually.
-                const EVENT_END = new Date('2026-07-28T18:30:00+03:00');
-                const dismissed = localStorage.getItem('eventPopupDismissed') === 'true';
-                if (Date.now() < EVENT_END.getTime() && !dismissed) {
-                    setTimeout(() => eventPopup.classList.add('open'), 2000);
-                }
-                document.getElementById('eventPopupClose').addEventListener('click', () => {
-                    eventPopup.classList.remove('open');
-                    localStorage.setItem('eventPopupDismissed', 'true');
-                });
-            }
-
             const navShareBtn = document.getElementById('navShareBtn');
             if (navShareBtn) {
                 navShareBtn.addEventListener('click', async (event) => {
@@ -1205,7 +1175,7 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
 
     <aside class="afwr" id="afwr" role="dialog" aria-label="The Africa Future of Work Reset masterclass">
         <button class="afwr-x" id="afwrClose" type="button" aria-label="Minimise announcement">&times;</button>
-        <span class="afwr-kick"><i></i>Virtual masterclass | 20 to 21 Oct 2026</span>
+        <span class="afwr-kick"><i></i>Virtual masterclass announcement</span>
         <h4>The Africa Future of Work Reset</h4>
         <p>Two days to reset how you work, earn and lead across Africa. Live sessions, panels and executive briefings, 9:00 AM to 5:00 PM EAT.</p>
         <ul class="afwr-chips">
@@ -1214,12 +1184,6 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
             <li>Resource pack</li>
             <li>Community access</li>
         </ul>
-        <div class="afwr-cd" id="afwrCd" role="timer" aria-label="Countdown to the masterclass">
-            <div><b id="afwrD">00</b><span>days</span></div>
-            <div><b id="afwrH">00</b><span>hours</span></div>
-            <div><b id="afwrM">00</b><span>mins</span></div>
-        </div>
-        <div class="afwr-live" id="afwrLive" hidden><i></i>Live now. Join the masterclass.</div>
         <div class="afwr-foot">
             <a class="afwr-cta" href="https://careercafe.co.ke/africa-future-work-reset.html" target="_blank" rel="noopener">Reserve your seat <i class="fas fa-arrow-right"></i></a>
             <figure class="afwr-qr">
@@ -1237,23 +1201,11 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
     (function () {
         var A = document.getElementById('afwr'), P = document.getElementById('afwrPill');
         if (!A || !P) return;
-        var START = new Date('2026-10-20T09:00:00+03:00').getTime();
-        var END = new Date('2026-10-21T17:00:00+03:00').getTime();
-        if (Date.now() >= END) { A.remove(); P.remove(); return; }
         var KEY = 'afwrMin';
         function isMin() { try { return sessionStorage.getItem(KEY) === '1'; } catch (e) { return false; } }
         function setMin(v) { try { sessionStorage.setItem(KEY, v ? '1' : '0'); } catch (e) {} }
-        function pad(n) { return String(n).padStart(2, '0'); }
-        function tick() {
-            var d = START - Date.now(), cd = document.getElementById('afwrCd'), live = document.getElementById('afwrLive');
-            if (d <= 0) { cd.hidden = true; live.hidden = false; return; }
-            document.getElementById('afwrD').textContent = pad(Math.floor(d / 864e5));
-            document.getElementById('afwrH').textContent = pad(Math.floor(d % 864e5 / 36e5));
-            document.getElementById('afwrM').textContent = pad(Math.floor(d % 36e5 / 6e4));
-        }
         function open() { A.classList.add('open'); P.classList.remove('show'); }
         function mini() { A.classList.remove('open'); P.classList.add('show'); setMin(true); }
-        tick(); setInterval(tick, 30000);
         document.getElementById('afwrClose').addEventListener('click', mini);
         P.addEventListener('click', function () { setMin(false); open(); });
         A.addEventListener('keydown', function (e) { if (e.key === 'Escape') mini(); });

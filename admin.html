@@ -1137,45 +1137,56 @@
     </div>
 
     <div class="nav-section">Overview</div>
-    <div class="nav-item active" onclick="showPanel('dashboard')">
+    <div class="nav-item active" data-panel="dashboard" onclick="showPanel('dashboard')">
         <i class="fas fa-th-large"></i> Dashboard
     </div>
-    <div class="nav-item" onclick="showPanel('analytics')">
+    <div class="nav-item" data-panel="analytics" onclick="showPanel('analytics')">
         <i class="fas fa-chart-line"></i> Analytics
     </div>
 
     <div class="nav-section">Content</div>
-    <div class="nav-item" onclick="showPanel('articles')">
+    <div class="nav-item" data-panel="articles" onclick="showPanel('articles')">
         <i class="fas fa-newspaper"></i> Articles
         <span class="nav-badge" id="badge-articles">0</span>
     </div>
-    <div class="nav-item" onclick="showPanel('events')">
+    <div class="nav-item" data-panel="events" onclick="showPanel('events')">
         <i class="fas fa-calendar-alt"></i> Events
         <span class="nav-badge" id="badge-events">0</span>
     </div>
-    <div class="nav-item" onclick="showPanel('courses')">
+    <div class="nav-item" data-panel="courses" onclick="showPanel('courses')">
         <i class="fas fa-graduation-cap"></i> Courses
         <span class="nav-badge" id="badge-courses">0</span>
     </div>
-    <div class="nav-item" onclick="showPanel('gallery')">
+    <div class="nav-item" data-panel="gallery" onclick="showPanel('gallery')">
         <i class="fas fa-images"></i> Gallery
         <span class="nav-badge" id="badge-gallery">0</span>
     </div>
-    <div class="nav-item" onclick="showPanel('team')">
+    <div class="nav-item" data-panel="team" onclick="showPanel('team')">
         <i class="fas fa-users"></i> Team
         <span class="nav-badge" id="badge-team">0</span>
     </div>
 
+    <div class="nav-section">Publications</div>
+    <div class="nav-item" data-panel="newsletters" onclick="showPanel('newsletters')">
+        <i class="fas fa-envelope-open-text"></i> Newsletters
+    </div>
+    <div class="nav-item" data-panel="reports" onclick="showPanel('reports')">
+        <i class="fas fa-file-lines"></i> Reports
+    </div>
+    <div class="nav-item" data-panel="media" onclick="showPanel('media')">
+        <i class="fas fa-photo-film"></i> Media &amp; Videos
+    </div>
+
     <div class="nav-section">Community</div>
-    <div class="nav-item" onclick="showPanel('memberships')">
+    <div class="nav-item" data-panel="memberships" onclick="showPanel('memberships')">
         <i class="fas fa-id-card"></i> Memberships
         <span class="nav-badge" id="badge-memberships">0</span>
     </div>
-    <div class="nav-item" onclick="showPanel('partnerships')">
+    <div class="nav-item" data-panel="partnerships" onclick="showPanel('partnerships')">
         <i class="fas fa-handshake"></i> Partnerships
         <span class="nav-badge" id="badge-partnerships">0</span>
     </div>
-    <div class="nav-item" onclick="showPanel('newsletter')">
+    <div class="nav-item" data-panel="newsletter" onclick="showPanel('newsletter')">
         <i class="fas fa-envelope"></i> Newsletter
         <span class="nav-badge" id="badge-newsletter">0</span>
     </div>
@@ -1335,6 +1346,17 @@
                     </table>
                 </div>
             </div>
+        </div>
+
+        <!-- PUBLICATION PLACEHOLDERS -->
+        <div class="panel" id="panel-newsletters">
+            <div class="card"><div class="card-header"><div class="card-title">Newsletters</div></div><div class="card-body"><div class="empty-state"><i class="fas fa-envelope-open-text"></i><p>Newsletter publications will appear here.</p></div></div></div>
+        </div>
+        <div class="panel" id="panel-reports">
+            <div class="card"><div class="card-header"><div class="card-title">Reports</div></div><div class="card-body"><div class="empty-state"><i class="fas fa-file-lines"></i><p>Reports will appear here.</p></div></div></div>
+        </div>
+        <div class="panel" id="panel-media">
+            <div class="card"><div class="card-header"><div class="card-title">Published Media &amp; Videos</div></div><div class="card-body"><div class="empty-state"><i class="fas fa-photo-film"></i><p>Published media and videos will appear here.</p></div></div></div>
         </div>
 
         <!-- EVENTS -->
@@ -2375,6 +2397,7 @@ const panelTitles = {
     dashboard: 'Dashboard', analytics: 'Analytics',
     articles: 'Articles', events: 'Events', courses: 'Courses',
     gallery: 'Gallery', team: 'Team Members',
+    newsletters: 'Newsletters', reports: 'Reports', media: 'Published Media & Videos',
     memberships: 'Memberships', partnerships: 'Partnerships', newsletter: 'Newsletter'
 };
 
@@ -2383,11 +2406,8 @@ function showPanel(name) {
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     document.getElementById(`panel-${name}`).classList.add('active');
-    document.querySelectorAll('.nav-item').forEach(n => {
-        if (n.textContent.trim().toLowerCase().startsWith(panelTitles[name]?.split(' ')[0]?.toLowerCase())) {
-            n.classList.add('active');
-        }
-    });
+    const navItem = document.querySelector(`.nav-item[data-panel="${name}"]`);
+    if (navItem) navItem.classList.add('active');
     document.getElementById('topbarTitle').textContent = panelTitles[name] || name;
     if (name === 'newsletter') setTimeout(initNewsletterQuill, 0);
     if (panelLoaders[name]) panelLoaders[name]();

@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career Cafe - Build a Career with Purpose</title>
+    <meta name="description" content="Career Café Africa: mentorship, learning, events and workforce research for ambitious professionals across Africa.">
+    <meta property="og:title" content="Career Café Africa">
+    <meta property="og:description" content="Build a career with purpose.">
+    <title>Career Café Africa | Build a Career with Purpose</title>
     <link rel="icon" type="image/png" href="./careerLogoNew.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>document.documentElement.classList.add("js")</script>
     <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./fixes.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 <style id="afwr-css">
@@ -62,9 +67,9 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
     <nav class="navbar">
         <div class="container">
             <a href="index.html" class="nav-logo">
-                <img src="careerLogoNew.png" alt="Career Cafe Logo" class="logo-icon">
+                <img src="careerLogoNew.png" alt="Career Café Logo" class="logo-icon">
                 <span class="brand-wordmark">
-                    <strong>Career Cafe</strong>
+                    <strong>Career Café</strong>
                     <span>Africa</span>
                 </span>
             </a>
@@ -76,20 +81,20 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
             </button>
 
             <ul class="nav-menu" id="nav-menu">
-                <li><a href="#about">About</a></li>
-                <li><a href="#solution">Services</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#team">Team</a></li>
                 <li><a href="future-of-work-africa.html">Future of Work</a></li>
                 <li><a href="https://careercafe.co.ke/africa-future-work-reset.html" target="_blank" rel="noopener">Masterclass</a></li>
-                <li class="nav-dropdown"><a href="#articles">Publications</a><ul class="nav-submenu"><li><a href="#articles">Articles</a></li><li><a href="#events">Events</a></li><li><a href="#gallery">Gallery</a></li></ul></li>
+                <li><a href="#solution">Services</a></li>
+                <li class="nav-dropdown"><a href="#articles" aria-haspopup="true" aria-expanded="false">Publications</a><ul class="nav-submenu"><li><a href="#articles">Articles</a></li><li><a href="#articles" data-pub-tab="videos">Videos</a></li><li><a href="#events">Events</a></li><li><a href="#gallery">Gallery</a></li></ul></li>
+                <li><a href="#partners">Partners</a></li>
+                <li><a href="#" id="openMemberNav">Members</a></li>
                 <li><a href="courses.html">Courses</a></li>
-                <li><a href="#team">Team</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li class="nav-social-group">
                     <a href="#" id="navShareBtn" class="nav-share-btn" aria-label="Share" title="Share"><i class="fas fa-share-alt"></i></a>
-                    <a href="https://www.linkedin.com/in/the-career-café-africa-a63269370?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/the-career-café-africa-a63269370" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     <a href="https://www.instagram.com/thecareercafeafrica?igsh=M2wyendibDhuNHI0&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
                 </li>
             </ul>
         </div>
@@ -113,15 +118,12 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                 </a>
             </aside>
             <div class="hero-content">
-                <span class="hero-eyebrow"><i class="fas fa-mug-hot"></i> Career Cafe Africa</span>
+                <span class="hero-eyebrow"><i class="fas fa-mug-hot"></i> Career Café Africa</span>
                 <h1 class="hero-title">Build a career with purpose.</h1>
                 <p class="hero-subtitle">A career growth, mentorship, events, and learning community for ambitious professionals across Africa.</p>
-                <div class="hero-buttons">
-                    <a href="#" class="btn btn-primary" id="openMemberModal"><i class="fas fa-user-plus"></i> Become a Member</a>
-                    <a href="#partners" class="btn btn-secondary" id="openPartnerModal"><i class="fas fa-handshake"></i> Partner With Us</a>
-                </div>
+                <button type="button" class="hero-reports-btn" id="openReports" aria-haspopup="dialog"><i class="fas fa-file-pdf"></i> Reports</button>
             </div>
-            <div class="hero-proof" aria-label="Career Cafe reach">
+            <div class="hero-proof" aria-label="Career Café reach">
                 <div class="stat">
                     <strong>500+</strong>
                     <span>Professionals engaged</span>
@@ -138,21 +140,108 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
         </div>
     </header>
 
+
+    <dialog class="rp-dialog" id="reportsDialog" aria-labelledby="rpTitle">
+        <div class="rp-head"><div><strong id="rpTitle">Reports</strong><span>Download PDFs</span></div><button type="button" class="rp-close" id="closeReports" aria-label="Close reports">&times;</button></div>
+        <a href="reports/CC-Report.pdf" class="rp-link" download><i class="fas fa-file-pdf"></i><span>High Level Convenings Report on the Future of Work Think Tank in Africa</span></a>
+        <a href="reports/Executive-Brief-1.pdf" class="rp-link" download><i class="fas fa-file-pdf"></i><span>Executive Brief : The Pan African Future of Work Think Tank</span></a>
+    </dialog>
+
     <main>
-        <section id="about" class="section section-alt">
-            <div class="container about-layout">
-                <div class="about-copy">
-                    <span class="section-kicker"><i class="fas fa-compass"></i> About us</span>
-                    <h2 class="hero-title" style="color: var(--dark); font-size: clamp(2.7rem, 5vw, 5.2rem);">Clarity, confidence, competence.</h2>
-                    <p>The Career Cafe is redefining how professionals build meaningful and purpose-driven careers. We support young people and professionals at entry, mid, senior, and executive levels as they pursue the work they deserve.</p>
-                    <p>Our work combines mentorship, practical training, community, workplace wellness, and employer partnerships. We are especially attentive to the unique barriers women face in career growth and leadership.</p>
+        <section id="about" class="ab" aria-labelledby="ab-title">
+            <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="p-stand" viewBox="0 0 100 240"><ellipse cx="50" cy="22" rx="11" ry="13"/><path d="M44 35C44 41 42 44 38 45C26 48 19 54 18 68L14 118C13.5 122 20 123 21 119L25 84L27 126L30 234C30 238 44 238 45 234L50 150L55 234C56 238 70 238 70 234L73 126L75 84L79 119C80 123 87 122 86 118L82 68C81 54 74 48 62 45C58 44 56 41 56 35Z"/></symbol>
+<symbol id="p-woman" viewBox="0 0 100 240"><ellipse cx="50" cy="26" rx="10" ry="12"/><ellipse cx="52" cy="12" rx="16" ry="10" transform="rotate(-10 52 12)"/><path d="M44 37C44 42 42 45 37 47C27 50 25 60 27 74L30 112C25 150 19 190 14 238H86C81 190 75 150 70 112L73 74C75 60 73 50 63 47C58 45 56 42 56 37Z"/></symbol>
+<symbol id="p-woman2" viewBox="0 0 100 240"><circle cx="50" cy="17" r="15"/><ellipse cx="50" cy="28" rx="9" ry="11"/><path d="M44 37C44 42 42 45 38 46C28 49 24 56 25 70L22 116C21.500 120 28 121 29 117L32 86L33 122L30 170H38L39 234C39 238 47 238 48 234L50 172L52 234C53 238 61 238 61 234L62 170H70L67 122L68 86L71 117C72 121 78.500 120 78 116L75 70C76 56 72 49 62 46C58 45 56 42 56 37Z"/></symbol>
+<symbol id="p-speak" viewBox="0 0 100 240"><ellipse cx="42" cy="22" rx="11" ry="13"/><path d="M36 35C36 41 34 44 30 45C20 48 14 54 13 68L10 118C9.500 122 16 123 17 119L20 84L21 126L23 234C23 238 37 238 38 234L43 150L48 234C49 238 63 238 63 234L65 126L66 90L65 68C64 54 59 48 52 45C48 44 48 41 48 35Z"/><path d="M58 56L88 18" stroke="currentColor" stroke-width="10" stroke-linecap="round" fill="none"/></symbol>
+<symbol id="p-seat" viewBox="0 0 160 130"><circle cx="46" cy="18" r="11"/><path d="M33 34C43 29 55 32 61 42L68 88H36C30 74 28 52 33 34Z"/><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M44 86H104" stroke-width="15"/><path d="M104 86L108 122H120" stroke-width="12"/><path d="M56 48L90 70" stroke-width="8"/><path d="M84 72H120L126 42" stroke-width="5"/></g></symbol>
+<symbol id="africa" viewBox="0 0 1254 1280"><g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)"><path d="M5061 12746 c-35 -30 -73 -56 -85 -58 -11 -2 -58 9 -102 25 -66 22 -87 25 -109 17 -17 -7 -33 -7 -45 0 -30 16 -46 12 -58 -15 -9 -18 -19 -25 -41 -25 -19 0 -35 -8 -45 -22 l-15 -22 -48 26 c-43 23 -63 26 -190 31 l-142 5 -33 -32 c-33 -32 -36 -33 -143 -38 -131 -6 -181 -24 -191 -65 -12 -49 -23 -55 -81 -48 -81 10 -151 -14 -215 -75 -44 -42 -59 -50 -91 -50 -21 0 -54 7 -75 16 -44 18 -163 11 -226 -14 -35 -14 -41 -14 -71 2 -18 10 -54 42 -80 72 -25 30 -54 54 -64 54 -25 0 -49 -39 -57 -92 -10 -67 -122 -249 -181 -294 -39 -29 -160 -79 -232 -94 -55 -12 -119 -38 -143 -58 -22 -18 -23 -53 -4 -90 12 -24 12 -38 1 -90 -7 -35 -20 -71 -29 -81 -22 -24 -20 -89 4 -126 29 -44 27 -113 -5 -156 -13 -19 -37 -52 -52 -75 -44 -64 -164 -171 -224 -199 -30 -13 -71 -25 -92 -25 -66 0 -105 -23 -128 -77 -60 -140 -84 -175 -166 -233 -62 -44 -85 -96 -92 -210 l-6 -94 -33 -10 c-19 -5 -42 -23 -54 -40 -12 -17 -34 -44 -49 -61 -15 -16 -41 -67 -58 -112 -45 -124 -68 -164 -121 -213 -40 -37 -49 -53 -55 -92 -10 -68 16 -140 71 -194 27 -26 44 -51 44 -66 0 -12 3 -39 6 -59 5 -31 2 -41 -25 -68 -24 -24 -30 -38 -26 -54 7 -24 62 -81 86 -89 12 -4 12 -8 0 -31 -10 -18 -12 -43 -7 -91 7 -59 5 -69 -20 -112 -30 -51 -43 -106 -53 -229 l-6 -80 -48 -31 c-74 -48 -97 -74 -97 -106 0 -38 15 -66 56 -104 32 -30 34 -35 34 -102 0 -39 -5 -94 -11 -121 -19 -91 25 -161 109 -174 63 -11 89 -37 97 -102 6 -51 9 -57 40 -69 27 -12 40 -29 69 -88 19 -40 36 -82 38 -93 2 -14 12 -21 32 -23 18 -2 47 -23 83 -58 54 -54 54 -55 43 -90 -20 -59 -6 -96 61 -161 33 -32 70 -75 82 -96 14 -25 31 -40 51 -45 23 -6 34 -17 42 -40 16 -49 99 -127 190 -178 96 -54 148 -104 166 -159 12 -36 17 -40 50 -43 27 -2 41 -10 49 -25 15 -29 28 -37 59 -37 14 0 40 -9 58 -20 18 -11 39 -20 48 -20 16 0 119 50 173 85 22 14 60 25 96 29 38 4 71 14 90 28 37 28 99 33 236 20 115 -11 185 -35 231 -79 l27 -25 31 22 c18 13 52 27 77 31 24 5 63 22 86 38 23 16 60 34 81 39 21 6 49 21 61 32 17 16 46 25 111 33 81 11 89 14 94 37 5 21 15 26 70 36 67 13 381 17 435 5 21 -4 31 -13 33 -29 2 -14 17 -29 41 -42 39 -19 90 -71 92 -93 1 -7 2 -36 3 -66 1 -41 6 -57 21 -68 57 -40 98 -63 112 -63 9 0 45 16 80 35 61 33 68 35 162 35 l99 0 61 -66 c89 -98 115 -156 119 -274 3 -79 0 -113 -21 -191 -14 -52 -28 -121 -32 -154 -4 -33 -18 -94 -32 -135 -14 -41 -27 -104 -30 -140 -6 -77 15 -137 82 -235 23 -33 54 -81 69 -107 14 -26 49 -73 77 -105 27 -31 52 -67 54 -80 3 -13 7 -33 10 -46 3 -14 17 -29 37 -38 22 -9 34 -22 36 -39 2 -14 12 -34 22 -45 40 -45 80 -120 80 -152 0 -26 6 -36 25 -45 14 -6 25 -14 25 -18 0 -4 -11 -15 -25 -24 -34 -22 -32 -41 15 -110 22 -32 40 -69 40 -82 0 -12 20 -64 45 -115 51 -104 54 -127 24 -175 -33 -55 -29 -107 18 -209 22 -49 51 -119 63 -155 37 -104 17 -157 -81 -215 -42 -25 -81 -100 -87 -168 -2 -29 -12 -60 -20 -70 -10 -11 -20 -56 -28 -122 -10 -88 -16 -111 -42 -150 -17 -26 -33 -66 -36 -89 -32 -276 -38 -420 -23 -480 5 -16 30 -50 56 -75 34 -33 53 -62 66 -101 9 -30 27 -66 40 -80 28 -32 61 -112 70 -170 12 -86 37 -140 105 -236 76 -106 86 -134 71 -191 -17 -61 -13 -123 15 -214 21 -71 25 -96 20 -159 -5 -61 -2 -87 14 -132 11 -32 20 -72 20 -89 0 -57 33 -214 52 -249 56 -102 86 -145 113 -160 42 -23 98 -161 96 -238 -1 -63 26 -135 59 -152 12 -6 33 -35 47 -63 13 -29 35 -67 49 -86 19 -26 24 -47 24 -90 0 -69 -6 -79 -50 -83 -24 -2 -36 -9 -38 -21 -8 -39 10 -89 44 -126 38 -42 42 -62 18 -82 -15 -12 -14 -15 6 -31 12 -10 39 -21 60 -24 28 -5 51 -19 86 -55 27 -27 56 -49 64 -49 9 0 36 13 61 29 42 28 127 51 210 56 20 2 51 13 68 26 21 16 42 22 66 20 66 -5 120 -3 169 4 30 5 74 3 115 -5 67 -12 68 -12 142 21 54 25 87 33 124 32 41 -1 55 4 82 28 26 22 42 28 72 27 32 -1 48 6 87 38 93 77 235 219 259 260 20 34 32 43 69 53 32 8 52 21 69 44 100 137 173 247 222 335 46 81 63 103 84 108 48 10 51 13 51 45 0 18 15 60 34 93 37 68 64 175 76 303 7 82 9 86 50 128 52 53 135 98 212 114 44 9 69 22 105 55 l48 43 1 94 c1 60 7 110 17 138 22 57 21 83 -3 132 -14 27 -19 50 -15 72 4 22 0 47 -14 77 -11 25 -21 60 -21 78 0 22 -8 39 -25 54 -55 48 -18 133 65 148 82 15 98 26 111 70 10 32 31 59 92 113 43 39 101 99 128 134 55 71 121 114 203 132 44 10 69 25 134 82 83 72 91 84 97 145 2 28 17 50 68 102 87 91 101 120 92 191 -4 31 -6 103 -5 161 6 340 7 355 24 389 23 44 14 76 -32 105 -98 63 -142 130 -142 218 0 21 -9 57 -19 80 -11 24 -24 77 -30 118 -12 79 -6 120 23 162 32 45 15 107 -43 162 -36 35 -39 62 -11 116 24 48 49 62 109 64 46 1 46 1 49 38 4 49 -11 75 -48 83 -35 8 -37 18 -11 52 11 13 23 45 26 71 13 106 16 113 61 158 24 25 44 51 44 59 0 7 29 44 65 81 36 37 65 75 65 84 0 19 89 123 164 190 27 25 67 72 89 105 79 118 302 331 412 394 79 45 116 81 140 136 17 38 48 74 122 142 102 94 118 119 147 223 10 36 32 76 64 115 63 78 74 99 83 161 4 29 14 67 23 85 8 19 22 54 31 77 18 54 105 210 153 275 47 65 61 108 62 192 0 41 7 80 15 95 8 14 14 43 14 65 0 22 -6 51 -14 65 -8 14 -14 39 -15 56 0 31 -26 64 -49 64 -7 0 -29 -11 -49 -25 -64 -44 -191 -88 -234 -81 -25 4 -53 0 -88 -14 -28 -11 -72 -20 -99 -20 -42 0 -53 -5 -85 -36 l-38 -37 -81 6 c-72 6 -91 4 -174 -23 -108 -35 -182 -39 -206 -12 -9 10 -24 41 -33 70 -22 66 -43 86 -94 84 -29 -1 -42 3 -49 16 -14 26 5 52 38 52 37 0 55 22 46 57 -3 16 -9 45 -12 66 -4 32 -11 41 -38 53 -19 7 -37 24 -41 36 -4 13 -20 42 -35 65 -16 23 -29 46 -29 51 0 17 -35 40 -80 52 -25 6 -52 13 -62 16 -9 3 -23 22 -31 42 -15 37 -88 107 -152 147 -16 11 -47 34 -68 52 -20 18 -43 33 -51 33 -24 0 -58 52 -52 80 8 39 -45 256 -86 350 -33 77 -35 80 -69 80 -25 0 -30 5 -35 30 -5 23 -12 30 -29 30 -70 0 -115 99 -115 253 0 116 -12 170 -62 279 -52 110 -91 164 -126 171 -67 14 -116 99 -92 162 6 15 10 39 10 55 0 23 -5 31 -25 36 -27 7 -45 31 -45 62 0 24 -75 169 -105 202 -13 14 -30 39 -38 56 -9 16 -34 49 -56 71 -40 39 -41 43 -41 108 0 62 -2 69 -31 93 -123 108 -253 352 -210 398 5 5 -13 57 -45 127 -30 65 -54 122 -54 126 0 5 12 7 28 5 40 -6 19 2 -100 36 -111 32 -128 31 -157 -4 -7 -8 -26 -18 -43 -21 -20 -5 -37 -19 -50 -41 -11 -19 -28 -39 -38 -44 -27 -14 -79 -12 -137 5 -28 8 -75 20 -104 25 -30 6 -67 20 -82 31 -16 12 -68 29 -120 39 -51 10 -100 22 -109 25 -11 4 -21 0 -30 -14 -20 -32 -35 -26 -69 29 -16 27 -38 51 -47 54 -9 2 -69 7 -132 11 -148 8 -150 9 -150 49 0 39 -25 66 -71 75 -22 4 -38 16 -49 36 -25 46 -68 46 -119 0 -27 -24 -61 -42 -106 -55 -79 -23 -90 -31 -105 -75 -9 -27 -7 -43 10 -91 11 -32 20 -69 20 -82 0 -43 -31 -92 -75 -117 -58 -34 -93 -32 -151 10 -101 73 -106 75 -171 75 -59 0 -105 13 -230 65 -38 17 -76 66 -93 120 -26 82 -43 94 -158 102 -72 6 -79 8 -110 41 -29 30 -45 37 -105 48 -40 7 -92 13 -117 14 -76 1 -119 17 -142 56 -21 35 -33 40 -57 25 -10 -7 -24 -2 -44 15 -16 13 -32 24 -37 24 -4 0 -13 13 -20 29 -17 42 4 82 50 97 22 7 38 21 45 38 6 14 21 35 33 46 37 34 30 83 -18 130 -35 34 -40 45 -40 83 0 35 7 53 36 90 34 44 38 67 10 67 -7 0 -23 -11 -36 -25 l-24 -25 -50 49 c-92 88 -110 90 -195 17z m3409 -6356 c0 -5 -4 -10 -10 -10 -5 0 -10 5 -10 10 0 6 5 10 10 10 6 0 10 -4 10 -10z"/> <path d="M1662 11348 c-17 -17 -15 -48 5 -55 11 -4 24 3 40 23 12 16 23 32 23 37 0 12 -55 8 -68 -5z"/> <path d="M1042 11263 c-7 -2 -17 -13 -22 -23 -8 -15 -6 -17 23 -11 18 4 32 13 32 21 0 15 -14 21 -33 13z"/> <path d="M1602 11236 c-29 -49 -35 -75 -22 -91 19 -23 48 -18 75 11 30 32 32 74 7 97 -27 24 -38 21 -60 -17z"/> <path d="M1225 11230 c-12 -4 -27 -15 -34 -24 -12 -15 -10 -21 14 -46 16 -17 34 -30 40 -30 18 0 63 53 70 83 7 26 6 27 -31 26 -22 0 -48 -4 -59 -9z"/> <path d="M1360 11154 c-16 -19 -4 -61 23 -78 40 -25 75 38 41 75 -21 23 -47 24 -64 3z"/> <path d="M0 9067 c0 -20 21 -37 46 -37 33 0 38 16 12 34 -27 19 -58 21 -58 3z"/> <path d="M68 8869 c-20 -11 -25 -73 -8 -84 13 -8 66 21 74 41 17 43 -23 69 -66 43z"/> <path d="M5025 6848 c-44 -24 -56 -56 -29 -82 39 -39 94 -3 94 61 0 28 -4 33 -22 33 -13 0 -32 -6 -43 -12z"/> <path d="M3907 5584 c-13 -13 15 -34 45 -34 23 0 29 4 26 18 -3 17 -57 30 -71 16z"/> <path d="M9797 5094 c-12 -12 -8 -31 13 -55 l19 -24 1 26 c0 28 -22 64 -33 53z"/> <path d="M10370 4090 c0 -13 7 -20 20 -20 13 0 20 7 20 20 0 13 -7 20 -20 20 -13 0 -20 -7 -20 -20z"/> <path d="M11256 3970 c-20 -22 -36 -44 -36 -48 0 -5 11 -18 25 -30 14 -12 25 -27 25 -34 0 -19 -98 -108 -119 -108 -28 0 -51 -27 -51 -59 0 -16 -10 -37 -25 -51 -16 -15 -25 -34 -25 -53 0 -28 -2 -29 -31 -23 -37 7 -69 -8 -69 -33 0 -24 -23 -43 -47 -39 -13 2 -19 -4 -21 -22 -5 -37 -27 -56 -97 -84 -35 -14 -78 -34 -97 -46 -18 -11 -43 -20 -54 -20 -12 0 -33 -9 -48 -21 -15 -11 -39 -24 -54 -28 -23 -6 -27 -13 -30 -47 -2 -24 -12 -49 -27 -64 -32 -35 -51 -75 -70 -150 -19 -74 -14 -102 26 -147 16 -18 31 -46 35 -61 3 -15 10 -40 15 -56 17 -53 10 -118 -16 -161 -35 -58 -43 -75 -55 -122 -7 -28 -28 -62 -64 -100 -29 -32 -61 -72 -70 -90 -27 -53 -21 -118 19 -193 24 -48 37 -89 44 -146 21 -165 28 -184 90 -242 31 -29 70 -56 87 -61 68 -19 181 21 298 104 72 51 78 62 101 194 9 52 25 102 44 134 19 33 36 85 46 141 11 58 26 103 43 128 19 29 26 55 28 95 2 46 7 60 32 87 28 28 47 71 88 196 8 24 26 56 40 71 31 33 43 81 44 175 0 88 20 158 65 223 29 42 35 59 35 104 0 64 6 72 38 51 35 -23 56 -11 48 28 -3 17 -1 56 5 87 11 51 10 60 -10 99 -19 37 -21 57 -20 155 2 105 1 116 -23 157 -14 25 -29 60 -33 77 -7 35 -46 73 -75 73 -10 0 -34 -18 -54 -40z"/> <path d="M12472 2590 c-22 -9 -52 -63 -52 -95 0 -29 38 -15 79 30 40 43 51 65 32 65 -5 0 -15 2 -23 4 -7 3 -23 1 -36 -4z"/> <path d="M12097 2415 c-26 -25 -10 -47 32 -43 31 3 36 6 36 28 0 20 -6 26 -26 28 -15 2 -34 -4 -42 -13z"/></g></symbol>
+</defs></svg>
+
+            <div class="ab-hero">
+                <div class="container ab-hero-grid">
+                    <div class="ab-hero-copy">
+                        <p class="ab-label ab-r">About Career Café</p>
+                        <h2 id="ab-title" class="ab-title ab-r"><span>Building Africa's</span> <span>fit-for-purpose workforce</span> <span>for the future.</span></h2>
+                        <div class="ab-lede ab-r">
+                            <p>Career Café Africa is a Pan-African platform advancing career development, leadership, workforce transformation, and the future of work. We support individuals, employers, institutions, and policymakers across the career life course through mentorship, practical learning, workplace wellness, research, foresight, convening, and partnerships.</p>
+                            <p>With hubs in Nairobi, Kigali, and Accra, we are building a continental ecosystem that aligns skills, education, leadership, technology, and labour-market needs to help Africa develop a fit-for-purpose, adaptable, and future-ready workforce.</p>
+                        </div>
+                    </div>
+                    <figure class="ab-art ab-r">
+                        <svg viewBox="0 0 400 500" role="img" aria-label="Silhouettes of African professionals beneath an arch, with the outline of Africa and a rising sun">
+                            <defs><pattern id="abDia" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M12 1 23 12 12 23 1 12Z" fill="none" stroke="#d9b25f" stroke-width="1"/></pattern></defs>
+                            <path class="a-frame" d="M16 500V205A184 184 0 0 1 384 205V500"/>
+                            <path class="a-arch" d="M44 500V205A156 156 0 0 1 356 205V500Z"/>
+                            <circle class="a-sun" cx="200" cy="118" r="58"/>
+                            <use class="a-af" href="#africa" x="84" y="128" width="232" height="237"/>
+                            <rect x="44" y="424" width="312" height="76" fill="url(#abDia)" opacity=".5"/>
+                            <g class="a-people"><use href="#p-stand" x="92" y="336" width="72" height="164"/><use href="#p-woman" x="160" y="306" width="86" height="194"/><use href="#p-speak" x="240" y="324" width="80" height="176"/></g>
+                            <path class="a-frame" d="M352 36 380 64 352 92 324 64Z"/>
+                        </svg>
+                    </figure>
                 </div>
-                <aside class="mission-strip">
-                    <span class="section-kicker"><i class="fas fa-bullseye"></i> Our mission</span>
-                    <strong>To nurture clarity, confidence, competence, and workplace wellness for thriving careers and thriving organizations.</strong>
-                </aside>
+            </div>
+
+            <div class="ab-mv">
+                <svg class="sil ab-mv-sil" viewBox="0 0 100 240" aria-hidden="true"><use href="#p-speak"/></svg>
+                <div class="container ab-mv-grid">
+                    <span class="ab-conn ab-r" aria-hidden="true"></span>
+                    <article class="ab-panel ab-mission ab-r">
+                        <span class="ab-no" aria-hidden="true">01</span>
+                        <h3 class="ab-h">Our mission</h3>
+                        <span class="ab-rule" aria-hidden="true"></span>
+                        <p>To build a fit-for-purpose and future-ready African workforce by connecting people, evidence, skills, leadership, institutions, and opportunities.</p>
+                    </article>
+                    <article class="ab-panel ab-vision ab-r">
+                        <span class="ab-no" aria-hidden="true">02</span>
+                        <h3 class="ab-h">Our vision</h3>
+                        <span class="ab-rule" aria-hidden="true"></span>
+                        <p>An Africa where every generation is equipped, connected, and empowered to thrive in—and help shape—the future of work.</p>
+                    </article>
+                </div>
+            </div>
+
+            <div class="ab-break" aria-hidden="true">
+                <svg class="sil ab-break-sils" viewBox="0 0 1400 240" preserveAspectRatio="xMidYMax slice"><use href="#p-woman2" x="20" y="30" width="100" height="220"/><use href="#p-stand" x="170" y="30" width="100" height="220"/><use href="#p-speak" x="320" y="30" width="120" height="220"/><use href="#p-seat" x="520" y="100" width="170" height="150"/><use href="#p-stand" x="760" y="30" width="100" height="220"/><use href="#p-woman2" x="910" y="30" width="100" height="220"/><use href="#p-speak" x="1060" y="30" width="120" height="220"/><use href="#p-stand" x="1260" y="30" width="100" height="220"/></svg>
+                <div class="container ab-r">
+                    <p class="ab-break-k">Africa</p>
+                    <p class="ab-break-t">is not waiting<br>for the future.</p>
+                    <span class="ab-line"></span>
+                </div>
+            </div>
+
+            <div class="ab-flag">
+                <div class="container ab-flag-grid">
+                    <div class="ab-r">
+                        <p class="ab-label">Our two flagship initiatives</p>
+                        <h3 class="ab-flag-t">Shaping Africa's workforce future.</h3>
+                    </div>
+                    <div class="ab-flag-list">
+                        <article class="ab-init ab-r"><h4>Pan-African Think Tank on the Future of Work</h4><p>Generating evidence, foresight, workforce intelligence, and strategic recommendations to move Africa from reactive workforce planning to anticipatory action.</p></article>
+                        <article class="ab-init ab-r"><h4>Africa Work Futures Summit</h4><p>Convening leaders across sectors to translate evidence into partnerships, priorities, and practical solutions.</p></article>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ab-wwd">
+                <div class="container">
+                    <p class="ab-label ab-r">What we do</p>
+                    <div class="ab-svc-grid">
+                        <article class="ab-svc ab-r"><span class="ab-svc-no">01</span><div><h3>Career Development &amp; Mentorship</h3><p>Practical support for professionals across career stages.</p></div><svg class="ab-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><svg class="ab-arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></article>
+                        <article class="ab-svc ab-r"><span class="ab-svc-no">02</span><div><h3>Learning &amp; Capability Building</h3><p>Masterclasses, workshops, webinars, and courses focused on future-ready skills.</p></div><svg class="ab-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><svg class="ab-arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></article>
+                        <article class="ab-svc ab-r"><span class="ab-svc-no">03</span><div><h3>Research, Foresight &amp; Workforce Intelligence</h3><p>Evidence and insight to inform workforce decisions.</p></div><svg class="ab-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><svg class="ab-arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></article>
+                        <article class="ab-svc ab-r"><span class="ab-svc-no">04</span><div><h3>Convening &amp; Partnerships</h3><p>Connecting sectors to build stronger workforce ecosystems.</p></div><svg class="ab-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5l-5.5 5M12 11.5l5.5 5"/></svg><svg class="ab-arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></article>
+                        <article class="ab-svc ab-r"><span class="ab-svc-no">05</span><div><h3>Workplace Wellness &amp; Organisational Development</h3><p>Supporting healthier, more productive workplaces.</p></div><svg class="ab-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><svg class="ab-arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></article>
+                        <div class="ab-cta ab-r">
+                            <a href="#" class="btn btn-primary" id="openMemberModal"><i class="fas fa-user-plus"></i> Become a Member</a>
+                            <a href="#partners" class="btn btn-secondary" id="openPartnerModal"><i class="fas fa-handshake"></i> Partner With Us</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
+
 
         <section class="section">
             <div class="container">
@@ -183,6 +272,31 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
             </div>
         </section>
 
+        <section id="team" class="section section-alt team-section">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <span class="section-kicker"><i class="fas fa-user-group"></i> Team</span>
+                    </div>
+                </div>
+                <div class="carousel-shell">
+                    <div class="carousel-header-bar">
+                        <div class="carousel-kicker" aria-hidden="true"></div>
+                        <div class="carousel-inline-controls">
+                            <button class="carousel-btn carousel-btn-prev" id="teamPrev" aria-label="Previous team members"><i class="fas fa-arrow-left"></i></button>
+                            <button class="carousel-btn carousel-btn-next" id="teamNext" aria-label="Next team members"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="carousel-viewport" id="teamViewport">
+                        <div class="carousel-track team-carousel-track" id="teamGrid">
+                            <div class="articles-loading"><i class="fas fa-spinner fa-spin"></i> Loading team...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-dots" id="teamDots"></div>
+            </div>
+        </section>
+
         <section id="solution" class="section section-deep">
             <div class="container">
                 <div class="section-header">
@@ -190,7 +304,7 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                         <span class="section-kicker"><i class="fas fa-layer-group"></i> Services</span>
                         <h2>A hybrid growth platform for people and organizations.</h2>
                     </div>
-                    <p>Career Cafe blends community, learning, events, and employer partnerships into one practical support system.</p>
+                    <p>Career Café blends community, learning, events, and employer partnerships into one practical support system.</p>
                 </div>
                 <div class="solution-grid">
                     <article class="solution-item">
@@ -252,6 +366,11 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                     </div>
                     <p>Insights on employability, visibility, entrepreneurship, workplace growth, and personal strategy.</p>
                 </div>
+                <div class="pub-tabs" role="tablist" aria-label="Publication type">
+                    <button type="button" class="pub-tab active" role="tab" id="tabArticles" aria-selected="true" aria-controls="pubArticles">Articles</button>
+                    <button type="button" class="pub-tab" role="tab" id="tabVideos" aria-selected="false" aria-controls="pubVideos">Videos</button>
+                </div>
+                <div class="pub-panel" id="pubArticles" role="tabpanel" aria-labelledby="tabArticles">
                 <div class="articles-carousel-wrapper">
                     <button class="carousel-btn carousel-btn-prev" id="articlesPrev" aria-label="Previous articles"><i class="fas fa-arrow-left"></i></button>
                     <div class="articles-carousel-viewport" id="articlesViewport">
@@ -262,6 +381,20 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                     <button class="carousel-btn carousel-btn-next" id="articlesNext" aria-label="Next articles"><i class="fas fa-arrow-right"></i></button>
                 </div>
                 <div class="carousel-dots" id="articlesDots"></div>
+                </div>
+                <div class="pub-panel" id="pubVideos" role="tabpanel" aria-labelledby="tabVideos" hidden>
+                    <div class="video-grid">
+                        <div class="video-card">
+                            <div class="video-frame" data-video-id="JrFzlBwyMPo">
+                                <button type="button" class="video-play" aria-label="Play video">
+                                    <img src="https://i.ytimg.com/vi/JrFzlBwyMPo/hqdefault.jpg" alt="" loading="lazy">
+                                    <span class="video-play-icon"><i class="fas fa-play"></i></span>
+                                </button>
+                            </div>
+                            <a class="video-link" href="https://www.youtube.com/watch?v=JrFzlBwyMPo" target="_blank" rel="noopener">Watch on YouTube <i class="fas fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -296,7 +429,7 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                         <span class="section-kicker"><i class="fas fa-images"></i> Gallery</span>
                         <h2>Community in action.</h2>
                     </div>
-                    <p>Moments from events, workshops, conversations, and the people building the Career Cafe community.</p>
+                    <p>Moments from events, workshops, conversations, and the people building the Career Café community.</p>
                 </div>
                 <div class="carousel-shell">
                     <div class="carousel-header-bar">
@@ -326,7 +459,7 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                         <span class="section-kicker"><i class="fas fa-handshake"></i> Partners</span>
                         <h2>Build visibility while developing talent.</h2>
                     </div>
-                    <p>Partner with Career Cafe to reach ambitious professionals, support workplace growth, and contribute to stronger career ecosystems.</p>
+                    <p>Partner with Career Café to reach ambitious professionals, support workplace growth, and contribute to stronger career ecosystems.</p>
                 </div>
                 <div class="partners-grid">
                     <article class="partner-card">
@@ -352,40 +485,17 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
             </div>
         </section>
 
-        <section class="testimonial">
+        <section class="ab-quote" aria-label="Message from the Co-Founder and Executive Chairperson">
+            <svg class="ab-quote-af" viewBox="0 0 1254 1280" aria-hidden="true"><use href="#africa"/></svg>
             <div class="container">
-                <div class="testimonial-content">
-                    <div class="quote-mark">"</div>
-                    <p class="testimonial-text">A place to connect, learn, and grow with intention.</p>
-                </div>
+                <figure class="ab-quote-in ab-r">
+                    <span class="ab-qm" aria-hidden="true">“</span>
+                    <blockquote class="ab-qt">Africa must not wait for the future of work to arrive; we must shape it deliberately. That means rethinking old assumptions, taking intelligent risks, and equipping young Africans not merely to enter the future, but to define it.</blockquote>
+                    <figcaption class="ab-qa"><strong>Luchuo Engelbert Bain, MD, PhD, FAAS</strong><span>Co-Founder and Executive Chairperson</span></figcaption>
+                </figure>
             </div>
         </section>
 
-        <section id="team" class="section section-alt team-section">
-            <div class="container">
-                <div class="section-header">
-                    <div>
-                        <span class="section-kicker"><i class="fas fa-user-group"></i> Team</span>
-                        <h2>The people behind the platform.</h2>
-                    </div>
-                </div>
-                <div class="carousel-shell">
-                    <div class="carousel-header-bar">
-                        <div class="carousel-kicker">Leadership</div>
-                        <div class="carousel-inline-controls">
-                            <button class="carousel-btn carousel-btn-prev" id="teamPrev" aria-label="Previous team members"><i class="fas fa-arrow-left"></i></button>
-                            <button class="carousel-btn carousel-btn-next" id="teamNext" aria-label="Next team members"><i class="fas fa-arrow-right"></i></button>
-                        </div>
-                    </div>
-                    <div class="carousel-viewport" id="teamViewport">
-                        <div class="carousel-track team-carousel-track" id="teamGrid">
-                            <div class="articles-loading"><i class="fas fa-spinner fa-spin"></i> Loading team...</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-dots" id="teamDots"></div>
-            </div>
-        </section>
 
         <section id="events" class="section events">
             <div class="container">
@@ -417,6 +527,10 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                         <a href="mailto:careercafeke@gmail.com">careercafeke@gmail.com</a>
                     </div>
                     <div class="contact-item">
+                        <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+                        <a href="mailto:info@careercafe.africa">info@careercafe.africa</a>
+                    </div>
+                    <div class="contact-item">
                         <span class="contact-icon"><i class="fas fa-phone"></i></span>
                         <a href="tel:+254720087837">+254 720 087837</a>
                     </div>
@@ -434,9 +548,9 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
             <div class="site-footer-top">
                 <div class="site-footer-brand">
                     <a href="index.html" class="site-footer-mark">
-                        <img src="careerLogoNew.png" alt="Career Cafe Logo">
+                        <img src="careerLogoNew.png" alt="Career Café Logo">
                         <span class="site-footer-mark-text">
-                            <strong>Career Cafe</strong>
+                            <strong>Career Café</strong>
                             <span>Build With Purpose</span>
                         </span>
                     </a>
@@ -457,6 +571,7 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                     <h3 class="site-footer-title">Contact</h3>
                     <ul class="site-footer-contact">
                         <li><a href="mailto:careercafeke@gmail.com">careercafeke@gmail.com</a></li>
+                        <li><a href="mailto:info@careercafe.africa">info@careercafe.africa</a></li>
                         <li><a href="tel:+254720087837">+254 720 087837</a></li>
                         <li><a href="courses.html">Browse courses</a></li>
                     </ul>
@@ -464,14 +579,14 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                 <div>
                     <h3 class="site-footer-title">Follow</h3>
                     <div class="site-footer-socials">
-                        <a href="https://www.linkedin.com/in/the-career-café-africa-a63269370?utm_source=share_via&utm_content=profile&utm_medium=member_ios" class="site-footer-social" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.linkedin.com/in/the-career-café-africa-a63269370" class="site-footer-social" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                         <a href="https://whatsapp.com/channel/0029Vb6zUUTDeON0FtpHPW2P" class="site-footer-social" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                         <a href="https://www.instagram.com/thecareercafeafrica?igsh=M2wyendibDhuNHI0&utm_source=qr" class="site-footer-social" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
             <div class="site-footer-bottom">
-                <p>&copy; 2026 Career Cafe. All rights reserved.</p>
+                <p>&copy; 2026 Career Café. All rights reserved.</p>
                 <p class="site-footer-tagline">Building careers with purpose across Africa.</p>
             </div>
         </div>
@@ -480,7 +595,7 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
     <div class="modal" id="memberModal" aria-hidden="true">
         <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="memberModalTitle">
             <h3 id="memberModalTitle">Become a Member</h3>
-            <p class="modal-subtext">Join The Career Cafe community for webinars, mentorship, tools, and opportunities.</p>
+            <p class="modal-subtext">Join The Career Café community for webinars, mentorship, tools, and opportunities.</p>
             <form id="memberForm">
                 <div class="form-row">
                     <input type="text" id="memberFullName" placeholder="Full Name" required>
@@ -502,7 +617,7 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                         <option value="Entrepreneur">Entrepreneur</option>
                     </select>
                 </div>
-                <textarea id="memberReason" placeholder="Why do you want to join The Career Cafe?" rows="4" required></textarea>
+                <textarea id="memberReason" placeholder="Why do you want to join The Career Café?" rows="4" required></textarea>
                 <div class="form-group">
                     <label for="membershipPlan">Preferred Membership Plan</label>
                     <select id="membershipPlan">
@@ -513,7 +628,7 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                     </select>
                 </div>
                 <div class="form-checkbox">
-                    <label><input type="checkbox" id="memberConsent" required> I agree to receive updates, event invites, and newsletters from The Career Cafe.</label>
+                    <label><input type="checkbox" id="memberConsent" required> I agree to receive updates, event invites, and newsletters from The Career Café.</label>
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn btn-secondary" id="memberCancel">Cancel</button>
@@ -526,7 +641,7 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
     <div class="modal" id="partnerModal" aria-hidden="true">
         <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="partnerModalTitle">
             <h3 id="partnerModalTitle">Partner With Us</h3>
-            <p class="modal-subtext">Collaborate with The Career Cafe to empower professionals and build meaningful career experiences.</p>
+            <p class="modal-subtext">Collaborate with The Career Café to empower professionals and build meaningful career experiences.</p>
             <form id="partnerForm">
                 <div class="form-row">
                     <input type="text" id="partnerFullName" placeholder="Full Name" required>
@@ -553,7 +668,7 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                 </div>
                 <textarea id="partnerMessage" placeholder="Brief Description of Partnership Idea" rows="5" required></textarea>
                 <div class="form-checkbox">
-                    <label><input type="checkbox" id="partnerConsent" required> I consent to The Career Cafe contacting me regarding partnership opportunities.</label>
+                    <label><input type="checkbox" id="partnerConsent" required> I consent to The Career Café contacting me regarding partnership opportunities.</label>
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn btn-secondary" id="partnerCancel">Cancel</button>
@@ -576,7 +691,7 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
     <div class="newsletter-popup" id="newsletterPopup">
         <div class="popup-content">
             <button class="close-popup" id="closePopup" type="button" aria-label="Close newsletter">&times;</button>
-            <h3>Stay Updated with Career Cafe</h3>
+            <h3>Stay Updated with Career Café</h3>
             <p>Get career tips, event invites, and opportunities delivered to your inbox.</p>
             <form id="newsletterForm">
                 <input type="email" id="newsletterEmail" placeholder="Your email address" required>
@@ -719,7 +834,9 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
 
             function goTo(page) {
                 current = Math.max(0, Math.min(page, totalPages() - 1));
-                track.style.transform = `translate3d(-${current * currentPerPage() * slideStep()}px, 0, 0)`;
+                const maxX = Math.max(0, track.scrollWidth - viewport.offsetWidth);
+                const x = Math.min(current * currentPerPage() * slideStep(), maxX);
+                track.style.transform = `translate3d(-${x}px, 0, 0)`;
                 updateButtons();
                 updateDots();
             }
@@ -1027,7 +1144,7 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                 const res = await fetch(`${API_BASE}/api/partnerships`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ fullName, email, phone, organization, partnershipType, message, consentsContact })
+                    body: JSON.stringify({ fullName, email, phone, organization, partnershipType, message, consentsContact, recipientEmail: 'lebaiins@gmail.com' })
                 });
                 if (!res.ok) throw new Error();
                 showFormToast('Thank you. Your partnership request has been received.');
@@ -1091,13 +1208,27 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                 modal.setAttribute('aria-hidden', 'true');
                 document.body.style.overflow = '';
             };
-            ['openMemberModal', 'openMemberModalSecondary'].forEach(id => {
+            ['openMemberModal', 'openMemberModalSecondary', 'openMemberNav'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.addEventListener('click', event => { event.preventDefault(); openModal(memberModal); });
             });
             ['openPartnerModal', 'openPartnerModalSecondary'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.addEventListener('click', event => { event.preventDefault(); openModal(partnerModal); });
+            });
+
+            const publications = document.querySelector('.nav-dropdown');
+            const publicationsLink = publications?.querySelector(':scope > a');
+            publicationsLink?.addEventListener('click', event => {
+                event.preventDefault();
+                const isOpen = publications.classList.toggle('open');
+                publicationsLink.setAttribute('aria-expanded', String(isOpen));
+            });
+            document.addEventListener('click', event => {
+                if (publications && !publications.contains(event.target)) {
+                    publications.classList.remove('open');
+                    publicationsLink?.setAttribute('aria-expanded', 'false');
+                }
             });
             document.getElementById('memberCancel').addEventListener('click', () => closeModal(memberModal));
             document.getElementById('partnerCancel').addEventListener('click', () => closeModal(partnerModal));
@@ -1121,7 +1252,7 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
 
             const newsletterPopup = document.getElementById('newsletterPopup');
             if (!localStorage.getItem('newsletterDontShow')) {
-                setTimeout(() => { newsletterPopup.style.display = 'grid'; }, 5000);
+                setTimeout(() => { newsletterPopup.style.display = 'grid'; }, 25000);
             }
             document.getElementById('closePopup').addEventListener('click', () => {
                 newsletterPopup.style.display = 'none';
@@ -1143,7 +1274,7 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                 navShareBtn.addEventListener('click', async (event) => {
                     event.preventDefault();
                     const shareData = {
-                        title: 'Career Cafe Africa',
+                        title: 'Career Café Africa',
                         text: 'Build a career with purpose. A career growth, mentorship, events, and learning community for ambitious professionals across Africa.',
                         url: window.location.href
                     };
@@ -1189,7 +1320,7 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
             <figure class="afwr-qr">
                 <div class="afwr-qr-box">
                     <svg viewBox="-2 -2 41 41" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QR code linking to the Africa Future of Work Reset page" shape-rendering="crispEdges"><path d="M0 0h7v1h-7zM9 0h2v1h-2zM13 0h4v1h-4zM19 0h5v1h-5zM25 0h2v1h-2zM30 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM10 1h1v1h-1zM12 1h1v1h-1zM14 1h1v1h-1zM16 1h2v1h-2zM22 1h2v1h-2zM25 1h1v1h-1zM30 1h1v1h-1zM36 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM9 2h7v1h-7zM19 2h3v1h-3zM25 2h2v1h-2zM30 2h1v1h-1zM32 2h3v1h-3zM36 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM8 3h7v1h-7zM17 3h2v1h-2zM20 3h8v1h-8zM30 3h1v1h-1zM32 3h3v1h-3zM36 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM9 4h1v1h-1zM12 4h1v1h-1zM14 4h3v1h-3zM20 4h3v1h-3zM26 4h1v1h-1zM28 4h1v1h-1zM30 4h1v1h-1zM32 4h3v1h-3zM36 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM8 5h2v1h-2zM12 5h1v1h-1zM15 5h2v1h-2zM18 5h2v1h-2zM21 5h2v1h-2zM24 5h1v1h-1zM26 5h1v1h-1zM28 5h1v1h-1zM30 5h1v1h-1zM36 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h1v1h-1zM28 6h1v1h-1zM30 6h7v1h-7zM8 7h1v1h-1zM13 7h1v1h-1zM17 7h1v1h-1zM20 7h1v1h-1zM23 7h2v1h-2zM26 7h3v1h-3zM1 8h2v1h-2zM6 8h1v1h-1zM13 8h3v1h-3zM18 8h2v1h-2zM24 8h1v1h-1zM28 8h1v1h-1zM30 8h2v1h-2zM33 8h1v1h-1zM1 9h1v1h-1zM3 9h3v1h-3zM7 9h6v1h-6zM16 9h4v1h-4zM22 9h4v1h-4zM27 9h2v1h-2zM30 9h1v1h-1zM33 9h1v1h-1zM36 9h1v1h-1zM2 10h3v1h-3zM6 10h6v1h-6zM13 10h1v1h-1zM15 10h1v1h-1zM17 10h1v1h-1zM20 10h1v1h-1zM22 10h2v1h-2zM27 10h6v1h-6zM34 10h1v1h-1zM36 10h1v1h-1zM2 11h1v1h-1zM7 11h2v1h-2zM11 11h1v1h-1zM13 11h1v1h-1zM16 11h1v1h-1zM18 11h1v1h-1zM20 11h1v1h-1zM26 11h1v1h-1zM28 11h1v1h-1zM31 11h1v1h-1zM33 11h1v1h-1zM35 11h2v1h-2zM3 12h1v1h-1zM6 12h1v1h-1zM10 12h1v1h-1zM12 12h1v1h-1zM14 12h1v1h-1zM17 12h1v1h-1zM19 12h1v1h-1zM23 12h2v1h-2zM27 12h1v1h-1zM30 12h1v1h-1zM35 12h2v1h-2zM0 13h5v1h-5zM7 13h3v1h-3zM12 13h1v1h-1zM24 13h2v1h-2zM27 13h5v1h-5zM34 13h1v1h-1zM36 13h1v1h-1zM0 14h1v1h-1zM2 14h2v1h-2zM6 14h1v1h-1zM9 14h2v1h-2zM24 14h1v1h-1zM26 14h2v1h-2zM31 14h1v1h-1zM33 14h2v1h-2zM36 14h1v1h-1zM0 15h4v1h-4zM5 15h1v1h-1zM7 15h2v1h-2zM10 15h3v1h-3zM26 15h1v1h-1zM28 15h1v1h-1zM30 15h2v1h-2zM33 15h1v1h-1zM35 15h2v1h-2zM1 16h6v1h-6zM12 16h1v1h-1zM27 16h2v1h-2zM30 16h2v1h-2zM35 16h2v1h-2zM2 17h1v1h-1zM4 17h2v1h-2zM8 17h2v1h-2zM12 17h1v1h-1zM27 17h1v1h-1zM30 17h1v1h-1zM36 17h1v1h-1zM0 18h2v1h-2zM3 18h1v1h-1zM6 18h1v1h-1zM10 18h2v1h-2zM25 18h1v1h-1zM27 18h1v1h-1zM30 18h1v1h-1zM32 18h1v1h-1zM34 18h1v1h-1zM36 18h1v1h-1zM2 19h1v1h-1zM26 19h4v1h-4zM31 19h1v1h-1zM33 19h1v1h-1zM36 19h1v1h-1zM2 20h3v1h-3zM6 20h3v1h-3zM10 20h1v1h-1zM12 20h1v1h-1zM24 20h1v1h-1zM26 20h1v1h-1zM28 20h1v1h-1zM30 20h1v1h-1zM33 20h1v1h-1zM36 20h1v1h-1zM3 21h1v1h-1zM7 21h2v1h-2zM10 21h1v1h-1zM24 21h2v1h-2zM27 21h1v1h-1zM29 21h3v1h-3zM36 21h1v1h-1zM1 22h2v1h-2zM6 22h1v1h-1zM10 22h1v1h-1zM12 22h1v1h-1zM25 22h1v1h-1zM27 22h2v1h-2zM31 22h2v1h-2zM34 22h1v1h-1zM36 22h1v1h-1zM0 23h3v1h-3zM5 23h1v1h-1zM9 23h2v1h-2zM12 23h1v1h-1zM24 23h1v1h-1zM27 23h1v1h-1zM30 23h2v1h-2zM36 23h1v1h-1zM0 24h1v1h-1zM2 24h3v1h-3zM6 24h1v1h-1zM8 24h5v1h-5zM14 24h7v1h-7zM23 24h4v1h-4zM30 24h1v1h-1zM33 24h1v1h-1zM35 24h2v1h-2zM2 25h1v1h-1zM4 25h2v1h-2zM7 25h5v1h-5zM13 25h1v1h-1zM15 25h1v1h-1zM17 25h1v1h-1zM21 25h1v1h-1zM23 25h2v1h-2zM27 25h2v1h-2zM30 25h2v1h-2zM36 25h1v1h-1zM0 26h5v1h-5zM6 26h1v1h-1zM9 26h1v1h-1zM13 26h1v1h-1zM15 26h1v1h-1zM18 26h3v1h-3zM22 26h2v1h-2zM26 26h5v1h-5zM32 26h1v1h-1zM36 26h1v1h-1zM2 27h3v1h-3zM7 27h4v1h-4zM12 27h1v1h-1zM14 27h2v1h-2zM18 27h2v1h-2zM22 27h3v1h-3zM26 27h1v1h-1zM29 27h3v1h-3zM33 27h1v1h-1zM35 27h1v1h-1zM0 28h2v1h-2zM4 28h5v1h-5zM10 28h1v1h-1zM13 28h2v1h-2zM20 28h1v1h-1zM22 28h1v1h-1zM28 28h6v1h-6zM35 28h1v1h-1zM8 29h1v1h-1zM10 29h1v1h-1zM14 29h4v1h-4zM21 29h1v1h-1zM23 29h2v1h-2zM27 29h2v1h-2zM32 29h2v1h-2zM36 29h1v1h-1zM0 30h7v1h-7zM13 30h1v1h-1zM15 30h1v1h-1zM18 30h1v1h-1zM20 30h1v1h-1zM23 30h1v1h-1zM25 30h1v1h-1zM28 30h1v1h-1zM30 30h1v1h-1zM32 30h3v1h-3zM36 30h1v1h-1zM0 31h1v1h-1zM6 31h1v1h-1zM9 31h1v1h-1zM12 31h1v1h-1zM15 31h1v1h-1zM17 31h1v1h-1zM20 31h2v1h-2zM26 31h3v1h-3zM32 31h2v1h-2zM36 31h1v1h-1zM0 32h1v1h-1zM2 32h3v1h-3zM6 32h1v1h-1zM10 32h1v1h-1zM13 32h3v1h-3zM21 32h1v1h-1zM23 32h2v1h-2zM26 32h7v1h-7zM35 32h2v1h-2zM0 33h1v1h-1zM2 33h3v1h-3zM6 33h1v1h-1zM10 33h3v1h-3zM21 33h1v1h-1zM24 33h2v1h-2zM32 33h2v1h-2zM35 33h2v1h-2zM0 34h1v1h-1zM2 34h3v1h-3zM6 34h1v1h-1zM8 34h1v1h-1zM12 34h6v1h-6zM19 34h1v1h-1zM21 34h1v1h-1zM24 34h2v1h-2zM28 34h1v1h-1zM32 34h2v1h-2zM35 34h2v1h-2zM0 35h1v1h-1zM6 35h1v1h-1zM8 35h1v1h-1zM11 35h1v1h-1zM13 35h1v1h-1zM22 35h3v1h-3zM26 35h1v1h-1zM28 35h1v1h-1zM31 35h1v1h-1zM33 35h1v1h-1zM0 36h7v1h-7zM10 36h1v1h-1zM17 36h3v1h-3zM28 36h1v1h-1zM33 36h1v1h-1zM36 36h1v1h-1z" fill="#030712"/></svg>
-                    <span class="afwr-qr-logo"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAkLUlEQVR42u19aYyl6VXe85z3u0tVV/Ve0zPjnunBPeCxjTPCshPiRYqDExYDsY0SGxCQSEAgkPxBCaCEmFEiK0EBQgh7hMMOMhEEkyATTLBjvAy2hTFeZzz2bL1Nd1VX13rv973nyY9vvVstPXNrqqr7tq761l2+5T3nPctztoDbj3EPu70Etx+3BCOE2zSuHgSA+fn5U6e6rdcoaa+mabpavn+bw28RJlhZWVlrtZPX3XO0+65zp+e/FoAOMxOEW3Snc4sNkaLV/cKxlv3z2U54y+xs+7Hrq71PHVYmCLcg8dUU+UMPAUCv11s+Mdd96UzLXp2Qrz0y2/300urmI4eRCcItRHi8+L47zy0cm/uWJOLx1X5/bQJBCUDHZzv3t4x/r2U4StiXtlszf3RjY+PGYWOCW8oGWPP2DYvxTSeOz/78uYWFOyfodwJAv9//vMeYyqMS81fMz4Zvvm0EHtyHAOCJJ55Y8hgf6UBv7rb8BwG0Giph4OHyFbkiQZpkifnX3z0/f+qwGYW3kgQgAIRW6EGuxLNvO3t67m9PWofEkjNm7FACQUC4f3Z+/t4t7IfbDHAgRIG7AGdiODUb7BsbhiGb0qLbaT3YSiy4e4Q7EL1NxvZtFXCArf9z5851IZ2VHMFMAeEVR3H0xLBncBI4atJXAgIJBBImQGnK2wxwgMV/O11/INC+MpAwiMGwcGwBJ4YZZf7k3OtD4N90d4CkAIQQVr3dWj1sC5PcSuK/Tbwpke6l4IBMkPdy+pabIS4szN45E9o/kBAzjugAYSQi9Znra+kTTTVxWwIcnHv082dO/Z1E8TvpAhwSoBj9ypUry9caRG3PMfnhdsCrIAkwimA0Zj3hDxcXF28MgUm3GeAAiH6/Z+Ho+dmE/z4QdwvRQdBhjNJfAlh+W8Ek950+9h0zxn9qkiz/sWjGzPWhxf7m/7iNAxxAw+/YsWMnjiTJ2xPg1dGjA5ECLI1YXO+n7wKAhwB/wcLxB7vBfiihOpQEASQtcy2t99P/dOXK2uVivXSbAQ6I0QegfUeX/7ZN+4eSRIqiw+HoZfjFp5d77weAs2fPzswn4Yc7SXihkU6IJOCAr/fjT33+yuq7DpvovxWMQN23cPytHeP3GCIpCAwgwY3M//T6evZTADIAmGP/NW3415kkAHQSZsZ+jO9ZW8fPAPDDygB2SHe/Ts/Pf+lsYj/QStQFokiBINdTPLLc83/1zPr6pUL3m8X4hhZ9nh7zA5ix7351ra+3X1xdvXoYRf+htwGOdZNvaxn/BuROAiCRylc3suztF5fXPwogPAT4gw8+eLTVCq8sWEel8ojQ7z9+bfl9h3XnH1YGyA0/HDveJl6bUKAASBLITPaHjy+u/3aTqJcuXWqnvXQm/7GBMEZhsR/1mwDibQY4iLv/DpxsJXYK8hzKtWBRWl/3+DsANptEJSlaRWABRHT85WLfPnbYQJ9bSgWw+CeXJECyv45Z+Ithos7de28vSVqrJIEcH0Ias48uLS0tH/bdf2gZ4PqmrmcxLoIUaZCENGYffmpx8WKDAQSAjz788IrL/6JIFaQEtDudpSF38jYDHKTNf+PGjcXo+ohLlESSoIUrDXduwGbouf535rpOmBGG6Dr0hD+sDFDF9dcy/n7PdUlGAwH3/qTv43NPX/vgJvDHskAT5eu97m0GOLgPB4Anl5Y+vBHxc5EWRZNgx8YYdSXDbKyn+rGe9GkzY2gldxdr44ddDRzWrGACiDG0PzHbsrOtpP2gkFx/ZqX9v4DN3hiicnm9d2G223o0BHu9hXBi1fm7aZqu3WaAA8wEvV5vg137YJvt08Hs5Udm/L3X1zaexnhkj9fXe4/Oz85+VsaXdxM8cX1t83M4xCjgYWcAAOD6erp6dWXtT44dOdIXyKXV9U9v9f3FtfXPdbvJ+x22dmNt88phdwNvhUclwhcWFuZ2INJ5e8kOJxNwit8/+LvjFrmu5xvZu61ODjBTHsp726+LHU6cODE34uC7F9d7vHjn+iiwYdbYZScALA3ecJ0FjJMnTzaOu4QYj+bVQyEM7NR47Rpx/PjI++PPWT4WAZwEsAh3sd8/0n/qqac2bjPANuL5RWfveFmnzR+k23mXeX2VBEvd7ACt+IE7NFDXIUEQzBpEByTPYR0r8R0hWIDL6/O7qPy4AqDC/6O8XCcJxup0xsYSSjkClScT5p+r+JyAS+sp9JufevzyryIPM++Lx75LCZufn/vH2lz71phtIGl44CoICQEq6vVYLL6gge9BAr2kqhUMUtT4RQA0CAZ4Bvrg5q1/p4qf2LwGR3XeQqLU56x4hHlgseBXkUjMINpd99xz6t1PPnntYsMe0W0GaBhnnVb7xOb6qjOLTpZQdU4EsiawSIgYYgKNrKvGWGCC5SKk/Ftq6giw8asySAyWBM5ZCVIhKjgqRh1AwVi0AAHuoikkAmYBXGsS3hqXp1teAtBBSgYZrEklsLETVRBhiLglIQlQGmN+q1AlKqhU855qbgCNQ3ZD9VGtUhqfDTBhQdFcleTHDiQkGWOc0ebyC3LD5C4CF9cbF1L9dC8ZYb8xAEE3INfrjkZ4j4XYJwEN7lKpSuXLPwfg5CjxiygvCVA2eNohbhE12VwSwfJYYGlkFKwleHk9xbVCNAEw8d7jwX55bmH+qmslizpyw5LwRJr5n30xC+/F8vL1vXZX950EMINy8epww8i+LelQIzVD68TRtavzv5rvjAZCS9uiySxNFVEyF8XaJAUg1wArqTBYVDJJXmQCE1qdwC9vI+RMYgYRSM2+74GWv3+zdeQXvnh17fcA9PeKCfYLA1TqOSqu5USsRX5z8UsjUA3ZLABWks4LdmlW+7MkiBrK1sdaIhqj1UkOXayq75WvBxgEIX+PXpy/PCYll8vyO3N30MC2sUXY69rEq+4/Pf+aR2Pyb7BHKWn7Jh+gyNFHluHzpf00vDu382Q1bPGpJMpz6+3SSlHvFeGbTKKCkVQairkbCEAUERxMRCY0SyQEd3l0j4HszLaT739hiD8CoLsXrvq+UwEetZgb+QO+VC2ii8UeYQhtvVGkZ7+Rxh1jWD2MQ3xzRiCc3IhMPqFgPUKdhHYM7ndB8ShyPMMJcSYJ33/fyflPfHFx5VduOQZodzvr1m9lvazfaq5pSfxdE3WsQfccSIFS/ZRqZeRaalyApDMkFi38n+vu32ucWQ+bm+3kWOdIJ83Om/M7oeybGGMwQi1DpxPse07Pzv7x1fX1i9NUBfuOAbqtzuJ6CJvMO3hN1MNAKQm88VpDjKIaJCLGS46tdP0Q041ewygjFOnlkHvltXienowUfPjJJ69dAIqWBJcBAF84duzYR++Zb6NleAvcQUidYC+fnwtfdXUdvz5NBtg3NsBDxf+9DBeidG1Y8A3rWdIqa75+zfw1ayOQjdc3u8t3+t3q+8yvr7JRCUap1+9lny4uNDQcmWR5eXlpPeKnRV5GnpvuiVk7uH3lkCl7eBmg5PDFfv8SyQuWl+uoglsbu3ErXTzGq3/uL7SQNOOug6wiFgWWoRJ2uuit1mcbQE/5jAAY27OfjM5PG/PggwnohOSFOIMj0/QE9l1W8Kde+tJlWHgUbCB/hROvAu2lctGfi3+HFCGqeuYdAMqFrwGlyfp6lLDjiLxjQ7Iir4GgjAaPemy1jy+OtRIBxRh71kpuFIwj0BEMx45tYqqt6fabBDC8851xI+IjziADrJaUDRE/Jo6ikX+lOzboJezGG2h6HFsxzzCjEIJVqinJGcHsE5cvX16bpM9jjJQQvIK3HI64sbw83cjhvqwLCG37uCW2JFiBow0t+E1Y9U0DcKe6fSfMMvwdqWTACMkFyKKU9nrZ+7bw69nRxgJiei9ybIEikHm8DGD9VmIAAcDGcv+TgH2quLq8uFsYUp03T7zdSIGJen6L7+b/C04J5nDEz69m9pEJ4t8AaK498xqDXiQ5EIwSkEV9FnkXk8PvBTSt3c9cuHAt0v4MIQ+pmRmMAiu9v7Nd3CTIzQJB2xmcYz+TKiBSBFLhPReXlp4cQ8gAIJ47c+a+xP17zb2dtyYyZuAzvQz/d9po4H5UAXltX9p7V+a8AJAsSryr8M8OlmMiYrgHD6NBhMzI1LWykaV/0HDlykgUAcQzZ87ccbyNtzOmr3a48lQnMnX96ZPXVydJjUPNAA4Ajzy1+LEI+z0xt+QrdI0YCAXvRmwP4PVbuHKTId6dS5zchyH6mT64nHU+jMHEDwegL7nz1Cvv6Ph/M8VvzjNIKNCsF3FlZSP7BQAbmHJAaL92CTMA2YbH3wpmb02oU5KrDqpx2yVpEnAr/OA5h4dVYo/GKKVpht8umk0AAO66667Ts95/WSvgjZ2AN9Ozs9EjjBQBy4TYi/jxp5fX3os9iAbu5xRsAkhefNfJ/9ohvhuScsEai/CqwUfcwdxYrIK1VXi28Q1pADouPUQ2Ezzr/hHF92ovNUd6HWwcWByEjguTlWn062v9+KNKkkdmks6LYHppAn9ZgD8QiKOKDgEOmsxCiC6t99OfeuTa6r8urP9bmgEMgJ+948jLjobO77bBLyOkgEgpQgjFwvvA3VhpgQtDIh9F9L7Eam0MAzRs0WLp2fheeRKrm4lVeMMAA1TnomeODTOjWZglCbojIMIld0KgGWFMHcvrafafP39t5ccBrGCPEkL2c3GoAPDGWnr56JGOWuTrCYUSHVYjUU8DKcEF+C6N53TVrmS+VwVSOVFZZaDnnxlzHNHKLGEvniyTAXOwqRGmJoAgFP3GwIRsB6gFuZgnELgsDxbQzCLAnuJH1/vxBx9bXP1Z7GE20H6XANX1nTqFuTPdE7/SId+kGN0gUzM1WyXqjjIlTKY6HaQZEawOqzFGYrWjVbBHg7mKXGLAIYb6GA2VkmcxSQGElMNVzDtU1tUCJByGTEoj8Mme+28vpv3fWFzceKpxz9rTBT4ATKAvufPUK4+E+Fst4DxVdP4Ryj6AOanIHHwBmdfw2KClX8ltDtQSjFj6uR4v0rpyCUEIcMmKfFIvfk9YlXnEvBkxowTB8ngF4CBkZn0Ql7Loj1kIH1/tZx9IY/jQU4uLTz8fhD9IDFDZA+fPHP2+2cCfbNESIYIyloUdeeyFcBBObEbne5TFj2TECiJglrthqqV8npcHzwW24F6pdDociBZJWStp4VzbwtckwP25aolwFN82yw1Sl0IITB2PbaTZr4L2DABkylJFrXZmZ64bu09eWV9/opg7MEwDPW8i9oBIAeAk5l/SOf6ObuCb3aOoQgoUm9pBuvHSRsSPPqKlX8dlrD1XF3DfwvEH5wJ/ok38XSjWeUYkBJNIOsJfbTj+xaOXrr53B/ezLyqDDlKHEGIDvfm59mMm++pgPA7lxUHVFrKAHuynP3dx8cewhvRtgL13OJx4k8/r65uX2t3k8ZbhqxNivrD/KJrIwFT47EpMv+sLl6+/v4H0jXtiPxB+PyOBW3kF9tilGx/puX4iqrKWIbkEp8OvReO7i/fDQ0WR1nPwFAB7Sp2PubX+0hngFTyQI7vR8c7Hr6x8EHV1z1bH2le69aA9uLKW/YlnumgF/UnAjBC1uNHjhSntMMfMtYwMK42YZF4vKiB1Xd4vYv2wM4CMzEBmRe1t5QeYhf6pu49vTM2oegqAY6DSgADcPcYYV3AAx8oeyEaRfTQcdNU2lZH06bZ59agsrTsKFIUf8rSfxmsHcS2fj2AQ3zZul7yt8fqh8T/8FMCXAPazLIe/ocgALqSuhTRJgr8NsOK7I1LgoTGnm/R4aAiLABAz+kqnLPos0UFQItJiQ9lOjz/hXIe2OrhqzfHQuBt8aOcHmknTjYWZTvTqiEXGMLl+YyWuPoRxhX83fbpBO8Cxmrf+GMhYlZO9hqF3s8cfXqtDwwAsbohf8ZLz5+fm5l6UhORole4YQu6PSgQCQBdBRUS4Q2aKWZZF96iNXh/peu8B9VYXHBG0vGWMJATXPSc62Vv+1pff/0XrJO08IVO5iMgAZxQ97wESJGYY7BlU+cYSXbK+a8YkM/Mot5jGfidbW3kFlKGu9gTM2F6Yn/sHd9+5cNTa7AS10qTT7pvMBG+RDEY6jS4LpHtiBZYp99iLaSvz2Ov14yMfT/koHn20t1foIPeI+Lr/3jtfMtdKvsuMbwjkWYJtlmgaGx2AQKCo9inxfkJC7uohRtCjW4x9o2JeFeyCK8JCAmu3+gxJhAXmFrowYBSqdNzKphJDi8EC9ZfT3ZOyMYkBkkfENGsJsVA7XgiABEgSp1kGsxAYIgIdRZxJzPuOFE1NcuvB8yYHBOQS3d0FXpTwgZ7Cf//kF5/8E+zBtDLuCfHPnP76bks/3iK/TJ4VBG709Wl29gDH1gEWoNvAJTebQtSYv+r2Lxro/VEdhA2W0Ni1JUbSA6peMRjJLKr6BI2YDIPH01BLEw3cVyH7jRDb1zfd/sOnnr78EwDSaTJBmDbxz9+58DUzLf1cC3ihYnRCMJbRtzyKZgVRjFb/PfREg9gseWX8aTVMHGvkB7JxjLKAcxJcN8g3bLwc7R/AEhaqr68+lvJQszXupYooc/C7conQDBledfTI7PXF1fWHp7lRwzSJf/eJE/fMdfyX2sYH4B4NDKRYheLrBK+CLhxYO1VttjTwfq48tR3OXh1v+Lg7fTYfjeOMLRitA4usrz3X87u6BhopyXMVia+YaYU/X97oP4UpdS2fKg4w29WbE+jlHjNnrkZBV9XNo6z1mijyb5L1x0mOm/k9tpYE41EqDXgHY1XG2O+jKRVhQOatgDu7reTbMcWW9Tat3X/uHLpt4+sMZaZMPp2tTJlq5uyVCzGpJm+7RRxHhOFyrp0mhI4T71udYzdMt12RSV7viDLNCKaoQH/tEeD0tFDGaTEA4srJU3J9aWWYNXa7WBdrbpearQk7ac9w5+cwk3hSanr9d+M9ifnQUy7MHp+9a1pG+9RUgMXYgYo+N8qTrBwN4kO7LtF6NsTY7W+3Ys7dVgzvVGJVmzzPOwIgGEN3hp0jBw4IcsmMxrptqqqa+WYO3c3soiEV2/TTMC7BZqBgY4dSZKvvWVGXUN3LMEF3wWAc6FiK0gbI7V5WnsoBLAzp5NfOSq/VMofYtqfTDnbU0MJV+fuEGca0i9lZhfDw582/y9dWtoqdwMLiqKcwXKbWzCRGiX00SsProIBEZn7gGEBqE/QyYWMM+MKbIHpz8SYRrtalo1Jj52qkzvEfI0mGwKvh/akd3MdgwQlQZyti8P0ph4WmGgsw0SpvvmqruDui18AJtxXPNaF9Vxb9blWBGqjlzdsgrJi1SWXWnWcb52vxwDFAu53XXAyo6IGb3nqhx/nLOyfgZOTUijkC7j4gGcZ3+5pwjV43gdwtYw3iQQApDIYrGhJiD7yc6akAtGnsEzUO0FhgjtkJ2mJHa8sWbuN3OneoSrYvHh05vnFL92l7hhi+/1LbD65NXduYHjwjsOVuDAhVeeZE3aubMgingQlM6iewO+mzW3d9+64n6YGUAG2QTrprQnClNtbGRtfGlHdP2s1mtivjbrv3xur9plGpMWNHm1KE211DQ++z9orGqh8Nt80+KDZAuVKFaGO5MOTQjJ/hZs+sISoNdwPhABG2FN20GoEcMy/a6mEkI6NnBv6mGvq6waTgFvaLj7228r3AwtXLwyMFE9hAHaLnDeYOsA0gEXWF3ZB5VjZbH+ziOfC6oPLobzl+1w2L8sEt1DiGNbhrxC6vsk1Z/dWwM9iQSltuc23pFIpldXI+yErN4ROlOvB81hBAJBAPIAO0CMTq5sqS7aoEezssQGO0qUo3qTGsYah/XxX3L7KKqiYO1ZEs7+BfT4caFfV5K4oqOWWYiNYcVTHGPtjOZa3WpNz9AxHEor8IWGa9QlPMB5gaAzB4S5m18wWXF1vvpk23OszaGAvjo/5+ZdnXqBOKFGIVsGvxoY0OFkIVpcwnvDQbUzXEftOFHOeRaII7WVn5FQhU4plDhmA+cChvfEpv09Q+SAwgAOj1dS2Yf9KMr6E8FHBtnRNXmQScYISpgkiH/eeyb2AAB5GZ8gK8mhZRlPvmNQOCwUlVKR6NATQE4HK4O0IB9nuhy402YEvQDAN9B8Yx6ySgiIPboGSyekxdhZwZjIjyS6np+tQ26jQNjHOnTj3QTrJvSYzfFIiXBKqcw+eF9uckhKxRod9YSE6ER5vtWYogRL5baXDQM9f/67vezRCuk0qKFP4y9a8oHc+UpdmRxMLfbxlea5QZmza4g8pT15rMOcy4Eb5F/gLHtJ2pxRVRNIl0XEsV37Ph/vOPX1t7H6Y0bHJPAuwLR4+eP9bWNyat8M1t4yuCikRfuTdAwoGGDY1xnQ0pYTvA7ksGACIg0thzfPiZjY1vf+ZG79GdXO+JbvfeM0fbv95J7NWSuzFvXQ4VzWsndCkriR4RJxuo9X7P7RIWQwUt5E0loy5n8ndtZvzNx68tfxDA5oGNBVQq+8aNzz8D/OTdJ078bjdkb+qYfWvL+IqEZgPDoMo+cOMkp7E0I4YaM+di1Bo9pMukGhOLyVz6aEH87ebyEQCXNjefOH208wHCXlsOryQb5kNxjRXPlv1fCglgtAlAU+5IGABXyQQGC0QmXUoz/cFqL/uNp66vfgh5r6AD6QbmM4DPnbsvIruTjz/9cKnQL+TtUv/L7OzsO++atW9oIflaQkflsdKCLD01qOiwArDptI8xqb2wzIsObZQzT6gnBLO2B368vK5zQMfuPn0vzTpM6WVhyLpl2YULVx8vFp79zD+DqD8XlVakV+mYNZ3CgcoCVfxlXtf2NOYY59OQCwzAIFHRjX+92vffubC08vCwqD978uQLQpxfe3z58euYQnr4NFSAAfAHX3Tudepnv7S2vvHufpa948lrNz6G0UKHboEZccL1aOj94Uz94d+M8y2JvOfeJgCdu+vUA3OJvSPAXwBHChhgDGnMnrlyY/Xbrq32P1P8ZqZ4Nmv6bcza6dkJSETkbeHUnI57990n7pmHvTWx8I0bMf2hxy4u/TmmUDI2NRWw0c+udbP0xFzb/llMwhvnzp78w17Urz528fUfAt5Zcvkmgc09qoS0wmufZUzPm7QgB8gAE5Cl2fGuqzPENOvYwwcBnTtz5r7ZVvaPjPGtJv8KuXpKpwcJTg8HSCl4TAlXoO4O0Hcb8cYX3/Wnf5SGO9+xclIfufxXl9f2upMC01RI0IeY5c3FRM+7ffVS7k1B5phHOHviyIu77fZbOkn6JoNeiugwGjLHRowxHjwGQJr3QxQod4cZW8Y7JH1H8P7XtZ/hw0fvPPnJmdmZJbk73GFmdIcKRYnYEOeh2MQ2aS94+Z8L7vD8i9rY6IfNfva+C0srHwAApIAnyawCE3nuZgYzRM/mXNV6+F1z3VcnCf5OfkiTh1rcm4F0yIpA1JH5+fx60wzrmxu5ii9czNzpzeVPboGKjgwz3RnNdGbU6292PUvPt0N4VaDdDzgUIwCPFAM13dqNqTFASqhTLBJz/4zKKyLVgi2AeEObeAN7m3VoMKuVbG7EacAKYFPtqomd16BKuey5aRhwJElg4tsAfAAA1tL0EkP8SQmnkfcZEmFJVLqypuRyGXydm+l8dbeV/IgXBiqLVmRAmRTq1Tha6/UAEgmAVruNuoeI1zh/kfiRL0WSX2e6iRk4kARQhLtLcJEyIe9GCE43IDRVN1AgYmPaN6Gi56JLZb3XhMwXAjDPmz9yTHxFha8vjfrY+XciQBMoWlA5gzBcXV+/dHUd/24rcQwgmiVuRqckK2aRs8jPldCIaQDuyjONCpwgr0DXQMxi0Fy1/O5VogEVDsgKd1I1clZxiqppisGgvGdL6ZeXDZZz+FQ0ggXYPTZwVgUONJgvV/7ldeXl8KhnAEIAoBidARZcL0Gep9zbwaVHAIRnXxYUzOFukDWZkI1h1GXRJxQbrh4xPNWgqmwupprBGvJMXgiMvMPo4HIQyRSTw6bGADNJEhizooYf1RgVlEXxGIRUB7O4WDeBbtRpq/kxy+rSenFMYyBFCYnxq154+ui/7MfwPzOmWdJqBallw1hLzCyzENvdGL+hzfi18LzzUFnIUkvjepS9Gjt9NN1tDG+rCPOWNSCFLGyqs6LJcBP6Pojh4IRgZnX0f2g7SAOZMaOFHpNhinpCJxsh21F4gwAdQkIcm2uHH5X43bROD2RCukFJCRvn0eOWUnfrWoK7K8hQqgp71Tg/m9E9DOYmbjuFpBHTqDIL1FiDhqkzbax+ijZACkljMxmeKzhrq8XxQXhIAQhG3iPP+7xZA9+pA07lsMlcc024/G3rFSflFk5KYm3GMhpqsjIEMh7AyqBm753JOYG6qeTOMtw6SeBWM7vqMT25KSpVu8qlOlMZzWKV0r0Y7QWwo+vC9gOrXFvI9EY8o8pqOIgqICUUmoObNXqn5M5TsydZmmrsnib91AgJF50o8nEzRb8Jb7pXeY4QOMASuyf+pMrfkZI0DeX+VyCwmsNqCjPA0JoiPvU89AkcV8j57MuwK2OK4yUCwbrijqh8klpEWWOgzM6V1Hbj6MfNH7aKx6rMyGYFfcOgPMA2AFOqTPfgwG6qjaY8jGtjF3J414ytFGoaX5qcbyYAPpBgKmztWm9XenZzY+tqeT6U0ziUDVuFnlmmxh7EnECk5TDvkbgpsfUGGxW9o1m2I+lWHIrND6QCl8NfrPbJh3vEbRtU3D0jDBt+NbELU69w91Tnhjc8nOY9JgdPAqQp1GnBLR+zkzeHaIxOtBwI2EKfamzK+IgrNSwxGjl3KmaCVOncBSivCkbmFuXg2FKnb82wg4mrI1XGrEV9A67Ir6vxgfag9/TUGMBIl7vX2330Zp5tx48te/JodwJ+O49ktyXmu5k8Opp5rmEiHbxwcJ+pOtWc95vpBsIJxuP2YrjsBzhaWdTAWBpGlsaJatzc+NitcIAd2wy1RsivNzmAEiAlVBfqlxnPWxtrWzPALomgWtyOvK9BYvmAJ6apN6PaMXOQO5Bn+9UN7FNqF8iLyqTO0vbiMLo/CpY0ij62K9se+Y6Ud6O1MTn6GowalqaIhiTBOIJNkgg308lsK68nDzTVXkqWHcDp4ZLMXQMze+sWKxqsGOSz2y0jHb1Ki6rwQKSiyGOMMuL21dm7amj0bLuZYcBtLjyXKaqAqTEASSfl429wMIAyroKGHCwHaY5m3d4V40Av4kldSMe9MQ64qaHi8cSeJDV2zQgcZXpBHmN2oFLCygbqK2RY8XxUbhFNLULBlvvAZf3moJdQtoLWaGR3CxOfQ2CKyho8hCLdIkcK1QhHN5HCGhao0cQhs3NMjW4N3LNqb18neUySbFU5WAUFN49Xzic20QwxZkvZWv/KQZIAAoAnrl69EsW/EI1etDiglJeKSvDGzhK8qIT0Sj0Igw6ESjCHg1Zks/s2Gt5zhUIVrgALqrsJzubTc4xCGji3yjI2FL55NTK+nAhXEJp5TWHtyk0oax54crBPORuzEWoRB5F04aOXe72np2UMJlNkrJi6/1oCvDEBTzotH/qsYoiHhLxqD80O75BiXtzZEPnMVxmDJJ5sK7A5E7jgF2+4hhg8ZTEBskEqqsZfqypeQkXNRp4SWNgUKs/RzOpX3WyiDPI0gmJGL046ivMKhMskkR7R66X+W8gzV6YyRmZa7eIFgEtrG08cO9I90jK+lqAVI/YwsBpslkuzgGtZNZOuaujQrA4ueu83emhyzD80Gkg2u/hr4DUw3LWdlacy/H6R31g1PrX6zBw4c53sQY5cnxrVzxjI/iE8T2I0WOBm1C8+dvXGz2BKhaFThhhyb+4G2v/R0Ot0zL4/gc3CVWXIqup9wWoNylh9njpVw6HjJn/kLt5wVBEDuYKVLaAhC8IaLiPqbqOV/laRr1hgA1aKaamq4G7OhRfLIdIR1cSAEQejLlmvDL5qeEYVG2CkZanjly9vxB9BXtE0tYkhezIyBkBy/o5jX982+ydJ4CshHWvOBAIAxCL1qvCBqxJqNvoINGxGCYDXXT6KQEuFMBT+X2OnCwMbbygdAK4qvcyC5fOh2YhXeCP6WHc2I0sQoZJOJfbvRR9gVe9XGD8FWmncVCJMAFZd+uuNLP7aY8/M/w7w1AYO+MwgDN3A7AvvOHG+0w4nukkXWQ5yAMiwsbmKJOmy2+0iy98ceHSTBEgSSCmBBGtra0KWAUmCbHMTADQzN1dKByFLgaSFJCnOUci6pEjzykhVrzMgQ4YESfV/kpSvc0GZZVk+G6p6B0iHkNr8fjJ0kwSrm5tIkgT1feZV3pubGbpdIOl2gfyQiMX6bMpvXL2x8YWlpaXlMWt3oB/EAZ1S+jyuF/fqRM/Hje3FebVP7nm317ynk0P/P/jLBZufUqHbAAAAAElFTkSuQmCC" alt="Career Cafe logo" width="64" height="64"></span>
+                    <span class="afwr-qr-logo"><img src="data:image/png;base64,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" alt="Career Café logo" width="64" height="64"></span>
                 </div>
                 <figcaption>Scan to register</figcaption>
             </figure>
@@ -1212,5 +1343,27 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
         setTimeout(function () { if (isMin()) P.classList.add('show'); else open(); }, 2500);
     })();
     </script>
+    <script src="./fixes.js"></script>
+<script>
+(function(){var els=document.querySelectorAll('.ab-r');if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.15,rootMargin:'0px 0px -6% 0px'});els.forEach(function(e){io.observe(e)});})();
+</script>
+<script>
+(function(){
+var dlg=document.getElementById('reportsDialog'),open=document.getElementById('openReports'),close=document.getElementById('closeReports');
+if(dlg&&open){open.addEventListener('click',function(){dlg.showModal?dlg.showModal():dlg.setAttribute('open','')});
+close.addEventListener('click',function(){dlg.close?dlg.close():dlg.removeAttribute('open')});
+dlg.addEventListener('click',function(e){if(e.target===dlg){dlg.close()}});}
+var tA=document.getElementById('tabArticles'),tV=document.getElementById('tabVideos'),pA=document.getElementById('pubArticles'),pV=document.getElementById('pubVideos');
+function reset(){var f=document.querySelector('.video-frame');if(f&&f.querySelector('iframe')){f.innerHTML=f.__orig}}
+var vf=document.querySelector('.video-frame');if(vf){vf.__orig=vf.innerHTML}
+function show(which){var v=which==='videos';tA.classList.toggle('active',!v);tV.classList.toggle('active',v);tA.setAttribute('aria-selected',String(!v));tV.setAttribute('aria-selected',String(v));pA.hidden=v;pV.hidden=!v;if(!v)reset();if(!v)window.dispatchEvent(new Event('resize'));}
+if(tA&&tV){tA.addEventListener('click',function(){show('articles')});tV.addEventListener('click',function(){show('videos')});
+document.querySelectorAll('[data-pub-tab]').forEach(function(a){a.addEventListener('click',function(){show(a.getAttribute('data-pub-tab'))})});
+if(location.hash==='#videos'){show('videos')}}
+document.addEventListener('click',function(e){var b=e.target.closest('.video-play');if(!b)return;var f=b.closest('.video-frame');
+f.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+f.dataset.videoId+'?autoplay=1&rel=0" title="Career Café Africa video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';});
+})();
+</script>
 </body>
 </html>

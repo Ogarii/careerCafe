@@ -1,0 +1,67 @@
+/* Load AFTER styles.css. Targeted fixes only, nothing rewritten. */
+html { scroll-padding-top: 88px; }              /* anchors no longer hide under fixed nav */
+body { overflow-x: clip; }
+
+/* Type */
+.hero-title, .section-header h2, .article-title { letter-spacing: -0.02em; text-wrap: balance; }
+.section-header p, .about-copy p, .card p, .partner-card p { text-wrap: pretty; }
+.hero-eyebrow { color: var(--primary-light); }
+
+/* Hero */
+.hero { min-height: 88dvh; }
+.hero-reports { display: none; }
+.hero-reports-btn { display: inline-flex; align-items: center; }
+.navbar { transition: box-shadow .25s ease; }
+.navbar.scrolled { box-shadow: 0 10px 30px rgba(26, 26, 46, .08); }
+
+.quote-mark { color: var(--primary); }
+
+/* Equal 3-up cards get some rhythm */
+.cards .card:nth-child(2) { transform: translateY(1.5rem); }
+.cards .card:nth-child(2):hover { transform: translateY(1.2rem); }
+.solution-grid { grid-template-columns: 1.3fr 1fr; }
+.solution-grid .solution-item:first-child { grid-row: span 2; padding: 2rem; }
+
+/* Nav: 1025-1280px was overflowing */
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .brand-wordmark { display: none; }
+    .nav-menu { gap: .5rem; }
+    .nav-menu a { font-size: .76rem; }
+}
+
+/* Carousel: CSS showed 3-up on tablet while JS paged 2-up */
+@media (max-width: 1024px) {
+    .articles-carousel-track .article-card, .gallery-item, .team-card { flex-basis: calc((100% - 1rem) / 2); }
+    .about-services, .about-statements { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cards, .solution-grid { grid-template-columns: 1fr; }
+    .cards .card:nth-child(2) { transform: none; }
+    .solution-grid .solution-item:first-child { grid-row: auto; }
+    .stats-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .hero-reports { right: 0; }
+    .nav-menu { max-height: calc(100dvh - 76px); overflow-y: auto; }
+}
+@media (max-width: 700px) {
+    .articles-carousel-track .article-card, .gallery-item, .team-card { flex-basis: 100%; }
+    .about-services, .about-statements, .stats-grid { grid-template-columns: 1fr; }
+}
+
+/* Events: fixed 540px cards clipped text, hover-scroll never worked on touch */
+.event-card, .events-past-scroll .event-card { height: auto; }
+.event-card-content { overflow: visible; }
+.event-description { max-height: 13rem; overflow-y: auto; padding-right: .5rem; }
+.event-card.event-hover-scroll .event-copy { animation: none; }
+
+/* States */
+.btn:active, .carousel-btn:active, .enroll-btn:active { transform: translateY(1px) scale(.98); }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+.team-card { cursor: pointer; }
+.carousel-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+
+/* Past events: equal-height cards in the scroller */
+.events-past-scroll { align-items: stretch; }
+.events-past-scroll .event-card { align-self: stretch; }

@@ -2537,3 +2537,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--primary); outli
 /* labels on navy use the lighter coral */
 .section-deep .section-kicker, .contact .section-kicker, .site-footer .section-kicker, .hero .section-kicker,
 .section-deep .read-more, .contact .read-more { color: var(--primary-light); }
+
+/* About Us: straight single column on tablet/mobile */
+@media (max-width: 960px) {
+    .ab-vision { margin: 2.5rem 0 0; }
+    .ab-init + .ab-init { margin: 1.8rem 0 0; }
+}

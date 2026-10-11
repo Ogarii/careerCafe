@@ -1,4 +1,25 @@
 /* Load AFTER styles.css. Targeted fixes only, nothing rewritten. */
+:root {
+    --primary: #E2725B;
+    --primary-light: #FFB199;
+    --secondary: #556B2F;
+    --accent: #FFD700;
+    --dark: #1A1A2E;
+    --light: #FFFFFF;
+    --gray: #F5F5F5;
+    --text: #333333;
+    --muted: #6b7280;
+    --line: rgba(26, 26, 46, 0.12);
+    --wash: #fff8f1;
+    --green-wash: #edf2e6;
+    --gold: #E2725B;
+    --gold-soft: #FFB199;
+    --sun: #FFD700;
+    --cream: #fff8f1;
+    --sand: #edf2e6;
+    --brown: #1A1A2E;
+}
+
 html { scroll-padding-top: 88px; }              /* anchors no longer hide under fixed nav */
 body { overflow-x: clip; }
 

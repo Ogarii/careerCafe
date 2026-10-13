@@ -10,7 +10,7 @@
     <link rel="icon" type="image/png" href="./careerLogoNew.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
     <script>document.documentElement.classList.add("js")</script>
     <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet" href="./fixes.css">
@@ -18,7 +18,7 @@
 
 <style id="afwr-css">
 /* Africa Future of Work Reset promo (matches the masterclass page theme) */
-.afwr{--g:#d4a853;--g2:#f0d78c;--ink:#030712;--w:#f8fafc;--t2:#a9b6c8;--ease:cubic-bezier(.22,1,.36,1);position:fixed;right:22px;bottom:22px;z-index:900;width:min(376px,calc(100vw - 28px));padding:22px 22px 20px;border-radius:22px;color:var(--w);font-family:'Plus Jakarta Sans',system-ui,sans-serif;text-align:left;
+.afwr{--g:#d4a853;--g2:#f0d78c;--ink:#030712;--w:#f8fafc;--t2:#a9b6c8;--ease:cubic-bezier(.22,1,.36,1);position:fixed;right:22px;bottom:22px;z-index:900;width:min(376px,calc(100vw - 28px));padding:22px 22px 20px;border-radius:22px;color:var(--w);font-family:'Lato',system-ui,sans-serif;text-align:left;
 background:linear-gradient(135deg,rgba(255,255,255,.11),rgba(212,168,83,.07) 42%,rgba(3,7,18,.5)),rgba(3,7,18,.74);border:1px solid rgba(212,168,83,.3);box-shadow:0 30px 60px rgba(2,6,23,.55),inset 0 1px 1px rgba(255,255,255,.22);-webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%);
 opacity:0;visibility:hidden;transform:translateY(22px) scale(.97);transition:opacity .5s var(--ease),transform .5s var(--ease),visibility .5s}
 .afwr.open{opacity:1;visibility:visible;transform:none}
@@ -32,18 +32,18 @@ opacity:0;visibility:hidden;transform:translateY(22px) scale(.97);transition:opa
 .afwr-kick{display:inline-flex;align-items:center;gap:8px;padding-right:38px;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g2)}
 .afwr-kick i,.afwr-pill i,.afwr-live i{width:12px;height:12px;flex:none;background:linear-gradient(135deg,#f0d78c,#d4a853);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);animation:afwr-spin 6s linear infinite}
 @keyframes afwr-spin{to{transform:rotate(360deg)}}
-.afwr h4{margin:10px 0 6px;font:700 28px/1.02 'Cormorant Garamond',Georgia,serif;letter-spacing:-.01em;color:var(--w)}
+.afwr h4{margin:10px 0 6px;font:700 28px/1.02 'Merriweather',Georgia,serif;letter-spacing:-.01em;color:var(--w)}
 .afwr p{margin:0 0 12px;font-size:13px;line-height:1.55;color:var(--t2)}
 .afwr-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px;padding:0;list-style:none}
 .afwr-chips li{padding:5px 10px;border-radius:100px;border:1px solid rgba(212,168,83,.25);background:rgba(212,168,83,.08);font-size:10.5px;font-weight:600;color:var(--g2)}
 .afwr-cd{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 16px}
 .afwr-cd div{padding:9px 6px 7px;text-align:center;border-radius:12px;border:1px solid rgba(148,163,184,.14);background:rgba(255,255,255,.05)}
-.afwr-cd b{display:block;font:800 20px/1 'Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;color:var(--g2)}
+.afwr-cd b{display:block;font:800 20px/1 'Lato',sans-serif;font-variant-numeric:tabular-nums;color:var(--g2)}
 .afwr-cd span{display:block;margin-top:5px;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
 .afwr-live{display:flex;align-items:center;gap:10px;margin:0 0 16px;padding:12px 14px;border-radius:12px;border:1px solid rgba(212,168,83,.3);background:rgba(212,168,83,.1);font-size:12.5px;font-weight:700;color:var(--g2)}
 .afwr-live[hidden],.afwr-cd[hidden]{display:none}
 .afwr-foot{display:flex;align-items:center;justify-content:space-between;gap:14px}
-.afwr-cta{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 20px;border-radius:100px;background:linear-gradient(135deg,#d4a853,#f0d78c);color:#1a1207;font:700 13px/1 'Plus Jakarta Sans',sans-serif;text-decoration:none;box-shadow:0 10px 26px rgba(212,168,83,.28);transition:transform .25s var(--ease),box-shadow .25s}
+.afwr-cta{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 20px;border-radius:100px;background:linear-gradient(135deg,#d4a853,#f0d78c);color:#1a1207;font:700 13px/1 'Lato',sans-serif;text-decoration:none;box-shadow:0 10px 26px rgba(212,168,83,.28);transition:transform .25s var(--ease),box-shadow .25s}
 .afwr-cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(212,168,83,.42)}
 .afwr-cta:focus-visible,.afwr-x:focus-visible,.afwr-pill:focus-visible{outline:2px solid var(--g2);outline-offset:3px}
 .afwr-qr{margin:0;flex:none;text-align:center}
@@ -52,7 +52,7 @@ opacity:0;visibility:hidden;transform:translateY(22px) scale(.97);transition:opa
 .afwr-qr-logo{position:absolute;left:50%;top:50%;width:24.95%;aspect-ratio:1;transform:translate(-50%,-50%);padding:3%;border-radius:22%;background:#fff;box-shadow:0 0 0 1.5px #d4a853;box-sizing:border-box}
 .afwr-qr-logo img{display:block;width:100%;height:100%;object-fit:contain}
 .afwr-qr figcaption{margin-top:7px;font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t2)}
-.afwr-pill{position:fixed;right:22px;bottom:22px;z-index:900;display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:100px;border:1px solid rgba(212,168,83,.35);color:#f8fafc;font:700 12px/1 'Plus Jakarta Sans',sans-serif;cursor:pointer;
+.afwr-pill{position:fixed;right:22px;bottom:22px;z-index:900;display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:100px;border:1px solid rgba(212,168,83,.35);color:#f8fafc;font:700 12px/1 'Lato',sans-serif;cursor:pointer;
 background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(212,168,83,.08)),rgba(3,7,18,.6);box-shadow:0 14px 34px rgba(2,6,23,.5),inset 0 1px 1px rgba(255,255,255,.2);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
 opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s var(--ease),transform .4s var(--ease),visibility .4s,border-color .25s}
 .afwr-pill.show{opacity:1;visibility:visible;transform:none}
@@ -163,23 +163,9 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                     <div class="ab-hero-copy">
                         <p class="ab-label ab-r">About Career Café</p>
                         <h2 id="ab-title" class="ab-title ab-r"><span>Building Africa's</span> <span>fit-for-purpose workforce</span> <span>for the future.</span></h2>
-                        <div class="ab-lede ab-r">
-                            <p>Career Café Africa is a Pan-African platform advancing career development, leadership, workforce transformation, and the future of work. We support individuals, employers, institutions, and policymakers across the career life course through mentorship, practical learning, workplace wellness, research, foresight, convening, and partnerships.</p>
-                            <p>With hubs in Nairobi, Kigali, and Accra, we are building a continental ecosystem that aligns skills, education, leadership, technology, and labour-market needs to help Africa develop a fit-for-purpose, adaptable, and future-ready workforce.</p>
-                        </div>
+                        <p class="ab-intro ab-r">The Career Café Africa is a Pan-African career and workforce transformation platform helping individuals, organisations, and institutions build the capabilities needed for a fit-for-purpose future of work.</p>
+                        <p class="ab-hubs ab-r">Nairobi <span>&bull;</span> Kigali <span>&bull;</span> Accra <span>|</span> Continental ambition</p>
                     </div>
-                    <figure class="ab-art ab-r">
-                        <svg viewBox="0 0 400 500" role="img" aria-label="Silhouettes of African professionals beneath an arch, with the outline of Africa and a rising sun">
-                            <defs><pattern id="abDia" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M12 1 23 12 12 23 1 12Z" fill="none" stroke="#d9b25f" stroke-width="1"/></pattern></defs>
-                            <path class="a-frame" d="M16 500V205A184 184 0 0 1 384 205V500"/>
-                            <path class="a-arch" d="M44 500V205A156 156 0 0 1 356 205V500Z"/>
-                            <circle class="a-sun" cx="200" cy="118" r="58"/>
-                            <use class="a-af" href="#africa" x="84" y="128" width="232" height="237"/>
-                            <rect x="44" y="424" width="312" height="76" fill="url(#abDia)" opacity=".5"/>
-                            <g class="a-people"><use href="#p-stand" x="92" y="336" width="72" height="164"/><use href="#p-woman" x="160" y="306" width="86" height="194"/><use href="#p-speak" x="240" y="324" width="80" height="176"/></g>
-                            <path class="a-frame" d="M352 36 380 64 352 92 324 64Z"/>
-                        </svg>
-                    </figure>
                 </div>
             </div>
 
@@ -202,6 +188,27 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                 </div>
             </div>
 
+            <div class="ab-about">
+                <div class="container">
+                    <p class="ab-label ab-r">About Us</p>
+                    <div class="ab-lede ab-r">
+                        <p>Career Café Africa is a Pan-African platform advancing career development, leadership, workforce transformation, and the future of work.</p>
+                        <p>We support individuals, employers, institutions, and policymakers across the career life course through mentorship, practical learning, workplace wellness, research, foresight, convening, and partnerships.</p>
+                        <p>With hubs in Nairobi, Kigali, and Accra, we are building a continental ecosystem that aligns skills, education, leadership, technology, and labour-market needs to help Africa develop a fit-for-purpose, adaptable, and future-ready workforce.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ab-quote ab-quote-about">
+                <div class="container">
+                    <figure class="ab-quote-in ab-r">
+                        <span class="ab-qm" aria-hidden="true">&ldquo;</span>
+                        <blockquote class="ab-qt"><em>We need bold leadership, intelligent risk-taking, fit-for-purpose education, and innovation-driven ecosystems. Our responsibility is not merely to prepare young Africans for tomorrow’s jobs, but to empower them to create tomorrow’s opportunities.</em></blockquote>
+                        <figcaption class="ab-qa"><strong>Luchuo Engelbert Bain, MD, PhD, FAAS</strong><span>Co-Founder and Executive Chairperson</span></figcaption>
+                    </figure>
+                </div>
+            </div>
+
             <div class="ab-break" aria-hidden="true">
                 <svg class="sil ab-break-sils" viewBox="0 0 1400 240" preserveAspectRatio="xMidYMax slice"><use href="#p-woman2" x="20" y="30" width="100" height="220"/><use href="#p-stand" x="170" y="30" width="100" height="220"/><use href="#p-speak" x="320" y="30" width="120" height="220"/><use href="#p-seat" x="520" y="100" width="170" height="150"/><use href="#p-stand" x="760" y="30" width="100" height="220"/><use href="#p-woman2" x="910" y="30" width="100" height="220"/><use href="#p-speak" x="1060" y="30" width="120" height="220"/><use href="#p-stand" x="1260" y="30" width="100" height="220"/></svg>
                 <div class="container ab-r">
@@ -216,10 +223,12 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                     <div class="ab-r">
                         <p class="ab-label">Our two flagship initiatives</p>
                         <h3 class="ab-flag-t">Shaping Africa's workforce future.</h3>
+                        <p class="ab-flag-intro">Career Café Africa leads two flagship initiatives shaping Africa’s workforce future.</p>
                     </div>
                     <div class="ab-flag-list">
-                        <article class="ab-init ab-r"><h4>Pan-African Think Tank on the Future of Work</h4><p>Generating evidence, foresight, workforce intelligence, and strategic recommendations to move Africa from reactive workforce planning to anticipatory action.</p></article>
-                        <article class="ab-init ab-r"><h4>Africa Work Futures Summit</h4><p>Convening leaders across sectors to translate evidence into partnerships, priorities, and practical solutions.</p></article>
+                        <article class="ab-init ab-r"><h4>The Pan-African Think Tank on the Future of Work</h4><p>Generating evidence, foresight, workforce intelligence, and strategic recommendations to move Africa from reactive workforce planning to anticipatory action.</p></article>
+                        <article class="ab-init ab-r"><h4>The Africa Work Futures Summit</h4><p>Convening leaders across sectors to translate evidence into partnerships, priorities, and practical solutions.</p></article>
+                        <p class="ab-flag-close">Together, both initiatives aim to help Africa not only prepare for the future of work, but actively shape it.</p>
                     </div>
                 </div>
             </div>
@@ -228,11 +237,11 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                 <div class="container">
                     <p class="ab-label ab-r">What we do</p>
                     <div class="ab-svc-grid">
-                        <article class="ab-svc ab-r"><span class="ab-svc-no">01</span><div><h3>Career Development &amp; Mentorship</h3><p>Practical support for professionals across career stages.</p></div><svg class="ab-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><svg class="ab-arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></article>
-                        <article class="ab-svc ab-r"><span class="ab-svc-no">02</span><div><h3>Learning &amp; Capability Building</h3><p>Masterclasses, workshops, webinars, and courses focused on future-ready skills.</p></div><svg class="ab-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><svg class="ab-arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></article>
-                        <article class="ab-svc ab-r"><span class="ab-svc-no">03</span><div><h3>Research, Foresight &amp; Workforce Intelligence</h3><p>Evidence and insight to inform workforce decisions.</p></div><svg class="ab-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><svg class="ab-arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></article>
-                        <article class="ab-svc ab-r"><span class="ab-svc-no">04</span><div><h3>Convening &amp; Partnerships</h3><p>Connecting sectors to build stronger workforce ecosystems.</p></div><svg class="ab-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5l-5.5 5M12 11.5l5.5 5"/></svg><svg class="ab-arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></article>
-                        <article class="ab-svc ab-r"><span class="ab-svc-no">05</span><div><h3>Workplace Wellness &amp; Organisational Development</h3><p>Supporting healthier, more productive workplaces.</p></div><svg class="ab-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><svg class="ab-arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></article>
+                        <article class="ab-svc ab-r"><span class="ab-svc-no">01</span><div><h3>Career Development &amp; Mentorship</h3><p>Practical support for professionals across career stages, including mentorship, career strategy, visibility, networking, leadership, and transition support.</p></div><svg class="ab-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><svg class="ab-arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></article>
+                        <article class="ab-svc ab-r"><span class="ab-svc-no">02</span><div><h3>Learning &amp; Capability Building</h3><p>Masterclasses, workshops, webinars, and courses focused on future-ready skills, leadership, communication, entrepreneurship, AI readiness, and workplace effectiveness.</p></div><svg class="ab-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><svg class="ab-arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></article>
+                        <article class="ab-svc ab-r"><span class="ab-svc-no">03</span><div><h3>Research, Foresight &amp; Workforce Intelligence</h3><p>Evidence generation, horizon scanning, strategic foresight, labour-market intelligence, and knowledge translation to inform workforce decisions.</p></div><svg class="ab-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><svg class="ab-arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></article>
+                        <article class="ab-svc ab-r"><span class="ab-svc-no">04</span><div><h3>Convening &amp; Partnerships</h3><p>Connecting government, industry, academia, civil society, development partners, and professionals to build stronger workforce ecosystems.</p></div><svg class="ab-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5l-5.5 5M12 11.5l5.5 5"/></svg><svg class="ab-arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></article>
+                        <article class="ab-svc ab-r"><span class="ab-svc-no">05</span><div><h3>Workplace Wellness &amp; Organisational Development</h3><p>Supporting healthier, more productive workplaces through leadership development, employee wellbeing, retention, and organisational capability strengthening.</p></div><svg class="ab-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><svg class="ab-arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></article>
                         <div class="ab-cta ab-r">
                             <a href="#" class="btn btn-primary" id="openMemberModal"><i class="fas fa-user-plus"></i> Become a Member</a>
                             <a href="#partners" class="btn btn-secondary" id="openPartnerModal"><i class="fas fa-handshake"></i> Partner With Us</a>
@@ -534,10 +543,6 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                         <span class="contact-icon"><i class="fas fa-phone"></i></span>
                         <a href="tel:+254720087837">+254 720 087837</a>
                     </div>
-                    <div class="contact-item">
-                        <span class="contact-icon"><i class="fas fa-graduation-cap"></i></span>
-                        <a href="courses.html">Browse current courses</a>
-                    </div>
                 </div>
             </div>
         </section>
@@ -573,7 +578,6 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                         <li><a href="mailto:careercafeke@gmail.com">careercafeke@gmail.com</a></li>
                         <li><a href="mailto:info@careercafe.africa">info@careercafe.africa</a></li>
                         <li><a href="tel:+254720087837">+254 720 087837</a></li>
-                        <li><a href="courses.html">Browse courses</a></li>
                     </ul>
                 </div>
                 <div>

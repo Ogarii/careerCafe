@@ -32,6 +32,7 @@ backups/
 *.bak
 *.dump
 *.sql
+reports/CAREER-CAFE-ANNUAL-REPORT-DRAFT-3.pdf
 
 # Logs
 *.log

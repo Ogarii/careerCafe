@@ -1,4 +1,6 @@
 ---
+# Configure this cPanel-managed repository to pull origin/main from GitHub.
+# cPanel's post-receive hook runs these tasks after each update.
 deployment:
   tasks:
     - export DEPLOYPATH=/home/careerca/public_html

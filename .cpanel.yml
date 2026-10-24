@@ -1,14 +1,8 @@
 ---
-# Configure this cPanel-managed repository to pull origin/main from GitHub.
-# cPanel's post-receive hook runs these tasks after each update.
 deployment:
   tasks:
     - export DEPLOYPATH=/home/careerca/public_html
     - /bin/mkdir -p "$DEPLOYPATH"
-    # Copy the checked-out site. The '*' glob skips dotfiles, so .git, .github,
-    # .cpanel.yml, .gitignore and .claude are never published.
     - /bin/cp -R * "$DEPLOYPATH/"
-    # Remove dev-only / non-public files in case any were published before.
-    # (backups/ with DB dumps is already untracked, so it isn't even checked out.)
     - /bin/rm -rf "$DEPLOYPATH/backups" "$DEPLOYPATH/scripts" "$DEPLOYPATH/node_modules" "$DEPLOYPATH/preview_server.py"
     - /bin/rm -f "$DEPLOYPATH"/*.bak "$DEPLOYPATH"/Screenshot*.png

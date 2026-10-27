@@ -2426,9 +2426,9 @@ i[data-lucide] { display: inline-block; width: 1.1em; height: 1.1em; }
 .ab-quote .container { position: relative; z-index: 2; }
 .ab-quote-in { max-width: 46rem; margin: 0 auto; }
 .ab-qm { display: block; height: 2rem; font-family: "Merriweather", Georgia, serif; font-size: 3.2rem; line-height: 1; font-weight: 700; opacity: .55; }
-.ab-qt { margin: 0; font-family: "Merriweather", Georgia, serif; font-size: clamp(1.6rem, 2.7vw, 2.4rem); line-height: 1.3; font-weight: 600; text-wrap: pretty; }
-.ab-qa { display: grid; gap: .2rem; justify-items: end; margin-top: 2.2rem; text-align: right; }
-.ab-qa::before { content: ""; width: 3rem; height: 1px; margin-bottom: .8rem; background: var(--brown); opacity: .6; }
+.ab-qt { margin: 0; font-family: "Merriweather", Georgia, serif; font-size: clamp(1.6rem, 2.7vw, 2.4rem); line-height: 1.4; font-weight: 600; text-wrap: pretty; }
+.ab-qa { display: grid; gap: .45rem; justify-items: end; margin-top: 3rem; text-align: right; }
+.ab-qa::before { content: ""; width: 3rem; height: 1px; margin-bottom: 1rem; background: var(--brown); opacity: .6; }
 .ab-qa strong { font-size: .9rem; font-weight: 800; }
 .ab-qa span { font-size: .8rem; font-weight: 500; opacity: .8; }
 

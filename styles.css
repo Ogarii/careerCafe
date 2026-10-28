@@ -2342,7 +2342,7 @@ i[data-lucide] { display: inline-block; width: 1.1em; height: 1.1em; }
 .ab { position: relative; overflow: hidden; background: var(--cream); color: var(--brown); font-family: "Lato", system-ui, sans-serif; }
 .ab .sil { fill: currentColor; position: absolute; pointer-events: none; }
 .ab-label { display: flex; align-items: center; gap: .9rem; margin: 0; color: var(--gold); font-size: .72rem; font-weight: 800; letter-spacing: .24em; text-transform: uppercase; }
-.large-section-label, .ab-label-large { font-size: 1rem; letter-spacing: .18em; }
+.large-section-label, .ab-label-large { font-size: clamp(1.25rem, 2.2vw, 2rem); letter-spacing: .12em; }
 .ab-label::before { content: ""; width: 1px; height: 2.6rem; background: var(--gold); }
 
 /* Hero */

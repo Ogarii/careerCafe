@@ -183,6 +183,7 @@ transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-col
 .pay{display:grid;grid-template-columns:1fr 360px;gap:28px;max-width:900px;margin:0 auto;align-items:start}
 .co,.sum{padding:36px;background:var(--gc);border:1px solid var(--bd);border-radius:var(--r)}.sum{border-color:var(--bg-gold);box-shadow:var(--glow)}
 .co h3{font-size:22px;margin-bottom:12px}.co>p{color:var(--t2);margin-bottom:26px}.co .acts{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.paysteps{margin:0 0 28px;padding-left:22px;color:var(--t2);font-size:14px}.paysteps li{padding:7px 0 7px 6px}.paysteps strong{color:var(--white)}.paysteps a{color:var(--gold2);font-weight:600}
 .sum h3{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:18px}.sum div{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid var(--bd)}.sum div:last-child{border:0}
 .sum dt{font-size:13px;color:var(--mut)}.sum dd{font-weight:600;text-align:right;word-break:break-all}
 .skel{height:14px;width:60%;margin-top:18px;border-radius:6px;background:linear-gradient(90deg,rgba(148,163,184,.08),rgba(148,163,184,.22),rgba(148,163,184,.08));background-size:200% 100%;animation:sh 1.4s linear infinite}@keyframes sh{to{background-position:-200% 0}}
@@ -394,12 +395,12 @@ html.is-loading .pl,html.is-loading .pl *{animation-play-state:running!important
 
 <div class="sh center mt"><div class="eyebrow">How to register</div><h2>Four simple steps</h2></div>
 <ol class="steps">
-<li class="card"><span class="no">1</span><h3>Register</h3><p>Open the link or scan the QR.</p></li>
-<li class="card"><span class="no">2</span><h3>Pay online</h3><p>Card or mobile money, receipt by email.</p></li>
-<li class="card"><span class="no">3</span><h3>Get ready</h3><p>Short pre-work, then meet your group.</p></li>
-<li class="card"><span class="no">4</span><h3>Join live</h3><p>Two live days, 5 to 9 PM EAT.</p></li>
+<li class="card"><span class="no">1</span><h3>Register</h3><p>Enter your name, email and phone number.</p></li>
+<li class="card"><span class="no">2</span><h3>Pay by M-Pesa</h3><p>Use the paybill details below to pay for your seat.</p></li>
+<li class="card"><span class="no">3</span><h3>Confirm payment</h3><p>Email your M-Pesa confirmation message to us.</p></li>
+<li class="card"><span class="no">4</span><h3>Join live</h3><p>Receive your confirmation and join both live days.</p></li>
 </ol>
-<div class="pm"><span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#cd"/></svg>Card payment</span><span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#cd"/></svg>Mobile money</span></div>
+<div class="pm"><span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#cd"/></svg>M-Pesa Paybill</span></div>
 <p class="gnote">Employers, universities and networks can buy seats for teams, with direct invoicing. Ask us about group arrangements.</p>
 </div></section>
 
@@ -413,7 +414,7 @@ html.is-loading .pl,html.is-loading .pl *{animation-play-state:running!important
 <div class="field"><label for="professionIndustry">Profession / industry</label><input id="professionIndustry" name="professionIndustry" placeholder="e.g. Finance, Technology" required><span class="err" role="alert"></span></div>
 </div>
 <div class="check"><input id="news" name="subscribeNewsletter" type="checkbox"><label for="news">Subscribe to The Career Café LinkedIn Newsletter</label></div>
-<button class="btn btn-p" type="submit" id="submit"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#a"/></svg>Continue to payment</button>
+<button class="btn btn-p" type="submit" id="submit"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#a"/></svg>View paybill instructions</button>
 <div class="status" id="status" role="status"></div>
 </form>
 </div></div></section>
@@ -421,13 +422,26 @@ html.is-loading .pl,html.is-loading .pl *{animation-play-state:running!important
 <section class="section hidden" id="payment"><div class="wrap">
 <div class="sh center"><div class="eyebrow">Payment</div><h2>Complete your registration</h2></div>
 <div class="pay">
-<div class="co"><h3>Secure checkout</h3><p>Open the PesaPal payment page below. This page detects when payment is complete.</p>
-<div class="acts"><a class="btn btn-p" id="payNow" href="#">Continue to PesaPal</a><button class="btn btn-s" type="button" id="check">Check status</button><a class="link" href="#registration">Back to your details</a></div>
+<div class="co"><h3>Pay by M-Pesa</h3><p>Use M-Pesa Paybill <strong>542542</strong>, enter account number <strong>558810</strong>, and confirm the account name is <strong>The Career Cafe Africa</strong>. Pay <strong>KES 12,900</strong> for your seat.</p>
+<ol class="paysteps"><li>Open M-Pesa and choose <strong>Lipa na M-Pesa</strong>, then <strong>Paybill</strong>.</li><li>Enter Paybill <strong>542542</strong> and account number <strong>558810</strong>.</li><li>After paying, email the M-Pesa confirmation message to <a href="mailto:info@careercafe.africa">info@careercafe.africa</a>.</li></ol>
+<div class="acts"><a class="btn btn-p" id="payNow" href="#" target="_blank" rel="noopener">Open email confirmation</a><a class="link" id="emailApp" href="#">Use your email app</a><a class="link" href="#registration">Back to your details</a></div>
 <div class="skel hidden" id="skel" aria-hidden="true"></div>
 <p class="pnote" id="pmsg" role="status">Waiting for payment confirmation…</p></div>
 <aside class="sum"><h3>Order summary</h3><dl>
 <div><dt>Ticket</dt><dd id="selTier">Subsidised</dd></div><div><dt>Amount</dt><dd id="selAmt">KES 12,900</dd></div><div><dt>Tracking ID</dt><dd id="trk">Pending</dd></div></dl></aside>
 </div></div></section>
+
+<!--
+Legacy PesaPal payment section retained for reactivation when the payment limit is increased:
+<section class="section" id="pesapal-payment">
+<div class="wrap"><div class="sh center"><div class="eyebrow">Payment</div><h2>Complete your registration</h2></div>
+<div class="pay"><div class="co"><h3>Secure checkout</h3>
+<p>Open the PesaPal payment page below. This page detects when payment is complete.</p>
+<div class="acts"><a class="btn btn-p" id="legacyPayNow" href="#">Continue to PesaPal</a><button class="btn btn-s" type="button" id="legacyCheck">Check status</button><a class="link" href="#registration">Back to your details</a></div>
+<div class="skel hidden" id="legacySkel" aria-hidden="true"></div><p class="pnote" id="legacyPmsg" role="status">Waiting for payment confirmation…</p>
+</div><aside class="sum"><h3>Order summary</h3><dl><div><dt>Ticket</dt><dd>Subsidised</dd></div><div><dt>Amount</dt><dd>KES 12,900</dd></div><div><dt>Tracking ID</dt><dd>Pending</dd></div></dl></aside>
+</div></div></section>
+-->
 
 <section class="section conf hidden" id="confirmation"><div class="wrap">
 <div class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#ck"/></svg></div>
@@ -496,19 +510,6 @@ function tick(){const now=new Date(),d=START-now;
  if(d<=0)$('cdt').textContent=now<END?'The masterclass is underway':'The masterclass has ended'}
 tick();setInterval(tick,1000);
 
-/* api + polling */
-async function api(path,opt){const r=await fetch(CONFIG.apiBase+path,opt);if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.message||'Request failed. Please try again.')}return r.json()}
-async function status(){if(!S.id)return;
- try{const d=await api('/api/register/status/'+encodeURIComponent(S.id));const st=(d.paymentStatus||'').toUpperCase();
-  $('pmsg').textContent=d.paymentStatusDescription||'Payment status: '+(st||'PENDING');if(st==='COMPLETED')done()}
- catch(e){$('pmsg').textContent='We could not verify your payment yet. Please try again shortly.'}}
-function poll(){clearInterval(S.timer);S.until=Date.now()+18e5;status();
- S.timer=setInterval(()=>{if(Date.now()>S.until){clearInterval(S.timer);$('skel').classList.add('hidden');return}if(!document.hidden)status()},8000)}
-function save(d){try{sessionStorage.setItem(CONFIG.key,JSON.stringify(d))}catch{}}
-function saved(){try{return JSON.parse(sessionStorage.getItem(CONFIG.key)||'null')}catch{return null}}
-function done(){clearInterval(S.timer);try{sessionStorage.removeItem(CONFIG.key)}catch{}
- $('skel').classList.add('hidden');$('pmsg').textContent='Payment confirmed.';$('confirmation').classList.remove('hidden');$('confirmation').scrollIntoView({behavior:'smooth'})}
-
 /* calendar: two daily events */
 const ics=d=>new Date(d).toISOString().replace(/[-:]|\.\d{3}/g,'');
 function icsText(){const st=ics(new Date());
@@ -524,26 +525,39 @@ function validate(f){let ok=true;for(const[n,r]of Object.entries(rules)){const i
  i.setAttribute('aria-invalid',bad);i.parentElement.querySelector('.err').textContent=bad?m:'';ok=ok&&!bad}return ok}
 $('form').addEventListener('submit',async e=>{e.preventDefault();
  if(!validate(e.target)){e.target.querySelector('[aria-invalid="true"]').focus();return}
- const b=$('submit'),s=$('status');b.disabled=true;s.textContent='Creating your registration…';
- const slow=setTimeout(()=>{s.textContent='Still working. The server may be waking up, please wait…'},4000);
+ const b=$('submit'),s=$('status');b.disabled=true;s.textContent='Preparing your payment instructions…';
  const f=new FormData(e.target);
- try{const d=await api('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-  fullName:f.get('fullName').trim(),email:f.get('email').trim(),phone:f.get('phone').trim(),professionIndustry:f.get('professionIndustry').trim(),subscribeNewsletter:f.has('subscribeNewsletter')})});
-  if(!https(d.redirectUrl))throw new Error('The payment link was invalid. Please try again.');
-  s.textContent='Registration created. Redirecting to secure payment…';
-  save({trackingId:d.trackingId,redirectUrl:d.redirectUrl,pricingTier:d.pricingTier,amount:d.amount,currency:d.currency});location.assign(d.redirectUrl)}
- catch(err){s.textContent=err.message}finally{clearTimeout(slow);b.disabled=false}});
-$('payNow').addEventListener('click',e=>{e.preventDefault();if(!https(S.url))return;
- save({trackingId:S.id,redirectUrl:S.url,pricingTier:'SUBSIDISED',amount:$('selAmt').textContent.replace(/[^0-9.]/g,''),currency:'KES'});location.assign(S.url)});
-$('check').addEventListener('click',status);
-document.addEventListener('visibilitychange',()=>{if(!document.hidden&&S.id)status()});
+ const registration={fullName:f.get('fullName').trim(),email:f.get('email').trim(),phone:f.get('phone').trim(),professionIndustry:f.get('professionIndustry').trim()};
+ const subject='VALUE Global Career Masterclass payment confirmation';
+ const body=['Hello Career Café team,','','I have paid for The VALUE Global Career Masterclass.','',`Name: ${registration.fullName}`,`Email: ${registration.email}`,`Phone: ${registration.phone}`,`Profession / industry: ${registration.professionIndustry}`,'','M-Pesa confirmation message:','[Paste the confirmation message here]','','Thank you.'].join('\n');
+ S.id=null;S.url='mailto:info@careercafe.africa?'+new URLSearchParams({subject,body});
+const composeParams=new URLSearchParams({view:'cm',fs:'1',to:'info@careercafe.africa',su:subject,body});
+$('payNow').href='https://mail.google.com/mail/?'+composeParams;
+$('emailApp').href=S.url;
+$('payment').classList.remove('hidden');$('payment').scrollIntoView({behavior:'smooth'});$('trk').textContent='Awaiting confirmation';$('skel').classList.add('hidden');$('pmsg').textContent='After paying, open the email confirmation, paste the M-Pesa message, and send it.';
+$('payNow').textContent='Open Gmail confirmation';s.textContent='Payment instructions ready. Pay first, then email your M-Pesa confirmation message.';b.disabled=false});
+$('payNow').addEventListener('click',e=>{if(!https($('payNow').href)){e.preventDefault()}});
 
-/* PesaPal return */
+/*
+Legacy PesaPal flow retained for later reactivation:
+async function api(path,opt){const r=await fetch(CONFIG.apiBase+path,opt);if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.message||'Request failed. Please try again.')}return r.json()}
+async function status(){if(!S.id)return;
+try{const d=await api('/api/register/status/'+encodeURIComponent(S.id));const st=(d.paymentStatus||'').toUpperCase();
+ $('pmsg').textContent=d.paymentStatusDescription||'Payment status: '+(st||'PENDING');if(st==='COMPLETED')done()}
+catch(e){$('pmsg').textContent='We could not verify your payment yet. Please try again shortly.'}}
+function poll(){clearInterval(S.timer);S.until=Date.now()+18e5;status();
+S.timer=setInterval(()=>{if(Date.now()>S.until){clearInterval(S.timer);$('skel').classList.add('hidden');return}if(!document.hidden)status()},8000)}
+function save(d){try{sessionStorage.setItem(CONFIG.key,JSON.stringify(d))}catch{}}
+function saved(){try{return JSON.parse(sessionStorage.getItem(CONFIG.key)||'null')}catch{return null}}
+function done(){clearInterval(S.timer);try{sessionStorage.removeItem(CONFIG.key)}catch{}
+$('skel').classList.add('hidden');$('pmsg').textContent='Payment confirmed.';$('confirmation').classList.remove('hidden');$('confirmation').scrollIntoView({behavior:'smooth'})}
+document.getElementById('legacyCheck').addEventListener('click',status);
 (function(){const id=new URLSearchParams(location.search).get('OrderTrackingId');if(!id)return;
- const c=saved(),m=c&&c.trackingId===id;S.id=id;S.url=m?c.redirectUrl:null;
- $('payment').classList.remove('hidden');$('skel').classList.remove('hidden');$('trk').textContent=id;
- if(m){$('selAmt').textContent=`${c.currency} ${Number(c.amount).toLocaleString('en-KE')}`}
- $('payNow').classList.add('hidden');$('payment').scrollIntoView({behavior:'smooth'});poll()})();
+const c=saved(),m=c&&c.trackingId===id;S.id=id;S.url=m?c.redirectUrl:null;
+$('payment').classList.remove('hidden');$('skel').classList.remove('hidden');$('trk').textContent=id;
+if(m){$('selAmt').textContent=`${c.currency} ${Number(c.amount).toLocaleString('en-KE')}`}
+$('payNow').classList.add('hidden');$('payment').scrollIntoView({behavior:'smooth'});poll()})();
+*/
 
 /* reveal */
 (function(){document.querySelectorAll('.sh,.stat,.gal div,.timer .card,.gp,.who,.ask,.out,.vl,.dayc,.fac,.promise,.pc,.det,.steps .card,.form').forEach((n,i)=>{

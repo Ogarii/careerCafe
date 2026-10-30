@@ -423,7 +423,7 @@ html.is-loading .pl,html.is-loading .pl *{animation-play-state:running!important
 <div class="sh center"><div class="eyebrow">Payment</div><h2>Complete your registration</h2></div>
 <div class="pay">
 <div class="co"><h3>Pay by M-Pesa</h3><p>Use M-Pesa Paybill <strong>542542</strong>, enter account number <strong>558810</strong>, and confirm the account name is <strong>The Career Cafe Africa</strong>. Pay <strong>KES 12,900</strong> for your seat.</p>
-<ol class="paysteps"><li>Open M-Pesa and choose <strong>Lipa na M-Pesa</strong>, then <strong>Paybill</strong>.</li><li>Enter Paybill <strong>542542</strong> and account number <strong>558810</strong>.</li><li>After paying, email the M-Pesa confirmation message to <a href="mailto:info@careercafe.africa">info@careercafe.africa</a>.</li></ol>
+<ol class="paysteps"><li>Open M-Pesa and choose <strong>Lipa na M-Pesa</strong>, then <strong>Paybill</strong>.</li><li>Enter Paybill <strong>542542</strong> and account number <strong>558810</strong>.</li><li>After paying, email the M-Pesa confirmation message to <a href="mailto:careercafeke@gmail.com">careercafeke@gmail.com</a>.</li></ol>
 <div class="acts"><a class="btn btn-p" id="payNow" href="#" target="_blank" rel="noopener">Open email confirmation</a><a class="link" id="emailApp" href="#">Use your email app</a><a class="link" href="#registration">Back to your details</a></div>
 <div class="skel hidden" id="skel" aria-hidden="true"></div>
 <p class="pnote" id="pmsg" role="status">Waiting for payment confirmation…</p></div>
@@ -530,8 +530,8 @@ $('form').addEventListener('submit',async e=>{e.preventDefault();
  const registration={fullName:f.get('fullName').trim(),email:f.get('email').trim(),phone:f.get('phone').trim(),professionIndustry:f.get('professionIndustry').trim()};
  const subject='VALUE Global Career Masterclass payment confirmation';
  const body=['Hello Career Café team,','','I have paid for The VALUE Global Career Masterclass.','',`Name: ${registration.fullName}`,`Email: ${registration.email}`,`Phone: ${registration.phone}`,`Profession / industry: ${registration.professionIndustry}`,'','M-Pesa confirmation message:','[Paste the confirmation message here]','','Thank you.'].join('\n');
- S.id=null;S.url='mailto:info@careercafe.africa?'+new URLSearchParams({subject,body});
-const composeParams=new URLSearchParams({view:'cm',fs:'1',to:'info@careercafe.africa',su:subject,body});
+ S.id=null;S.url='mailto:careercafeke@gmail.com?'+new URLSearchParams({subject,body});
+const composeParams=new URLSearchParams({view:'cm',fs:'1',to:'careercafeke@gmail.com',su:subject,body});
 $('payNow').href='https://mail.google.com/mail/?'+composeParams;
 $('emailApp').href=S.url;
 $('payment').classList.remove('hidden');$('payment').scrollIntoView({behavior:'smooth'});$('trk').textContent='Awaiting confirmation';$('skel').classList.add('hidden');$('pmsg').textContent='After paying, open the email confirmation, paste the M-Pesa message, and send it.';

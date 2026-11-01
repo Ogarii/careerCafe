@@ -134,8 +134,10 @@ transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-col
 /* faculty */
 .facg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .fac{padding:0;overflow:hidden}
-.fac .ph{position:relative;display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;background:var(--gd);border-bottom:2px solid var(--gold)}
+.fac .ph{position:relative;display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;background:var(--gd);border-bottom:2px solid var(--gold);overflow:hidden}
+.fac .ph img{width:100%;height:100%;object-fit:cover}
 .fac .ph b{font:600 56px/1 'Cormorant Garamond',Georgia,serif;color:var(--gold2)}
+.fac .ph img~b{position:absolute;right:18px;bottom:14px;z-index:1;font-size:42px;letter-spacing:.08em;color:rgba(255,243,208,.72);text-shadow:0 2px 12px rgba(3,7,18,.75);-webkit-text-stroke:1px rgba(3,7,18,.22)}
 .dtag{position:absolute;top:0;left:0;padding:7px 14px;background:var(--bg);font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
 .fbody{padding:22px 24px 26px}
 .fbody small{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
@@ -481,10 +483,10 @@ key:'careerCafeMasterclassCheckout',
 price:{kes:12900},
 days:[{s:'2026-12-02T17:00:00+03:00',e:'2026-12-02T21:00:00+03:00'},{s:'2026-12-03T17:00:00+03:00',e:'2026-12-03T21:00:00+03:00'}],
 faculty:[
-{day:1,role:'Lead facilitator',name:'Dr Luchuo Engelbert Bain',ini:'LB',top:true,title:"MD, PhD, FAAS. Professor of Global Health and Bioethics. Deputy Director, MSc Global Women's Health, University of Oxford",proof:'Fellow, African Academy of Sciences. Co-Founder and Executive Chair, Career Café Africa',teaches:'Career Diagnosis'},
-{day:1,role:'Facilitator 02',name:'To be announced'},
+{day:1,role:'Lead facilitator',name:'Dr Luchuo Engelbert Bain',ini:'LB',top:true,image:'images/speaker-luchuo.jpg',title:"MD, PhD, FAAS. Professor of Global Health and Bioethics. Deputy Director, MSc Global Women's Health, University of Oxford",proof:'Fellow, African Academy of Sciences. Co-Founder and Executive Chair, Career Café Africa',teaches:'Career Diagnosis'},
+{day:1,role:'Facilitator 02',name:'Dr. Obichi Obiajunwa',ini:'OO',image:'images/speaker-obichi.jpg',imagePosition:'center 24%',title:'Physician, public health expert, innovation strategist, and governance researcher',proof:'Executive Director, Hutzpa Center for Innovation and Development',teaches:'Innovation ecosystems, AI governance, intellectual property, and research commercialization'},
 {day:1,role:'Facilitator 03',name:'To be announced'},
-{day:2,role:'Facilitator 04',name:'To be announced'},
+{day:2,role:'Facilitator 04',name:'Dr. Alain Abeh',ini:'AA',image:'images/speaker-alain.jpg',title:'Medical doctor and public health physician with experience across healthcare, policy, and international development',proof:'Healthcare, health systems, and emerging technologies across Africa',teaches:'Health systems, innovation, and sustainable development'},
 {day:2,role:'Facilitator 05',name:'To be announced'},
 {day:2,role:'Facilitator 06',name:'To be announced'}]};
 
@@ -497,7 +499,7 @@ const S={id:null,url:null,timer:null,until:0};
 
 /* faculty + price summary */
 CONFIG.faculty.forEach(f=>{const n=document.createElement('article');n.className='card fac'+(f.top?' top':'');
- n.innerHTML=`<div class="ph"><span class="dtag">Day ${f.day}</span><b>${esc(f.ini||'?')}</b></div><div class="fbody"><small>${esc(f.role)}</small><h3>${esc(f.name)}</h3>${f.title?`<p>${esc(f.title)}</p>`:''}${f.proof?`<p><strong>Proof</strong> ${esc(f.proof)}</p>`:''}${f.teaches?`<p><strong>Teaches</strong> ${esc(f.teaches)}</p>`:''}</div>`;
+ n.innerHTML=`<div class="ph"><span class="dtag">Day ${f.day}</span>${f.image?`<img src="${esc(f.image)}" alt="${esc(f.name)}" loading="lazy"${f.imagePosition?` style="object-position:${esc(f.imagePosition)}"`:''} onerror="this.remove()">`:''}<b>${esc(f.ini||'?')}</b></div><div class="fbody"><small>${esc(f.role)}</small><h3>${esc(f.name)}</h3>${f.title?`<p>${esc(f.title)}</p>`:''}${f.proof?`<p><strong>Proof</strong> ${esc(f.proof)}</p>`:''}${f.teaches?`<p><strong>Teaches</strong> ${esc(f.teaches)}</p>`:''}</div>`;
  $('facg').appendChild(n)});
 $('selTier').textContent='Subsidised';$('selAmt').textContent=kes(CONFIG.price.kes);
 

@@ -179,6 +179,7 @@ transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-col
 .field input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gd)}.field input::placeholder{color:var(--mut)}.field input[aria-invalid=true]{border-color:#f87171}
 .err{display:block;margin-top:8px;padding-left:18px;font-size:13px;color:#fca5a5}
 .check{display:flex;align-items:center;gap:12px;margin-top:26px;padding:15px 20px;background:var(--gd);border:1px solid var(--bg-gold);border-radius:100px}.check input{width:20px;height:20px;accent-color:var(--gold)}.check label{font-size:14px;color:var(--t2);cursor:pointer}
+.method-label{display:block;margin-top:26px;margin-bottom:10px;font-size:13px;font-weight:600;color:var(--t2)}.methods{display:grid;grid-template-columns:1fr 1fr;gap:12px}.method{position:relative}.method input{position:absolute;opacity:0}.method label{display:block;padding:15px 16px;border:1px solid var(--bd);border-radius:14px;background:var(--bg);color:var(--t2);font-size:13px;cursor:pointer;transition:border-color .25s,background .25s,color .25s}.method label strong{display:block;margin-bottom:3px;color:var(--white)}.method input:checked+label{border-color:var(--gold);background:var(--gd);color:var(--white);box-shadow:0 0 0 3px rgba(212,168,83,.1)}.method input:focus-visible+label{outline:2px solid var(--gold2);outline-offset:3px}
 .form .btn{width:100%;margin-top:30px}.status{min-height:24px;margin-top:16px;font-size:14px;font-weight:500;color:var(--gold);text-align:center}
 
 /* payment + confirmation */
@@ -415,6 +416,11 @@ html.is-loading .pl,html.is-loading .pl *{animation-play-state:running!important
 <div class="field"><label for="phone">Phone number</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+254 700 000 000" required><span class="err" role="alert"></span></div>
 <div class="field"><label for="professionIndustry">Profession / industry</label><input id="professionIndustry" name="professionIndustry" placeholder="e.g. Finance, Technology" required><span class="err" role="alert"></span></div>
 </div>
+<span class="method-label">Choose payment method</span>
+<div class="methods" role="radiogroup" aria-label="Payment method">
+<div class="method"><input id="paybillMethod" name="paymentMethod" value="paybill" type="radio" checked required><label for="paybillMethod"><strong>M-Pesa Paybill</strong>Pay and email confirmation</label></div>
+<div class="method"><input id="pesapalMethod" name="paymentMethod" value="pesapal" type="radio"><label for="pesapalMethod"><strong>PesaPal</strong>Card or mobile money</label></div>
+</div>
 <div class="check"><input id="news" name="subscribeNewsletter" type="checkbox"><label for="news">Subscribe to The Career Café LinkedIn Newsletter</label></div>
 <button class="btn btn-p" type="submit" id="submit"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#a"/></svg>View paybill instructions</button>
 <div class="status" id="status" role="status"></div>
@@ -424,11 +430,14 @@ html.is-loading .pl,html.is-loading .pl *{animation-play-state:running!important
 <section class="section hidden" id="payment"><div class="wrap">
 <div class="sh center"><div class="eyebrow">Payment</div><h2>Complete your registration</h2></div>
 <div class="pay">
-<div class="co"><h3>Pay by M-Pesa</h3><p>Use M-Pesa Paybill <strong>542542</strong>, enter account number <strong>558810</strong>, and confirm the account name is <strong>The Career Cafe Africa</strong>. Pay <strong>KES 12,900</strong> for your seat.</p>
+<div class="co" id="paybillInstructions"><h3>Pay by M-Pesa</h3><p>Use M-Pesa Paybill <strong>542542</strong>, enter account number <strong>558810</strong>, and confirm the account name is <strong>The Career Cafe Africa</strong>. Pay <strong>KES 12,900</strong> for your seat.</p>
 <ol class="paysteps"><li>Open M-Pesa and choose <strong>Lipa na M-Pesa</strong>, then <strong>Paybill</strong>.</li><li>Enter Paybill <strong>542542</strong> and account number <strong>558810</strong>.</li><li>After paying, email the M-Pesa confirmation message to <a href="mailto:careercafeke@gmail.com">careercafeke@gmail.com</a>.</li></ol>
 <div class="acts"><a class="btn btn-p" id="payNow" href="#" target="_blank" rel="noopener">Open email confirmation</a><a class="link" id="emailApp" href="#">Use your email app</a><a class="link" href="#registration">Back to your details</a></div>
 <div class="skel hidden" id="skel" aria-hidden="true"></div>
 <p class="pnote" id="pmsg" role="status">Waiting for payment confirmation…</p></div>
+<div class="co hidden" id="pesapalInstructions"><h3>Pay securely with PesaPal</h3><p>Open the secure PesaPal checkout to pay by card or mobile money. This page will check the payment status when you return.</p>
+<div class="acts"><a class="btn btn-p" id="pesapalPayNow" href="#">Continue to PesaPal</a><button class="btn btn-s" type="button" id="pesapalCheck">Check status</button><a class="link" href="#registration">Back to your details</a></div>
+<div class="skel hidden" id="pesapalSkel" aria-hidden="true"></div><p class="pnote" id="pesapalMsg" role="status">Waiting for payment confirmation…</p></div>
 <aside class="sum"><h3>Order summary</h3><dl>
 <div><dt>Ticket</dt><dd id="selTier">Subsidised</dd></div><div><dt>Amount</dt><dd id="selAmt">KES 12,900</dd></div><div><dt>Tracking ID</dt><dd id="trk">Pending</dd></div></dl></aside>
 </div></div></section>
@@ -525,11 +534,32 @@ const rules={fullName:v=>v.length>=2||'Enter your full name.',email:v=>/^[^\s@]+
  phone:v=>/^\+?[0-9\s-]{9,15}$/.test(v)||'Enter a phone number with 9 to 15 digits.',professionIndustry:v=>v.length>=2||'Tell us your profession or industry.'};
 function validate(f){let ok=true;for(const[n,r]of Object.entries(rules)){const i=f.elements[n],m=r(i.value.trim()),bad=m!==true;
  i.setAttribute('aria-invalid',bad);i.parentElement.querySelector('.err').textContent=bad?m:'';ok=ok&&!bad}return ok}
+document.querySelectorAll('input[name="paymentMethod"]').forEach(input=>input.addEventListener('change',()=>{$('submit').lastChild.textContent=input.value==='pesapal'?'Continue to PesaPal':'View paybill instructions'}));
+async function api(path,opt){const r=await fetch(CONFIG.apiBase+path,opt);if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.message||'Request failed. Please try again.')}return r.json()}
+function save(d){try{sessionStorage.setItem(CONFIG.key,JSON.stringify(d))}catch{}}
+function saved(){try{return JSON.parse(sessionStorage.getItem(CONFIG.key)||'null')}catch{return null}}
+async function pesapalStatus(){if(!S.id)return;
+ try{const d=await api('/api/register/status/'+encodeURIComponent(S.id));const st=(d.paymentStatus||'').toUpperCase();
+  $('pesapalMsg').textContent=d.paymentStatusDescription||'Payment status: '+(st||'PENDING');if(st==='COMPLETED')done()}
+ catch(e){$('pesapalMsg').textContent='We could not verify your payment yet. Please try again shortly.'}}
+function poll(){clearInterval(S.timer);S.until=Date.now()+18e5;pesapalStatus();
+ S.timer=setInterval(()=>{if(Date.now()>S.until){clearInterval(S.timer);$('pesapalSkel').classList.add('hidden');return}if(!document.hidden)pesapalStatus()},8000)}
+function done(){clearInterval(S.timer);try{sessionStorage.removeItem(CONFIG.key)}catch{}
+ $('pesapalSkel').classList.add('hidden');$('pesapalMsg').textContent='Payment confirmed.';$('confirmation').classList.remove('hidden');$('confirmation').scrollIntoView({behavior:'smooth'})}
 $('form').addEventListener('submit',async e=>{e.preventDefault();
  if(!validate(e.target)){e.target.querySelector('[aria-invalid="true"]').focus();return}
- const b=$('submit'),s=$('status');b.disabled=true;s.textContent='Preparing your payment instructions…';
+ const b=$('submit'),s=$('status'),method=new FormData(e.target).get('paymentMethod');b.disabled=true;s.textContent=method==='pesapal'?'Creating your PesaPal checkout…':'Preparing your payment instructions…';
  const f=new FormData(e.target);
  const registration={fullName:f.get('fullName').trim(),email:f.get('email').trim(),phone:f.get('phone').trim(),professionIndustry:f.get('professionIndustry').trim()};
+ if(method==='pesapal'){
+  const slow=setTimeout(()=>{s.textContent='Still working. The payment service may be waking up, please wait…'},4000);
+  try{const d=await api('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...registration,subscribeNewsletter:f.has('subscribeNewsletter')})});
+   if(!https(d.redirectUrl))throw new Error('The payment link was invalid. Please try again.');
+   S.id=d.trackingId;S.url=d.redirectUrl;save({trackingId:d.trackingId,redirectUrl:d.redirectUrl,pricingTier:d.pricingTier,amount:d.amount,currency:d.currency});
+   $('paybillInstructions').classList.add('hidden');$('pesapalInstructions').classList.remove('hidden');$('pesapalPayNow').href=d.redirectUrl;$('selAmt').textContent=`${d.currency||'KES'} ${Number(d.amount||CONFIG.price.kes).toLocaleString('en-KE')}`;$('trk').textContent=d.trackingId||'Pending';$('payment').classList.remove('hidden');$('payment').scrollIntoView({behavior:'smooth'});s.textContent='Registration created. Continue to secure PesaPal checkout.'}
+  catch(err){s.textContent=err.message}finally{clearTimeout(slow);b.disabled=false}
+  return
+ }
  const subject='VALUE Global Career Masterclass payment confirmation';
  const body=['Hello Career Café team,','','I have paid for The VALUE Global Career Masterclass.','',`Name: ${registration.fullName}`,`Email: ${registration.email}`,`Phone: ${registration.phone}`,`Profession / industry: ${registration.professionIndustry}`,'','M-Pesa confirmation message:','[Paste the confirmation message here]','','Thank you.'].join('\n');
  S.id=null;S.url='mailto:careercafeke@gmail.com?'+new URLSearchParams({subject,body});
@@ -539,6 +569,15 @@ $('emailApp').href=S.url;
 $('payment').classList.remove('hidden');$('payment').scrollIntoView({behavior:'smooth'});$('trk').textContent='Awaiting confirmation';$('skel').classList.add('hidden');$('pmsg').textContent='After paying, open the email confirmation, paste the M-Pesa message, and send it.';
 $('payNow').textContent='Open Gmail confirmation';s.textContent='Payment instructions ready. Pay first, then email your M-Pesa confirmation message.';b.disabled=false});
 $('payNow').addEventListener('click',e=>{if(!https($('payNow').href)){e.preventDefault()}});
+$('pesapalPayNow').addEventListener('click',e=>{if(!https($('pesapalPayNow').href))e.preventDefault()});
+$('pesapalCheck').addEventListener('click',pesapalStatus);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&S.id)pesapalStatus()});
+
+/* PesaPal return */
+(function(){const id=new URLSearchParams(location.search).get('OrderTrackingId');if(!id)return;
+ const c=saved(),m=c&&c.trackingId===id;S.id=id;S.url=m?c.redirectUrl:null;
+ $('paybillInstructions').classList.add('hidden');$('pesapalInstructions').classList.remove('hidden');$('payment').classList.remove('hidden');$('pesapalSkel').classList.remove('hidden');$('trk').textContent=id;
+ if(m){$('selAmt').textContent=`${c.currency} ${Number(c.amount).toLocaleString('en-KE')}`}$('payment').scrollIntoView({behavior:'smooth'});poll()})();
 
 /*
 Legacy PesaPal flow retained for later reactivation:

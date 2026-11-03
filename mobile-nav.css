@@ -1,0 +1,74 @@
+/* Mobile-only quick navigation. The dock appears after the user starts scrolling. */
+.mobile-bottom-nav {
+    display: none;
+}
+
+@media (max-width: 760px) {
+    body.has-mobile-bottom-nav {
+        padding-bottom: 64px;
+    }
+
+    .mobile-bottom-nav {
+        position: fixed;
+        left: 16px;
+        right: 16px;
+        bottom: max(10px, env(safe-area-inset-bottom));
+        z-index: 1200;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 2px;
+        padding: 5px;
+        border: 1px solid rgba(255, 255, 255, .4);
+        border-radius: 18px;
+        background: linear-gradient(135deg, rgba(255,255,255,.55), rgba(255,255,255,.14));
+        box-shadow: 0 18px 42px rgba(26, 26, 46, .22), inset 0 1px 1px rgba(255,255,255,.7);
+        -webkit-backdrop-filter: blur(20px) saturate(150%);
+        backdrop-filter: blur(20px) saturate(150%);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(18px);
+        transition: opacity .3s ease, transform .3s ease;
+    }
+
+    .mobile-bottom-nav.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    .mobile-bottom-nav a {
+        display: grid;
+        justify-items: center;
+        gap: 4px;
+        min-width: 0;
+        padding: 6px 2px;
+        border-radius: 11px;
+        color: #1a1a2e;
+        font: 800 9px/1.1 Lato, Arial, sans-serif;
+        text-align: center;
+        text-decoration: none;
+        transition: color .2s ease, background .2s ease, transform .2s ease;
+    }
+
+    .mobile-bottom-nav a i,
+    .mobile-bottom-nav a .i {
+        width: 18px;
+        height: 18px;
+        font-size: 14px;
+    }
+
+    .mobile-bottom-nav a:hover,
+    .mobile-bottom-nav a:focus-visible,
+    .mobile-bottom-nav a.is-active {
+        color: #a94e3d;
+        background: rgba(255,255,255,.48);
+        transform: translateY(-2px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mobile-bottom-nav,
+    .mobile-bottom-nav a {
+        transition: none;
+    }
+}

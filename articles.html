@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="mobile-nav.css">
 <style>
 :root{--primary:#E2725B;--primary-light:#FFB199;--secondary:#556B2F;--accent:#FFD700;--dark:#1A1A2E;--text:#2b2b3a;--muted:#6b7280;--line:rgba(26,26,46,.12);--cream:#fff8f1;--wash:#edf2e6;
 --read:60rem;--wide:84rem;--serif:"Merriweather",Georgia,serif;--sans:"Lato","Segoe UI",system-ui,sans-serif;--ease:cubic-bezier(.22,1,.36,1)}
@@ -302,5 +303,13 @@ addEventListener('scroll',()=>{
 
 document.addEventListener('DOMContentLoaded',loadArticle);
 </script>
+<nav class="mobile-bottom-nav" aria-label="Mobile quick navigation">
+  <a href="index.html"><i class="fas fa-house" aria-hidden="true"></i><span>Home</span></a>
+  <a href="#articleContent"><i class="fas fa-newspaper" aria-hidden="true"></i><span>Articles</span></a>
+  <a href="courses.html"><i class="fas fa-book-open" aria-hidden="true"></i><span>Courses</span></a>
+  <a href="index.html#events"><i class="fas fa-calendar-days" aria-hidden="true"></i><span>Events</span></a>
+  <a href="index.html#contact"><i class="fas fa-envelope" aria-hidden="true"></i><span>Contact</span></a>
+</nav>
+<script src="mobile-nav.js"></script>
 </body>
 </html>

@@ -148,6 +148,7 @@
       .advisor::before { width:120px; height:120px; margin-right:20px; }
     }
   </style>
+<link rel="stylesheet" href="mobile-nav.css">
 </head>
 <body>
   <nav class="site-nav">
@@ -194,6 +195,14 @@
     <section class="closing"><div class="container closing-grid"><div><div class="eyebrow">The journey continues</div><h2>Be part of the Future of Work in Africa.</h2></div><div><p>The future of work will be shaped by the decisions, investments, partnerships and actions we take today. There is a place in this conversation for professionals, employers, policymakers, researchers, educators, entrepreneurs and emerging leaders.</p><div class="actions"><a class="btn btn-primary" href="reports/CC-Report.pdf" target="_blank" rel="noopener">Read the Report</a><a class="btn btn-outline" href="index.html#contact">Partner With Us</a><a class="btn btn-outline" href="index.html#events">Explore Events</a></div></div></div></section>
   </main>
   <footer><div class="container footer-inner"><span>&copy; 2026 Career Cafe Africa</span><div class="footer-links"><a href="index.html">Home</a><a href="articles.html">Publications</a><a href="index.html#contact">Contact</a></div></div></footer>
+  <nav class="mobile-bottom-nav" aria-label="Mobile quick navigation">
+    <a href="index.html"><i class="fas fa-house" aria-hidden="true"></i><span>Home</span></a>
+    <a href="#journey"><i class="fas fa-route" aria-hidden="true"></i><span>Journey</span></a>
+    <a href="reports/CC-Report.pdf"><i class="fas fa-file-pdf" aria-hidden="true"></i><span>Report</span></a>
+    <a href="index.html#team"><i class="fas fa-users" aria-hidden="true"></i><span>Team</span></a>
+    <a href="index.html#contact"><i class="fas fa-envelope" aria-hidden="true"></i><span>Contact</span></a>
+  </nav>
+  <script src="mobile-nav.js"></script>
   <script>
     const toggle = document.querySelector('.nav-toggle');
     const links = document.querySelector('.nav-links');

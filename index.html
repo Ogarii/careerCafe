@@ -14,6 +14,7 @@
     <script>document.documentElement.classList.add("js")</script>
     <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet" href="./fixes.css">
+    <link rel="stylesheet" href="./mobile-nav.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 <style id="afwr-css">
@@ -1410,5 +1411,13 @@ document.addEventListener('click',function(e){var b=e.target.closest('.video-pla
 f.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+f.dataset.videoId+'?autoplay=1&rel=0" title="Career Café Africa video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';});
 })();
 </script>
+<nav class="mobile-bottom-nav" aria-label="Mobile quick navigation">
+    <a href="index.html"><i class="fas fa-house" aria-hidden="true"></i><span>Home</span></a>
+    <a href="#about"><i class="fas fa-circle-info" aria-hidden="true"></i><span>About</span></a>
+    <a href="#team"><i class="fas fa-users" aria-hidden="true"></i><span>Team</span></a>
+    <a href="courses.html"><i class="fas fa-book-open" aria-hidden="true"></i><span>Courses</span></a>
+    <a href="#contact"><i class="fas fa-envelope" aria-hidden="true"></i><span>Contact</span></a>
+</nav>
+<script src="./mobile-nav.js"></script>
 </body>
 </html>

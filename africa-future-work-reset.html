@@ -13,6 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="mobile-nav.css">
 <style>
 :root{--bg:#030712;--gold:#d4a853;--gold2:#f0d78c;--gd:rgba(212,168,83,.15);--white:#f8fafc;--t2:#94a3b8;--mut:#64748b;--bd:rgba(148,163,184,.1);--bg-gold:rgba(212,168,83,.3);
 --gg:linear-gradient(135deg,#d4a853,#f0d78c);--gc:linear-gradient(180deg,rgba(30,41,59,.5),rgba(15,23,42,.8));
@@ -79,15 +80,17 @@ transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-col
 .link{display:inline-flex;align-items:center;gap:8px;padding:8px 2px;font-size:14px;font-weight:600;color:var(--gold2);border-bottom:1px solid transparent;transition:border-color .25s,gap .25s}.link:hover{border-color:var(--gold2);gap:12px}.link svg{width:16px;height:16px}
 
 /* hero */
-.hero{min-height:100dvh;display:flex;align-items:center;padding-top:80px;position:relative;overflow:hidden}
+.hero{min-height:100dvh;display:flex;align-items:stretch;padding-top:80px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;top:-40%;right:-15%;width:900px;height:900px;background:radial-gradient(circle,rgba(212,168,83,.07),transparent 60%);pointer-events:none}
-.hero-g{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;position:relative;z-index:2}
+.hero-g{display:block;min-height:calc(100dvh - 80px);position:relative;z-index:2}
+.hero-g>div:first-child{position:relative;z-index:2;max-width:760px;padding-top:clamp(110px,18vh,210px)}
 .hero h1 .l{display:block}
 .lead{max-width:60ch;margin-top:24px;font-size:17px;font-weight:300;line-height:1.8;color:var(--t2)}
 .chips,.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}.actions{gap:18px;margin-top:36px;align-items:center}
 .chip{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;background:rgba(15,23,42,.7);border:1px solid var(--bd);border-radius:100px;font-size:12px;font-weight:500;color:var(--t2)}.chip svg{width:15px;height:15px;color:var(--gold)}
-.hero-img{position:relative;border-radius:28px;overflow:hidden;margin-right:-48px;transform:translateY(24px);box-shadow:0 40px 80px rgba(var(--sh),.55)}
-.hero-img img{width:100%;height:520px;object-fit:cover}
+.hero-img{position:absolute;inset:0;z-index:0;border-radius:0;overflow:hidden;margin:0;transform:none;box-shadow:none}
+.hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,7,18,.92) 0%,rgba(3,7,18,.64) 42%,rgba(3,7,18,.2) 78%),linear-gradient(0deg,rgba(3,7,18,.7),transparent 45%)}
+.hero-img img{width:100%;height:100%;object-fit:cover;opacity:.82}
 .live{position:absolute;left:24px;bottom:24px;display:flex;align-items:center;gap:10px;padding:12px 18px;background:rgba(3,7,18,.92);border:1px solid var(--bg-gold);border-radius:var(--rs);font-size:12px;font-weight:600}
 .live i{width:12px;height:12px;background:var(--gg);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);animation:spark 6s linear infinite}@keyframes spark{to{transform:rotate(360deg)}}
 
@@ -212,7 +215,7 @@ transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-col
 [data-r]:not(.in){opacity:0}[data-r].in{animation:up .7s var(--ease) var(--d,0ms) backwards}@keyframes up{from{opacity:0;transform:translateY(28px)}}
 
 /* responsive */
-@media (max-width:1024px){.hero-g,.cd{grid-template-columns:1fr}.hero-g{gap:40px}.hero-img{margin:0;transform:none;max-width:520px}.cd-img{display:none}.sh{grid-template-columns:1fr}.sh p{justify-self:start;margin-top:16px}
+@media (max-width:1024px){.hero-g,.cd{grid-template-columns:1fr}.hero-g{gap:40px}.hero-img{margin:0;transform:none;max-width:none}.cd-img{display:none}.sh{grid-template-columns:1fr}.sh p{justify-self:start;margin-top:16px}
 .gapg,.whog,.facg{grid-template-columns:repeat(2,1fr)}.ask,.pg1,.dayg,.outg{grid-template-columns:1fr}.valg{grid-template-columns:repeat(3,1fr)}.steps{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:900px){
 .nav-in{padding:14px 20px}.brand img{height:32px}.toggle{display:inline-flex}.links{display:none}
@@ -225,8 +228,8 @@ transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-col
 .ftab svg{width:16px;height:16px}
 .fp{position:absolute;left:0;right:0;bottom:calc(100% + 10px);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .3s,transform .3s}.float.open .fp{opacity:1;transform:none;pointer-events:auto}
 .fu{justify-content:space-between}.fu div{flex:1;min-width:0}}
-@media (max-width:680px){.section{padding:80px 0 96px}.wrap{padding:0 20px}.hero{padding:90px 0 60px;min-height:auto}h2{font-size:clamp(28px,7vw,40px)}
-.hero-img img{height:auto;aspect-ratio:4/3;object-fit:cover}.hero-img{border-radius:12px}
+@media (max-width:680px){.section{padding:80px 0 96px}.wrap{padding:0 20px}.hero{padding:90px 0 60px;min-height:auto}.hero-g{min-height:calc(100dvh - 90px)}.hero-g>div:first-child{padding-top:48px}h2{font-size:clamp(28px,7vw,40px)}
+.hero-img img{height:100%;aspect-ratio:auto;object-fit:cover}.hero-img{border-radius:0}
 .stat{padding:20px 12px}.stat b{font-size:28px}.timer{grid-template-columns:repeat(2,1fr)}.fg{grid-template-columns:1fr}.form{padding:26px 20px}.actions{flex-direction:column;align-items:stretch;text-align:center}.btn{width:100%}.co,.sum{padding:24px}
 .gapg,.whog,.facg,.steps{grid-template-columns:1fr}.valg{grid-template-columns:repeat(2,1fr)}.ask p+p{padding-left:0;border-left:0}.det{padding:8px 22px}.mt{margin-top:72px}.price{font-size:46px}}
 
@@ -379,7 +382,7 @@ html.is-loading .pl,html.is-loading .pl *{animation-play-state:running!important
 <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#ck"/></svg>Workbook, checklists and AI-use guidance</li>
 <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#ck"/></svg>Completion certificate against set participation requirements (not an accreditation)</li>
 </ul>
-<a class="btn btn-p" href="#registration">Register now</a></article>
+<a class="btn btn-p" href="#registration">Register now</a><a class="btn btn-s brochure-placeholder" href="#" data-brochure-placeholder aria-disabled="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#ly"/></svg>Download brochure</a></article>
 <dl class="card det">
 <div><dt>Dates</dt><dd><strong>2nd and 3rd December 2026</strong>, two live virtual days, <strong>5:00 PM to 9:00 PM EAT</strong> each day.</dd></div>
 <div><dt>Payment</dt><dd>Register at <strong>vmc.careercafe.co.ke</strong> and pay online, by card or mobile money. Your receipt is emailed instantly.</dd></div>
@@ -470,6 +473,14 @@ Legacy PesaPal payment section retained for reactivation when the payment limit 
 <nav class="legal" aria-label="Legal"><a href="privacy.html">Privacy policy</a><a href="terms.html">Terms of service</a></nav>
 </div></footer>
 
+<nav class="mobile-bottom-nav" aria-label="Mobile quick navigation">
+<a href="#landing"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#us"/></svg><span>Home</span></a>
+<a href="#schedule"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#ca"/></svg><span>Schedule</span></a>
+<a href="#faculty"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#us"/></svg><span>Faculty</span></a>
+<a href="#pricing"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#cd"/></svg><span>Pricing</span></a>
+<a href="#registration"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#a"/></svg><span>Register</span></a>
+</nav>
+
 <div class="float" id="float">
 <button class="ftab" id="ftab" type="button" aria-expanded="false" aria-controls="fp" aria-label="Show countdown"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#ck2"/></svg><span id="fdays">00d</span></button>
 <div class="fp" id="fp"><small>Masterclass begins in</small><div class="fu">
@@ -485,7 +496,7 @@ price:{kes:12900},
 days:[{s:'2026-12-02T17:00:00+03:00',e:'2026-12-02T21:00:00+03:00'},{s:'2026-12-03T17:00:00+03:00',e:'2026-12-03T21:00:00+03:00'}],
 faculty:[
 {day:1,role:'Lead facilitator',name:'Dr Luchuo Engelbert Bain',ini:'LB',top:true,image:'images/speaker-luchuo.jpg',title:"MD, PhD, FAAS. Professor of Global Health and Bioethics. Deputy Director, MSc Global Women's Health, University of Oxford",proof:'Fellow, African Academy of Sciences. Co-Founder and Executive Chair, Career Café Africa',teaches:'Career Diagnosis'},
-{day:1,role:'Facilitator 02',name:'Dr. Obichi Obiajunwa',ini:'OO',image:'images/speaker-obichi.jpg',imagePosition:'center 24%',title:'Physician, public health expert, innovation strategist, and governance researcher',proof:'Executive Director, Hutzpa Center for Innovation and Development',teaches:'Innovation ecosystems, AI governance, intellectual property, and research commercialization'},
+{day:1,role:'Facilitator 02',name:'Dr. Obichi Obiajunwa',ini:'OO',image:'images/speaker-obichi.jpg',imagePosition:'center 24%',bio:'Dr. Obichi Obiajunwa is a physician, public health expert, innovation strategist, and governance researcher with over 15 years of experience advancing health systems, entrepreneurship, and emerging technologies across Africa. He is the Executive Director of Hutzpa Center for Innovation and Development, where he leads initiatives in innovation ecosystems, AI governance, intellectual property, and research commercialization. His work bridges academia, policy, and practice through high impact research, capacity building, and international collaborations. A speaker, author, and mentor, Dr. Obiajunwa is committed to developing scalable solutions that strengthen healthcare, empower innovators, and drive sustainable socioeconomic development across low and middle income countries.',teaches:'Innovation ecosystems, AI governance, intellectual property, and research commercialization'},
 {day:1,role:'Facilitator 03',name:'To be announced'},
 {day:2,role:'Facilitator 04',name:'Dr. Alain Abeh',ini:'AA',image:'images/speaker-alain.jpg',title:'Medical doctor and public health physician with experience across healthcare, policy, and international development',proof:'Healthcare, health systems, and emerging technologies across Africa',teaches:'Health systems, innovation, and sustainable development'},
 {day:2,role:'Facilitator 05',name:'To be announced'},
@@ -500,7 +511,7 @@ const S={id:null,url:null,timer:null,until:0};
 
 /* faculty + price summary */
 CONFIG.faculty.forEach(f=>{const n=document.createElement('article');n.className='card fac'+(f.top?' top':'');
- n.innerHTML=`<div class="ph"><span class="dtag">Day ${f.day}</span>${f.image?`<img src="${esc(f.image)}" alt="${esc(f.name)}" loading="lazy"${f.imagePosition?` style="object-position:${esc(f.imagePosition)}"`:''} onerror="this.remove()">`:''}<b>${esc(f.ini||'?')}</b></div><div class="fbody"><small>${esc(f.role)}</small><h3>${esc(f.name)}</h3>${f.title?`<p>${esc(f.title)}</p>`:''}${f.proof?`<p><strong>Proof</strong> ${esc(f.proof)}</p>`:''}${f.teaches?`<p><strong>Teaches</strong> ${esc(f.teaches)}</p>`:''}</div>`;
+ n.innerHTML=`<div class="ph"><span class="dtag">Day ${f.day}</span>${f.image?`<img src="${esc(f.image)}" alt="${esc(f.name)}" loading="lazy"${f.imagePosition?` style="object-position:${esc(f.imagePosition)}"`:''} onerror="this.remove()">`:''}<b>${esc(f.ini||'?')}</b></div><div class="fbody"><small>${esc(f.role)}</small><h3>${esc(f.name)}</h3>${f.bio?`<p>${esc(f.bio)}</p>`:f.title?`<p>${esc(f.title)}</p>`:''}${f.proof?`<p><strong>Proof</strong> ${esc(f.proof)}</p>`:''}${f.teaches?`<p><strong>Teaches</strong> ${esc(f.teaches)}</p>`:''}</div>`;
  $('facg').appendChild(n)});
 $('selTier').textContent='Subsidised';$('selAmt').textContent=kes(CONFIG.price.kes);
 
@@ -642,5 +653,6 @@ let pmE=null,pmQ=0;document.addEventListener('pointermove',e=>{pmE=e;if(pmQ)retu
  setTimeout(finish,MAX);
 })();
 </script>
+<script src="mobile-nav.js"></script>
 </body>
 </html>

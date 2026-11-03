@@ -86,7 +86,7 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                 <li><a href="future-of-work-africa.html">Future of Work</a></li>
                 <li><a href="https://careercafe.co.ke/africa-future-work-reset.html" target="_blank" rel="noopener">Masterclass</a></li>
                 <li><a href="#solution">Services</a></li>
-                <li class="nav-dropdown"><a href="#articles" aria-haspopup="true" aria-expanded="false">Publications</a><ul class="nav-submenu"><li><a href="#articles">Articles</a></li><li><a href="#articles" data-pub-tab="videos">Videos</a></li><li><a href="#events">Events</a></li><li><a href="#gallery">Gallery</a></li></ul></li>
+                <li class="nav-dropdown"><a href="#articles" aria-haspopup="true" aria-expanded="false">Publications</a><ul class="nav-submenu"><li><a href="#articles">Articles</a></li><li><a href="#articles" data-pub-tab="videos">Videos</a></li><li><a href="#events">Events</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#reportsDialog" id="reportsNavLink">Reports</a></li></ul></li>
                 <li><a href="#partners">Partners</a></li>
                 <li><a href="#" id="openMemberNav">Members</a></li>
                 <li><a href="courses.html">Courses</a></li>
@@ -285,7 +285,6 @@ opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .4s va
                     <div>
                         <span class="section-kicker"><i class="fas fa-user-group"></i> Team</span>
                         <h2>The people behind Career Café.</h2>
-                        <p>Meet the team building practical career pathways and stronger workforce ecosystems across Africa.</p>
                     </div>
                 </div>
                 <div class="carousel-shell">
@@ -1398,6 +1397,8 @@ var dlg=document.getElementById('reportsDialog'),open=document.getElementById('o
 if(dlg&&open){open.addEventListener('click',function(){dlg.showModal?dlg.showModal():dlg.setAttribute('open','')});
 close.addEventListener('click',function(){dlg.close?dlg.close():dlg.removeAttribute('open')});
 dlg.addEventListener('click',function(e){if(e.target===dlg){dlg.close()}});}
+var reportsNav=document.getElementById('reportsNavLink');
+if(dlg&&reportsNav){reportsNav.addEventListener('click',function(e){e.preventDefault();dlg.showModal?dlg.showModal():dlg.setAttribute('open','');});}
 var tA=document.getElementById('tabArticles'),tV=document.getElementById('tabVideos'),pA=document.getElementById('pubArticles'),pV=document.getElementById('pubVideos');
 function reset(){var f=document.querySelector('.video-frame');if(f&&f.querySelector('iframe')){f.innerHTML=f.__orig}}
 var vf=document.querySelector('.video-frame');if(vf){vf.__orig=vf.innerHTML}

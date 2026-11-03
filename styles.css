@@ -493,6 +493,10 @@ a {
     font-weight: 800;
 }
 
+.team-section .section-header h2 {
+    font-size: clamp(3rem, 6vw, 5.5rem);
+}
+
 .section-deep .section-header h2,
 .section-deep .section-header p {
     color: var(--light);
@@ -2470,6 +2474,7 @@ i[data-lucide] { display: inline-block; width: 1.1em; height: 1.1em; }
 /* Reports dialog + mobile hero declutter */
 .hero-reports-btn { display: none; margin-top: 1.4rem; padding: .7rem 1.2rem; border: 1px solid rgba(255, 177, 153, .7); border-radius: 999px; background: rgba(26, 26, 46, .45); color: #fff; font: 700 .85rem "Lato", sans-serif; cursor: pointer; backdrop-filter: blur(8px); }
 .hero-reports-btn i { margin-right: .5rem; color: var(--sun); }
+#reportsNavLink { cursor: pointer; }
 .rp-dialog { inset: 0; margin: auto; max-height: 90vh; width: min(92vw, 440px); padding: 1.4rem; border: 1px solid rgba(226, 114, 91, .4); border-radius: 4px 24px 4px 24px; background: var(--cream); color: var(--brown); box-shadow: 0 30px 60px rgba(0, 0, 0, .35); }
 .rp-dialog::backdrop { background: rgba(26, 26, 46, .6); }
 .rp-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem; }

@@ -1182,6 +1182,10 @@
         <i class="fas fa-id-card"></i> Memberships
         <span class="nav-badge" id="badge-memberships">0</span>
     </div>
+    <div class="nav-item" data-panel="registrations" onclick="showPanel('registrations')">
+        <i class="fas fa-ticket"></i> Masterclass Registrations
+        <span class="nav-badge" id="badge-registrations">0</span>
+    </div>
     <div class="nav-item" data-panel="partnerships" onclick="showPanel('partnerships')">
         <i class="fas fa-handshake"></i> Partnerships
         <span class="nav-badge" id="badge-partnerships">0</span>
@@ -1439,6 +1443,19 @@
                     <table>
                         <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Occupation</th><th>Status</th><th>Actions</th></tr></thead>
                         <tbody id="membershipsTable"><tr class="loading-row"><td colspan="6"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- MASTERCLASS REGISTRATIONS -->
+        <div class="panel" id="panel-registrations">
+            <div class="card">
+                <div class="card-header"><div class="card-title">VALUE Global Career Masterclass Registrations</div></div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Profession / Industry</th><th>Payment</th><th>Amount</th><th>Paid</th><th>Registered</th></tr></thead>
+                        <tbody id="registrationsTable"><tr class="loading-row"><td colspan="8"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr></tbody>
                     </table>
                 </div>
             </div>
@@ -2388,6 +2405,7 @@ const panelLoaders = {
     gallery: loadGallery,
     team: loadTeam,
     memberships: loadMemberships,
+    registrations: loadRegistrations,
     partnerships: loadPartnerships,
     newsletter: loadNewsletter,
     analytics: buildChart,
@@ -2398,7 +2416,8 @@ const panelTitles = {
     articles: 'Articles', events: 'Events', courses: 'Courses',
     gallery: 'Gallery', team: 'Team Members',
     newsletters: 'Newsletters', reports: 'Reports', media: 'Published Media & Videos',
-    memberships: 'Memberships', partnerships: 'Partnerships', newsletter: 'Newsletter'
+    memberships: 'Memberships', partnerships: 'Partnerships', newsletter: 'Newsletter',
+    registrations: 'Masterclass Registrations'
 };
 
 function showPanel(name) {
@@ -2947,6 +2966,30 @@ async function loadMemberships() {
             </tr>`).join('')
         : `<tr><td colspan="6" style="text-align:center;padding:32px;color:#aaa;">No membership requests yet.</td></tr>`;
     } catch { tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#aaa;padding:24px;">Failed to load.</td></tr>`; }
+}
+
+// ── MASTERCLASS REGISTRATIONS ───────────────────────────────
+async function loadRegistrations() {
+    const tbody = document.getElementById('registrationsTable');
+    try {
+        const data = await fetch(`${API}/api/register/admin/masterclass`, { headers: authHeaders() }).then(r => {
+            if (!r.ok) throw new Error();
+            return r.json();
+        });
+        document.getElementById('badge-registrations').textContent = data.length;
+        tbody.innerHTML = data.length ? data.map(r => `
+            <tr>
+                <td data-label="Name"><strong>${r.fullName || '—'}</strong></td>
+                <td data-label="Email"><a href="mailto:${r.email}">${r.email || '—'}</a></td>
+                <td data-label="Phone">${r.phone || '—'}</td>
+                <td data-label="Profession / Industry">${r.professionIndustry || '—'}</td>
+                <td data-label="Payment"><span class="badge badge-${(r.paymentStatus || 'pending').toLowerCase()}">${r.paymentStatus || 'PENDING'}</span><br><small>${r.paymentMethod || '—'}</small></td>
+                <td data-label="Amount">${r.currency || ''} ${r.amount ?? '—'}</td>
+                <td data-label="Paid">${fmtDatetime(r.paidAt)}</td>
+                <td data-label="Registered">${fmtDatetime(r.createdAt)}</td>
+            </tr>`).join('')
+        : `<tr><td colspan="8" style="text-align:center;padding:32px;color:#aaa;">No masterclass registrations yet.</td></tr>`;
+    } catch { tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:#aaa;padding:24px;">Failed to load registrations.</td></tr>`; }
 }
 
 // ── PARTNERSHIPS ─────────────────────────────────────────────

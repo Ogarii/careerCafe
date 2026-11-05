@@ -78,6 +78,7 @@ transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-col
 .btn-s::before{border-radius:8px}.btn-s:hover::before{filter:blur(2.5px);opacity:.9}.btn-s:hover{color:var(--gold2);border-color:var(--gold)}
 .nav-btn{min-height:40px;padding:0 22px;font-size:13px;font-weight:700;background:rgba(6,11,26,.7);border:1px solid rgba(240,215,140,.75);color:#f6dc9e}.nav-btn:hover{color:#fff3d0;border-color:var(--gold2);box-shadow:0 10px 32px rgba(212,168,83,.3)}
 .link{display:inline-flex;align-items:center;gap:8px;padding:8px 2px;font-size:14px;font-weight:600;color:var(--gold2);border-bottom:1px solid transparent;transition:border-color .25s,gap .25s}.link:hover{border-color:var(--gold2);gap:12px}.link svg{width:16px;height:16px}
+.mobile-pill{display:none}
 
 /* hero */
 .hero{min-height:100dvh;display:flex;align-items:stretch;padding-top:80px;position:relative;overflow:hidden}
@@ -223,8 +224,19 @@ transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-col
 @media (max-width:1024px){.hero-g,.cd{grid-template-columns:1fr}.hero-g{gap:40px}.hero-img{margin:0;transform:none;max-width:none}.cd-img{display:none}.sh{grid-template-columns:1fr}.sh p{justify-self:start;margin-top:16px}
 .gapg,.whog,.facg{grid-template-columns:repeat(2,1fr)}.ask,.pg1,.dayg,.outg{grid-template-columns:1fr}.valg{grid-template-columns:repeat(3,1fr)}.steps{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:900px){
+.nav{display:none}
 .nav-in{padding:14px 20px}.brand img{height:32px}.toggle{display:inline-flex}.links{display:none}
 .nav.open .links{display:flex;flex-direction:column;align-items:stretch;text-align:center;position:absolute;top:100%;left:0;right:0;padding:16px 20px 20px;background:rgba(3,7,18,.96);border-bottom:1px solid rgba(212,168,83,.3)}
+.mobile-pill{position:fixed;top:12px;left:50%;z-index:var(--z-nav);display:flex;align-items:center;gap:8px;padding:8px;border:1px solid rgba(212,168,83,.38);border-radius:100px;background:rgba(3,7,18,.82);box-shadow:0 8px 28px rgba(0,0,0,.3),inset 0 1px 1px rgba(255,255,255,.15);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transform:translateX(-50%);transition:padding .3s var(--ease),box-shadow .3s,transform .3s var(--ease)}
+.mobile-pill.compact{padding:5px;box-shadow:0 5px 18px rgba(0,0,0,.24),inset 0 1px 1px rgba(255,255,255,.12)}
+.mobile-pill img{width:38px;height:38px;object-fit:contain;filter:brightness(0) invert(1) sepia(1) saturate(.4) hue-rotate(10deg) brightness(1.3);transition:width .3s var(--ease),height .3s var(--ease)}
+.mobile-pill.compact img{width:32px;height:32px}
+.mobile-pill a,.mobile-pill button{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid rgba(212,168,83,.32);border-radius:50%;color:var(--gold2);background:rgba(212,168,83,.1);cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.22),inset 0 1px 1px rgba(255,255,255,.12);transition:width .3s var(--ease),height .3s var(--ease),background .2s,box-shadow .2s}
+.mobile-pill.compact a,.mobile-pill.compact button{width:34px;height:34px}
+.mobile-pill a:hover,.mobile-pill button:hover{background:rgba(212,168,83,.22)}
+.mobile-pill svg{width:17px;height:17px}.mobile-pill.compact svg{width:15px;height:15px}
+.mobile-pill .share-status{position:absolute;top:calc(100% + 8px);left:50%;padding:5px 9px;border:1px solid var(--bg-gold);border-radius:100px;background:rgba(3,7,18,.94);color:var(--gold2);font-size:10px;white-space:nowrap;opacity:0;transform:translate(-50%,-4px);pointer-events:none;transition:opacity .2s,transform .2s}
+.mobile-pill .share-status.show{opacity:1;transform:translate(-50%,0)}
 .stats-g{grid-template-columns:repeat(2,1fr)}
 .gal{grid-template-columns:repeat(2,1fr)}.gal div:first-child{grid-row:auto}.pay,.reg{grid-template-columns:1fr;gap:40px}.reg .sh{position:static}}
 @media (max-width:768px){
@@ -269,6 +281,8 @@ html.is-loading .pl,html.is-loading .pl *{animation-play-state:running!important
 <symbol id="ca" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
 <symbol id="ck2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
 <symbol id="mn" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+<symbol id="hm" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V10Z"/><path d="M9 21v-6h6v6"/></symbol>
+<symbol id="shr" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></symbol>
 </svg>
 
 <nav class="nav" id="nav" aria-label="Main"><div class="nav-in">
@@ -276,6 +290,12 @@ html.is-loading .pl,html.is-loading .pl *{animation-play-state:running!important
 <button class="toggle" id="toggle" type="button" aria-expanded="false" aria-controls="links" aria-label="Toggle menu"><svg class="i" aria-hidden="true"><use href="#mn"/></svg></button>
 <div class="links" id="links"><a href="#landing">Home</a><a href="#gap">The gap</a><a href="#schedule">The room</a><a href="#faculty">Faculty</a><a href="#pricing">Pricing</a><a href="#registration" class="nav-btn">Register now</a></div>
 </div></nav>
+<div class="mobile-pill" id="mobilePill" aria-label="Page actions">
+<img src="careerLogoNew.png" alt="The Career Café" width="30" height="30">
+<a href="https://careercafe.co.ke/" aria-label="Back to Career Café home"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#hm"/></svg></a>
+<button id="mobileShare" type="button" aria-label="Share this masterclass"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#shr"/></svg></button>
+<span class="share-status" id="shareStatus" role="status" aria-live="polite"></span>
+</div>
 
 <main id="main">
 
@@ -635,6 +655,17 @@ let pmE=null,pmQ=0;document.addEventListener('pointermove',e=>{pmE=e;if(pmQ)retu
 (function(){const b=$('float'),t=$('ftab');const close=()=>{b.classList.remove('open');t.setAttribute('aria-expanded','false')};
  t.addEventListener('click',e=>{e.stopPropagation();t.setAttribute('aria-expanded',String(b.classList.toggle('open')))});
  document.addEventListener('click',e=>{if(!b.contains(e.target))close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()})})();
+
+/* mobile floating pill */
+(function(){const pill=$('mobilePill'),share=$('mobileShare'),status=$('shareStatus');if(!pill||!share)return;
+ let compact=false,previous=scrollY;
+ const update=()=>{const current=scrollY,down=current>previous&&current>24;if(down!==compact){compact=down;pill.classList.toggle('compact',compact)}previous=current};
+ addEventListener('scroll',update,{passive:true});
+ const showStatus=message=>{status.textContent=message;status.classList.add('show');clearTimeout(showStatus.timer);showStatus.timer=setTimeout(()=>status.classList.remove('show'),2200)};
+ share.addEventListener('click',async()=>{const data={title:document.title,text:'The VALUE Global Career Masterclass',url:location.href};
+  if(navigator.share){try{await navigator.share(data);return}catch(error){if(error&&error.name==='AbortError')return}}
+  try{await navigator.clipboard.writeText(location.href);showStatus('Link copied')}catch{location.href='mailto:?subject='+encodeURIComponent(data.text)+'&body='+encodeURIComponent(location.href)}
+ })})();
 
 /* nav: scrolled state, current section, mobile menu */
 (function(){const nav=$('nav'),tg=$('toggle'),box=$('links');

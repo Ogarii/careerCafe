@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://careercafe.co.ke/sitemap.xml

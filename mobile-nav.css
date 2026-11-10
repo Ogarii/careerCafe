@@ -42,6 +42,11 @@
         transform: translateY(0);
     }
 
+    .mobile-bottom-nav.is-visible.is-compact {
+        transform: translateY(3px) scale(.8);
+        opacity: .9;
+    }
+
     .mobile-bottom-nav a {
         display: grid;
         justify-items: center;

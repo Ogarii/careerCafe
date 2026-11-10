@@ -3,12 +3,10 @@
     if (!dock) return;
 
     document.body.classList.add('has-mobile-bottom-nav');
-    let lastY = window.scrollY;
-
     function updateDock() {
         const y = window.scrollY;
-        dock.classList.toggle('is-visible', y > 120 || y < lastY - 8);
-        lastY = y;
+        dock.classList.toggle('is-visible', y > 72);
+        dock.classList.toggle('is-compact', y > 260);
     }
 
     window.addEventListener('scroll', updateDock, { passive: true });

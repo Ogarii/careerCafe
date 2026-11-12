@@ -631,6 +631,23 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&S.id)pesa
  $('paybillInstructions').classList.add('hidden');$('pesapalInstructions').classList.remove('hidden');$('payment').classList.remove('hidden');$('pesapalSkel').classList.remove('hidden');$('trk').textContent=id;
  if(m){$('selAmt').textContent=`${c.currency} ${Number(c.amount).toLocaleString('en-KE')}`}$('payment').scrollIntoView({behavior:'smooth'});poll()})();
 
+/* Continue payment: link from the "complete your registration" reminder email (?resume=TOKEN) */
+(function(){const token=new URLSearchParams(location.search).get('resume');if(!token)return;
+ const msg=$('pesapalMsg'),btn=$('pesapalPayNow'),skel=$('pesapalSkel');
+ $('paybillInstructions').classList.add('hidden');$('pesapalInstructions').classList.remove('hidden');$('payment').classList.remove('hidden');
+ $('pesapalCheck').classList.add('hidden');btn.classList.add('hidden');skel.classList.remove('hidden');$('trk').textContent='Pending';
+ msg.textContent='Preparing your secure PesaPal checkout…';$('payment').scrollIntoView({behavior:'smooth'});
+ const stop=text=>{skel.classList.add('hidden');msg.textContent=text};
+ const slow=setTimeout(()=>{msg.textContent='Still working. The payment service may be waking up, please wait…'},5000);
+ api('/api/register/resume/'+encodeURIComponent(token),{method:'POST',headers:{'Accept':'application/json'}}).then(d=>{
+  if(d.outcome==='CHECKOUT'&&https(d.redirectUrl)){msg.textContent='Taking you to PesaPal…';btn.href=d.redirectUrl;btn.classList.remove('hidden');location.assign(d.redirectUrl);return}
+  if(d.outcome==='ALREADY_PAID'){$('payment').classList.add('hidden');$('confirmation').classList.remove('hidden');$('confirmation').scrollIntoView({behavior:'smooth'});return}
+  if(d.outcome==='CLOSED'){stop('Registration for The VALUE Global Career Masterclass has closed. Thank you for your interest.');return}
+  if(d.outcome==='NOT_FOUND'){stop('This payment link is no longer valid. Please register again using the form above.');return}
+  throw new Error('checkout unavailable')})
+ .catch(()=>{stop('We could not open checkout. Please try again, or reply to the email we sent you and our team will help.');btn.href=location.href;btn.textContent='Try again';btn.classList.remove('hidden')})
+ .finally(()=>clearTimeout(slow))})();
+
 /*
 Legacy PesaPal flow retained for later reactivation:
 async function api(path,opt){const r=await fetch(CONFIG.apiBase+path,opt);if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.message||'Request failed. Please try again.')}return r.json()}

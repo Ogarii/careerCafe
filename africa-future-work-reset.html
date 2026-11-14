@@ -213,6 +213,7 @@ transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-col
 .conf .lead{margin-inline:auto}.conf .actions{justify-content:center}
 
 /* footer + floating timer */
+.orgs{padding:44px 0;text-align:center}.orgs .eyebrow{margin-bottom:26px}.orgs-g{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:28px 64px}.orgs-g img{display:block;height:64px;width:auto;max-width:240px;object-fit:contain;opacity:.92}.orgs-g img.tall{height:96px}@media (max-width:680px){.orgs-g{gap:22px 36px}.orgs-g img{height:48px}.orgs-g img.tall{height:76px}}
 .footer{padding:56px 0 40px;text-align:center}.fb{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
 .fb img{height:28px;opacity:.7;filter:brightness(0) invert(1) sepia(1) saturate(.4) hue-rotate(10deg) brightness(1.3)}
 .tagl{margin-bottom:18px;font:italic 600 22px/1 'Cormorant Garamond',Georgia,serif;color:var(--gold2)}
@@ -393,6 +394,12 @@ html.is-loading .pl,html.is-loading .pl *{animation-play-state:running!important
 <div class="facg" id="facg"></div>
 <aside class="card promise"><h3>We cannot promise you a job or a contract.</h3><p>We commit to behaviours and assets that raise your odds, and we are open about what we can and cannot do.</p></aside>
 </div></section>
+
+<section class="orgs" aria-label="Partners and organisers"><div class="wrap"><div class="eyebrow">In partnership with</div><div class="orgs-g">
+<img src="images/partners/imcon.png" alt="IMCON Consulting" loading="lazy">
+<img src="images/partners/global-health-otherwise.png" alt="Global Health Otherwise" class="tall" loading="lazy">
+<img src="images/partners/expert-consult.png" alt="Expert Consult – Your sustainable growth partner" loading="lazy">
+</div></div></section>
 
 <dialog class="faculty-modal" id="facultyModal" aria-labelledby="facultyModalName">
 <div class="faculty-modal-content"><div class="faculty-modal-head"><div><h3 id="facultyModalName"></h3><small id="facultyModalRole"></small></div><button class="faculty-modal-close" type="button" aria-label="Close biography">&times;</button></div><p id="facultyModalBio"></p></div>

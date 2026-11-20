@@ -1,85 +1,327 @@
-/* Mobile-only quick navigation. The dock appears after the user starts scrolling. */
-.mobile-bottom-nav {
+/* Mobile chrome: liquid-glass bottom nav (+ "More" sheet) and top pill.
+   Both stay put: no hiding on load, no shrinking, no fading back in while scrolling. */
+
+.mobile-bottom-nav,
+.cc-pill,
+.cc-sheet {
     display: none;
 }
 
-.masterclass-page .mobile-bottom-nav {
-    --mobile-nav-ink: #fff3d0;
-    --mobile-nav-accent: #f0d78c;
-    --mobile-nav-glass: rgba(3, 7, 18, .78);
+:root {
+    --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, .62), rgba(255, 255, 255, .26));
+    --glass-border: rgba(255, 255, 255, .7);
+    --glass-edge: rgba(226, 114, 91, .32);
+    --glass-ink: var(--dark, #1a1a2e);
+    --glass-accent: var(--primary, #E2725B);
+    --glass-active: rgba(226, 114, 91, .14);
+    --glass-shadow: 0 14px 38px rgba(26, 26, 46, .18), 0 2px 6px rgba(26, 26, 46, .08);
+    --glass-highlight: inset 0 1px 1px rgba(255, 255, 255, .9), inset 0 -1px 1px rgba(255, 255, 255, .25);
+}
+
+.masterclass-page {
+    --glass-bg: linear-gradient(135deg, rgba(17, 24, 39, .72), rgba(3, 7, 18, .5));
+    --glass-border: rgba(240, 215, 140, .3);
+    --glass-edge: rgba(212, 168, 83, .42);
+    --glass-ink: #fff3d0;
+    --glass-accent: #f0d78c;
+    --glass-active: rgba(212, 168, 83, .18);
+    --glass-shadow: 0 14px 38px rgba(0, 0, 0, .38), 0 2px 6px rgba(0, 0, 0, .2);
+    --glass-highlight: inset 0 1px 1px rgba(255, 255, 255, .16), inset 0 -1px 1px rgba(255, 255, 255, .04);
 }
 
 @media (max-width: 760px) {
     body.has-mobile-bottom-nav {
-        padding-bottom: 64px;
+        padding-bottom: calc(84px + env(safe-area-inset-bottom));
     }
 
+    html { scroll-padding-top: 78px; }
+
+    /* The bottom nav + More sheet replace the top navigation on phones. */
+    body.has-mobile-chrome .navbar,
+    body.has-mobile-chrome > nav.nav,
+    body.has-mobile-chrome .site-nav {
+        display: none !important;
+    }
+
+    /* ── Bottom nav ─────────────────────────────────────── */
     .mobile-bottom-nav {
         position: fixed;
-        left: 16px;
-        right: 16px;
+        left: 12px;
+        right: 12px;
         bottom: max(10px, env(safe-area-inset-bottom));
         z-index: 1200;
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
         gap: 2px;
-        padding: 5px;
-        border: 1px solid var(--mobile-nav-accent, var(--primary, var(--gold, rgba(255, 255, 255, .4))));
-        border-radius: 18px;
-        background: var(--mobile-nav-glass, linear-gradient(135deg, rgba(255,255,255,.55), rgba(255,255,255,.14)));
-        box-shadow: 0 18px 42px rgba(26, 26, 46, .22), inset 0 1px 1px rgba(255,255,255,.7);
-        -webkit-backdrop-filter: blur(20px) saturate(150%);
-        backdrop-filter: blur(20px) saturate(150%);
-        opacity: 0;
-        pointer-events: none;
-        transform: translateY(18px);
-        transition: opacity .3s ease, transform .3s ease;
-    }
-
-    .mobile-bottom-nav.is-visible {
+        padding: 6px;
+        border: 1px solid var(--glass-border);
+        border-radius: 22px;
+        background: var(--glass-bg);
+        box-shadow: var(--glass-shadow), var(--glass-highlight), 0 0 0 1px var(--glass-edge);
+        -webkit-backdrop-filter: blur(22px) saturate(180%);
+        backdrop-filter: blur(22px) saturate(180%);
+        /* Scroll states are transform/opacity only, so nothing reflows while moving. */
+        transform-origin: 50% 100%;
         opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
         pointer-events: auto;
-        transform: translateY(0);
+        will-change: transform, opacity;
+        transition: transform .38s cubic-bezier(.2, .8, .2, 1), opacity .28s ease;
     }
 
-    .mobile-bottom-nav.is-visible.is-compact {
-        transform: translateY(3px) scale(.8);
-        opacity: .9;
+    /* Shrinks slightly once off the top of the page... */
+    .mobile-bottom-nav.is-compact {
+        transform: translate3d(0, 0, 0) scale(.94);
     }
 
-    .mobile-bottom-nav a {
+    /* ...slides away while scrolling down, and back in on scroll up. */
+    .mobile-bottom-nav.is-hidden {
+        opacity: 0;
+        transform: translate3d(0, calc(100% + 24px), 0) scale(.94);
+        pointer-events: none;
+    }
+
+    .mobile-bottom-nav a,
+    .mobile-bottom-nav .cc-more-btn {
         display: grid;
         justify-items: center;
+        align-content: center;
         gap: 4px;
         min-width: 0;
+        min-height: 50px;
         padding: 6px 2px;
-        border-radius: 11px;
-        color: var(--mobile-nav-ink, var(--ink, var(--dark, #1a1a2e)));
-        font: 800 9px/1.1 Lato, Arial, sans-serif;
+        border: 0;
+        border-radius: 16px;
+        background: transparent;
+        color: var(--glass-ink);
+        font: 800 10px/1.1 Lato, Arial, sans-serif;
         text-align: center;
         text-decoration: none;
-        transition: color .2s ease, background .2s ease, transform .2s ease;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: color .2s ease, background .2s ease, box-shadow .2s ease;
+    }
+
+    .mobile-bottom-nav a span,
+    .mobile-bottom-nav .cc-more-btn span {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .mobile-bottom-nav a i,
-    .mobile-bottom-nav a .i {
+    .mobile-bottom-nav a .i,
+    .mobile-bottom-nav .cc-more-btn i {
         width: 18px;
         height: 18px;
-        font-size: 14px;
+        font-size: 16px;
+        line-height: 18px;
     }
 
-    .mobile-bottom-nav a:hover,
     .mobile-bottom-nav a:focus-visible,
-    .mobile-bottom-nav a.is-active {
-        color: var(--mobile-nav-accent, var(--primary, var(--gold, #a94e3d)));
-        background: rgba(255,255,255,.18);
-        transform: translateY(-2px);
+    .mobile-bottom-nav a.is-active,
+    .mobile-bottom-nav .cc-more-btn:focus-visible,
+    .mobile-bottom-nav .cc-more-btn[aria-expanded="true"] {
+        color: var(--glass-accent);
+        background: var(--glass-active);
+        box-shadow: var(--glass-highlight);
+        outline: none;
+    }
+
+    .mobile-bottom-nav a:active,
+    .mobile-bottom-nav .cc-more-btn:active {
+        background: var(--glass-active);
+    }
+
+    /* ── Top pill ───────────────────────────────────────── */
+    .cc-pill {
+        position: fixed;
+        top: max(10px, env(safe-area-inset-top));
+        left: 50%;
+        z-index: 1200;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px;
+        border: 1px solid var(--glass-border);
+        border-radius: 999px;
+        background: var(--glass-bg);
+        box-shadow: var(--glass-shadow), var(--glass-highlight), 0 0 0 1px var(--glass-edge);
+        -webkit-backdrop-filter: blur(22px) saturate(180%);
+        backdrop-filter: blur(22px) saturate(180%);
+        transform-origin: 50% 0;
+        transform: translate3d(-50%, 0, 0) scale(1);
+        will-change: transform, opacity;
+        transition: transform .38s cubic-bezier(.2, .8, .2, 1), opacity .28s ease;
+    }
+
+    .cc-pill.is-compact { transform: translate3d(-50%, 0, 0) scale(.9); }
+
+    /* Same hide / reappear for the masterclass page's own pill. */
+    .cc-pill.is-hidden,
+    .mobile-pill.is-hidden {
+        opacity: 0;
+        transform: translate3d(-50%, calc(-100% - 20px), 0) scale(.9) !important;
+        pointer-events: none;
+    }
+
+    .mobile-pill {
+        transition: transform .38s cubic-bezier(.2, .8, .2, 1), opacity .28s ease, padding .3s ease, box-shadow .3s ease !important;
+    }
+
+    .cc-pill a,
+    .cc-pill button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border: 1px solid var(--glass-edge);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, .35);
+        box-shadow: var(--glass-highlight);
+        color: var(--glass-accent);
+        font-size: 15px;
+        text-decoration: none;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: background .2s ease;
+    }
+
+    .cc-pill a.cc-pill-logo { border: 0; background: transparent; box-shadow: none; }
+    .cc-pill a.cc-pill-logo img { width: 34px; height: 34px; object-fit: contain; }
+    .cc-pill a:active, .cc-pill button:active { background: var(--glass-active); }
+
+    .cc-pill-status {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        max-width: 80vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 5px 10px;
+        border-radius: 999px;
+        background: var(--dark, #1a1a2e);
+        color: #fff;
+        font: 700 11px/1.2 Lato, Arial, sans-serif;
+        white-space: nowrap;
+        opacity: 0;
+        transform: translate(-50%, -4px);
+        pointer-events: none;
+        transition: opacity .2s ease, transform .2s ease;
+    }
+
+    .cc-pill-status.show { opacity: 1; transform: translate(-50%, 0); }
+
+    /* ── "More" sheet ───────────────────────────────────── */
+    .cc-sheet { position: fixed; inset: 0; z-index: 1300; display: block; }
+    .cc-sheet[hidden] { display: none; }
+
+    .cc-sheet-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(15, 15, 30, .35);
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px);
+        opacity: 0;
+        transition: opacity .22s ease;
+    }
+
+    .cc-sheet-panel {
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        bottom: max(8px, env(safe-area-inset-bottom));
+        max-height: 80dvh;
+        display: flex;
+        flex-direction: column;
+        padding: 8px 14px 14px;
+        border: 1px solid var(--glass-border);
+        border-radius: 26px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, .86), rgba(255, 255, 255, .66));
+        box-shadow: var(--glass-shadow), var(--glass-highlight), 0 0 0 1px var(--glass-edge);
+        -webkit-backdrop-filter: blur(26px) saturate(180%);
+        backdrop-filter: blur(26px) saturate(180%);
+        color: var(--dark, #1a1a2e);
+        font-family: Lato, Arial, sans-serif;
+        transform: translateY(calc(100% + 16px));
+        transition: transform .24s ease;
+    }
+
+    .cc-sheet.is-open .cc-sheet-backdrop { opacity: 1; }
+    .cc-sheet.is-open .cc-sheet-panel { transform: translateY(0); }
+
+    .cc-sheet-grip { width: 40px; height: 4px; margin: 2px auto 10px; border-radius: 4px; background: rgba(26, 26, 46, .18); }
+    .cc-sheet-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+    .cc-sheet-head strong { font: 900 1.15rem/1 Merriweather, Georgia, serif; }
+
+    .cc-sheet-close {
+        width: 36px;
+        height: 36px;
+        border: 1px solid rgba(26, 26, 46, .08);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, .6);
+        color: inherit;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .cc-sheet-body { overflow-y: auto; overscroll-behavior: contain; padding-bottom: 4px; }
+    .cc-sheet-label { margin: 12px 0 8px; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; opacity: .6; }
+    .cc-sheet-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+
+    .cc-sheet-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 46px;
+        padding: 10px 12px;
+        border: 1px solid rgba(255, 255, 255, .8);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, .55);
+        box-shadow: 0 2px 8px rgba(26, 26, 46, .05), inset 0 1px 1px rgba(255, 255, 255, .9);
+        color: inherit;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .cc-sheet-link i { width: 16px; color: var(--primary, #E2725B); text-align: center; }
+    .cc-sheet-link span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .cc-sheet-link:active,
+    .cc-sheet-link[aria-current="page"] { background: rgba(226, 114, 91, .14); border-color: rgba(226, 114, 91, .35); }
+
+    .cc-sheet-social { display: flex; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(26, 26, 46, .08); }
+    .cc-sheet-social a {
+        flex: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 42px;
+        border-radius: 999px;
+        background: var(--dark, #1a1a2e);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 800;
+        text-decoration: none;
+    }
+
+    html.cc-sheet-lock,
+    html.cc-sheet-lock body { overflow: hidden; }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    @media (max-width: 760px) {
+        .mobile-bottom-nav, .cc-pill { background: rgba(255, 255, 255, .94); }
+        .masterclass-page .mobile-bottom-nav { background: rgba(3, 7, 18, .94); }
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .mobile-bottom-nav,
-    .mobile-bottom-nav a {
-        transition: none;
-    }
+    .mobile-bottom-nav, .cc-pill, .mobile-pill,
+    .mobile-bottom-nav a, .mobile-bottom-nav .cc-more-btn,
+    .cc-pill a, .cc-pill button,
+    .cc-sheet-panel, .cc-sheet-backdrop, .cc-pill-status { transition: none; }
 }

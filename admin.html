@@ -415,6 +415,12 @@
         .badge-pending { background: #fef3c7; color: #92400e; }
         .badge-approved { background: #d1fae5; color: #065f46; }
         .badge-rejected { background: #fee2e2; color: #991b1b; }
+        .badge-completed, .badge-registered { background: #d1fae5; color: #065f46; }
+        .badge-failed, .badge-invalid, .badge-reversed { background: #fee2e2; color: #991b1b; }
+        .badge-in_progress { background: #fef3c7; color: #92400e; }
+        .badge-paybill_submitted { background: #dbeafe; color: #1e40af; }
+        .mc-stats { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+        .mc-stat { padding: 6px 12px; border-radius: 999px; background: #f3f4f6; font-size: 12px; font-weight: 600; color: #374151; }
         .badge-virtual { background: #dbeafe; color: #1e40af; }
         .badge-inperson { background: #ede9fe; color: #5b21b6; }
 
@@ -1451,11 +1457,30 @@
         <!-- MASTERCLASS REGISTRATIONS -->
         <div class="panel" id="panel-registrations">
             <div class="card">
-                <div class="card-header"><div class="card-title">VALUE Global Career Masterclass Registrations</div></div>
+                <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <div class="card-title">VALUE Global Career Masterclass Registrations</div>
+                    <button class="btn btn-secondary btn-sm" onclick="sendMasterclassReminders()" id="mcReminderBtn"><i class="fas fa-paper-plane"></i> Send pending reminders now</button>
+                </div>
+                <p style="margin:0 0 12px;color:#6b7280;font-size:13px;">Unpaid registrations (pending, failed or any other payment issue) are emailed automatically once, about an hour after they start. The <strong>Reminder</strong> column shows when that email went out.</p>
+                <div class="mc-stats" id="registrationsStats"></div>
                 <div class="table-wrap">
                     <table>
-                        <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Profession / Industry</th><th>Payment</th><th>Amount</th><th>Paid</th><th>Registered</th></tr></thead>
-                        <tbody id="registrationsTable"><tr class="loading-row"><td colspan="8"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr></tbody>
+                        <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Profession / Industry</th><th>Payment</th><th>Amount</th><th>Paid</th><th>Reminder</th><th>Registered</th></tr></thead>
+                        <tbody id="registrationsTable"><tr class="loading-row"><td colspan="9"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card" style="margin-top:20px;">
+                <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <div class="card-title">Registration Form Entries (complete &amp; abandoned)</div>
+                    <button class="btn btn-secondary btn-sm" onclick="sendFormFollowUps()" id="mcFollowUpBtn"><i class="fas fa-envelope"></i> Email abandoned forms now</button>
+                </div>
+                <p style="margin:0 0 12px;color:#6b7280;font-size:13px;">Everything typed into the masterclass form, saved field by field as people fill it in. <strong>In progress</strong> means they left before submitting; those who left an email get one automatic follow-up after about an hour.</p>
+                <div class="mc-stats" id="formEntriesStats"></div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Profession / Industry</th><th>Method</th><th>Stage</th><th>Last field</th><th>Follow-up</th><th>Last activity</th></tr></thead>
+                        <tbody id="formEntriesTable"><tr class="loading-row"><td colspan="9"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr></tbody>
                     </table>
                 </div>
             </div>
@@ -2969,7 +2994,17 @@ async function loadMemberships() {
 }
 
 // ── MASTERCLASS REGISTRATIONS ───────────────────────────────
+function escHtml(v) {
+    return String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+function mcStats(el, counts) {
+    document.getElementById(el).innerHTML = Object.entries(counts)
+        .map(([k, v]) => `<span class="mc-stat">${escHtml(k)}: ${v}</span>`).join('');
+}
+const STAGE_LABELS = { IN_PROGRESS: 'In progress', PAYBILL_SUBMITTED: 'Paybill submitted', REGISTERED: 'Registered (PesaPal)' };
+
 async function loadRegistrations() {
+    loadFormEntries();
     const tbody = document.getElementById('registrationsTable');
     try {
         const data = await fetch(`${API}/api/register/admin/masterclass`, { headers: authHeaders() }).then(r => {
@@ -2977,19 +3012,83 @@ async function loadRegistrations() {
             return r.json();
         });
         document.getElementById('badge-registrations').textContent = data.length;
-        tbody.innerHTML = data.length ? data.map(r => `
+        const counts = { Total: data.length };
+        data.forEach(r => { const st = r.paymentStatus || 'PENDING'; counts[st] = (counts[st] || 0) + 1; });
+        counts['Reminded'] = data.filter(r => r.paymentReminderSentAt).length;
+        mcStats('registrationsStats', counts);
+        tbody.innerHTML = data.length ? data.map(r => {
+            const st = r.paymentStatus || 'PENDING';
+            const reminder = st === 'COMPLETED' ? '—'
+                : r.paymentReminderSentAt ? `<span class="badge badge-approved">Sent</span><br><small>${fmtDatetime(r.paymentReminderSentAt)}</small>`
+                : '<span class="badge badge-pending">Scheduled</span>';
+            return `
             <tr>
-                <td data-label="Name"><strong>${r.fullName || '—'}</strong></td>
-                <td data-label="Email"><a href="mailto:${r.email}">${r.email || '—'}</a></td>
-                <td data-label="Phone">${r.phone || '—'}</td>
-                <td data-label="Profession / Industry">${r.professionIndustry || '—'}</td>
-                <td data-label="Payment"><span class="badge badge-${(r.paymentStatus || 'pending').toLowerCase()}">${r.paymentStatus || 'PENDING'}</span><br><small>${r.paymentMethod || '—'}</small></td>
-                <td data-label="Amount">${r.currency || ''} ${r.amount ?? '—'}</td>
+                <td data-label="Name"><strong>${escHtml(r.fullName) || '—'}</strong></td>
+                <td data-label="Email"><a href="mailto:${escHtml(r.email)}">${escHtml(r.email) || '—'}</a></td>
+                <td data-label="Phone">${escHtml(r.phone) || '—'}</td>
+                <td data-label="Profession / Industry">${escHtml(r.professionIndustry) || '—'}</td>
+                <td data-label="Payment"><span class="badge badge-${escHtml(st.toLowerCase())}">${escHtml(st)}</span><br><small>${escHtml(r.paymentMethod) || '—'}</small></td>
+                <td data-label="Amount">${escHtml(r.currency)} ${r.amount ?? '—'}</td>
                 <td data-label="Paid">${fmtDatetime(r.paidAt)}</td>
+                <td data-label="Reminder">${reminder}</td>
                 <td data-label="Registered">${fmtDatetime(r.createdAt)}</td>
-            </tr>`).join('')
-        : `<tr><td colspan="8" style="text-align:center;padding:32px;color:#aaa;">No masterclass registrations yet.</td></tr>`;
-    } catch { tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:#aaa;padding:24px;">Failed to load registrations.</td></tr>`; }
+            </tr>`;
+        }).join('')
+        : `<tr><td colspan="9" style="text-align:center;padding:32px;color:#aaa;">No masterclass registrations yet.</td></tr>`;
+    } catch { tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;color:#aaa;padding:24px;">Failed to load registrations.</td></tr>`; }
+}
+
+async function loadFormEntries() {
+    const tbody = document.getElementById('formEntriesTable');
+    try {
+        const data = await fetch(`${API}/api/register/admin/masterclass/form-entries`, { headers: authHeaders() }).then(r => {
+            if (!r.ok) throw new Error();
+            return r.json();
+        });
+        const counts = { Total: data.length };
+        data.forEach(e => { const k = STAGE_LABELS[e.stage] || e.stage; counts[k] = (counts[k] || 0) + 1; });
+        counts['Followed up'] = data.filter(e => e.stage === 'IN_PROGRESS' && e.followUpEmailSentAt).length;
+        mcStats('formEntriesStats', counts);
+        tbody.innerHTML = data.length ? data.map(e => {
+            const followUp = e.stage !== 'IN_PROGRESS' ? '—'
+                : !e.email ? '<small>No email</small>'
+                : e.followUpEmailSentAt ? `<span class="badge badge-approved">Handled</span><br><small>${fmtDatetime(e.followUpEmailSentAt)}</small>`
+                : '<span class="badge badge-pending">Scheduled</span>';
+            return `
+            <tr>
+                <td data-label="Name"><strong>${escHtml(e.fullName) || '—'}</strong></td>
+                <td data-label="Email">${e.email ? `<a href="mailto:${escHtml(e.email)}">${escHtml(e.email)}</a>` : '—'}</td>
+                <td data-label="Phone">${escHtml(e.phone) || '—'}</td>
+                <td data-label="Profession / Industry">${escHtml(e.professionIndustry) || '—'}</td>
+                <td data-label="Method">${escHtml(e.paymentMethod) || '—'}</td>
+                <td data-label="Stage"><span class="badge badge-${escHtml((e.stage || '').toLowerCase())}">${escHtml(STAGE_LABELS[e.stage] || e.stage)}</span></td>
+                <td data-label="Last field">${escHtml(e.lastField) || '—'}</td>
+                <td data-label="Follow-up">${followUp}</td>
+                <td data-label="Last activity">${fmtDatetime(e.updatedAt)}</td>
+            </tr>`;
+        }).join('')
+        : `<tr><td colspan="9" style="text-align:center;padding:32px;color:#aaa;">No form entries yet.</td></tr>`;
+    } catch { tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;color:#aaa;padding:24px;">Failed to load form entries.</td></tr>`; }
+}
+
+async function runMasterclassAction(btnId, path, label) {
+    const btn = document.getElementById(btnId);
+    if (!confirm(`${label}? Each person is only ever emailed once.`)) return;
+    btn.disabled = true;
+    try {
+        const r = await fetch(`${API}${path}`, { method: 'POST', headers: authHeaders() });
+        if (!r.ok) throw new Error();
+        const d = await r.json();
+        toast(`Sent ${d.sent}, skipped ${d.skipped}, failed ${d.failed} (of ${d.candidates}).`, d.failed ? 'error' : 'success');
+        loadRegistrations();
+    } catch { toast('Could not send emails. Please try again.', 'error'); }
+    finally { btn.disabled = false; }
+}
+function sendMasterclassReminders() {
+    runMasterclassAction('mcReminderBtn', '/api/register/admin/masterclass/payment-reminders?minAgeMinutes=30', 'Email unpaid registrations started over 30 minutes ago');
+}
+function sendFormFollowUps() {
+    runMasterclassAction('mcFollowUpBtn', '/api/register/admin/masterclass/form-follow-ups?minIdleMinutes=30', 'Email people who abandoned the form over 30 minutes ago');
 }
 
 // ── PARTNERSHIPS ─────────────────────────────────────────────

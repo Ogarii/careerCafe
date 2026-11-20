@@ -3,6 +3,7 @@
 
 .mobile-bottom-nav,
 .cc-pill,
+.cc-back,
 .cc-sheet {
     display: none;
 }
@@ -156,7 +157,78 @@
         transition: transform .38s cubic-bezier(.2, .8, .2, 1), opacity .28s ease;
     }
 
-    .cc-pill.is-compact { transform: translate3d(-50%, 0, 0) scale(.9); }
+    /* Natural width, not half the screen (left:50% would otherwise cap it at 50vw). */
+    .cc-pill,
+    .mobile-pill {
+        width: max-content;
+        max-width: calc(100vw - 120px);
+        flex-wrap: nowrap;
+    }
+
+    .cc-pill > *,
+    .mobile-pill > * { flex: 0 0 auto; }
+
+    .cc-pill.is-compact,
+    .mobile-pill.is-compact { transform: translate3d(-50%, 0, 0) scale(.9); }
+
+    /* The masterclass pill shrinks by transform too, never by resizing its contents. */
+    .mobile-pill { transform-origin: 50% 0; }
+    .mobile-pill.compact { padding: 8px !important; }
+    .mobile-pill.compact img { width: 38px !important; height: 38px !important; }
+    .mobile-pill.compact a,
+    .mobile-pill.compact button { width: 40px !important; height: 40px !important; }
+
+    @media (max-width: 380px) {
+        .cc-pill, .mobile-pill { gap: 5px; padding: 5px; }
+        .cc-pill a, .cc-pill button,
+        .mobile-pill a, .mobile-pill button { width: 34px !important; height: 34px !important; }
+        .mobile-pill img, .cc-pill a.cc-pill-logo img { width: 30px !important; height: 30px !important; }
+    }
+
+    /* ── Back arrow (top left) ──────────────────────────── */
+    .cc-back {
+        position: fixed;
+        top: max(12px, env(safe-area-inset-top));
+        left: 12px;
+        z-index: 1200;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 46px;
+        height: 46px;
+        padding: 0;
+        border: 1px solid var(--glass-border);
+        border-radius: 50%;
+        background: var(--glass-bg);
+        box-shadow: var(--glass-shadow), var(--glass-highlight), 0 0 0 1px var(--glass-edge);
+        -webkit-backdrop-filter: blur(22px) saturate(180%);
+        backdrop-filter: blur(22px) saturate(180%);
+        color: var(--glass-accent);
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transform-origin: 0 0;
+        transform: translate3d(0, 0, 0) scale(1);
+        will-change: transform, opacity;
+        transition: transform .38s cubic-bezier(.2, .8, .2, 1), opacity .28s ease, background .2s ease;
+    }
+
+    .cc-back svg {
+        width: 20px;
+        height: 20px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2.4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .cc-back:active { background: var(--glass-active); }
+    .cc-back.is-compact { transform: translate3d(0, 0, 0) scale(.9); }
+    .cc-back.is-hidden {
+        opacity: 0;
+        transform: translate3d(0, calc(-100% - 20px), 0) scale(.9);
+        pointer-events: none;
+    }
 
     /* Same hide / reappear for the masterclass page's own pill. */
     .cc-pill.is-hidden,
@@ -320,7 +392,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .mobile-bottom-nav, .cc-pill, .mobile-pill,
+    .mobile-bottom-nav, .cc-pill, .mobile-pill, .cc-back,
     .mobile-bottom-nav a, .mobile-bottom-nav .cc-more-btn,
     .cc-pill a, .cc-pill button,
     .cc-sheet-panel, .cc-sheet-backdrop, .cc-pill-status { transition: none; }

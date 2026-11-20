@@ -268,10 +268,10 @@ html { scroll-padding-top: 108px; }
 .partner-logos { margin: 2.5rem 0 0.5rem; text-align: center; }
 .partner-logos-label { display: block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.7; margin-bottom: 1.4rem; }
 .partner-logos-g { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 28px 64px; }
-.partner-logos-g img { display: block; height: 64px; width: auto; max-width: 240px; object-fit: contain; opacity: 0.92; }
-.partner-logos-g img.tall { height: 96px; }
+.partner-logos-g img { display: block; height: 64px; width: auto; max-width: 260px; object-fit: contain; }
+.partner-logos-g img.tile { height: 104px; max-width: none; border-radius: 14px; box-shadow: 0 10px 26px rgba(26, 26, 46, .14); }
 @media (max-width: 680px) {
-    .partner-logos-g { gap: 22px 36px; }
-    .partner-logos-g img { height: 48px; }
-    .partner-logos-g img.tall { height: 76px; }
+    .partner-logos-g { gap: 20px 24px; }
+    .partner-logos-g img { height: 46px; max-width: 86vw; }
+    .partner-logos-g img.tile { height: 84px; }
 }

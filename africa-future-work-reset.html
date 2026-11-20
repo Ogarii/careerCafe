@@ -236,10 +236,11 @@ transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-col
 .nav{display:none}
 .nav-in{padding:14px 20px}.brand img{height:32px}.toggle{display:inline-flex}.links{display:none}
 .nav.open .links{display:flex;flex-direction:column;align-items:stretch;text-align:center;position:absolute;top:100%;left:0;right:0;padding:16px 20px 20px;background:rgba(3,7,18,.96);border-bottom:1px solid rgba(212,168,83,.3)}
-.mobile-pill{position:fixed;top:12px;left:50%;z-index:var(--z-nav);display:flex;align-items:center;gap:8px;padding:8px;border:1px solid rgba(212,168,83,.38);border-radius:100px;background:rgba(3,7,18,.82);box-shadow:0 8px 28px rgba(0,0,0,.3),inset 0 1px 1px rgba(255,255,255,.15);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transform:translateX(-50%);transition:padding .3s var(--ease),box-shadow .3s,transform .3s var(--ease)}
+.mobile-pill{position:fixed;top:12px;left:50%;z-index:var(--z-nav);display:flex;flex-wrap:nowrap;width:max-content;max-width:calc(100vw - 120px);align-items:center;gap:8px;padding:8px;border:1px solid rgba(212,168,83,.38);border-radius:100px;background:rgba(3,7,18,.82);box-shadow:0 8px 28px rgba(0,0,0,.3),inset 0 1px 1px rgba(255,255,255,.15);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transform:translateX(-50%);transition:padding .3s var(--ease),box-shadow .3s,transform .3s var(--ease)}
 .mobile-pill.compact{padding:5px;box-shadow:0 5px 18px rgba(0,0,0,.24),inset 0 1px 1px rgba(255,255,255,.12)}
 .mobile-pill img{width:38px;height:38px;object-fit:contain;filter:brightness(0) invert(1) sepia(1) saturate(.4) hue-rotate(10deg) brightness(1.3);transition:width .3s var(--ease),height .3s var(--ease)}
 .mobile-pill.compact img{width:32px;height:32px}
+.mobile-pill img,.mobile-pill a,.mobile-pill button{flex:0 0 auto}
 .mobile-pill a,.mobile-pill button{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid rgba(212,168,83,.32);border-radius:50%;color:var(--gold2);background:rgba(212,168,83,.1);cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.22),inset 0 1px 1px rgba(255,255,255,.12);transition:width .3s var(--ease),height .3s var(--ease),background .2s,box-shadow .2s}
 .mobile-pill.compact a,.mobile-pill.compact button{width:34px;height:34px}
 .mobile-pill a:hover,.mobile-pill button:hover{background:rgba(212,168,83,.22)}
@@ -708,9 +709,6 @@ let pmE=null,pmQ=0;document.addEventListener('pointermove',e=>{pmE=e;if(pmQ)retu
 
 /* mobile floating pill */
 (function(){const pill=$('mobilePill'),share=$('mobileShare'),status=$('shareStatus');if(!pill||!share)return;
- let compact=false,previous=scrollY;
- const update=()=>{const current=scrollY,down=current>previous&&current>24;if(down!==compact){compact=down;pill.classList.toggle('compact',compact)}previous=current};
- addEventListener('scroll',update,{passive:true});
  const showStatus=message=>{status.textContent=message;status.classList.add('show');clearTimeout(showStatus.timer);showStatus.timer=setTimeout(()=>status.classList.remove('show'),2200)};
  share.addEventListener('click',async()=>{const data={title:document.title,text:'The VALUE Global Career Masterclass',url:location.href};
   if(navigator.share){try{await navigator.share(data);return}catch(error){if(error&&error.name==='AbortError')return}}

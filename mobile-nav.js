@@ -27,6 +27,21 @@
         return node;
     }
 
+    /* ── back arrow (top left, every page except home) ───────── */
+    let back = null;
+    const isHome = currentFile === 'index.html' || currentFile === '';
+    if (!isHome) {
+        back = el('button', { type: 'button', class: 'cc-back', 'aria-label': 'Go back' },
+            '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>');
+        back.addEventListener('click', () => {
+            let sameSite = false;
+            try { sameSite = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch { /* ignore */ }
+            if (sameSite && history.length > 1) history.back();
+            else location.href = 'index.html';
+        });
+        document.body.appendChild(back);
+    }
+
     /* ── top pill: logo · Instagram · LinkedIn · Share ───────── */
     let pill = null;
     if (!isMasterclass) {
@@ -180,7 +195,7 @@
        Hide on scroll down, reappear on scroll up, shrink a little once off the top.
        Runs once per frame and needs a deliberate scroll (not 1–2px jitter) to flip,
        so the bars never flicker. */
-    const pills = [pill, document.getElementById('mobilePill')].filter(Boolean);
+    const pills = [pill, document.getElementById('mobilePill'), back].filter(Boolean);
     const HIDE_AFTER = 140;      // never hide near the top of the page
     const FLIP_DISTANCE = 14;    // px of travel in one direction before hiding/showing
     const COMPACT_AFTER = 80;
@@ -218,7 +233,7 @@
         dock.classList.toggle('is-compact', y > COMPACT_AFTER);
         pills.forEach(p => {
             p.classList.toggle('is-hidden', hidden);
-            if (p === pill) p.classList.toggle('is-compact', y > COMPACT_AFTER);
+            p.classList.toggle('is-compact', y > COMPACT_AFTER);
         });
     }
 
